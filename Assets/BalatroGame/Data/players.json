@@ -1,0 +1,112 @@
+{
+  "players": [
+    {
+      "ID": "p_001",
+      "PlayerName": "LeBron James",
+      "TeamID": "LAL",
+      "JerseyNumber": 23,
+      "PPG": 25.7,
+      "APG": 8.3,
+      "RPG": 7.3,
+      "SPG_BPG": 1.8,
+      "ThreeP_Percent": 32.1,
+      "Tags": ["Veteran", "Playmaker"]
+    },
+    {
+      "ID": "p_002",
+      "PlayerName": "Stephen Curry",
+      "TeamID": "GSW",
+      "JerseyNumber": 30,
+      "PPG": 26.4,
+      "APG": 5.1,
+      "RPG": 4.5,
+      "SPG_BPG": 1.1,
+      "ThreeP_Percent": 42.7,
+      "Tags": ["Sharpshooter", "Veteran"]
+    },
+    {
+      "ID": "p_003",
+      "PlayerName": "Nikola Jokic",
+      "TeamID": "DEN",
+      "JerseyNumber": 15,
+      "PPG": 26.4,
+      "APG": 9.0,
+      "RPG": 12.4,
+      "SPG_BPG": 2.2,
+      "ThreeP_Percent": 33.8,
+      "Tags": ["Playmaker", "Center"]
+    },
+    {
+      "ID": "p_004",
+      "PlayerName": "LeBron T",
+      "TeamID": "LAL",
+      "JerseyNumber": 23,
+      "PPG": 25.7,
+      "APG": 8.3,
+      "RPG": 7.3,
+      "SPG_BPG": 1.8,
+      "ThreeP_Percent": 32.1,
+      "Tags": ["Veteran", "Playmaker"]
+    },
+    {
+      "ID": "p_005",
+      "PlayerName": "Stephen T",
+      "TeamID": "GSW",
+      "JerseyNumber": 30,
+      "PPG": 26.4,
+      "APG": 5.1,
+      "RPG": 4.5,
+      "SPG_BPG": 1.1,
+      "ThreeP_Percent": 42.7,
+      "Tags": ["Sharpshooter", "Veteran"]
+    },
+    {
+      "ID": "p_006",
+      "PlayerName": "Nikola T",
+      "TeamID": "DEN",
+      "JerseyNumber": 15,
+      "PPG": 26.4,
+      "APG": 9.0,
+      "RPG": 12.4,
+      "SPG_BPG": 2.2,
+      "ThreeP_Percent": 33.8,
+      "Tags": ["Playmaker", "Center"]
+    },
+    {
+      "ID": "p_007",
+      "PlayerName": "LeBron L",
+      "TeamID": "LAL",
+      "JerseyNumber": 23,
+      "PPG": 25.7,
+      "APG": 8.3,
+      "RPG": 7.3,
+      "SPG_BPG": 1.8,
+      "ThreeP_Percent": 32.1,
+      "Tags": ["Veteran", "Playmaker"]
+    },
+    {
+      "ID": "p_008",
+      "PlayerName": "Stephen L",
+      "TeamID": "GSW",
+      "JerseyNumber": 30,
+      "PPG": 26.4,
+      "APG": 5.1,
+      "RPG": 4.5,
+      "SPG_BPG": 1.1,
+      "ThreeP_Percent": 42.7,
+      "Tags": ["Sharpshooter", "Veteran"]
+    },
+    {
+      "ID": "p_009",
+      "PlayerName": "Nikola L",
+      "TeamID": "DEN",
+      "JerseyNumber": 15,
+      "PPG": 26.4,
+      "APG": 9.0,
+      "RPG": 12.4,
+      "SPG_BPG": 2.2,
+      "ThreeP_Percent": 33.8,
+      "Tags": ["Playmaker", "Center"]
+    }
+  ]
+}
