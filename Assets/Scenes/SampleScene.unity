@@ -625,6 +625,7 @@ MonoBehaviour:
   _swipeThreshold: 50
   _groundProximity: 0.1
   _horizontalSwipeMultiplier: 0.5
+  _upwardsSwipeMultiplier: 0.5
   _boundaryForce: 30
   _landscapeBoundaryMargin: {x: 0.05, y: 0.1}
   _portraitBoundaryMargin: {x: 0.2, y: 0.1}
@@ -1328,7 +1329,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
