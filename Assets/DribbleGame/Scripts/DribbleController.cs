@@ -10,10 +10,8 @@ public class DribbleController : MonoBehaviour
     [Header("Dribble Forces")]
     [SerializeField] private float _swipeForce = 0.015f;
     [SerializeField] private float _groundLaunchForce = 3f;
-    [SerializeField] private float _bounciness = 0.7f;
     [SerializeField] private float _tapForceMultiplier = 0.7f;
     [SerializeField] private Vector2 _forceRandomness = new Vector2(0.95f, 1.05f);
-    [SerializeField] private float _distanceFromCenterToCrossover = 0.15f;
     [SerializeField] private float _crossoverForce = 1.5f;
     [SerializeField] private float _spinMultiplier = 250f;
 
