@@ -238,9 +238,9 @@ GameObject:
   m_Component:
   - component: {fileID: 209488364}
   - component: {fileID: 209488366}
-  - component: {fileID: 209488362}
   - component: {fileID: 209488360}
   - component: {fileID: 209488365}
+  - component: {fileID: 209488367}
   m_Layer: 0
   m_Name: Ball Camera
   m_TagString: Untagged
@@ -268,14 +268,6 @@ PositionConstraint:
   m_Sources:
   - sourceTransform: {fileID: 918858428}
     weight: 1
---- !u!81 &209488362
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 209488359}
-  m_Enabled: 1
 --- !u!4 &209488364
 Transform:
   m_ObjectHideFlags: 0
@@ -284,7 +276,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209488359}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: -0.643}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -374,7 +366,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 247
+    m_Bits: 64
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 654df13d76ded8441a170a5f4a2642c6, type: 2}
   m_TargetDisplay: 0
@@ -386,6 +378,19 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &209488367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209488359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a04a5d3d26543641be402c42eee4fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 2034479504}
 --- !u!1 &335622523
 GameObject:
   m_ObjectHideFlags: 0
@@ -2020,7 +2025,7 @@ GameObject:
   - component: {fileID: 2012057182}
   - component: {fileID: 2012057181}
   - component: {fileID: 2012057180}
-  - component: {fileID: 2012057185}
+  - component: {fileID: 2012057186}
   m_Layer: 8
   m_Name: BasketballSprite
   m_TagString: Untagged
@@ -2045,7 +2050,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -2115,21 +2120,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2034479504}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2012057185
-MonoBehaviour:
+--- !u!54 &2012057186
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2012057179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc8b48abae9ab8b41a520d290086ea2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Sprite: {fileID: 2012057183}
-  Stretch: 0.2
-  squashParent: {fileID: 2034479504}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2034479502
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,7 +2156,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2034479504}
+  - component: {fileID: 2034479506}
   - component: {fileID: 2034479503}
+  - component: {fileID: 2034479505}
   m_Layer: 8
   m_Name: SpriteAnchor
   m_TagString: Untagged
@@ -2183,6 +2202,51 @@ Transform:
   - {fileID: 2012057183}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2034479505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034479502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc8b48abae9ab8b41a520d290086ea2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetObject: {fileID: 918858427}
+  velocityStretchMultiplier: 0.05
+  directionChangeSquashMultiplier: 0.1
+  minScale: 0.8
+  maxScale: 1.3
+  scaleLerpSpeed: 5
+--- !u!54 &2034479506
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034479502}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2098857460
 GameObject:
   m_ObjectHideFlags: 0
