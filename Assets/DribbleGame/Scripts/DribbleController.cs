@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
 [RequireComponent(typeof(Rigidbody))]
 public class DribbleController : MonoBehaviour
@@ -42,7 +43,7 @@ public class DribbleController : MonoBehaviour
 
     private bool Grounded => transform.position.y <= _ballRadius + _groundProximity;
 
-    public UnityEvent BallTouchedGround;
+    public event Action BallTouchGround;
 
     private void Start()
     {
@@ -86,7 +87,9 @@ public class DribbleController : MonoBehaviour
             _grounded = Grounded;
             if (_grounded)
             {
-                BallTouchedGround.Invoke();
+                
+                OnBallTouchGround();
+                
                 Debug.Log("Ball touched the ground");
             }
         }
@@ -98,6 +101,8 @@ public class DribbleController : MonoBehaviour
             _dribblesText.text = $"Dribbles: {_dribbles}";
         }
     }
+
+    
 
     private void FixedUpdate()
     {
@@ -142,7 +147,7 @@ public class DribbleController : MonoBehaviour
         float verticalImpulse = _rb.mass * -requiredVelocity - _rb.velocity.y;
 
         verticalImpulse *= _tapForceMultiplier;
-        verticalImpulse *= Random.Range(_forceRandomness.x, _forceRandomness.y);
+        verticalImpulse *= UnityEngine.Random.Range(_forceRandomness.x, _forceRandomness.y);
 
         bool tappedRightSide = touch.position.x > ballScreenPos.x;
         float tapDirectionX = tappedRightSide ? -1.0f : 1.0f;
@@ -220,4 +225,11 @@ public class DribbleController : MonoBehaviour
             _rb.velocity = currentVelocity;
         }
     }
+
+    private void OnBallTouchGround()
+    {
+        BallTouchGround?.Invoke();
+    }
+
+
 }
