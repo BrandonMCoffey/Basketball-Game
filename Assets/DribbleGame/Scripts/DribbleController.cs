@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody))]
 public class DribbleController : MonoBehaviour
@@ -40,6 +41,8 @@ public class DribbleController : MonoBehaviour
     private bool _grounded;
 
     private bool Grounded => transform.position.y <= _ballRadius + _groundProximity;
+
+    public UnityEvent BallTouchedGround;
 
     private void Start()
     {
@@ -83,6 +86,7 @@ public class DribbleController : MonoBehaviour
             _grounded = Grounded;
             if (_grounded)
             {
+                BallTouchedGround.Invoke();
                 Debug.Log("Ball touched the ground");
             }
         }
