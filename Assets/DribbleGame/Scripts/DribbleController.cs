@@ -37,6 +37,7 @@ public class DribbleController : MonoBehaviour
     private bool _isTouchValid;
     private float _ballRadius;
     private int _touches;
+    private bool _grounded;
 
     private bool Grounded => transform.position.y <= _ballRadius + _groundProximity;
 
@@ -77,7 +78,15 @@ public class DribbleController : MonoBehaviour
                 _isTouchValid = false;
             }
         }
-        if (Grounded && _touches > 0)
+        if (_grounded != Grounded)
+        {
+            _grounded = Grounded;
+            if (_grounded)
+            {
+                Debug.Log("Ball touched the ground");
+            }
+        }
+        if (_grounded && _touches > 0)
         {
             _dribbles += 1;
             if (_touches > 1) Debug.Log($"{_touches} touches before touching floor");
