@@ -5040,7 +5040,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0d78315f49e8f924284d25a975f2a253, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5071,16 +5071,16 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.36991692
-        inSlope: -0.9021645
-        outSlope: -0.9021645
+        value: 0.39011955
+        inSlope: -0.27828017
+        outSlope: -0.27828017
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.18699186
+        outWeight: 0.17461781
       - serializedVersion: 3
         time: 1
-        value: 0
+        value: 0.26934814
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -5092,7 +5092,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.34109113, g: 0.60996324, b: 0.990566, a: 1}
+      key0: {r: 0.34109113, g: 0.60996324, b: 0.990566, a: 0.38039216}
       key1: {r: 0.23113209, g: 0.37447357, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -5127,7 +5127,7 @@ TrailRenderer:
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.01
+  m_MinVertexDistance: 0.005
   m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
@@ -5816,7 +5816,7 @@ ParticleSystemRenderer:
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0.02
-  m_MaxParticleSize: 0.15
+  m_MaxParticleSize: 0.07
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
@@ -6428,7 +6428,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 10
+    maxNumParticles: 20
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 1
