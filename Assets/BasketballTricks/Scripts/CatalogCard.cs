@@ -8,13 +8,7 @@ public class CatalogCard : PlayerCard
     [SerializeField] private Toggle _toggle;
     [SerializeField] private GameObject _cardDisabled;
 
-    private int _index;
     private bool _isCardActive;
-
-    public void SetIndex(int index)
-    {
-        _index = index;
-    }
 
     public void InitCardActive(bool active)
     {

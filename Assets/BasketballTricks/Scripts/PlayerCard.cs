@@ -14,6 +14,13 @@ public class PlayerCard : MonoBehaviour
     [SerializeField] private Image _playerImage;
     [SerializeField] private Image _teamImage;
 
+    protected int _index;
+
+    public void SetIndex(int index)
+    {
+        _index = index;
+    }
+
     private void OnValidate()
     {
         if (_data != null) UpdateVisuals();
