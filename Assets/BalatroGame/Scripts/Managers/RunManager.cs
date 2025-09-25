@@ -14,7 +14,7 @@ public class RunManager : MonoBehaviour
     [SerializeField] private int _discardsPerRound = 4;
 
     [Header("References")]
-    [SerializeField] private GameManager _gameManager;
+    [SerializeField] private BalatroManager _gameManager;
     [SerializeField] private ShopUI _shopUI;
     [SerializeField] private GameObject _gameOver;
 
@@ -41,14 +41,14 @@ public class RunManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.OnRoundWon += HandleRoundWon;
-        GameManager.OnRoundLost += HandleRoundLost;
+        BalatroManager.OnRoundWon += HandleRoundWon;
+        BalatroManager.OnRoundLost += HandleRoundLost;
     }
 
     private void OnDisable()
     {
-        GameManager.OnRoundWon -= HandleRoundWon;
-        GameManager.OnRoundLost -= HandleRoundLost;
+        BalatroManager.OnRoundWon -= HandleRoundWon;
+        BalatroManager.OnRoundLost -= HandleRoundLost;
     }
 
     private void Start()

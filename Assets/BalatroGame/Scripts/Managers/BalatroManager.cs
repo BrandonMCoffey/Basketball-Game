@@ -6,9 +6,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class BalatroManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    public static BalatroManager Instance { get; private set; }
     public static event Action OnRoundWon;
     public static event Action OnRoundLost;
 

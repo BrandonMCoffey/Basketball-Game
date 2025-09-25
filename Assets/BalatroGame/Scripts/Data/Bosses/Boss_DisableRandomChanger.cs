@@ -5,7 +5,7 @@ public class DisableRandomChangerEffect : BossEffect
 {
     private GameChangerUI _disabledChanger;
 
-    public override void OnHandPlayStart(GameManager manager)
+    public override void OnHandPlayStart(BalatroManager manager)
     {
         var activeChangers = manager.GameChangerDisplay.GetOrderedChangers();
         if (activeChangers.Count > 0)
@@ -15,7 +15,7 @@ public class DisableRandomChangerEffect : BossEffect
         }
     }
 
-    public override void OnHandPlayEnd(GameManager manager)
+    public override void OnHandPlayEnd(BalatroManager manager)
     {
         if (_disabledChanger != null)
         {

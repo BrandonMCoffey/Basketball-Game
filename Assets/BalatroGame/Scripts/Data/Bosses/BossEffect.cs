@@ -14,7 +14,7 @@ public abstract class BossEffect : ScriptableObject
         }
     }
 
-    public virtual void OnRoundStart(GameManager manager) { }
-    public virtual void OnHandPlayStart(GameManager manager) { }
-    public virtual void OnHandPlayEnd(GameManager manager) { }
+    public virtual void OnRoundStart(BalatroManager manager) { }
+    public virtual void OnHandPlayStart(BalatroManager manager) { }
+    public virtual void OnHandPlayEnd(BalatroManager manager) { }
 }
