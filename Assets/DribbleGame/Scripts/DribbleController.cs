@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using System;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -8,6 +7,7 @@ public class DribbleController : MonoBehaviour
 {
     [SerializeField] private int _dribbles;
     [SerializeField] private TMP_Text _dribblesText;
+    [SerializeField] private GameObject _returnToCatalogButton;
 
     [Header("Dribble Forces")]
     [SerializeField] private float _swipeForce = 0.015f;
@@ -40,6 +40,7 @@ public class DribbleController : MonoBehaviour
     private float _ballRadius;
     private int _touches;
     private bool _grounded;
+    private PlayerData _activePlayer;
 
     private bool Grounded => transform.position.y <= _ballRadius + _groundProximity;
 
@@ -51,9 +52,52 @@ public class DribbleController : MonoBehaviour
         _mainCamera = Camera.main;
         _sphereCollider = GetComponent<SphereCollider>();
         _ballRadius = _sphereCollider.radius * transform.localScale.y;
+
+        bool connected = GameManager.Instance != null;
+        if (connected) _activePlayer = GameManager.Instance.ActivePlayer;
+        _returnToCatalogButton.SetActive(connected);
+        UpdateDribbleText();
     }
 
     private void Update()
+    {
+        HandleTouch();
+        HandleMouseClick();
+
+        if (_grounded != Grounded)
+        {
+            _grounded = Grounded;
+            if (_grounded)
+            {
+                OnBallTouchGround();
+                //Debug.Log("Ball touched the ground");
+            }
+        }
+        if (_grounded && _touches > 0)
+        {
+            _dribbles += 1;
+            if (_touches > 1) Debug.Log($"{_touches} touches before touching floor");
+            _touches = 0;
+            UpdateDribbleText();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        HandleBoundaries();
+    }
+
+    private void UpdateDribbleText()
+    {
+        _dribblesText.text = $"{(_activePlayer != null ? $"{_activePlayer.name}\n" : "")}Dribbles: {_dribbles}";
+    }
+
+    public void ReturnToCatalog()
+    {
+        if (GameManager.Instance != null) GameManager.Instance.LoadCatalog();
+    }
+
+    private void HandleTouch()
     {
         if (Input.touchCount > 0)
         {
@@ -78,51 +122,53 @@ public class DribbleController : MonoBehaviour
 
             if (_isTouchValid && (Time.time - _touchStartTime >= _inputProcessTime || touch.phase == TouchPhase.Ended))
             {
-                ProcessTouch(touch);
+                ProcessInteraction(touch.position);
                 _isTouchValid = false;
             }
         }
-        if (_grounded != Grounded)
+    }
+
+    private void HandleMouseClick()
+    {
+        if (Input.GetMouseButton(0))
         {
-            _grounded = Grounded;
-            if (_grounded)
+            if (Input.GetMouseButtonDown(0))
             {
-                
-                OnBallTouchGround();
-                
-                Debug.Log("Ball touched the ground");
+                Vector3 ballScreenPos = _mainCamera.WorldToScreenPoint(transform.position);
+                float distance = Vector2.Distance((Vector2)Input.mousePosition, ballScreenPos);
+                if (distance <= _maxInputDistance)
+                {
+                    _isTouchValid = true;
+                    _touchStartTime = Time.time;
+                    _touchStartPos = Input.mousePosition;
+                }
+                else
+                {
+                    _isTouchValid = false;
+                }
+            }
+            if (_isTouchValid && (Time.time - _touchStartTime >= _inputProcessTime || Input.GetMouseButtonUp(0)))
+            {
+                ProcessInteraction(Input.mousePosition);
+                _isTouchValid = false;
             }
         }
-        if (_grounded && _touches > 0)
-        {
-            _dribbles += 1;
-            if (_touches > 1) Debug.Log($"{_touches} touches before touching floor");
-            _touches = 0;
-            _dribblesText.text = $"Dribbles: {_dribbles}";
-        }
     }
 
-    
-
-    private void FixedUpdate()
+    private void ProcessInteraction(Vector2 touchPos)
     {
-        HandleBoundaries();
-    }
-
-    private void ProcessTouch(Touch touch)
-    {
-        float swipeDistance = (touch.position - _touchStartPos).magnitude;
+        float swipeDistance = (touchPos - _touchStartPos).magnitude;
         if (swipeDistance < _swipeThreshold)
         {
-            HandleTap(touch);
+            HandleTap(touchPos);
         }
         else
         {
-            HandleSwipe(touch);
+            HandleSwipe(touchPos);
         }
     }
 
-    private void HandleTap(Touch touch)
+    private void HandleTap(Vector2 touchPos)
     {
         if (Grounded)
         {
@@ -135,7 +181,7 @@ public class DribbleController : MonoBehaviour
         float screenRadius = Vector3.Distance(ballScreenPos, _mainCamera.WorldToScreenPoint(transform.position + new Vector3(_sphereCollider.radius, 0, 0)));
         if (screenRadius > 0)
         {
-            float horizontalDistance = Mathf.Abs(touch.position.x - ballScreenPos.x);
+            float horizontalDistance = Mathf.Abs(touchPos.x - ballScreenPos.x);
             float centeredness = 1.0f - Mathf.Clamp01(horizontalDistance / screenRadius);
             _rb.velocity = new Vector3(_rb.velocity.x * (1.0f - centeredness), _rb.velocity.y, _rb.velocity.z);
         }
@@ -149,7 +195,7 @@ public class DribbleController : MonoBehaviour
         verticalImpulse *= _tapForceMultiplier;
         verticalImpulse *= UnityEngine.Random.Range(_forceRandomness.x, _forceRandomness.y);
 
-        bool tappedRightSide = touch.position.x > ballScreenPos.x;
+        bool tappedRightSide = touchPos.x > ballScreenPos.x;
         float tapDirectionX = tappedRightSide ? -1.0f : 1.0f;
         float horizontalImpulse = tapDirectionX * _crossoverForce;
 
@@ -159,9 +205,9 @@ public class DribbleController : MonoBehaviour
         _touches++;
     }
 
-    private void HandleSwipe(Touch touch)
+    private void HandleSwipe(Vector2 touchPos)
     {
-        Vector2 swipeDelta = touch.position - _touchStartPos;
+        Vector2 swipeDelta = touchPos - _touchStartPos;
         if (swipeDelta.y > 0) swipeDelta.y *= _upwardsSwipeMultiplier;
         Vector3 forceVector = new Vector3(swipeDelta.x * _horizontalSwipeMultiplier, swipeDelta.y, 0) * _swipeForce;
 
@@ -229,7 +275,9 @@ public class DribbleController : MonoBehaviour
     private void OnBallTouchGround()
     {
         BallTouchGround?.Invoke();
+        if (_activePlayer != null)
+        {
+            _activePlayer.IncrementDribblingPractice();
+        }
     }
-
-
 }
