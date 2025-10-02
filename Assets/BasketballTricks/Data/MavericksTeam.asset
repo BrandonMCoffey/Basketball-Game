@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MavericksTeam
   m_EditorClassIdentifier: 
   _teamName: 
-  _teamLogo: {fileID: 0}
+  _teamLogo: {fileID: 21300000, guid: 68863b9223e02a44abc3372a73b0b78b, type: 3}
   _teamPrimaryColor: {r: 0, g: 0, b: 0, a: 0}
   _teamSecondaryColor: {r: 0, g: 0, b: 0, a: 0}

@@ -38,7 +38,7 @@ public class PlayerCard : MonoBehaviour
         _shootingStat.text = $"{_data.ShootingStat}";
         _dribblingStat.text = $"{_data.DribblingStat}";
         _teamPlayStat.text = $"{_data.TeamPlayStat}";
-        _playerImage.sprite = _data.PlayerSprite;
-        _teamImage.sprite = _data.TeamLogo;
+        if (_data.PlayerSprite != null) _playerImage.sprite = _data.PlayerSprite;
+        if (_data.TeamLogo != null) _teamImage.sprite = _data.TeamLogo;
     }
 }
