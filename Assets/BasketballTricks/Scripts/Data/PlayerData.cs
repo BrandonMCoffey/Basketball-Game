@@ -14,6 +14,7 @@ public class PlayerData : ScriptableObject
     [SerializeField] private int _dribblingStat;
     [SerializeField] private int _dribblingPractice;
     [SerializeField] private int _teamPlayStat;
+    [SerializeField] private List<PlayerActionData> _availableActions;
 
     public bool PlayerEnabled { get => _playerEnabled; set => _playerEnabled = value; }
     public string PlayerName => _playerName;
@@ -22,6 +23,7 @@ public class PlayerData : ScriptableObject
     public int ShootingStat => Mathf.RoundToInt(_shootingStat * (1f + _shootingPractice * 0.01f));
     public int DribblingStat => Mathf.RoundToInt(_dribblingStat * (1f + _dribblingPractice * 0.01f));
     public int TeamPlayStat => _teamPlayStat;
+    public List<PlayerActionData> AvailableActions => _availableActions;
 
     private void OnValidate()
     {

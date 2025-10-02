@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class AnimatedPlayer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private PlayerData _playerData;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public PlayerData PlayerData => _playerData;
 }

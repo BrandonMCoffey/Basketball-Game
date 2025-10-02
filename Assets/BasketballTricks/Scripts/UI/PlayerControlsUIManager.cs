@@ -6,13 +6,16 @@ using UnityEngine.UI;
 
 public class PlayerControlsUIManager : MonoBehaviour
 {
+    [SerializeField] private PlayerAddActionUI _addActionPrefab;
     [SerializeField] private CanvasGroup _selectActionGroup;
+    [SerializeField] private Transform _selectActionRow;
     [SerializeField] private CanvasGroup _currentActionsGroup;
-    [SerializeField] private Transform _currentActions;
+    [SerializeField] private Transform _currentActionsRow;
     [SerializeField] private PlayerActionDisplay _actionPrefab;
 
     private bool _playerSelected;
     private bool _currentActionsExpanded;
+    private PlayerDestination _player;
 
     private void Awake()
     {
@@ -23,12 +26,27 @@ public class PlayerControlsUIManager : MonoBehaviour
         _currentActionsGroup.interactable = false;
     }
 
-    public void AddAction(int index)
+    public void Init(PlayerDestination player)
     {
-        PlayerActionDisplay newAction = Instantiate(_actionPrefab, _currentActions);
-        newAction.InitAction(Color.HSVToRGB(index / 10f, 1f, 1f), index);
+        _player = player;
+        var actions = player.SpawnedPlayer.PlayerData.AvailableActions;
+        for (int i = 0; i < actions.Count; i++)
+        {
+            PlayerAddActionUI newAction = Instantiate(_addActionPrefab, _selectActionRow);
+            newAction.Init(this, actions[i], i);
+            newAction.transform.localScale = Vector3.zero;
+            newAction.transform.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack).SetDelay(i * 0.1f);
+        }
+    }
+
+    public void AddAction(PlayerActionData action, int index)
+    {
+        PlayerActionDisplay newAction = Instantiate(_actionPrefab, _currentActionsRow);
+        newAction.InitAction(action.Icon, index);
         newAction.transform.localScale = Vector3.zero;
         newAction.transform.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack);
+
+        TopBarUIManager.Instance.AddAction(_player, action);
     }
 
     public void ToggleSelectPlayer() => SelectPlayer(!_playerSelected);

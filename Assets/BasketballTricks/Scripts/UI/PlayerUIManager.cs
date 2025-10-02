@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerUIManager : MonoBehaviour
 {
-    [SerializeField] private List<AnimatedPlayer> _players;
+    [SerializeField] private List<PlayerDestination> _players;
     [SerializeField] private PlayerControlsUIManager _playerControlsPrefab;
     [SerializeField] private float _uiHeightOffset = 1.0f;
 
@@ -14,6 +14,7 @@ public class PlayerUIManager : MonoBehaviour
         {
             var display = Instantiate(_playerControlsPrefab, transform);
             display.transform.position = Camera.main.WorldToScreenPoint(player.transform.position + Vector3.up * _uiHeightOffset);
+            display.Init(player);
         }
     }
 }

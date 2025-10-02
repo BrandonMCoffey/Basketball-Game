@@ -10,9 +10,9 @@ public class PlayerActionDisplay : MonoBehaviour
     [SerializeField] private TMP_Text _orderNumber;
     [SerializeField] private TMP_Text _duration;
 
-    public void InitAction(Color color, int order)
+    public void InitAction(Sprite image, int order)
     {
-        _icon.color = color;
+        _icon.sprite = image;
         _orderNumber.text = order.ToString();
     }
 

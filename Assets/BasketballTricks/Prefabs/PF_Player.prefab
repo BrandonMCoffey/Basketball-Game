@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b662ea98e6f8624897cc8807c56d20d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerData: {fileID: 11400000, guid: 6affac2b0e3be2d49b6c4a2de0c79471, type: 2}
 --- !u!1001 &8603511039534633803
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -108,6 +109,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SK_BasketballPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 7c2ae21774b87b24a813d590cd837261,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 820fdb3880363e54ab7b89f864fa623a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
