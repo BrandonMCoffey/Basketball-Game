@@ -8,6 +8,7 @@ public class PlayerCard : MonoBehaviour
 {
     [SerializeField] private PlayerData _data;
     [SerializeField] private TMP_Text _playerName;
+    [SerializeField] private TMP_Text _playerName2;
     [SerializeField] private TMP_Text _shootingStat;
     [SerializeField] private TMP_Text _dribblingStat;
     [SerializeField] private TMP_Text _teamPlayStat;
@@ -34,10 +35,11 @@ public class PlayerCard : MonoBehaviour
 
     private void UpdateVisuals()
     {
-        _playerName.text = _data.PlayerName;
-        _shootingStat.text = $"{_data.ShootingStat}";
-        _dribblingStat.text = $"{_data.DribblingStat}";
-        _teamPlayStat.text = $"{_data.TeamPlayStat}";
+        if (_playerName != null) _playerName.text = _data.PlayerName;
+        if (_playerName2 != null) _playerName2.text = _data.PlayerName;
+        if (_shootingStat != null) _shootingStat.text = $"{_data.ShootingStat}";
+        if (_dribblingStat != null) _dribblingStat.text = $"{_data.DribblingStat}";
+        if (_teamPlayStat != null) _teamPlayStat.text = $"{_data.TeamPlayStat}";
         if (_data.PlayerSprite != null) _playerImage.sprite = _data.PlayerSprite;
         if (_data.TeamLogo != null) _teamImage.sprite = _data.TeamLogo;
     }
