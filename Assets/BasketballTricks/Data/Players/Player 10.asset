@@ -10,14 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c84bf1ca33becc74c90bf18da6a7ee77, type: 3}
-  m_Name: Player 12
+  m_Name: Player 10
   m_EditorClassIdentifier: 
   _playerEnabled: 0
-  _playerName: Player 12
+  _playerName: Player 10
   _playerSprite: {fileID: 21300000, guid: 42085d59db13a5843bbaea8bc416f2ff, type: 3}
   _team: {fileID: 11400000, guid: 20469427191cff0439546e2ad34da37a, type: 2}
-  _shootingStat: 85
+  _shootingStat: 65
   _shootingPractice: 0
-  _dribblingStat: 39
+  _dribblingStat: 18
   _dribblingPractice: 0
-  _teamPlayStat: 94
+  _teamPlayStat: 3
+  _availableActions:
+  - {fileID: 11400000, guid: e37cb9f9a61cf6e48bebab66ef430a3c, type: 2}
+  - {fileID: 11400000, guid: 2f32277d3453be644920364f3abe5b44, type: 2}
+  - {fileID: 11400000, guid: 840e132e97ef6d343980fda4ea326461, type: 2}

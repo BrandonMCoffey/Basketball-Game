@@ -21,3 +21,7 @@ MonoBehaviour:
   _dribblingStat: 84
   _dribblingPractice: 0
   _teamPlayStat: 0
+  _availableActions:
+  - {fileID: 11400000, guid: e37cb9f9a61cf6e48bebab66ef430a3c, type: 2}
+  - {fileID: 11400000, guid: 2f32277d3453be644920364f3abe5b44, type: 2}
+  - {fileID: 11400000, guid: 840e132e97ef6d343980fda4ea326461, type: 2}
