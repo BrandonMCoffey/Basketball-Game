@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2ce89e65d8aef424098f9a602f069a8d
+guid: d396ca15520a7c7499a4b6e137bad9e6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,43 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: M_Chair
-    second: {fileID: 2100000, guid: 5757f9f54865c9847a9b665a36a6859a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Court
-    second: {fileID: 2100000, guid: 1690af64feffae0489fbf9c999f372ce, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_CourtPerimeterFloor
-    second: {fileID: 2100000, guid: e8852792a1780b24e9282c0f8c3d303e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Frames
-    second: {fileID: 2100000, guid: 5d1d5c8d48c2396438caea5eadbca0d0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_GoalPost
-    second: {fileID: 2100000, guid: 77597e3acd069e64c9577b68190658e4, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Hoop
-    second: {fileID: 2100000, guid: 6c18214b3677c89479d12d77a2e748b0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Net
-    second: {fileID: 2100000, guid: 15a7e060f6244c64d9eecb0284ce51d4, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_SeatingFloorAndWall
-    second: {fileID: 2100000, guid: e8852792a1780b24e9282c0f8c3d303e, type: 2}
+      name: M_BasketballPlayerHair
+    second: {fileID: 2100000, guid: a045c423f2f1dd94db65bcb68cf2c8cc, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -83,8 +48,8 @@ ModelImporter:
     importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
