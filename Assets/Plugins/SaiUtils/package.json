@@ -1,0 +1,12 @@
+{
+    "name": "com.mangopudding.saiutils",
+    "version": "1.0.0",
+    "displayName": "Sai Utils",
+    "description": "This is a collection of my custom tools and scripts that I learned from other creators or made on my own!",
+    "unity": "2021.3",
+    "author": {
+      "name": "Sai Mangipudi",
+      "email": "thegeekskm101@gmail.com",
+      "url": "https://saimangipudi.dev/"
+    }
+  }
