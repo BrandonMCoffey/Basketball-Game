@@ -3,13 +3,13 @@ using UnityEngine;
 public class GroundTouchEffect : MonoBehaviour
 {
     public DribbleController dribbleController;
-    private ParticleSystem particleSystem;
+    private ParticleSystem groundParticleSystem;
 
     private void Awake()
     {
         // Get the ParticleSystem component attached to this GameObject
-        particleSystem = GetComponent<ParticleSystem>();
-        if (particleSystem == null)
+        groundParticleSystem = GetComponent<ParticleSystem>();
+        if (groundParticleSystem == null)
         {
             Debug.LogWarning("No ParticleSystem found on " + gameObject.name);
         }
@@ -27,9 +27,9 @@ public class GroundTouchEffect : MonoBehaviour
 
     private void OnBallTouchGround()
     {
-        if (particleSystem != null)
+        if (groundParticleSystem != null)
         {
-            particleSystem.Play();
+            groundParticleSystem.Play();
         }
     }
 }
