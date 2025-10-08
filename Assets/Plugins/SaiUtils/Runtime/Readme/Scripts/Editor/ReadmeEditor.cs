@@ -80,7 +80,7 @@ namespace SaiUtils.ReadmeSystem.Editor
             }
             else
             {
-                Debug.LogWarning("Couldn't find a readme");
+                //Debug.LogWarning("Couldn't find a readme"); a
             }
 
             return result;
