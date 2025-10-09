@@ -262,6 +262,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1761226529370177818}
   - component: {fileID: 7844811598686170421}
+  - component: {fileID: 3607940987541884519}
+  - component: {fileID: 693743531559178206}
   m_Layer: 5
   m_Name: PF_Card
   m_TagString: Untagged
@@ -303,11 +305,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data: {fileID: 0}
   _playerName: {fileID: 9015075698523888362}
+  _playerName2: {fileID: 0}
   _shootingStat: {fileID: 0}
   _dribblingStat: {fileID: 0}
   _teamPlayStat: {fileID: 0}
   _playerImage: {fileID: 7916865270572235285}
   _teamImage: {fileID: 6708322956056807639}
+  _raycastImage: {fileID: 693743531559178206}
+  _popScale: 1.1
+  _hoverRotateMult: 10
+  _returnSpeed: 4
+  _dragMoveSpeed: 15
+  _dragRotateSpeed: 5
+  _maxDragRotation: 20
+  _dragRotateSmoothing: 5
+--- !u!222 &3607940987541884519
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637311068658903538}
+  m_CullTransparentMesh: 1
+--- !u!114 &693743531559178206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637311068658903538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1641069478345835954
 GameObject:
   m_ObjectHideFlags: 0
