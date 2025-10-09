@@ -13,10 +13,13 @@ public class PlayerCard : MonoBehaviour, IPointerEnterHandler, IPointerClickHand
     [SerializeField] private Image _teamImage;
     [SerializeField] private Image _raycastImage;
 
-    [Header("Hover Effect")]
+    [Header("Hover")]
     [SerializeField] private float _popScale = 1.1f;
     [SerializeField] private float _hoverRotateMult = 10f;
     [SerializeField] private float _returnSpeed = 4f;
+
+    [Header("Drag")]
+    [SerializeField] private bool _canDrag;
     [SerializeField] private float _dragMoveSpeed = 10f;
     [SerializeField] private float _dragRotateSpeed = 5f;
     [SerializeField] private float _maxDragRotation = 20f;
