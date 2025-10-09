@@ -37,7 +37,7 @@ public class CatalogManager : MonoBehaviour
             {
                 card.SetData(instance.Players[i]);
                 card.SetIndex(i);
-                card.InitCardActive(instance.Players[i].PlayerEnabled);
+                //card.InitCardActive(instance.Players[i].PlayerEnabled);
                 card.transform.localScale = Vector3.zero;
                 _cards.Add(card);
             }

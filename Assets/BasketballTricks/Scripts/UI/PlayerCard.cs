@@ -4,14 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class PlayerCard : MonoBehaviour, IPointerEnterHandler, IPointerMoveHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class PlayerCard : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerMoveHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField] private PlayerData _data;
     [SerializeField] private TMP_Text _playerName;
     [SerializeField] private TMP_Text _playerName2;
-    [SerializeField] private TMP_Text _shootingStat;
-    [SerializeField] private TMP_Text _dribblingStat;
-    [SerializeField] private TMP_Text _teamPlayStat;
     [SerializeField] private Image _playerImage;
     [SerializeField] private Image _teamImage;
     [SerializeField] private Image _raycastImage;
@@ -76,9 +73,6 @@ public class PlayerCard : MonoBehaviour, IPointerEnterHandler, IPointerMoveHandl
     {
         if (_playerName != null) _playerName.text = _data.PlayerName;
         if (_playerName2 != null) _playerName2.text = _data.PlayerName;
-        if (_shootingStat != null) _shootingStat.text = $"{_data.ShootingStat}";
-        if (_dribblingStat != null) _dribblingStat.text = $"{_data.DribblingStat}";
-        if (_teamPlayStat != null) _teamPlayStat.text = $"{_data.TeamPlayStat}";
         if (_data.PlayerSprite != null) _playerImage.sprite = _data.PlayerSprite;
         if (_data.TeamLogo != null) _teamImage.sprite = _data.TeamLogo;
     }
@@ -88,6 +82,15 @@ public class PlayerCard : MonoBehaviour, IPointerEnterHandler, IPointerMoveHandl
         if (_isHovering || _isDragging) return;
         _isHovering = true;
         _rectTransform.localScale = _initialScale * _popScale;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == 0) OnClickCard();
+    }
+
+    protected virtual void OnClickCard()
+    {
     }
 
     public void OnPointerMove(PointerEventData eventData)
