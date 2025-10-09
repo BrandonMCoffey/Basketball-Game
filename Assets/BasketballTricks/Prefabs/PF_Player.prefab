@@ -62,6 +62,7 @@ MonoBehaviour:
   - {fileID: 919132149155446097, guid: f689c0a94839cf348a7e3b620eff76c4, type: 3}
   - {fileID: 919132149155446097, guid: 981ab878c8e52a940b75c29b680e8f3e, type: 3}
   - {fileID: 919132149155446097, guid: feacbb497b6c78343b4e6f8ceb828e51, type: 3}
+  _facialHairChance: 0.5
   _skinGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0.9751245, b: 0.75786155, a: 1}
@@ -122,6 +123,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
+  _head: {fileID: 1399823886308218496}
 --- !u!1001 &8603511039534633803
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -195,6 +197,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c2ae21774b87b24a813d590cd837261, type: 3}
+--- !u!4 &1399823886308218496 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7208261743932278219, guid: 7c2ae21774b87b24a813d590cd837261,
+    type: 3}
+  m_PrefabInstance: {fileID: 8603511039534633803}
+  m_PrefabAsset: {fileID: 0}
 --- !u!137 &5782451185661012911 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -6387605094501615388, guid: 7c2ae21774b87b24a813d590cd837261,

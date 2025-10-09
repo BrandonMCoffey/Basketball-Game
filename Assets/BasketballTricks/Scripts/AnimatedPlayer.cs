@@ -14,6 +14,7 @@ public class AnimatedPlayer : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float _facialHairChance = 0.5f;
     [SerializeField] private Gradient _skinGradient;
     [SerializeField] private Gradient _hairGradient;
+    [SerializeField] private Transform _head;
 
     public PlayerData PlayerData => _playerData;
 
@@ -34,7 +35,7 @@ public class AnimatedPlayer : MonoBehaviour
             var facialHairPrefab = _hairPrefabs[Random.Range(0, _hairPrefabs.Count - 1)];
             if (facialHairPrefab != null)
             {
-                var facialHair = Instantiate(facialHairPrefab, transform);
+                var facialHair = Instantiate(facialHairPrefab, _head);
                 SwitchMaterial(facialHair.GetComponent<MeshRenderer>(), hairMat, 0);
             }
         }
@@ -43,7 +44,7 @@ public class AnimatedPlayer : MonoBehaviour
             var hairPrefab = _facialHairPrefabs[Random.Range(0, _facialHairPrefabs.Count - 1)];
             if (hairPrefab != null)
             {
-                var hair = Instantiate(hairPrefab, transform);
+                var hair = Instantiate(hairPrefab, _head);
                 SwitchMaterial(hair.GetComponent<MeshRenderer>(), hairMat, 0);
             }
         }
