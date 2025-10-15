@@ -116,27 +116,31 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Metallic: 0
+    - _Metallic: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _ReflectionStrength: 0.9
-    - _Smoothness: 0.822
+    - _ReflectionStrength: 1.16
+    - _Saturation: 1.58
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
+    - _VignetteStrength: 0.98
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 0.8325472, b: 0.6650944, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectionOffset: {r: -0.45, g: 1.1, b: 0, a: 0}
     - _ReflectionParallaxScale: {r: 0.005, g: 0.1, b: 0.03, a: 0}
     - _ReflectionScale: {r: 0.6, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _VignetteOffset: {r: 0.37, g: -0.01, b: 0, a: 0}
+    - _VignetteScale: {r: 0.23, g: 0.99, b: 1, a: 1}
   m_BuildTextureStacks: []
