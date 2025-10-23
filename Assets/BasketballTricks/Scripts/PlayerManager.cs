@@ -10,6 +10,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private List<Player> _players = new List<Player>();
     [SerializeField] private LayerMask _floorMask = 1;
 
+    public event System.Action RefreshPlayers = delegate { };
+
+    public List<Player> Players => _players;
+    public Player GetPlayer(int index) => index < _players.Count ? _players[index] : null;
+
     private void OnValidate()
     {
         if (_players.Count == 0)
@@ -33,6 +38,7 @@ public class PlayerManager : MonoBehaviour
                 if (player.PlayerData == null)
                 {
                     player.Place(hitInfo.point, data);
+                    RefreshPlayers?.Invoke();
                     return true;
                 }
             }
