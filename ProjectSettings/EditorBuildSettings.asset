@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/BasketballTricks/Scenes/MainUI.unity
+    guid: 868c899a7b8c1a644a0c1406f1e0f297
+  - enabled: 1
     path: Assets/BasketballTricks/Scenes/CardCatalog.unity
     guid: 7f00634964c41094fafe78a66111c73a
   - enabled: 1
