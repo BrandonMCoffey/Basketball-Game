@@ -3,73 +3,110 @@ using System.Collections.Generic;
 using UnityEngine;
 using SaiUtils.StateMachine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class UICanvasController : MonoBehaviour
 {
     private StateMachine _stateMachine;
-    
-    [Header("Main Menu References")]
-    [SerializeField] private RectTransform _menusContainer;
-    [SerializeField] private RectTransform _navBarContainer;
-    [SerializeField] private RectTransform _playerData;
-    [SerializeField] private RectTransform _campaignButton;
-    [SerializeField] private RectTransform _tournamentButton;
-    [SerializeField] private RectTransform _tradeButton;
 
-    [Header("Vault References")]
-    [SerializeField] private RectTransform _cardContainer;
-    [SerializeField] private RectTransform _tradeBoxesContainer;
-    bool _toggle = false;
+    [Header("Animation Settings")]
+    public float transitionDuration = 0.4f;
+    public Ease transitionEase = Ease.OutExpo;
+
+    [Header("Panel References")]
+    public RectTransform menusContainer;
+    public MenuReference navBarContainer;
+    public List<MenuPositions> menuPositions;
+
+    [Header("Main Menu References")]
+    public MenuReference playerData;
+    public MenuReference campaignButton;
+    public MenuReference tournamentButton;
+    public MenuReference tradeButton;
+
+    [Header("Trade Menu References")]
+    public MenuReference cardContainer;
+    public MenuReference tradeBoxesContainer;
+
+    public UIMainMenuState MainMenuState { get; private set; }
+    public UIVaultState VaultState { get; private set; }
+    public UIStoreState StoreState { get; private set; }
+    public UITradeState TradeState { get; private set; }
+
+    public Vector2 GetPosition(Menus menu)
+    {
+        return menuPositions.Find(x => x.MenuName == menu).Position;
+    }
 
     private void Awake()
     {
         _stateMachine = new StateMachine();
+        MainMenuState = new UIMainMenuState(this);
+        VaultState = new UIVaultState(this);
+        StoreState = new UIStoreState(this);
+        TradeState = new UITradeState(this);
+
+        _stateMachine.AddAnyTransition(MainMenuState, new BlankPredicate());
+        _stateMachine.AddAnyTransition(VaultState, new BlankPredicate());
+        _stateMachine.AddAnyTransition(StoreState, new BlankPredicate());
+        _stateMachine.AddAnyTransition(TradeState, new BlankPredicate());
+
+        _stateMachine.SetState(MainMenuState);
+    }
+
+    public void PlayGame()
+    {
+        SceneManager.LoadSceneAsync("TrickPlays");
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _toggle = !_toggle;
-            if (_toggle) { ToVaultTransition(); }
-            else { ToMainMenuTransition(); }
+            _stateMachine.ChangeState(MainMenuState);
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            _stateMachine.ChangeState(VaultState);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            _stateMachine.ChangeState(StoreState);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            _stateMachine.ChangeState(TradeState);
+        }
+        _stateMachine.Update();
     }
 
-    void ToVaultTransition()
+    void FixedUpdate()
     {
-        _playerData.DOAnchorPosY(350, 0.25f).SetEase(Ease.OutCubic);
-        _navBarContainer.DOAnchorPosY(-250, 0.25f).SetEase(Ease.OutCubic);
-        _campaignButton.DOAnchorPosY(-900, 0.25f).SetEase(Ease.OutCubic);
-        _tournamentButton.DOAnchorPosY(-1800, 0.25f).SetEase(Ease.OutCubic);
-        _tradeButton.DOAnchorPosY(-2700, 0.25f).SetEase(Ease.OutCubic).OnComplete(() =>
-        {
-            _menusContainer.DOAnchorPosX(1920, 0.25f).SetEase(Ease.OutCubic).OnComplete(() =>
-            {
-                _campaignButton.DORotate(new Vector3(0, 0, -70), 0.25f).SetEase(Ease.OutCubic);
-                _tournamentButton.DORotate(new Vector3(0, 0, -90), 0.25f).SetEase(Ease.OutCubic);
-                _tradeButton.DORotate(new Vector3(0, 0, -110), 0.25f).SetEase(Ease.OutCubic);
-                _cardContainer.DOAnchorPosY(-210, 0.25f).SetEase(Ease.OutCubic);
-                _tradeBoxesContainer.DOAnchorPosY(-660, 0.25f).SetEase(Ease.OutCubic);
-            });
-        });
+        _stateMachine.FixedUpdate();
     }
-    void ToMainMenuTransition()
-    {
-        _cardContainer.DOAnchorPosY(500, 0.25f).SetEase(Ease.OutCubic);
-        _tradeBoxesContainer.DOAnchorPosY(-1500, 0.25f).SetEase(Ease.OutCubic).OnComplete(() =>
-        { 
-            _menusContainer.DOAnchorPosX(0, 0.25f).SetEase(Ease.OutCubic).OnComplete(() =>
-            {
-                _playerData.DOAnchorPosY(0, 0.25f).SetEase(Ease.OutCubic);
-                _campaignButton.DOAnchorPosY(-170, 0.25f).SetEase(Ease.OutCubic);
-                _campaignButton.DORotate(new Vector3(0, 0, 0), 0.3f).SetEase(Ease.OutCubic);
-                _tournamentButton.DOAnchorPosY(-170, 0.35f).SetEase(Ease.OutCubic);
-                _tournamentButton.DORotate(new Vector3(0, 0, 0), 0.4f).SetEase(Ease.OutCubic);
-                _tradeButton.DOAnchorPosY(-170, 0.45f).SetEase(Ease.OutCubic);
-                _tradeButton.DORotate(new Vector3(0, 0, 0), 0.5f).SetEase(Ease.OutCubic);
-            });
-            _navBarContainer.DOAnchorPosY(0, 0.25f).SetEase(Ease.OutCubic);
-        });
-    }
+
+
+}
+
+public enum Menus
+{
+    MainMenu,
+    Vault,
+    Store,
+    Trade
+}
+
+[System.Serializable]
+public struct MenuPositions
+{
+    public Menus MenuName;
+    public Vector2 Position;
+}
+
+[System.Serializable]
+public struct MenuReference
+{
+    public RectTransform Panel;
+    public Vector2 OnScreenPosition;
+    public Vector2 OffScreenPosition;
 }
