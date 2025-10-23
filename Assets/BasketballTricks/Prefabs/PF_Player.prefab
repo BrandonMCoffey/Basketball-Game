@@ -5113,6 +5113,8 @@ MonoBehaviour:
   _positionColor: {r: 0, g: 1, b: 1, a: 1}
   _particles: {fileID: 8508551558105984109}
   _actionText: {fileID: 1233332882344065453}
+  _basketballSocket: {fileID: 6204966665888128867}
+  _basketballOffset: {x: 0, y: 0.002, z: 0.002}
 --- !u!114 &2839272202819358832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5833,6 +5835,12 @@ Transform:
 --- !u!137 &5782451185661012911 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -6387605094501615388, guid: 7c2ae21774b87b24a813d590cd837261,
+    type: 3}
+  m_PrefabInstance: {fileID: 8603511039534633803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6204966665888128867 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2412161367050800168, guid: 7c2ae21774b87b24a813d590cd837261,
     type: 3}
   m_PrefabInstance: {fileID: 8603511039534633803}
   m_PrefabAsset: {fileID: 0}

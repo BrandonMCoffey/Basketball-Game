@@ -10,9 +10,12 @@ public class Player : MonoBehaviour
     [SerializeField] private Color _positionColor = Color.cyan;
     [SerializeField] private ParticleSystem _particles;
     [SerializeField] private TMP_Text _actionText;
+    [SerializeField] private Transform _basketballSocket;
+    [SerializeField] private Vector3 _basketballOffset;
 
     public PlayerData PlayerData => _playerData;
     public Color PositionColor => _positionColor;
+    public Vector3 BasketballPosition => _basketballSocket.TransformPoint(_basketballOffset);
 
     private void OnValidate()
     {
@@ -38,6 +41,12 @@ public class Player : MonoBehaviour
         (pos.y, otherPos.y) = (otherPos.y, pos.y);
         transform.DOLookAt(otherPos, passDuration * 0.5f);
         otherPlayer.transform.DOLookAt(pos, passDuration * 0.5f);
+    }
+
+    public void FacePosition(Vector3 pos, float passDuration)
+    {
+        pos.y = transform.position.y;
+        transform.DOLookAt(pos, passDuration * 0.5f);
     }
 
     public void SetActionText(string text, float duration)

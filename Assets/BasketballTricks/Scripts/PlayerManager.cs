@@ -8,6 +8,8 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Instance;
 
     [SerializeField] private List<Player> _players = new List<Player>();
+    [SerializeField] private Basketball _basketball;
+    [SerializeField] private Transform _net;
     [SerializeField] private LayerMask _floorMask = 1;
     [SerializeField] private Vector2 _spacingBetweenPlayersXZ = new Vector2(2f, 3f);
 
@@ -121,12 +123,44 @@ public class PlayerManager : MonoBehaviour
                 if (action.Mult > 0) ui.AddMult(action.Mult);
                 player.SetActionText(action.Name, action.Duration);
                 player.EmitParticles();
+                Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.Points} points and {action.Mult} mult.");
                 if (action.Type == ActionType.Pass)
                 {
-                    player.FaceOtherPlayer(TimelineActions[i + 1].Player, action.Duration);
+                    var otherPlayer = TimelineActions[i + 1].Player;
+                    player.FaceOtherPlayer(otherPlayer, action.Duration);
+                    float timeScale = 1f / action.Duration;
+                    for (float t = 0; t < 1f; t += Time.deltaTime * timeScale * 2f)
+                    {
+                        _basketball.transform.position = player.BasketballPosition;
+                        yield return null;
+                    }
+                    for (float t = 0; t < 1f; t += Time.deltaTime * timeScale * 2f)
+                    {
+                        var pos = Vector3.Lerp(player.BasketballPosition, otherPlayer.BasketballPosition, t);
+                        pos += Vector3.up * Mathf.Abs(0.5f - t) * 0.2f;
+                        _basketball.transform.position = pos;
+                        yield return null;
+                    }
                 }
-                Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.Points} points and {action.Mult} mult.");
-                yield return new WaitForSeconds(action.Duration);
+                else if (action.Type == ActionType.Shot)
+                {
+                    player.FacePosition(_net.position, action.Duration);
+                    float timeScale = 1f / action.Duration;
+                    for (float t = 0; t < 1f; t += Time.deltaTime * timeScale)
+                    {
+                        _basketball.transform.position = player.BasketballPosition;
+                        yield return null;
+                    }
+                }
+                else
+                {
+                    float timeScale = 1f / action.Duration;
+                    for (float t = 0; t < 1f; t += Time.deltaTime * timeScale)
+                    {
+                        _basketball.transform.position = player.BasketballPosition;
+                        yield return null;
+                    }
+                }
             }
         }
     }
