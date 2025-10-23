@@ -42,6 +42,7 @@ public class HandCatalog : MonoBehaviour
             rectTransform.anchorMin = rectTransform.anchorMax = rectTransform.pivot = Vector3.one * 0.5f;
             rectTransform.anchoredPosition = new Vector2(x, y);
             rectTransform.sizeDelta = _cardSize;
+            card.SaveInitialTransform();
             card.transform.localScale = Vector3.zero;
             _cards.Add(card);
         }
@@ -119,6 +120,10 @@ public class HandCatalog : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         yield return new WaitForSeconds(0.5f); // Finish DoTween
+        foreach (var card in _cards)
+        {
+            card.RefreshTransform();
+        }
         _transitioning = false;
         UpdateCardData();
     }

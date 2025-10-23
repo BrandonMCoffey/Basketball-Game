@@ -14,7 +14,7 @@ public class TopBarUIManager : MonoBehaviour
         Instance = this;
     }
 
-    public void AddAction(PlayerDestination player, PlayerActionData action)
+    public void AddAction(Player player, PlayerActionData action)
     {
         TopBarActionUI bar = Instantiate(_barActionPrefab, transform);
         if (bar != null)

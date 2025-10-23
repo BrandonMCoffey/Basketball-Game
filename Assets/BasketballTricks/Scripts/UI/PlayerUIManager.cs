@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerUIManager : MonoBehaviour
 {
-    [SerializeField] private List<PlayerDestination> _players;
+    [SerializeField] private List<Player> _players;
     [SerializeField] private PlayerControlsUIManager _playerControlsPrefab;
     [SerializeField] private float _uiHeightOffset = 1.0f;
 

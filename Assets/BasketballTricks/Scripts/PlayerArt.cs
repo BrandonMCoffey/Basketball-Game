@@ -1,19 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class AnimatedPlayer : MonoBehaviour
+public class PlayerArt : MonoBehaviour
 {
-    [SerializeField] private PlayerData _playerData;
     [SerializeField] private SkinnedMeshRenderer _skinRenderer;
     [SerializeField] private Material _skinMaterial;
     [SerializeField] private Gradient _skinGradient;
     [SerializeField] private Transform _head;
     [SerializeField] private Material _hairMaterial;
     [SerializeField] private List<HairData> _hairPrefabs;
-
-    public PlayerData PlayerData => _playerData;
 
     private void Start()
     {

@@ -15,7 +15,7 @@ public class PlayerControlsUIManager : MonoBehaviour
 
     private bool _playerSelected;
     private bool _currentActionsExpanded;
-    private PlayerDestination _player;
+    private Player _player;
 
     private void Awake()
     {
@@ -26,10 +26,10 @@ public class PlayerControlsUIManager : MonoBehaviour
         _currentActionsGroup.interactable = false;
     }
 
-    public void Init(PlayerDestination player)
+    public void Init(Player player)
     {
         _player = player;
-        var actions = player.SpawnedPlayer.PlayerData.AllAvailableActions;
+        var actions = player.PlayerData.AllAvailableActions;
         for (int i = 0; i < actions.Count; i++)
         {
             PlayerAddActionUI newAction = Instantiate(_addActionPrefab, _selectActionRow);

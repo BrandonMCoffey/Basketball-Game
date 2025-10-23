@@ -49,13 +49,6 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         base.Awake();
         _rectTransform = GetComponent<RectTransform>();
         _actionDetailTransform = _actionDetails.gameObject.GetComponent<RectTransform>();
-        _initialScale = _rectTransform.localScale;
-    }
-
-    private void Start()
-    {
-        _initialPosition = _rectTransform.position;
-        _initialRotation = _rectTransform.localRotation;
     }
 
     protected override void OnValidate()
@@ -73,6 +66,20 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
             _rectTransform.localRotation = _initialRotation * Quaternion.Euler(0, 0, tilt);
             _currentDragDelta = Vector3.zero;
         }
+    }
+
+    public void SaveInitialTransform()
+    {
+        _initialPosition = _rectTransform.position;
+        _initialRotation = _rectTransform.localRotation;
+        _initialScale = _rectTransform.localScale;
+    }
+
+    public void RefreshTransform()
+    {
+        _rectTransform.position = _initialPosition;
+        _rectTransform.localRotation = _initialRotation;
+        _rectTransform.localScale = _initialScale;
     }
 
     public void SetInteractable(bool interactable)
@@ -158,10 +165,19 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         _focusBackground.blocksRaycasts = true;
         _focusBackground.interactable = false;
 
-        _flipTransform.DOAnchorPosY(30, show ? 0 : _holdAnimationDuration).SetEase(Ease.OutQuart);
-        _actionDetailTransform.DOLocalMoveX(0, show ? 0 : _holdAnimationDuration).SetEase(Ease.OutQuart);
-        _actionDetailTransform.DOScaleX(0, show ? 0 : _holdAnimationDuration).SetEase(Ease.OutQuart);
-        if (!show) yield return new WaitForSeconds(_holdAnimationDuration);
+        if (show)
+        {
+            _flipTransform.DOAnchorPosY(30, 0);
+            _actionDetailTransform.DOLocalMoveX(0, 0);
+            _actionDetailTransform.DOScaleX(0, 0);
+        }
+        else
+        {
+            _flipTransform.DOAnchorPosY(30, _holdAnimationDuration).SetEase(Ease.OutQuart);
+            _actionDetailTransform.DOLocalMoveX(0, _holdAnimationDuration).SetEase(Ease.OutQuart);
+            _actionDetailTransform.DOScaleX(0, _holdAnimationDuration).SetEase(Ease.OutQuart);
+            yield return new WaitForSeconds(_holdAnimationDuration);
+        }
 
         _focusBackground.DOFade(show ? 1 : 0, _holdAnimationDuration).SetEase(Ease.OutQuart);
         _rectTransform.DOMove(show ? transform.root.position : _initialPosition, _holdAnimationDuration).SetEase(Ease.OutQuart);
@@ -206,6 +222,23 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     public void OnEndDrag(PointerEventData eventData)
     {
         if (!CanDrag || !_isDragging) return;
+        CheckPlacePlayer(eventData.position);
+    }
+
+    private void CheckPlacePlayer(Vector2 mousePos)
+    {
+        if (PlayerManager.Instance != null)
+        {
+            bool success = PlayerManager.Instance.AttemptPlacePlayer(_data, mousePos);
+            if (success)
+            {
+                // TODO: Disable card permanently
+                SetInteractable(false);
+                _data = null;
+                transform.DOScale(Vector3.zero, 0.4f).SetEase(Ease.OutQuart);
+                return;
+            }
+        }
         StartCoroutine(ReturnToPosition());
     }
 
