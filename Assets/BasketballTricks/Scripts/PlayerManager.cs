@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,11 +18,8 @@ public class PlayerManager : MonoBehaviour
 
     public List<Player> Players => _players;
     public Player GetPlayer(int index) => index < _players.Count ? _players[index] : null;
-    public Vector3 GetPlayerPosition(int index)
-    {
-        var player = GetPlayer(index);
-        return player != null ? player.transform.position : transform.position;
-    }
+
+    private bool _simulating;
 
     private void OnValidate()
     {
@@ -34,6 +32,11 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+    public Vector3 GetPlayerPosition(int index)
+    {
+        var player = GetPlayer(index);
+        return player != null ? player.transform.position : transform.position;
     }
 
     public bool AttemptPlacePlayer(PlayerData data, Vector2 mousePos)
@@ -79,6 +82,30 @@ public class PlayerManager : MonoBehaviour
     {
         TimelineActions.RemoveAt(timelineIndex);
         RefreshTimeline?.Invoke();
+    }
+
+    public void RunSimulation(SimulatePanelUI ui)
+    {
+        if (_simulating) return;
+        _simulating = true;
+        StartCoroutine(SimulateRoutine(ui));
+    }
+    private IEnumerator SimulateRoutine(SimulatePanelUI ui)
+    {
+        foreach (var timelineAction in TimelineActions)
+        {
+            var player = timelineAction.Player;
+            if (player.PlayerData != null)
+            {
+                var action = player.PlayerData.GetAction(timelineAction.ActionIndex);
+                if (action.Points > 0) ui.AddPoints(action.Points);
+                if (action.Mult > 0) ui.AddMult(action.Mult);
+                player.SetActionText(action.Name, action.Duration);
+                player.EmitParticles();
+                Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.Points} points and {action.Mult} mult.");
+                yield return new WaitForSeconds(action.Duration);
+            }
+        }
     }
 }
 

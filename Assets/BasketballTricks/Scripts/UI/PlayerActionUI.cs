@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class PlayerActionUI : MonoBehaviour
 {
     [SerializeField] private SlideInPanel _playerActionPanel;
-    [SerializeField] private SlideInPanel _simulatePanel;
     [SerializeField] private TMP_Text _playerName;
     [SerializeField] private Image _playerImage;
     [SerializeField] private List<PlayerActionVisuals> _actionVisuals;
@@ -16,7 +15,6 @@ public class PlayerActionUI : MonoBehaviour
 
     public void ShowPlayer(Player player)
     {
-        _simulatePanel.SetShown(false);
         _playerActionPanel.SetShown(true);
         _player = player;
         _playerData = player != null ? player.PlayerData : null;
@@ -26,7 +24,6 @@ public class PlayerActionUI : MonoBehaviour
     public void Hide()
     {
         _playerActionPanel.SetShown(false);
-        _simulatePanel.SetShown(true);
     }
 
     private void UpdateData()
