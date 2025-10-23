@@ -158,7 +158,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1015
 --- !u!114 &38848432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,8 +244,8 @@ MonoBehaviour:
   menusContainer: {fileID: 423396446}
   navBarContainer:
     Panel: {fileID: 92970869}
-    OffScreenPosition: {x: 0, y: -251}
     OnScreenPosition: {x: 0, y: 0}
+    OffScreenPosition: {x: 0, y: -251}
   menuPositions:
   - MenuName: 0
     Position: {x: 0, y: 0}
@@ -256,29 +256,29 @@ MonoBehaviour:
   - MenuName: 3
     Position: {x: 1920, y: 0}
   playerData:
-    Panel: {fileID: 0}
-    OffScreenPosition: {x: 0, y: 0}
+    Panel: {fileID: 1844497148}
     OnScreenPosition: {x: 0, y: 0}
+    OffScreenPosition: {x: 0, y: 300}
   campaignButton:
-    Panel: {fileID: 0}
-    OffScreenPosition: {x: 0, y: 0}
-    OnScreenPosition: {x: 0, y: 0}
+    Panel: {fileID: 1800116918}
+    OnScreenPosition: {x: 486, y: -315}
+    OffScreenPosition: {x: 486, y: -1000}
   tournamentButton:
-    Panel: {fileID: 0}
-    OffScreenPosition: {x: 0, y: 0}
-    OnScreenPosition: {x: 0, y: 0}
+    Panel: {fileID: 499325841}
+    OnScreenPosition: {x: 960, y: -315}
+    OffScreenPosition: {x: 960, y: -1500}
   tradeButton:
-    Panel: {fileID: 0}
-    OffScreenPosition: {x: 0, y: 0}
-    OnScreenPosition: {x: 0, y: 0}
+    Panel: {fileID: 916975292}
+    OnScreenPosition: {x: 1433, y: -315}
+    OffScreenPosition: {x: 1433, y: -2000}
   cardContainer:
     Panel: {fileID: 0}
-    OffScreenPosition: {x: 0, y: 0}
     OnScreenPosition: {x: 0, y: 0}
+    OffScreenPosition: {x: 0, y: 0}
   tradeBoxesContainer:
     Panel: {fileID: 0}
-    OffScreenPosition: {x: 0, y: 0}
     OnScreenPosition: {x: 0, y: 0}
+    OffScreenPosition: {x: 0, y: 0}
 --- !u!224 &92970869 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1893545190837803512, guid: 738018d15bd02ae418ec945fb470649e,
@@ -1095,11 +1095,23 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 361552180}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &499325841 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7883739503204160414, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+    type: 3}
+  m_PrefabInstance: {fileID: 8772016592340748012}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &789154241 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5120567470968494170, guid: 2a2b7c63a2159d549b5eb3f05f148bf1,
     type: 3}
   m_PrefabInstance: {fileID: 4200754063164826747}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &916975292 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 80288718490629779, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+    type: 3}
+  m_PrefabInstance: {fileID: 8772016592340748012}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &930525373
 PrefabInstance:
@@ -1217,22 +1229,22 @@ PrefabInstance:
     - target: {fileID: 646420352908752638, guid: 772972a2d25585b4c8b52e248687b65f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9983886
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 646420352908752638, guid: 772972a2d25585b4c8b52e248687b65f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 646420352908752638, guid: 772972a2d25585b4c8b52e248687b65f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 646420352908752638, guid: 772972a2d25585b4c8b52e248687b65f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.056746628
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 646420352908752638, guid: 772972a2d25585b4c8b52e248687b65f,
         type: 3}
@@ -1257,7 +1269,7 @@ PrefabInstance:
     - target: {fileID: 646420352908752638, guid: 772972a2d25585b4c8b52e248687b65f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 6.506
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 646420352908752638, guid: 772972a2d25585b4c8b52e248687b65f,
         type: 3}
@@ -2265,6 +2277,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1745874994}
   m_CullTransparentMesh: 1
+--- !u!224 &1800116918 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3244905803009763060, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+    type: 3}
+  m_PrefabInstance: {fileID: 8772016592340748012}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1844497148 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1103426874828634293, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+    type: 3}
+  m_PrefabInstance: {fileID: 8772016592340748012}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1964203701
 GameObject:
   m_ObjectHideFlags: 0
