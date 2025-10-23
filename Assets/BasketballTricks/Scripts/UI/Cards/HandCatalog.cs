@@ -123,6 +123,7 @@ public class HandCatalog : MonoBehaviour
         foreach (var card in _cards)
         {
             card.RefreshTransform();
+            card.transform.localScale = Vector3.zero;
         }
         _transitioning = false;
         UpdateCardData();

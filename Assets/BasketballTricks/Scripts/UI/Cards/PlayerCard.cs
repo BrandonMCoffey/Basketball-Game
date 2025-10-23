@@ -160,7 +160,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         transform.SetAsLastSibling();
         var rectTransform = _focusBackground.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = Vector3.zero;
-        rectTransform.position = Vector3.zero;
+        rectTransform.position = new Vector3(-150, 0, 0);
         rectTransform.sizeDelta = new Vector2(Screen.width * 2, Screen.height * 2);
         _focusBackground.blocksRaycasts = true;
         _focusBackground.interactable = false;

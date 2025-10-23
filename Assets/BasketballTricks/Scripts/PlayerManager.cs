@@ -123,7 +123,7 @@ public class PlayerManager : MonoBehaviour
                 player.EmitParticles();
                 if (action.Type == ActionType.Pass)
                 {
-                    //player.FaceOtherPlayer(TimelineActions[i + 1].Player, action.Duration);
+                    player.FaceOtherPlayer(TimelineActions[i + 1].Player, action.Duration);
                 }
                 Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.Points} points and {action.Mult} mult.");
                 yield return new WaitForSeconds(action.Duration);
