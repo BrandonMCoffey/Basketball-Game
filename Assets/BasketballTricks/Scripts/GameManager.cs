@@ -12,13 +12,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private List<PlayerData> _players;
     [SerializeField] private CanvasGroup _sceneTransition;
-    [SerializeField] private int _maxPlayersActive = 8;
 
     private int _selectedPlayerIndex = -1;
 
     public List<PlayerData> Players => _players;
     public PlayerData ActivePlayer => (_selectedPlayerIndex >= 0 && _selectedPlayerIndex < _players.Count) ? _players[_selectedPlayerIndex] : null;
-    public string CardActiveCount => $"{_players.Count(p => p.PlayerEnabled)}/{_maxPlayersActive}";
 
     private void Awake()
     {
@@ -30,19 +28,6 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         StartCoroutine(TransitionToSceneRoutine("", true));
-    }
-
-    public bool SetPlayerActive(int playerIndex, bool active)
-    {
-        if (_players[playerIndex].PlayerEnabled == active) return true;
-        if (active)
-        {
-            int count = _players.Count(p => p.PlayerEnabled);
-            if (count >= _maxPlayersActive) return false;
-        }
-        _players[playerIndex].PlayerEnabled = active;
-        UpdateActivePlayers?.Invoke();
-        return true;
     }
 
     public void StartGame()

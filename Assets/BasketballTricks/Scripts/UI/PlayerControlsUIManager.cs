@@ -29,7 +29,7 @@ public class PlayerControlsUIManager : MonoBehaviour
     public void Init(PlayerDestination player)
     {
         _player = player;
-        var actions = player.SpawnedPlayer.PlayerData.AvailableActions;
+        var actions = player.SpawnedPlayer.PlayerData.AllAvailableActions;
         for (int i = 0; i < actions.Count; i++)
         {
             PlayerAddActionUI newAction = Instantiate(_addActionPrefab, _selectActionRow);

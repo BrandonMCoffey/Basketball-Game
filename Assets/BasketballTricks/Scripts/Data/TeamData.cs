@@ -7,8 +7,8 @@ public class TeamData : ScriptableObject
 {
     [SerializeField] private string _teamName;
     [SerializeField] private Sprite _teamLogo;
-    [SerializeField] private Color _teamPrimaryColor;
-    [SerializeField] private Color _teamSecondaryColor;
+    [SerializeField] private Color _teamPrimaryColor = Color.white;
+    [SerializeField] private Color _teamSecondaryColor = Color.black;
 
     public string TeamName => _teamName;
     public Sprite TeamLogo => _teamLogo;

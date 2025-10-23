@@ -277,7 +277,7 @@ public class DribbleController : MonoBehaviour
         BallTouchGround?.Invoke();
         if (_activePlayer != null)
         {
-            _activePlayer.IncrementDribblingPractice();
+            //_activePlayer.IncrementDribblingPractice();
         }
     }
 }
