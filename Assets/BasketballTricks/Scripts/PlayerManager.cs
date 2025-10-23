@@ -14,6 +14,11 @@ public class PlayerManager : MonoBehaviour
 
     public List<Player> Players => _players;
     public Player GetPlayer(int index) => index < _players.Count ? _players[index] : null;
+    public Vector3 GetPlayerPosition(int index)
+    {
+        var player = GetPlayer(index);
+        return player != null ? player.transform.position : transform.position;
+    }
 
     private void OnValidate()
     {

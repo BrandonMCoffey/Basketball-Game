@@ -19,7 +19,7 @@ public class TopBarUIManager : MonoBehaviour
         TopBarActionUI bar = Instantiate(_barActionPrefab, transform);
         if (bar != null)
         {
-            bar.SetAction(player, action);
+            bar.SetAction(player, action.Data);
             _activeBars.Add(bar);
         }
     }

@@ -247,8 +247,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2234484727531051381}
-        m_TargetAssemblyTypeName: PlayerControlsUIManager, Assembly-CSharp
+      - m_Target: {fileID: 3180849575773348501}
+        m_TargetAssemblyTypeName: PlayerControlsUI, Assembly-CSharp
         m_MethodName: ToggleExpandCurrentActions
         m_Mode: 1
         m_Arguments:
@@ -288,7 +288,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6076241400898627923}
-  - component: {fileID: 2234484727531051381}
+  - component: {fileID: 3180849575773348501}
   m_Layer: 5
   m_Name: PF_PlayerControls
   m_TagString: Untagged
@@ -318,7 +318,7 @@ RectTransform:
   m_AnchoredPosition: {x: 82.9, y: -16.25}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2234484727531051381
+--- !u!114 &3180849575773348501
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,13 +327,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8220872639676812597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6306176c1b77b4b4089cd606888cec58, type: 3}
+  m_Script: {fileID: 11500000, guid: bb03d44a353d0474dbddfa978d6c305e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _addActionPrefab: {fileID: 2245859379394947939, guid: 2197cd550c71fd645b826207e7c006ec,
-    type: 3}
-  _selectActionGroup: {fileID: 0}
-  _selectActionRow: {fileID: 0}
   _currentActionsGroup: {fileID: 1949094365766104982}
   _currentActionsRow: {fileID: 4524585085182842593}
   _actionPrefab: {fileID: 4080801469891875796, guid: 2c5c25b56f780d947a9efae8071e63fb,
@@ -458,9 +454,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2234484727531051381}
-        m_TargetAssemblyTypeName: PlayerControlsUIManager, Assembly-CSharp
-        m_MethodName: ToggleSelectPlayer
+      - m_Target: {fileID: 3180849575773348501}
+        m_TargetAssemblyTypeName: PlayerControlsUI, Assembly-CSharp
+        m_MethodName: ToggleSelected
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

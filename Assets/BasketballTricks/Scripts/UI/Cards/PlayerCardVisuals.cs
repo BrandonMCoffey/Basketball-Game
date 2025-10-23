@@ -52,10 +52,8 @@ public class PlayerCardVisuals : MonoBehaviour
         if (_playerImage != null) _playerImage.sprite = _data != null ? _data.PlayerSprite : _defaultPlayerImage;
         if (_teamImage != null) _teamImage.sprite = _data != null ? _data.TeamLogo : _defaultTeamImage;
 
-        int availableActions = _data.AllAvailableActions.Count;
         for (int i = 0; i < _actionVisuals.Count; i++)
         {
-            // TODO: Set invisible if mismatched?
             _actionVisuals[i].SetData(_data.GetAction(i));
         }
     }
