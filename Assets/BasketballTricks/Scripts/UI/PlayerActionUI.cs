@@ -38,6 +38,7 @@ public class PlayerActionUI : MonoBehaviour
 
     public void SelectAction(int index)
     {
+        // Check action if it is pass to make the user select who to pass to
         PlayerManager.Instance.AddAction(_player, index);
     }
 }

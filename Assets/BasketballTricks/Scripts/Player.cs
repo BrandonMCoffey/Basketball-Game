@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -28,6 +29,15 @@ public class Player : MonoBehaviour
     {
         transform.position = pos + Vector3.up * 0.01f;
         _playerData = data;
+    }
+
+    public void FaceOtherPlayer(Player otherPlayer, float passDuration)
+    {
+        var pos = transform.position;
+        var otherPos = otherPlayer.transform.position;
+        (pos.y, otherPos.y) = (otherPos.y, pos.y);
+        transform.DOLookAt(otherPos, passDuration * 0.5f);
+        otherPlayer.transform.DOLookAt(pos, passDuration * 0.5f);
     }
 
     public void SetActionText(string text, float duration)

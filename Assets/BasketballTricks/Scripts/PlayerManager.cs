@@ -75,18 +75,34 @@ public class PlayerManager : MonoBehaviour
     public void AddAction(Player player, int actionIndex)
     {
         TimelineActions.Add(new TimelineAction(player, actionIndex));
-        RefreshTimeline?.Invoke();
+        OnTimelineUpdated();
     }
 
     public void RemoveAction(int timelineIndex)
     {
         TimelineActions.RemoveAt(timelineIndex);
+        OnTimelineUpdated();
+    }
+
+    private void OnTimelineUpdated()
+    {
         RefreshTimeline?.Invoke();
+
+        for (int i = 0; i < TimelineActions.Count; i++)
+        {
+            TimelineAction timelineAction = TimelineActions[i];
+            var player = timelineAction.Player;
+            if (player.PlayerData != null)
+            {
+                // Add visual to player
+            }
+        }
     }
 
     public void RunSimulation(SimulatePanelUI ui)
     {
         if (_simulating) return;
+        // Verify if sequence is valid
         _simulating = true;
         StartCoroutine(SimulateRoutine(ui));
     }
@@ -94,8 +110,9 @@ public class PlayerManager : MonoBehaviour
     {
         ui.ResetScore();
         yield return new WaitForSeconds(1f);
-        foreach (var timelineAction in TimelineActions)
+        for (int i = 0; i < TimelineActions.Count; i++)
         {
+            TimelineAction timelineAction = TimelineActions[i];
             var player = timelineAction.Player;
             if (player.PlayerData != null)
             {
@@ -104,6 +121,10 @@ public class PlayerManager : MonoBehaviour
                 if (action.Mult > 0) ui.AddMult(action.Mult);
                 player.SetActionText(action.Name, action.Duration);
                 player.EmitParticles();
+                if (action.Type == ActionType.Pass)
+                {
+                    //player.FaceOtherPlayer(TimelineActions[i + 1].Player, action.Duration);
+                }
                 Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.Points} points and {action.Mult} mult.");
                 yield return new WaitForSeconds(action.Duration);
             }
