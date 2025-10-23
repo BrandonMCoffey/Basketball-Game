@@ -92,6 +92,8 @@ public class PlayerManager : MonoBehaviour
     }
     private IEnumerator SimulateRoutine(SimulatePanelUI ui)
     {
+        ui.ResetScore();
+        yield return new WaitForSeconds(1f);
         foreach (var timelineAction in TimelineActions)
         {
             var player = timelineAction.Player;

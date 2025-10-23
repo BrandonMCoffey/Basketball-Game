@@ -12,6 +12,12 @@ public class SimulatePanelUI : MonoBehaviour
     private float _points;
     private float _mult;
 
+    private void Awake()
+    {
+        _pointsText.text = "";
+        _multText.text = "";
+    }
+
     public void StartSimulate()
     {
         foreach (var panel in _hideAllPanels)
@@ -19,6 +25,14 @@ public class SimulatePanelUI : MonoBehaviour
             if (panel != null) panel.SetShown(false, false);
         }
         PlayerManager.Instance.RunSimulation(this);
+    }
+
+    public void ResetScore()
+    {
+        _points = 0;
+        _mult = 0;
+        _pointsText.text = $"Points: {_points}";
+        _multText.text = $"Mult: {_mult}";
     }
 
     public void AddPoints(float points)
