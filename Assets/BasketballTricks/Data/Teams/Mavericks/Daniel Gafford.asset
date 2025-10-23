@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c84bf1ca33becc74c90bf18da6a7ee77, type: 3}
+  m_Name: Daniel Gafford
+  m_EditorClassIdentifier: 
+  _playerName: Daniel Gafford
+  _playerSprite: {fileID: 21300000, guid: 42085d59db13a5843bbaea8bc416f2ff, type: 3}
+  _team: {fileID: 11400000, guid: 20469427191cff0439546e2ad34da37a, type: 2}
+  _availableActions:
+  - {fileID: 11400000, guid: e37cb9f9a61cf6e48bebab66ef430a3c, type: 2}
+  - {fileID: 11400000, guid: 2f32277d3453be644920364f3abe5b44, type: 2}
+  - {fileID: 11400000, guid: 840e132e97ef6d343980fda4ea326461, type: 2}
