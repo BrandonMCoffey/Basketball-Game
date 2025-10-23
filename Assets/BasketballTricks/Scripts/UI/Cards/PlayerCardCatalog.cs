@@ -1,6 +1,3 @@
-using System.Collections;
-using UnityEngine;
-
 public class PlayerCardCatalog : PlayerCard
 {
     private int _index;

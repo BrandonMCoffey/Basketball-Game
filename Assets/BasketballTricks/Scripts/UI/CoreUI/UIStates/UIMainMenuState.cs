@@ -1,6 +1,3 @@
-using System;
-using SaiUtils.StateMachine;
-using UnityEngine;
 using DG.Tweening;
 
 public class UIMainMenuState : UIStateBase

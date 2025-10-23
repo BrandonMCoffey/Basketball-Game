@@ -1,7 +1,4 @@
-using System;
 using DG.Tweening;
-using SaiUtils.StateMachine;
-using UnityEngine;
 
 public class UITradeState : UIStateBase
 {
