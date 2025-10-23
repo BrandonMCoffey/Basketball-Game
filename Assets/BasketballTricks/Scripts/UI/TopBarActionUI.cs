@@ -8,12 +8,20 @@ public class TopBarActionUI : MonoBehaviour
     [SerializeField] private Image _icon;
     [SerializeField] private TMP_Text _text;
 
-    public void SetAction(Player player, ActionData data)
+    private int _index;
+
+    public void SetAction(Player player, ActionData data, int index)
     {
         if (_background != null) _background.color = player.PositionColor;
         if (_icon != null) _icon.sprite = data.Icon;
         if (_text != null) _text.text = data.Duration.ToString("0.0") + "s";
         var rect = (RectTransform)transform;
         rect.sizeDelta = new Vector2(10 + data.Duration * 10, rect.sizeDelta.y);
+        _index = index;
+    }
+
+    public void RemoveAction()
+    {
+        PlayerManager.Instance.RemoveAction(_index);
     }
 }

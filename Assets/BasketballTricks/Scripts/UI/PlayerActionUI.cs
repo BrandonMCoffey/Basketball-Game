@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,7 +7,8 @@ using UnityEngine.UI;
 
 public class PlayerActionUI : MonoBehaviour
 {
-    [SerializeField] private SlideInPanel _slideInPanel;
+    [SerializeField] private SlideInPanel _playerActionPanel;
+    [SerializeField] private SlideInPanel _simulatePanel;
     [SerializeField] private TMP_Text _playerName;
     [SerializeField] private Image _playerImage;
     [SerializeField] private List<PlayerActionVisuals> _actionVisuals;
@@ -16,7 +18,8 @@ public class PlayerActionUI : MonoBehaviour
 
     public void ShowPlayer(Player player)
     {
-        _slideInPanel.SetShown(true);
+        _simulatePanel.SetShown(false);
+        _playerActionPanel.SetShown(true);
         _player = player;
         _playerData = player != null ? player.PlayerData : null;
         UpdateData();
@@ -24,7 +27,8 @@ public class PlayerActionUI : MonoBehaviour
 
     public void Hide()
     {
-        _slideInPanel.SetShown(false);
+        _playerActionPanel.SetShown(false);
+        _simulatePanel.SetShown(true);
     }
 
     private void UpdateData()
@@ -35,5 +39,10 @@ public class PlayerActionUI : MonoBehaviour
         {
             _actionVisuals[i].SetData(_playerData != null ? _playerData.GetAction(i) : new ActionData());
         }
+    }
+
+    public void SelectAction(int index)
+    {
+        PlayerManager.Instance.AddAction(_player, index);
     }
 }

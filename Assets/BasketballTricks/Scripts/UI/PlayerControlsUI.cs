@@ -50,14 +50,4 @@ public class PlayerControlsUI : MonoBehaviour
             _currentActionsGroup.transform.DOScale(Vector3.one, 0.25f).SetEase(Ease.InOutSine);
         }
     }
-
-    public void AddAction(PlayerActionData action, int index)
-    {
-        PlayerActionDisplay newAction = Instantiate(_actionPrefab, _currentActionsRow);
-        newAction.InitAction(action.Data.Icon, index);
-        newAction.transform.localScale = Vector3.zero;
-        newAction.transform.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack);
-
-        //TopBarUIManager.Instance.AddAction(_player, action);
-    }
 }

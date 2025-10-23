@@ -10,7 +10,7 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField] private float _uiHeightOffset = 1.0f;
 
     private List<PlayerControlsUI> _playerControlsUI;
-    private int _selectedIndex;
+    private int _selectedIndex = -1;
 
     private void Start()
     {

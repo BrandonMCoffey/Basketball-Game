@@ -9,8 +9,12 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private List<Player> _players = new List<Player>();
     [SerializeField] private LayerMask _floorMask = 1;
+    [SerializeField] private Vector2 _spacingBetweenPlayersXZ = new Vector2(2f, 3f);
 
     public event System.Action RefreshPlayers = delegate { };
+
+    public List<TimelineAction> TimelineActions { get; private set; } = new List<TimelineAction>();
+    public event System.Action RefreshTimeline = delegate { };
 
     public List<Player> Players => _players;
     public Player GetPlayer(int index) => index < _players.Count ? _players[index] : null;
@@ -38,16 +42,55 @@ public class PlayerManager : MonoBehaviour
         var ray = Camera.main.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out var hitInfo, 100f, _floorMask))
         {
+            var position = hitInfo.point;
+            foreach (var player in _players)
+            {
+                if (player.PlayerData != null)
+                {
+                    var playerPos = player.transform.position;
+                    float xDist = Mathf.Abs(position.x - playerPos.x);
+                    float zDist = Mathf.Abs(position.z - playerPos.z);
+                    if (xDist < _spacingBetweenPlayersXZ.x && zDist < _spacingBetweenPlayersXZ.y)
+                    {
+                        // Existing player is too close (TODO: Visuals to show if can place)
+                        return false;
+                    }
+                }
+            }
             foreach (var player in _players)
             {
                 if (player.PlayerData == null)
                 {
-                    player.Place(hitInfo.point, data);
+                    player.Place(position, data);
                     RefreshPlayers?.Invoke();
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    public void AddAction(Player player, int actionIndex)
+    {
+        TimelineActions.Add(new TimelineAction(player, actionIndex));
+        RefreshTimeline?.Invoke();
+    }
+
+    public void RemoveAction(int timelineIndex)
+    {
+        TimelineActions.RemoveAt(timelineIndex);
+        RefreshTimeline?.Invoke();
+    }
+}
+
+public struct TimelineAction
+{
+    public Player Player;
+    public int ActionIndex;
+
+    public TimelineAction(Player player, int actionIndex)
+    {
+        Player = player;
+        ActionIndex = actionIndex;
     }
 }
