@@ -135,12 +135,12 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 0.77620417, b: 0.6666667, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectionOffset: {r: -0.37, g: 1.1, b: 0, a: 0}
     - _ReflectionParallaxScale: {r: 0.005, g: 0.1, b: 0.03, a: 0}
     - _ReflectionScale: {r: 0.75, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _VignetteOffset: {r: -0.04, g: 0.01, b: 0, a: 0}
-    - _VignetteScale: {r: 0.61, g: 1.48, b: 1, a: 1}
+    - _VignetteOffset: {r: 0.13, g: 0.01, b: 0, a: 0}
+    - _VignetteScale: {r: 0, g: 1, b: 0.09, a: 0.1}
   m_BuildTextureStacks: []

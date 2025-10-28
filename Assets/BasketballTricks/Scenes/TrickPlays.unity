@@ -3855,7 +3855,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 503
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -5341,7 +5341,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 503
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -6993,6 +6993,7 @@ MonoBehaviour:
   - {fileID: 1852127758}
   - {fileID: 1229214744}
   _basketball: {fileID: 292647101}
+  _net: {fileID: 0}
   _floorMask:
     serializedVersion: 2
     m_Bits: 128
