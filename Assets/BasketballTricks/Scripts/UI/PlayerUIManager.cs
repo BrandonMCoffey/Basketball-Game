@@ -3,16 +3,17 @@ using UnityEngine;
 
 public class PlayerUIManager : MonoBehaviour
 {
-    [SerializeField] private PlayerManager _playerManager;
     [SerializeField] private PlayerActionUI _actionUI;
     [SerializeField] private PlayerControlsUI _playerControlsPrefab;
     [SerializeField] private float _uiHeightOffset = 1.0f;
 
+    private PlayerManager _playerManager;
     private List<PlayerControlsUI> _playerControlsUI;
     private int _selectedIndex = -1;
 
     private void Start()
     {
+        _playerManager = PlayerManager.Instance;
         _playerControlsUI = new List<PlayerControlsUI>(_playerManager.Players.Count);
         foreach (var player in _playerManager.Players)
         {
