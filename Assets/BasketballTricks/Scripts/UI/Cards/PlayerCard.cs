@@ -210,6 +210,8 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         _currentDragDelta = Vector3.zero;
 
         _rectTransform.localScale = _initialScale * _popScale;
+
+        PlayerManager.Instance.NewPlayerToPlace();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -217,28 +219,24 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         if (!CanDrag || !_isDragging) return;
         _currentDragPosition = (Vector3)eventData.position;
         _currentDragDelta = eventData.delta;
+
+        PlayerManager.Instance.UpdatePlacingPlayer(eventData.position);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         if (!CanDrag || !_isDragging) return;
-        CheckPlacePlayer(eventData.position);
-    }
 
-    private void CheckPlacePlayer(Vector2 mousePos)
-    {
-        if (PlayerManager.Instance != null)
+        bool success = PlayerManager.Instance.AttemptPlacePlayer(_data, eventData.position);
+        if (success)
         {
-            bool success = PlayerManager.Instance.AttemptPlacePlayer(_data, mousePos);
-            if (success)
-            {
-                // TODO: Disable card permanently
-                SetInteractable(false);
-                _data = null;
-                transform.DOScale(Vector3.zero, 0.4f).SetEase(Ease.OutQuart);
-                return;
-            }
+            // TODO: Disable card permanently
+            SetInteractable(false);
+            _data = null;
+            transform.DOScale(Vector3.zero, 0.4f).SetEase(Ease.OutQuart);
+            return;
         }
+
         StartCoroutine(ReturnToPosition());
     }
 

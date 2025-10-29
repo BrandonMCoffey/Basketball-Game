@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class HandCatalog : MonoBehaviour
 {
     [SerializeField] private PlayerCard _cardPrefab;
+    [SerializeField] private Transform _cardParent;
     [SerializeField] private Vector2 _cardSize = new Vector2(200, 300);
     [SerializeField] private float _spacing = 10;
     [SerializeField, Range(1, 5)] private int _columns = 2;
@@ -32,7 +33,7 @@ public class HandCatalog : MonoBehaviour
         _cards = new List<PlayerCard>(_maxDisplayCards);
         for (int i = 0; i < _maxDisplayCards; i++)
         {
-            PlayerCard card = Instantiate(_cardPrefab, transform);
+            PlayerCard card = Instantiate(_cardPrefab, _cardParent);
             var rectTransform = card.GetComponent<RectTransform>();
             int column = i % _columns;
             int row = i / _columns;

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerData _playerData;
+    [SerializeField] private Animator _animator;
     [SerializeField] private SpriteRenderer _positionIndicator;
     [SerializeField] private Color _positionColor = Color.cyan;
     [SerializeField] private ParticleSystem _particles;
@@ -28,10 +29,21 @@ public class Player : MonoBehaviour
         _actionText.text = "";
     }
 
-    public void Place(Vector3 pos, PlayerData data)
+    public void SetAnimation(string stateName)
     {
+        _animator.CrossFade(stateName, 0f);
+    }
+
+    public void UpdateCanPlace(Vector3 pos, bool canPlace)
+    {
+        if (_positionIndicator != null) _positionIndicator.enabled = canPlace;
         transform.position = pos + Vector3.up * 0.01f;
+    }
+
+    public void Place(PlayerData data)
+    {
         _playerData = data;
+        SetAnimation("Idle");
     }
 
     public void FaceOtherPlayer(Player otherPlayer, float passDuration)
@@ -65,4 +77,12 @@ public class Player : MonoBehaviour
     {
         _particles.Emit(30);
     }
+}
+
+[System.Serializable]
+public enum PlayerAnimation
+{
+    Idle,
+    Placing,
+    Basketball
 }

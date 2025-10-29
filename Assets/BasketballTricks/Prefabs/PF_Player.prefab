@@ -5109,6 +5109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerData: {fileID: 0}
+  _animator: {fileID: 2742509778681835226}
   _positionIndicator: {fileID: 3948933407729916951}
   _positionColor: {r: 0, g: 1, b: 1, a: 1}
   _particles: {fileID: 8508551558105984109}
@@ -5829,6 +5830,12 @@ PrefabInstance:
 --- !u!4 &1399823886308218496 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7208261743932278219, guid: 7c2ae21774b87b24a813d590cd837261,
+    type: 3}
+  m_PrefabInstance: {fileID: 8603511039534633803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2742509778681835226 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7c2ae21774b87b24a813d590cd837261,
     type: 3}
   m_PrefabInstance: {fileID: 8603511039534633803}
   m_PrefabAsset: {fileID: 0}

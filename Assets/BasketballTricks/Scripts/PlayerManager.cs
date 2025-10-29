@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private List<Player> _players = new List<Player>();
     [SerializeField] private Basketball _basketball;
     [SerializeField] private Transform _net;
+    [SerializeField] private float _dragPlayerYOffset = -150f;
     [SerializeField] private LayerMask _floorMask = 1;
     [SerializeField] private Vector2 _spacingBetweenPlayersXZ = new Vector2(2f, 3f);
 
@@ -22,6 +24,7 @@ public class PlayerManager : MonoBehaviour
     public Player GetPlayer(int index) => index < _players.Count ? _players[index] : null;
 
     private bool _simulating;
+    private Player _placingPlayer;
 
     private void OnValidate()
     {
@@ -35,15 +38,32 @@ public class PlayerManager : MonoBehaviour
     {
         Instance = this;
     }
+
     public Vector3 GetPlayerPosition(int index)
     {
         var player = GetPlayer(index);
         return player != null ? player.transform.position : transform.position;
     }
 
-    public bool AttemptPlacePlayer(PlayerData data, Vector2 mousePos)
+    public bool NewPlayerToPlace()
     {
-        var ray = Camera.main.ScreenPointToRay(mousePos);
+        foreach (var player in _players)
+        {
+            if (player.PlayerData == null)
+            {
+                _placingPlayer = player;
+                _placingPlayer.SetAnimation("Placing");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool UpdatePlacingPlayer(Vector2 mousePos)
+    {
+        if (_placingPlayer == null) return false;
+
+        var ray = Camera.main.ScreenPointToRay(mousePos + Vector2.up * _dragPlayerYOffset);
         if (Physics.Raycast(ray, out var hitInfo, 100f, _floorMask))
         {
             var position = hitInfo.point;
@@ -56,21 +76,33 @@ public class PlayerManager : MonoBehaviour
                     float zDist = Mathf.Abs(position.z - playerPos.z);
                     if (xDist < _spacingBetweenPlayersXZ.x && zDist < _spacingBetweenPlayersXZ.y)
                     {
-                        // Existing player is too close (TODO: Visuals to show if can place)
+                        _placingPlayer.UpdateCanPlace(position, false);
                         return false;
                     }
                 }
             }
-            foreach (var player in _players)
-            {
-                if (player.PlayerData == null)
-                {
-                    player.Place(position, data);
-                    RefreshPlayers?.Invoke();
-                    return true;
-                }
-            }
+            _placingPlayer.UpdateCanPlace(position, true);
+            return true;
         }
+        // Should move anyways (Match floor plane?)
+        var plane = new Plane(Vector3.up, Vector3.up * 0.002f);
+        plane.Raycast(ray, out float enter);
+        _placingPlayer.UpdateCanPlace(ray.GetPoint(enter), false);
+        return false;
+    }
+
+    public bool AttemptPlacePlayer(PlayerData data, Vector2 mousePos)
+    {
+        if (_placingPlayer == null) return false;
+
+        if (UpdatePlacingPlayer(mousePos))
+        {
+            _placingPlayer.Place(data);
+            _placingPlayer = null;
+            return true;
+        }
+        _placingPlayer.UpdateCanPlace(Vector3.zero, false);
+        _placingPlayer = null;
         return false;
     }
 
