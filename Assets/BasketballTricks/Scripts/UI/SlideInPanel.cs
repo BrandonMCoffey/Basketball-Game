@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SlideInPanel : MonoBehaviour
 {
@@ -51,5 +52,6 @@ public class SlideInPanel : MonoBehaviour
         {
             _slideToggleText.text = _shown ? "<-" : "->";
         }
+
     }
 }
