@@ -108,4 +108,6 @@ public struct MenuReference
     public RectTransform Panel;
     public Vector2 OnScreenPosition;
     public Vector2 OffScreenPosition;
+    public float SlideInDuration;
+    public Ease SlideInEase;
 }
