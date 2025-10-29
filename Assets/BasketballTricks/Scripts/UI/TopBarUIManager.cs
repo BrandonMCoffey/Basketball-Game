@@ -4,6 +4,7 @@ using UnityEngine;
 public class TopBarUIManager : MonoBehaviour
 {
     [SerializeField] private TopBarActionUI _barActionPrefab;
+    [SerializeField] private RectTransform _barsContainer;
     [SerializeField] private List<TopBarActionUI> _bars;
 
     private void Start()
@@ -39,7 +40,7 @@ public class TopBarUIManager : MonoBehaviour
 
     private TopBarActionUI AddTimelineBar()
     {
-        TopBarActionUI bar = Instantiate(_barActionPrefab, transform);
+        TopBarActionUI bar = Instantiate(_barActionPrefab, _barsContainer);
         _bars.Add(bar);
         return bar;
     }

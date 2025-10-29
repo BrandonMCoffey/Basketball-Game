@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SlideInPanel : MonoBehaviour
@@ -11,6 +12,7 @@ public class SlideInPanel : MonoBehaviour
     [SerializeField] private float _showTime = 0.5f;
     [SerializeField] private List<SlideInPanel> _hideOtherPanelsWhenOpened = new List<SlideInPanel>();
     [SerializeField] private List<SlideInPanel> _showOtherPanelsWhenHidden = new List<SlideInPanel>();
+    [SerializeField] private TextMeshProUGUI _slideToggleText;
 
     private void OnValidate()
     {
@@ -28,7 +30,7 @@ public class SlideInPanel : MonoBehaviour
     {
         if (_shown == shown) return;
         _shown = shown;
-        _rectTransform.DOAnchorPos(_shown ? _shownPosition : _hiddenPosition, _showTime).SetEase(Ease.OutQuart);
+        _rectTransform.DOAnchorPos(_shown ? _shownPosition : _hiddenPosition, _showTime).SetEase(Ease.OutExpo);
 
         if (shown && updateLinked)
         {
@@ -43,6 +45,11 @@ public class SlideInPanel : MonoBehaviour
             {
                 if (panel != null) panel.SetShown(true);
             }
+        }
+
+        if (_slideToggleText != null)
+        {
+            _slideToggleText.text = _shown ? "<-" : "->";
         }
     }
 }
