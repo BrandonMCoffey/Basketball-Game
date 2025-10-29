@@ -37,14 +37,14 @@ public class SlideInPanel : MonoBehaviour
         {
             foreach (var panel in _hideOtherPanelsWhenOpened)
             {
-                if (panel != null) panel.SetShown(false);
+                if (panel != null) panel.SetShown(false, false);
             }
         }
         else if (updateLinked)
         {
             foreach (var panel in _showOtherPanelsWhenHidden)
             {
-                if (panel != null) panel.SetShown(true);
+                if (panel != null) panel.SetShown(true, false);
             }
         }
 
