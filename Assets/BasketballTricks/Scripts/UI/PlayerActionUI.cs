@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class PlayerActionUI : MonoBehaviour
     [SerializeField] private TMP_Text _playerName;
     [SerializeField] private Image _playerImage;
     [SerializeField] private List<PlayerActionVisuals> _actionVisuals;
+    [SerializeField] RectTransform _playerIconTransform;
 
     private Player _player;
     private PlayerData _playerData;
@@ -18,6 +20,7 @@ public class PlayerActionUI : MonoBehaviour
         _playerActionPanel.SetShown(true);
         _player = player;
         _playerData = player != null ? player.PlayerData : null;
+        PlayerShowAnims();
         UpdateData();
     }
 
@@ -40,5 +43,10 @@ public class PlayerActionUI : MonoBehaviour
     {
         // Check action if it is pass to make the user select who to pass to
         PlayerManager.Instance.AddAction(_player, index);
+    }
+
+    public void PlayerShowAnims()
+    {
+        _playerIconTransform.DOPunchScale(Vector3.one * 0.1f, 0.3f);
     }
 }

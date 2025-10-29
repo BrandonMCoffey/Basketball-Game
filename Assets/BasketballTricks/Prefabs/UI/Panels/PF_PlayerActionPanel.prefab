@@ -1276,6 +1276,7 @@ MonoBehaviour:
   - {fileID: 2622003808374192410}
   - {fileID: 6348965369212106501}
   - {fileID: 3803477316152980070}
+  _playerIconTransform: {fileID: 4929403831113153523}
 --- !u!114 &5543462133366450511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1290,14 +1291,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rectTransform: {fileID: 5836130272656072850}
   _shown: 0
-  _shownPosition: {x: 0, y: 0}
+  _shownPosition: {x: 0, y: 20}
   _hiddenPosition: {x: 0, y: -400}
-  _showTime: 0.5
+  _showTime: 0.3
   _hideOtherPanelsWhenOpened:
   - {fileID: 0}
   - {fileID: 0}
   _showOtherPanelsWhenHidden:
   - {fileID: 0}
+  _slideToggleText: {fileID: 0}
 --- !u!1 &2981164230599220139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1356,15 +1358,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 0.8}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: f8abb21dae0d9114194e42d34012bcf9, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3289,15 +3291,15 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7228985667443084881}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.038269952, w: 0.99926746}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.0619, y: 1.0619, z: 1.0619}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 625862501196855959}
   - {fileID: 1142728263600130918}
   m_Father: {fileID: 7663253155537500077}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -4.386}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
