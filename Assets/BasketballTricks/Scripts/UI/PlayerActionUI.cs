@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
@@ -48,16 +49,31 @@ public class PlayerActionUI : MonoBehaviour
         PlayerManager.Instance.AddAction(_player, index);
     }
 
+    Coroutine glareRoutine;
     public void PlayerShowAnims(bool enabled)
     {
         if (enabled)
         {
             _playerIconTransform.DOPunchScale(Vector3.one * 0.1f, 0.3f);
-            _glareEffect.anchoredPosition = new Vector2(-1024, 0);
-            _glareEffect.DOAnchorPos(new Vector2(5000, 0), 7f).SetEase(Ease.Linear).SetLoops(-1).OnComplete(() =>
-            {
-                _glareEffect.anchoredPosition = new Vector2(-1024, 0);
-            });
+            if (glareRoutine != null) StopCoroutine(glareRoutine);
+            glareRoutine = StartCoroutine(GlareRoutine());
+        }
+        else
+        {
+            if (glareRoutine != null) StopCoroutine(glareRoutine);
+            _glareEffect.gameObject.SetActive(false);
+        }
+    }
+
+    IEnumerator GlareRoutine()
+    {
+        _glareEffect.gameObject.SetActive(true);
+        while (true)
+        {
+            _glareEffect.anchoredPosition = new Vector2(-Screen.width - 1024, 0);
+            _glareEffect.DOAnchorPos(new Vector2(Screen.width + 1024, 0), 3f).SetEase(Ease.Linear);
+            yield return new WaitForSeconds(5f);
+            _glareEffect.anchoredPosition = new Vector2(-Screen.width - 1024, 0);
         }
     }
 }

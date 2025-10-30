@@ -1063,6 +1063,7 @@ MonoBehaviour:
   - {fileID: 1229214744}
   _basketball: {fileID: 292647101}
   _net: {fileID: 869061825}
+  _dragPlayerYOffset: -150
   _floorMask:
     serializedVersion: 2
     m_Bits: 128

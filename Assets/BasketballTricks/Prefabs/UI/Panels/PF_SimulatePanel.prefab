@@ -728,3 +728,6 @@ MonoBehaviour:
   _showOtherPanelsWhenHidden:
   - {fileID: 0}
   _slideToggleText: {fileID: 0}
+  _onVisibilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
