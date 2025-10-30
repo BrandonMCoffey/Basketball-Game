@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private List<Player> _players = new List<Player>();
     [SerializeField] private Basketball _basketball;
     [SerializeField] private Transform _net;
+    [SerializeField] private RectTransform _minimumMouseX;
     [SerializeField] private float _dragPlayerYOffset = -150f;
     [SerializeField] private LayerMask _floorMask = 1;
     [SerializeField] private Vector2 _spacingBetweenPlayersXZ = new Vector2(2f, 3f);
@@ -64,7 +65,7 @@ public class PlayerManager : MonoBehaviour
         if (_placingPlayer == null) return false;
 
         var ray = Camera.main.ScreenPointToRay(mousePos + Vector2.up * _dragPlayerYOffset);
-        if (Physics.Raycast(ray, out var hitInfo, 100f, _floorMask))
+        if (mousePos.x > _minimumMouseX.position.x && Physics.Raycast(ray, out var hitInfo, 100f, _floorMask))
         {
             var position = hitInfo.point;
             foreach (var player in _players)
@@ -74,7 +75,7 @@ public class PlayerManager : MonoBehaviour
                     var playerPos = player.transform.position;
                     float xDist = Mathf.Abs(position.x - playerPos.x);
                     float zDist = Mathf.Abs(position.z - playerPos.z);
-                    if (xDist < _spacingBetweenPlayersXZ.x && zDist < _spacingBetweenPlayersXZ.y)
+                    if (xDist * xDist / (_spacingBetweenPlayersXZ.x * _spacingBetweenPlayersXZ.x) + zDist * zDist / (_spacingBetweenPlayersXZ.y * _spacingBetweenPlayersXZ.y) <= 1)
                     {
                         _placingPlayer.UpdateCanPlace(position, false);
                         return false;

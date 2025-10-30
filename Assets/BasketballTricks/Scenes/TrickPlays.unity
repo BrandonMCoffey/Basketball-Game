@@ -1063,11 +1063,12 @@ MonoBehaviour:
   - {fileID: 1229214744}
   _basketball: {fileID: 292647101}
   _net: {fileID: 869061825}
+  _minimumMouseX: {fileID: 3070299385534418959}
   _dragPlayerYOffset: -150
   _floorMask:
     serializedVersion: 2
     m_Bits: 128
-  _spacingBetweenPlayersXZ: {x: 1.5, y: 3}
+  _spacingBetweenPlayersXZ: {x: 1.5, y: 2.5}
 --- !u!224 &363327491385829405
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1944,6 +1945,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41fb6c233f7af6f4e9dbf290ae007953, type: 3}
+--- !u!224 &3070299385534418959 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5968706080472091771, guid: 41fb6c233f7af6f4e9dbf290ae007953,
+    type: 3}
+  m_PrefabInstance: {fileID: 3070299385534418958}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6135219230225266948
 PrefabInstance:
   m_ObjectHideFlags: 0
