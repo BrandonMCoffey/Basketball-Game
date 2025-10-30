@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 
 public enum TutorialState
@@ -21,6 +22,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] SlideInPanel _cardCatalog;
     [SerializeField] SlideInPanel _timelinePanel;
     [SerializeField] SlideInPanel _playerActionPanel;
+    [SerializeField] SlideInPanel _submitPanel;
 
     [Header("TutorialPanels")]
     [SerializeField] RectTransform _tutorialBlocker;
@@ -60,26 +62,53 @@ public class GameUIManager : MonoBehaviour
                 _tutorialPanels[0].gameObject.SetActive(false);
                 _tutorialPanels[1].gameObject.SetActive(true);
                 _cardCatalog.transform.SetAsLastSibling();
-                _cardCatalog.SetShown(true);
+                _cardCatalog.SetShown(true, false);
                 break;
             case TutorialState.DragPlayer:
-                _tutorialBlocker.gameObject.SetActive(false);
+                _tutorialBlocker.GetComponent<Image>().color = new Color(0, 0, 0, 0);
                 _tutorialPanels[1].gameObject.SetActive(false);
                 _tutorialPanels[2].gameObject.SetActive(true);
                 break;
             case TutorialState.SelectPlayer:
-                _cardCatalog.SetShown(false);
-                _timelinePanel.SetShown(true);
+                _tutorialBlocker.gameObject.SetActive(false);
+                _cardCatalog.SetShown(false, false);
+                _timelinePanel.SetShown(true, false);
                 _tutorialPanels[2].gameObject.SetActive(false);
                 _tutorialPanels[3].gameObject.SetActive(true);
                 _playerActionPanel.transform.SetAsLastSibling();
+                _submitPanel.SetShown(false, false);
                 break;
             case TutorialState.RemoveAction:
+                _tutorialBlocker.gameObject.SetActive(true);
+                _timelinePanel.transform.SetAsLastSibling();
+                _playerActionPanel.SetShown(false, false);
+                _submitPanel.SetShown(false, false);
+                _tutorialPanels[3].gameObject.SetActive(false);
+                _tutorialPanels[4].gameObject.SetActive(true);
                 break;
             case TutorialState.SelectOtherPlayer:
+                _tutorialBlocker.gameObject.SetActive(false);
+                _tutorialPanels[4].gameObject.SetActive(false);
+                _tutorialPanels[5].gameObject.SetActive(true);
                 break;
             case TutorialState.Simulate:
+                _playerActionPanel.SetShown(false, false);
+                _submitPanel.SetShown(true, false);
+                _tutorialPanels[5].gameObject.SetActive(false);
+                _tutorialPanels[6].gameObject.SetActive(true);
                 break;
+        }
+    }
+
+    public void EndTutorial()
+    {
+        if (_startTutorial && _tutorialPanels.Count > 0)
+        {
+            foreach (var panel in _tutorialPanels)
+            {
+                panel.gameObject.SetActive(false);
+            }
+            _tutorialBlocker.gameObject.SetActive(false);
         }
     }
 }
