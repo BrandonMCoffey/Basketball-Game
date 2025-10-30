@@ -99,6 +99,7 @@ public class PlayerManager : MonoBehaviour
         {
             _placingPlayer.Place(data);
             _placingPlayer = null;
+            RefreshPlayers?.Invoke();
             return true;
         }
         _placingPlayer.UpdateCanPlace(Vector3.zero, false);
