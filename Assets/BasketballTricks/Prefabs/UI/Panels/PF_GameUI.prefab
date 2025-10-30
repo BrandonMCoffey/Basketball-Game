@@ -508,12 +508,18 @@ MonoBehaviour:
     OffScreenPosition: {x: -553, y: 0}
     SlideInDuration: 0.25
     SlideInEase: 18
+    OnPanelToggled:
+      m_PersistentCalls:
+        m_Calls: []
   _timelinePanel:
     Panel: {fileID: 7084511374771246232}
     OnScreenPosition: {x: -420, y: -60}
     OffScreenPosition: {x: -420, y: 100}
     SlideInDuration: 0.5
     SlideInEase: 18
+    OnPanelToggled:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &4690578453371875565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -707,7 +713,7 @@ PrefabInstance:
     - target: {fileID: 1895881193562698487, guid: e11a793f2b1e064438d0382023767645,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1895881193562698487, guid: e11a793f2b1e064438d0382023767645,
         type: 3}
