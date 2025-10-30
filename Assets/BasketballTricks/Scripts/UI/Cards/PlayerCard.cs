@@ -41,7 +41,8 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     private bool _focusView;
     private int _actionDetailIndex;
     private RectTransform _actionDetailTransform;
-
+    private Transform _parent;
+    private Transform _holdParent;
 
     private bool CanDrag => _canDrag && !_focusView && !_flipping;
 
@@ -69,11 +70,13 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         }
     }
 
-    public void SaveInitialTransform()
+    public void Init(Transform parent, Transform holdParent)
     {
         _initialPosition = _rectTransform.position;
         _initialRotation = _rectTransform.localRotation;
         _initialScale = _rectTransform.localScale;
+        _parent = parent;
+        _holdParent = holdParent;
     }
 
     public void RefreshTransform()
@@ -158,6 +161,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         _focusView = true;
         RefreshInteractables();
 
+        if (_holdParent != null) transform.SetParent(_holdParent, true);
         transform.SetAsLastSibling();
         var rectTransform = _focusBackground.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = Vector3.zero;
@@ -192,6 +196,10 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         {
             _flipTransform.DOAnchorPosY(-30, _holdAnimationDuration).SetEase(Ease.OutQuart);
         }
+        else
+        {
+            if (_parent != null) transform.SetParent(_parent, true);
+        }
         _focusView = show;
         _flipping = false;
         RefreshInteractables();
@@ -212,7 +220,9 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
 
         _rectTransform.localScale = _initialScale * _popScale;
 
-        PlayerManager.Instance.NewPlayerToPlace();
+        bool canPlace = PlayerManager.Instance.NewPlayerToPlace();
+        if (_parent != null && _holdParent != null) transform.SetParent(canPlace ? _parent : _holdParent, true);
+        transform.SetAsLastSibling();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -260,6 +270,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         _rectTransform.position = _initialPosition;
         _rectTransform.localRotation = _initialRotation;
         _rectTransform.localScale = _initialScale;
+        if (_parent != null) transform.SetParent(_parent, true);
 
         RefreshInteractables();
     }

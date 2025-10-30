@@ -23,7 +23,6 @@ public class HandCatalog : MonoBehaviour
 
     private void Start()
     {
-
         CreateCards();
         if (_prevButton != null) _prevButton.onClick.AddListener(PreviousPage);
         if (_nextButton != null) _nextButton.onClick.AddListener(NextPage);
@@ -48,7 +47,7 @@ public class HandCatalog : MonoBehaviour
             rectTransform.anchorMin = rectTransform.anchorMax = rectTransform.pivot = Vector3.one * 0.5f;
             rectTransform.anchoredPosition = new Vector2(x, y + 20); // offset y for better centering - Sai
             rectTransform.sizeDelta = _cardSize;
-            card.SaveInitialTransform();
+            card.Init(_cardParent, transform);
             card.transform.localScale = Vector3.zero;
             _cards.Add(card);
         }
