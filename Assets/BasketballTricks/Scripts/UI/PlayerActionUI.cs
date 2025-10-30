@@ -12,6 +12,8 @@ public class PlayerActionUI : MonoBehaviour
     [SerializeField] private List<PlayerActionVisuals> _actionVisuals;
     [SerializeField] RectTransform _playerIconTransform;
 
+    [SerializeField] RectTransform _glareEffect;
+
     private Player _player;
     private PlayerData _playerData;
 
@@ -20,12 +22,13 @@ public class PlayerActionUI : MonoBehaviour
         _playerActionPanel.SetShown(true);
         _player = player;
         _playerData = player != null ? player.PlayerData : null;
-        PlayerShowAnims();
+        PlayerShowAnims(true);
         UpdateData();
     }
 
     public void Hide()
     {
+        PlayerShowAnims(false);
         _playerActionPanel.SetShown(false);
     }
 
@@ -45,8 +48,16 @@ public class PlayerActionUI : MonoBehaviour
         PlayerManager.Instance.AddAction(_player, index);
     }
 
-    public void PlayerShowAnims()
+    public void PlayerShowAnims(bool enabled)
     {
-        _playerIconTransform.DOPunchScale(Vector3.one * 0.1f, 0.3f);
+        if (enabled)
+        {
+            _playerIconTransform.DOPunchScale(Vector3.one * 0.1f, 0.3f);
+            _glareEffect.anchoredPosition = new Vector2(-1024, 0);
+            _glareEffect.DOAnchorPos(new Vector2(5000, 0), 7f).SetEase(Ease.Linear).SetLoops(-1).OnComplete(() =>
+            {
+                _glareEffect.anchoredPosition = new Vector2(-1024, 0);
+            });
+        }
     }
 }

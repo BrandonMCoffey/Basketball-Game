@@ -15,6 +15,8 @@ public class SlideInPanel : MonoBehaviour
     [SerializeField] private List<SlideInPanel> _showOtherPanelsWhenHidden = new List<SlideInPanel>();
     [SerializeField] private TextMeshProUGUI _slideToggleText;
 
+    [SerializeField] private UnityEvent<bool> _onVisibilityChanged;
+
     private void OnValidate()
     {
         if (_rectTransform == null) _rectTransform = GetComponent<RectTransform>();
@@ -52,6 +54,8 @@ public class SlideInPanel : MonoBehaviour
         {
             _slideToggleText.text = _shown ? "<-" : "->";
         }
+
+        _onVisibilityChanged?.Invoke(_shown);
 
     }
 }

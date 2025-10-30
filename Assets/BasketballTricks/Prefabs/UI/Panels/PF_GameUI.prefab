@@ -510,8 +510,8 @@ MonoBehaviour:
     SlideInEase: 18
   _timelinePanel:
     Panel: {fileID: 7084511374771246232}
-    OnScreenPosition: {x: 0, y: -80}
-    OffScreenPosition: {x: 0, y: 100}
+    OnScreenPosition: {x: -420, y: -60}
+    OffScreenPosition: {x: -420, y: 100}
     SlideInDuration: 0.5
     SlideInEase: 18
 --- !u!114 &4690578453371875565
@@ -747,7 +747,7 @@ PrefabInstance:
     - target: {fileID: 2990720659048665098, guid: e11a793f2b1e064438d0382023767645,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2990720659048665098, guid: e11a793f2b1e064438d0382023767645,
         type: 3}
@@ -757,7 +757,7 @@ PrefabInstance:
     - target: {fileID: 2990720659048665098, guid: e11a793f2b1e064438d0382023767645,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2990720659048665098, guid: e11a793f2b1e064438d0382023767645,
         type: 3}
@@ -767,7 +767,7 @@ PrefabInstance:
     - target: {fileID: 2990720659048665098, guid: e11a793f2b1e064438d0382023767645,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 800
+      value: 799.99994
       objectReference: {fileID: 0}
     - target: {fileID: 2990720659048665098, guid: e11a793f2b1e064438d0382023767645,
         type: 3}
@@ -812,12 +812,12 @@ PrefabInstance:
     - target: {fileID: 2990720659048665098, guid: e11a793f2b1e064438d0382023767645,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -420
       objectReference: {fileID: 0}
     - target: {fileID: 2990720659048665098, guid: e11a793f2b1e064438d0382023767645,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -80
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 2990720659048665098, guid: e11a793f2b1e064438d0382023767645,
         type: 3}

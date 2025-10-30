@@ -15,15 +15,20 @@ public class HandCatalog : MonoBehaviour
     [SerializeField] private Button _prevButton;
     [SerializeField] private Button _nextButton;
     [SerializeField] private int _startIndex;
+    [SerializeField] RectTransform _glareEffect;
 
     private List<PlayerCard> _cards;
     private bool _transitioning;
+    private Coroutine _pageEffectsRoutine;
 
     private void Start()
     {
+
         CreateCards();
         if (_prevButton != null) _prevButton.onClick.AddListener(PreviousPage);
         if (_nextButton != null) _nextButton.onClick.AddListener(NextPage);
+
+        ToggleAnimations(true);
     }
 
     public void StartGame() => GameManager.Instance.StartGame();
@@ -128,5 +133,22 @@ public class HandCatalog : MonoBehaviour
         }
         _transitioning = false;
         UpdateCardData();
+    }
+
+    public void ToggleAnimations(bool enabled)
+    {
+        if (_pageEffectsRoutine != null) StopCoroutine(_pageEffectsRoutine);
+        if (enabled) _pageEffectsRoutine = StartCoroutine(PageEffectsRoutine());
+    }
+
+
+    IEnumerator PageEffectsRoutine()
+    {
+        while (true)
+        {
+            _glareEffect.anchoredPosition = new Vector2(0, -Screen.height - 1024);
+            _glareEffect.DOAnchorPos(new Vector2(0, Screen.height + 1024), 3f).SetEase(Ease.Linear);
+            yield return new WaitForSeconds(5f);
+        }
     }
 }
