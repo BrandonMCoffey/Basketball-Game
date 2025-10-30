@@ -11,11 +11,15 @@ public class SlideInPanel : MonoBehaviour
     [SerializeField] private Vector2 _shownPosition;
     [SerializeField] private Vector2 _hiddenPosition;
     [SerializeField] private float _showTime = 0.5f;
+    [SerializeField] private Ease _slideEase = Ease.OutExpo;
     [SerializeField] private List<SlideInPanel> _hideOtherPanelsWhenOpened = new List<SlideInPanel>();
     [SerializeField] private List<SlideInPanel> _showOtherPanelsWhenHidden = new List<SlideInPanel>();
     [SerializeField] private TextMeshProUGUI _slideToggleText;
-
     [SerializeField] private UnityEvent<bool> _onVisibilityChanged;
+
+    public bool IsShown => _shown;
+
+
 
     private void OnValidate()
     {
@@ -33,7 +37,7 @@ public class SlideInPanel : MonoBehaviour
     {
         if (_shown == shown) return;
         _shown = shown;
-        _rectTransform.DOAnchorPos(_shown ? _shownPosition : _hiddenPosition, _showTime).SetEase(Ease.OutExpo);
+        _rectTransform.DOAnchorPos(_shown ? _shownPosition : _hiddenPosition, _showTime).SetEase(_slideEase);
 
         if (shown && updateLinked)
         {

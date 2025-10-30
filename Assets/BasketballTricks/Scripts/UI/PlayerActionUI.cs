@@ -17,6 +17,12 @@ public class PlayerActionUI : MonoBehaviour
 
     private Player _player;
     private PlayerData _playerData;
+    
+
+    private void Start()
+    {
+        PlayerShowAnims(GetComponent<SlideInPanel>().IsShown);
+    }
 
     public void ShowPlayer(Player player)
     {
