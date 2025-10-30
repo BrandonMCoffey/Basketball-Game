@@ -77,8 +77,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Idle
-      takeName: Armature|Idle
+      name: Idle
+      takeName: Idle
       internalID: -8945691123924629249
       firstFrame: 0
       lastFrame: 298
@@ -106,8 +106,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|SpiderDribble
-      takeName: Armature|SpiderDribble
+      name: SpiderDribble.001
+      takeName: SpiderDribble.001
       internalID: -8165996728422967017
       firstFrame: 0
       lastFrame: 40
