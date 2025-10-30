@@ -394,7 +394,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.18178675, g: 0.9308176, b: 0.12001101, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -458,8 +458,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.25
-      minScalar: 0.1
+      scalar: 0
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5109,7 +5109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerData: {fileID: 0}
-  _animator: {fileID: 0}
+  _animator: {fileID: 2742509778681835226}
   _positionIndicator: {fileID: 3948933407729916951}
   _positionColor: {r: 0, g: 1, b: 1, a: 1}
   _particles: {fileID: 8508551558105984109}
@@ -5830,6 +5830,12 @@ PrefabInstance:
 --- !u!4 &1399823886308218496 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7208261743932278219, guid: 7c2ae21774b87b24a813d590cd837261,
+    type: 3}
+  m_PrefabInstance: {fileID: 8603511039534633803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2742509778681835226 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7c2ae21774b87b24a813d590cd837261,
     type: 3}
   m_PrefabInstance: {fileID: 8603511039534633803}
   m_PrefabAsset: {fileID: 0}

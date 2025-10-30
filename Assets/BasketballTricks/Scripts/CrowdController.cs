@@ -18,8 +18,9 @@ public class CrowdController : MonoBehaviour
     [SerializeField] private Vector3 _hypeRotationAmount = new Vector3(15f, 180f, 25f);
     [SerializeField] private float _hypePositionAmountY = 1.2f;
     [SerializeField] private Vector2 _hypeSpeedRange = new Vector2(4f, 15f);
+    [SerializeField] private float _minHype = 1f;
     [SerializeField] private float _maxHype = 20f;
-    [SerializeField] private float _hypeExponent = 3f;
+    [SerializeField] private float _hypeExponent = 1.5f;
 
     private bool _playing;
     private float _hype;
@@ -41,7 +42,7 @@ public class CrowdController : MonoBehaviour
     private List<CrowdPerson> _crowdPeople;
 
     public void SetPlaying(bool playing) => _playing = playing;
-    public void SetHype(float hype) => _hype = hype + 1;
+    public void SetHype(float hype) => _hype = hype;
 
     private void Start()
     {
@@ -67,14 +68,11 @@ public class CrowdController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(_hype);
         if (_playing)
         {
             float normalizedHype = Mathf.Clamp01(_hype / _maxHype);
             float easedHype = Mathf.Pow(normalizedHype, _hypeExponent);
-
-            float minHypeEffect = 0.1f;
-            easedHype = Mathf.Max(easedHype, minHypeEffect * normalizedHype);
+            easedHype = Mathf.Max(easedHype, _minHype * normalizedHype);
 
             float targetSpeed = Mathf.Lerp(_hypeSpeedRange.x, _hypeSpeedRange.y, easedHype);
             float targetPosY = Mathf.Lerp(0, _hypePositionAmountY, easedHype);

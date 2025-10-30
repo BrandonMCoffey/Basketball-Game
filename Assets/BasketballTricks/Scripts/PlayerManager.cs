@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -159,6 +160,7 @@ public class PlayerManager : MonoBehaviour
                 if (action.Mult > 0) ui.AddMult(action.Mult);
                 _crowdController.SetHype(ui.Points * ui.Mult / 500f);
                 player.SetActionText(action.Name, action.Duration);
+                player.SetAnimation("Action", 0.25f);
                 player.EmitParticles();
                 Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.Points} points and {action.Mult} mult.");
                 if (action.Type == ActionType.Pass)
@@ -171,10 +173,12 @@ public class PlayerManager : MonoBehaviour
                         _basketball.transform.position = player.BasketballPosition;
                         yield return null;
                     }
+                    Vector3 startPos = player.BasketballPosition;
                     for (float t = 0; t < 1f; t += Time.deltaTime * timeScale * 2f)
                     {
-                        var pos = Vector3.Lerp(player.BasketballPosition, otherPlayer.BasketballPosition, t);
-                        pos += Vector3.up * Mathf.Abs(0.5f - t) * 0.2f;
+                        var pos = Vector3.Lerp(startPos, otherPlayer.BasketballPosition, t);
+                        float yOffset = Mathf.Abs(0.5f - t) * 2f;
+                        pos += Vector3.up * (1f - yOffset * yOffset);
                         _basketball.transform.position = pos;
                         yield return null;
                     }
@@ -183,11 +187,28 @@ public class PlayerManager : MonoBehaviour
                 {
                     player.FacePosition(_net.position, action.Duration);
                     float timeScale = 1f / action.Duration;
-                    for (float t = 0; t < 1f; t += Time.deltaTime * timeScale)
+                    for (float t = 0; t < 1f; t += Time.deltaTime * timeScale * 2f)
                     {
                         _basketball.transform.position = player.BasketballPosition;
                         yield return null;
                     }
+
+                    var startPos = player.BasketballPosition;
+                    var endPos = _net.position;
+                    var controlPoint = (startPos + endPos) / 2f + Vector3.up * (2f + Vector3.Distance(startPos, endPos) / 3f);
+
+                    for (float t = 0; t < 1f; t += Time.deltaTime * timeScale * 2f)
+                    {
+                        float oneMinusT = 1f - t;
+                        Vector3 pos = oneMinusT * oneMinusT * startPos + 2f * oneMinusT * t * controlPoint + t * t * endPos;
+                        _basketball.transform.position = pos; 
+                        yield return null;
+                    }
+                    _basketball.transform.position = endPos;
+
+                    var groundPos = new Vector3(endPos.x, 0.22f, endPos.z);
+                    yield return _basketball.transform.DOMove(groundPos, 0.3f).SetEase(Ease.InQuad).WaitForCompletion();
+                    break;
                 }
                 else
                 {
@@ -198,8 +219,11 @@ public class PlayerManager : MonoBehaviour
                         yield return null;
                     }
                 }
+                player.SetAnimation("Idle", 0.25f);
             }
         }
+        yield return new WaitForSeconds(1f);
+        _crowdController.SetPlaying(false);
     }
 }
 
