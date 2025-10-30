@@ -29,9 +29,9 @@ public class Player : MonoBehaviour
         _actionText.text = "";
     }
 
-    public void SetAnimation(string stateName)
+    public void SetAnimation(string stateName, float fade = 0f)
     {
-        //_animator.CrossFade(stateName, 0f);
+        _animator.CrossFade(stateName, 0f);
     }
 
     public void UpdateCanPlace(Vector3 pos, bool canPlace)
