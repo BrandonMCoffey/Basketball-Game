@@ -7,7 +7,6 @@ public enum TutorialState
 {
     Intro,
     Catalog,
-    TapHoldPlayer,
     DragPlayer,
     SelectPlayer,
     SelectAction,
@@ -28,6 +27,8 @@ public class TutorialUIManager : MonoBehaviour
     [Header("Tutorial Panels")]
     [SerializeField] RectTransform _backgroundDimmer;
     [SerializeField] RectTransform _introPanel;
+    [SerializeField] RectTransform _catalogPanel;
+    [SerializeField] RectTransform _dragPlayerPanel;
 
     [Header("Runtime Settings")]
     [SerializeField, ReadOnly] TutorialState _currentState = TutorialState.Intro;
@@ -48,10 +49,12 @@ public class TutorialUIManager : MonoBehaviour
             case TutorialState.Catalog:
                 _introPanel.gameObject.SetActive(false);
                 _cardContainer.SetShown(true);
-                break;
-            case TutorialState.TapHoldPlayer:
+                _catalogPanel.gameObject.SetActive(true);
                 break;
             case TutorialState.DragPlayer:
+                _catalogPanel.gameObject.SetActive(false);
+                _backgroundDimmer.gameObject.SetActive(false);
+                _dragPlayerPanel.gameObject.SetActive(true);
                 break;
             case TutorialState.SelectPlayer:
                 break;

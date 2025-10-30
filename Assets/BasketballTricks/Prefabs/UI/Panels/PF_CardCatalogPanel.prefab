@@ -1166,6 +1166,7 @@ MonoBehaviour:
   _shownPosition: {x: 20, y: 0}
   _hiddenPosition: {x: -400, y: 0}
   _showTime: 0.5
+  _slideEase: 18
   _hideOtherPanelsWhenOpened:
   - {fileID: 0}
   _showOtherPanelsWhenHidden: []

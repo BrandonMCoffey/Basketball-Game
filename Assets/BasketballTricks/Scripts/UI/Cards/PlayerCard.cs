@@ -42,6 +42,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     private int _actionDetailIndex;
     private RectTransform _actionDetailTransform;
 
+
     private bool CanDrag => _canDrag && !_focusView && !_flipping;
 
     protected override void Awake()
@@ -197,7 +198,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     }
 
     public void OnBeginDrag(PointerEventData eventData)
-    {
+    {        
         if (!CanDrag || _isDragging) return;
         if (_holdCoroutine != null)
         {
