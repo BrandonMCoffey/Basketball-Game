@@ -25,6 +25,7 @@ public class PlayerArt : MonoBehaviour
             {
                 var hair = Instantiate(hairData.HairObject, transform, false);
                 hair.transform.SetParent(_head);
+                hair.gameObject.layer = _skinRenderer.gameObject.layer;
                 var hairMat = new Material(_hairMaterial);
                 hairMat.color = hairData.GetHairColor();
                 SwitchMaterial(hair.GetComponent<MeshRenderer>(), hairMat, 0);
@@ -34,6 +35,7 @@ public class PlayerArt : MonoBehaviour
                 {
                     var facialHair = Instantiate(facialHairPrefab, transform, false);
                     facialHair.transform.SetParent(_head);
+                    facialHair.gameObject.layer = _skinRenderer.gameObject.layer;
                     SwitchMaterial(facialHair.GetComponent<MeshRenderer>(), hairMat, 0);
                 }
 

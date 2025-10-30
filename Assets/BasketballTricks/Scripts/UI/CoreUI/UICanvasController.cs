@@ -3,6 +3,7 @@ using UnityEngine;
 using SaiUtils.StateMachine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class UICanvasController : MonoBehaviour
 {
@@ -102,12 +103,3 @@ public struct MenuPositions
     public Vector2 Position;
 }
 
-[System.Serializable]
-public struct MenuReference
-{
-    public RectTransform Panel;
-    public Vector2 OnScreenPosition;
-    public Vector2 OffScreenPosition;
-    public float SlideInDuration;
-    public Ease SlideInEase;
-}

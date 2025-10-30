@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
@@ -12,20 +13,29 @@ public class PlayerActionUI : MonoBehaviour
     [SerializeField] private List<PlayerActionVisuals> _actionVisuals;
     [SerializeField] RectTransform _playerIconTransform;
 
+    [SerializeField] RectTransform _glareEffect;
+
     private Player _player;
     private PlayerData _playerData;
+    
+
+    private void Start()
+    {
+        PlayerShowAnims(GetComponent<SlideInPanel>().IsShown);
+    }
 
     public void ShowPlayer(Player player)
     {
         _playerActionPanel.SetShown(true);
         _player = player;
         _playerData = player != null ? player.PlayerData : null;
-        PlayerShowAnims();
+        PlayerShowAnims(true);
         UpdateData();
     }
 
     public void Hide()
     {
+        PlayerShowAnims(false);
         _playerActionPanel.SetShown(false);
     }
 
@@ -45,8 +55,31 @@ public class PlayerActionUI : MonoBehaviour
         PlayerManager.Instance.AddAction(_player, index);
     }
 
-    public void PlayerShowAnims()
+    Coroutine glareRoutine;
+    public void PlayerShowAnims(bool enabled)
     {
-        _playerIconTransform.DOPunchScale(Vector3.one * 0.1f, 0.3f);
+        if (enabled)
+        {
+            _playerIconTransform.DOPunchScale(Vector3.one * 0.1f, 0.3f);
+            if (glareRoutine != null) StopCoroutine(glareRoutine);
+            glareRoutine = StartCoroutine(GlareRoutine());
+        }
+        else
+        {
+            if (glareRoutine != null) StopCoroutine(glareRoutine);
+            _glareEffect.gameObject.SetActive(false);
+        }
+    }
+
+    IEnumerator GlareRoutine()
+    {
+        _glareEffect.gameObject.SetActive(true);
+        while (true)
+        {
+            _glareEffect.anchoredPosition = new Vector2(-Screen.width - 1024, 0);
+            _glareEffect.DOAnchorPos(new Vector2(Screen.width + 1024, 0), 3f).SetEase(Ease.Linear);
+            yield return new WaitForSeconds(5f);
+            _glareEffect.anchoredPosition = new Vector2(-Screen.width - 1024, 0);
+        }
     }
 }

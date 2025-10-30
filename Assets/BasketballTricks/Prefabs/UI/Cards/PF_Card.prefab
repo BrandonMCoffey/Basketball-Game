@@ -941,6 +941,8 @@ MonoBehaviour:
   _backGroup: {fileID: 8313526826100118870}
   _raycastImage: {fileID: 693743531559178206}
   _flipOnClick: 0
+  _onDragStateChanged: {fileID: 11400000, guid: b79ec7a8f2d0a4c44a40a0deef84e3af,
+    type: 2}
   _canDrag: 1
   _popScale: 1.1
   _dragMoveSpeed: 15
