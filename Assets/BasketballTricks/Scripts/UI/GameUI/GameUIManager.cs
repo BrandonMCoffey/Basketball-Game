@@ -40,7 +40,14 @@ public class GameUIManager : MonoBehaviour
         }
         else
         {
+            foreach (var panel in _tutorialPanels)
+            {
+                panel.gameObject.SetActive(false);
+            }
             _tutorialBlocker.gameObject.SetActive(false);
+
+            _cardCatalog.SetShown(true);
+            _timelinePanel.SetShown(true);
         }
     }
 
