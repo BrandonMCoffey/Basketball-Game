@@ -9,8 +9,8 @@ public class SimulatePanelUI : MonoBehaviour
     [SerializeField] private TMP_Text _multText;
     [SerializeField] private List<SlideInPanel> _hideAllPanels;
 
-    private float _points;
-    private float _mult;
+    public float Points { get; private set; }
+    public float Mult { get; private set; }
 
     private void Awake()
     {
@@ -29,21 +29,21 @@ public class SimulatePanelUI : MonoBehaviour
 
     public void ResetScore()
     {
-        _points = 0;
-        _mult = 0;
-        _pointsText.text = $"Points: {_points}";
-        _multText.text = $"Mult: {_mult}";
+        Points = 0;
+        Mult = 1;
+        _pointsText.text = $"Points: {Points}";
+        _multText.text = $"Mult: {Mult}";
     }
 
     public void AddPoints(float points)
     {
-        _points += points;
-        _pointsText.text = $"Points: {_points}";
+        Points += points;
+        _pointsText.text = $"Points: {Points}";
     }
 
     public void AddMult(float mult)
     {
-        _mult += mult;
-        _multText.text = $"Mult: {_mult}";
+        Mult += mult;
+        _multText.text = $"Mult: {Mult}";
     }
 }

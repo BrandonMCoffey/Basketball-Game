@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private List<Player> _players = new List<Player>();
     [SerializeField] private Basketball _basketball;
     [SerializeField] private Transform _net;
+    [SerializeField] private CrowdController _crowdController;
     [SerializeField] private RectTransform _minimumMouseX;
     [SerializeField] private float _dragPlayerYOffset = -150f;
     [SerializeField] private LayerMask _floorMask = 1;
@@ -146,6 +147,7 @@ public class PlayerManager : MonoBehaviour
     {
         ui.ResetScore();
         yield return new WaitForSeconds(1f);
+        _crowdController.SetPlaying(true);
         for (int i = 0; i < TimelineActions.Count; i++)
         {
             TimelineAction timelineAction = TimelineActions[i];
@@ -155,6 +157,7 @@ public class PlayerManager : MonoBehaviour
                 var action = player.PlayerData.GetAction(timelineAction.ActionIndex);
                 if (action.Points > 0) ui.AddPoints(action.Points);
                 if (action.Mult > 0) ui.AddMult(action.Mult);
+                _crowdController.SetHype(ui.Points * ui.Mult / 500f);
                 player.SetActionText(action.Name, action.Duration);
                 player.EmitParticles();
                 Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.Points} points and {action.Mult} mult.");

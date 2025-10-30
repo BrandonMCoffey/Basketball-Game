@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
 
     public void SetAnimation(string stateName)
     {
-        _animator.CrossFade(stateName, 0f);
+        //_animator.CrossFade(stateName, 0f);
     }
 
     public void UpdateCanPlace(Vector3 pos, bool canPlace)
