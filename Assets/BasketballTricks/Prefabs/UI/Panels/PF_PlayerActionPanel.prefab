@@ -1377,6 +1377,7 @@ MonoBehaviour:
   _shownPosition: {x: 0, y: 20}
   _hiddenPosition: {x: 0, y: -400}
   _showTime: 0.3
+  _slideEase: 18
   _hideOtherPanelsWhenOpened:
   - {fileID: 0}
   - {fileID: 0}
@@ -1444,7 +1445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.8392157}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
