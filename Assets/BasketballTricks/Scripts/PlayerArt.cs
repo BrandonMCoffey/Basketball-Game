@@ -8,6 +8,8 @@ public class PlayerArt : MonoBehaviour
     [SerializeField] private Gradient _skinGradient;
     [SerializeField] private Transform _head;
     [SerializeField] private Material _hairMaterial;
+    [SerializeField] private Vector3 _localHairPosition = new Vector3(0, -0.0159f, 0.00015f);
+    [SerializeField] private Vector3 _localHairRotation = new Vector3(-90, 0, 0);
     [SerializeField] private List<HairData> _hairPrefabs;
 
     private void Start()
@@ -25,6 +27,7 @@ public class PlayerArt : MonoBehaviour
             {
                 var hair = Instantiate(hairData.HairObject, transform, false);
                 hair.transform.SetParent(_head);
+                hair.transform.SetLocalPositionAndRotation(_localHairPosition, Quaternion.Euler(_localHairRotation));
                 hair.gameObject.layer = _skinRenderer.gameObject.layer;
                 var hairMat = new Material(_hairMaterial);
                 hairMat.color = hairData.GetHairColor();
@@ -35,6 +38,7 @@ public class PlayerArt : MonoBehaviour
                 {
                     var facialHair = Instantiate(facialHairPrefab, transform, false);
                     facialHair.transform.SetParent(_head);
+                    facialHair.transform.SetLocalPositionAndRotation(_localHairPosition, Quaternion.Euler(_localHairRotation));
                     facialHair.gameObject.layer = _skinRenderer.gameObject.layer;
                     SwitchMaterial(facialHair.GetComponent<MeshRenderer>(), hairMat, 0);
                 }
@@ -44,6 +48,8 @@ public class PlayerArt : MonoBehaviour
                 {
                     var headband = Instantiate(headbandPrefab, transform, false);
                     headband.transform.SetParent(_head);
+                    headband.transform.SetLocalPositionAndRotation(_localHairPosition, Quaternion.Euler(_localHairRotation));
+                    hair.gameObject.layer = _skinRenderer.gameObject.layer;
                 }
             }
         }

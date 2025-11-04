@@ -5162,6 +5162,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   _head: {fileID: 1399823886308218496}
   _hairMaterial: {fileID: 2100000, guid: a045c423f2f1dd94db65bcb68cf2c8cc, type: 2}
+  _localHairPosition: {x: 0, y: -0.0159, z: 0.00015}
+  _localHairRotation: {x: -90, y: 0, z: 0}
   _hairPrefabs:
   - {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}
   - {fileID: 11400000, guid: 3e775665ff33ffd49944c23c6db86dae, type: 2}
