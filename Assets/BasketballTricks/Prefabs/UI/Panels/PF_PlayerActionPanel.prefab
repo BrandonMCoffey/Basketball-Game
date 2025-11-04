@@ -1323,7 +1323,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2816764907208277365}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1354,6 +1354,7 @@ MonoBehaviour:
   _playerActionPanel: {fileID: 5543462133366450511}
   _playerName: {fileID: 1400051190342968915}
   _playerImage: {fileID: 336520696543414794}
+  _backgroundImage: {fileID: 3105316508922288664}
   _actionVisuals:
   - {fileID: 2622003808374192410}
   - {fileID: 6348965369212106501}
@@ -1445,14 +1446,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.8392157}
+  m_Color: {r: 0.19, g: 0.5545002, b: 1, a: 0.8392157}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9a7ab4f9dc8338b45b0bc49fe9192c60, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 41f3626818f01f6488658a6e1aa97254, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -369,6 +369,30 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7167897031182084844}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &888308602 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2160616132332880809, guid: 41fb6c233f7af6f4e9dbf290ae007953,
+    type: 3}
+  m_PrefabInstance: {fileID: 3070299385534418958}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2df8bd6372057ba4d96f27d69b66ba39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &991204037 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 773776000693839545, guid: 41fb6c233f7af6f4e9dbf290ae007953,
+    type: 3}
+  m_PrefabInstance: {fileID: 3070299385534418958}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18e7690c67dbbb64796f48086adaa45f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1192281734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1076,6 +1100,8 @@ MonoBehaviour:
   _basketball: {fileID: 292647101}
   _net: {fileID: 869061825}
   _crowdController: {fileID: 468289106}
+  _playerUIManager: {fileID: 888308602}
+  _cardCatalogPanel: {fileID: 991204037}
   _minimumMouseXShow: {fileID: 3070299385534418960}
   _minimumMouseXPlace: {fileID: 3070299385534418959}
   _dragPlayerYOffset: -0.16
@@ -1086,6 +1112,7 @@ MonoBehaviour:
   _spacingBetweenPlayersXZ: {x: 1.5, y: 2.5}
   _outOfBoundsPlayerPos: {x: 10, y: 0, z: 0}
   _randomPlayerArt:
+  - {fileID: 11400000, guid: b4ac1ee4a44b520439c1ac090dfabee4, type: 2}
   - {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}
   - {fileID: 11400000, guid: 3e775665ff33ffd49944c23c6db86dae, type: 2}
   - {fileID: 11400000, guid: b8305e4956c4a6743aaa3502624f0cca, type: 2}

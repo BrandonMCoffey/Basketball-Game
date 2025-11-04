@@ -10,6 +10,7 @@ public class PlayerActionUI : MonoBehaviour
     [SerializeField] private SlideInPanel _playerActionPanel;
     [SerializeField] private TMP_Text _playerName;
     [SerializeField] private Image _playerImage;
+    [SerializeField] private Image _backgroundImage;
     [SerializeField] private List<PlayerActionVisuals> _actionVisuals;
     [SerializeField] RectTransform _playerIconTransform;
 
@@ -18,7 +19,6 @@ public class PlayerActionUI : MonoBehaviour
     private Player _player;
     private PlayerData _playerData;
     
-
     private void Start()
     {
         PlayerShowAnims(GetComponent<SlideInPanel>().IsShown);
@@ -46,6 +46,14 @@ public class PlayerActionUI : MonoBehaviour
         for (int i = 0; i < _actionVisuals.Count; i++)
         {
             _actionVisuals[i].SetData(_playerData != null ? _playerData.GetAction(i) : new ActionData());
+        }
+        if (_backgroundImage != null && _player != null)
+        {
+            Color.RGBToHSV(_backgroundImage.color, out float h, out float s, out float v);
+            Color.RGBToHSV(_player.PositionColor, out float ph, out float ps, out float pv);
+            var color = Color.HSVToRGB(ph, s, v);
+            color.a = _backgroundImage.color.a;
+            _backgroundImage.color = color;
         }
     }
 
