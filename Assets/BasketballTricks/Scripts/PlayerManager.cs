@@ -85,7 +85,6 @@ public class PlayerManager : MonoBehaviour
         mousePos.x = _dragPlayerXMult * (mousePos.x - Screen.width * 0.5f) + Screen.width * 0.5f;
         mousePos.y += _dragPlayerYOffset * Screen.height;
         var ray = Camera.main.ScreenPointToRay(mousePos);
-        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green);
         if (mousePos.x > _minimumMouseXPlace.position.x && Physics.Raycast(ray, out var hitInfo, 100f, _floorMask))
         {
             var position = hitInfo.point;
