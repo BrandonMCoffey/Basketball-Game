@@ -13,10 +13,13 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Basketball _basketball;
     [SerializeField] private Transform _net;
     [SerializeField] private CrowdController _crowdController;
-    [SerializeField] private RectTransform _minimumMouseX;
+    [SerializeField] private RectTransform _minimumMouseXShow;
+    [SerializeField] private RectTransform _minimumMouseXPlace;
     [SerializeField] private float _dragPlayerYOffset = -150f;
     [SerializeField] private LayerMask _floorMask = 1;
     [SerializeField] private Vector2 _spacingBetweenPlayersXZ = new Vector2(2f, 3f);
+    [SerializeField] private Vector3 _outOfBoundsPlayerPos = new Vector3(10f, 0f, 0f);
+    [SerializeField] private List<RandomPlayerArtData> _randomPlayerArt;
 
     public event System.Action RefreshPlayers = delegate { };
 
@@ -42,13 +45,24 @@ public class PlayerManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        if (_randomPlayerArt.Count > 0)
+        {
+            foreach (var player in _players)
+            {
+                player.PlayerArt.SetPlayerArt(_randomPlayerArt[Random.Range(0, _randomPlayerArt.Count)].GetData());
+            }
+        }
+    }
+
     public Vector3 GetPlayerPosition(int index)
     {
         var player = GetPlayer(index);
         return player != null ? player.transform.position : transform.position;
     }
 
-    public bool NewPlayerToPlace()
+    public bool NewPlayerToPlace(PlayerData data)
     {
         foreach (var player in _players)
         {
@@ -56,6 +70,7 @@ public class PlayerManager : MonoBehaviour
             {
                 _placingPlayer = player;
                 _placingPlayer.SetAnimation("Placing");
+                if (data.HasArtData) _placingPlayer.PlayerArt.SetPlayerArt(data.ArtData);
                 return true;
             }
         }
@@ -67,7 +82,8 @@ public class PlayerManager : MonoBehaviour
         if (_placingPlayer == null) return false;
 
         var ray = Camera.main.ScreenPointToRay(mousePos + Vector2.up * _dragPlayerYOffset);
-        if (mousePos.x > _minimumMouseX.position.x && Physics.Raycast(ray, out var hitInfo, 100f, _floorMask))
+        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green);
+        if (mousePos.x > _minimumMouseXPlace.position.x && Physics.Raycast(ray, out var hitInfo, 100f, _floorMask))
         {
             var position = hitInfo.point;
             foreach (var player in _players)
@@ -87,7 +103,11 @@ public class PlayerManager : MonoBehaviour
             _placingPlayer.UpdateCanPlace(position, true);
             return true;
         }
-        // Should move anyways (Match floor plane?)
+        else if (mousePos.x <= _minimumMouseXShow.position.x)
+        {
+            _placingPlayer.UpdateCanPlace(_outOfBoundsPlayerPos, false);
+            return false;
+        }
         var plane = new Plane(Vector3.up, Vector3.up * 0.002f);
         plane.Raycast(ray, out float enter);
         _placingPlayer.UpdateCanPlace(ray.GetPoint(enter), false);
@@ -105,7 +125,7 @@ public class PlayerManager : MonoBehaviour
             RefreshPlayers?.Invoke();
             return true;
         }
-        _placingPlayer.UpdateCanPlace(Vector3.zero, false);
+        _placingPlayer.UpdateCanPlace(_outOfBoundsPlayerPos, false);
         _placingPlayer = null;
         return false;
     }

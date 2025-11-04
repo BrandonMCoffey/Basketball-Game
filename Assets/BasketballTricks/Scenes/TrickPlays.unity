@@ -1076,12 +1076,21 @@ MonoBehaviour:
   _basketball: {fileID: 292647101}
   _net: {fileID: 869061825}
   _crowdController: {fileID: 468289106}
-  _minimumMouseX: {fileID: 3070299385534418959}
+  _minimumMouseXShow: {fileID: 3070299385534418960}
+  _minimumMouseXPlace: {fileID: 3070299385534418959}
   _dragPlayerYOffset: -150
   _floorMask:
     serializedVersion: 2
     m_Bits: 128
   _spacingBetweenPlayersXZ: {x: 1.5, y: 2.5}
+  _outOfBoundsPlayerPos: {x: 10, y: 0, z: 0}
+  _randomPlayerArt:
+  - {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}
+  - {fileID: 11400000, guid: 3e775665ff33ffd49944c23c6db86dae, type: 2}
+  - {fileID: 11400000, guid: b8305e4956c4a6743aaa3502624f0cca, type: 2}
+  - {fileID: 11400000, guid: 721269e15fe5dd8409d12c246c0fbef3, type: 2}
+  - {fileID: 11400000, guid: 993bae2d2eeacf949b21c33576b016be, type: 2}
+  - {fileID: 11400000, guid: f9aeb02c3b0338c46b2ba1b9b09247bd, type: 2}
 --- !u!224 &363327491385829405
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1876,6 +1885,12 @@ PrefabInstance:
 --- !u!224 &3070299385534418959 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5968706080472091771, guid: 41fb6c233f7af6f4e9dbf290ae007953,
+    type: 3}
+  m_PrefabInstance: {fileID: 3070299385534418958}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &3070299385534418960 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4051386137733074708, guid: 41fb6c233f7af6f4e9dbf290ae007953,
     type: 3}
   m_PrefabInstance: {fileID: 3070299385534418958}
   m_PrefabAsset: {fileID: 0}

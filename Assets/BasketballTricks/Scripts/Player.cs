@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerData _playerData;
     [SerializeField] private Animator _animator;
+    [SerializeField] private PlayerArt _playerArt;
     [SerializeField] private SpriteRenderer _positionIndicator;
     [SerializeField] private Color _positionColor = Color.cyan;
     [SerializeField] private ParticleSystem _particles;
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
     public PlayerData PlayerData => _playerData;
     public Color PositionColor => _positionColor;
     public Vector3 BasketballPosition => _basketballSocket.TransformPoint(_basketballOffset);
+    public PlayerArt PlayerArt => _playerArt;
 
     private void OnValidate()
     {
