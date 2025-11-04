@@ -78,7 +78,7 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: SpiderDribble
-      takeName: SpiderDribble.001
+      takeName: SpiderDribble
       internalID: -8165996728422967017
       firstFrame: 0
       lastFrame: 40
@@ -375,7 +375,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
