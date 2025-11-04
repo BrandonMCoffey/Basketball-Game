@@ -5,7 +5,7 @@ public class PlayerUIManager : MonoBehaviour
 {
     [SerializeField] private PlayerActionUI _actionUI;
     [SerializeField] private PlayerControlsUI _playerControlsPrefab;
-    [SerializeField] private float _uiHeightOffset = 1.0f;
+    [SerializeField] private float _multY = 0.9f;
 
     private PlayerManager _playerManager;
     private List<PlayerControlsUI> _playerControlsUI;
@@ -28,8 +28,10 @@ public class PlayerUIManager : MonoBehaviour
     {
         for (int i = 0; i < _playerControlsUI.Count; i++)
         {
-            _playerControlsUI[i].transform.position = Camera.main.WorldToScreenPoint(_playerManager.GetPlayerPosition(i) + Vector3.up * _uiHeightOffset);
-            _playerControlsUI[i].Init(this, i);
+            var pos = _playerManager.PlayerPosToMouse(i);
+            pos.y *= _multY;
+            _playerControlsUI[i].transform.position = pos;
+            _playerControlsUI[i].Init(this, i, _playerManager.GetPlayer(i));
         }
     }
 

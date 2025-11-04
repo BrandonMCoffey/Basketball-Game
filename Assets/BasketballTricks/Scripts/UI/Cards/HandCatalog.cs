@@ -74,8 +74,8 @@ public class HandCatalog : MonoBehaviour
         while (GameManager.InTransition) yield return null;
         for (int i = 0; i < _cards.Count; i++)
         {
-            _cards[i].transform.DOScale(i < cardsToShow ? Vector3.one : Vector3.zero, 0.5f).SetEase(Ease.OutBack);
-            yield return new WaitForSeconds(0.1f);
+            _cards[i].transform.DOScale(i < cardsToShow ? Vector3.one : Vector3.zero, 0.3f).SetEase(Ease.OutBack);
+            yield return new WaitForSeconds(0.05f);
         }
         UpdateInteractibility();
         _transitioning = false;
@@ -121,10 +121,10 @@ public class HandCatalog : MonoBehaviour
         UpdateInteractibility(true);
         for (int i = 0; i < _cards.Count; i++)
         {
-            _cards[i].transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.OutBack);
-            yield return new WaitForSeconds(0.1f);
+            _cards[i].transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.OutBack);
+            yield return new WaitForSeconds(0.05f);
         }
-        yield return new WaitForSeconds(0.5f); // Finish DoTween
+        yield return new WaitForSeconds(0.3f); // Finish DoTween
         foreach (var card in _cards)
         {
             card.RefreshTransform();

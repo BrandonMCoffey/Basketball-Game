@@ -1,11 +1,13 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControlsUI : MonoBehaviour
 {
     [SerializeField] private CanvasGroup _currentActionsGroup;
     [SerializeField] private Transform _currentActionsRow;
     [SerializeField] private PlayerActionDisplay _actionPrefab;
+    [SerializeField] private Image _buttonImage;
     
     private bool _currentActionsExpanded;
     private PlayerUIManager _manager;
@@ -18,10 +20,11 @@ public class PlayerControlsUI : MonoBehaviour
         _currentActionsGroup.interactable = false;
     }
 
-    public void Init(PlayerUIManager manager, int index)
+    public void Init(PlayerUIManager manager, int index, Player player)
     {
         _manager = manager;
         _index = index;
+        _buttonImage.color = player != null ? player.PositionColor : new Color(0,0,0,0);
     }
 
     public void ToggleSelected() => _manager.ToggleSelectPlayer(_index);

@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +12,12 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Basketball _basketball;
     [SerializeField] private Transform _net;
     [SerializeField] private CrowdController _crowdController;
+    [SerializeField] private PlayerUIManager _playerUIManager;
+    [SerializeField] private SlideInPanel _cardCatalogPanel;
     [SerializeField] private RectTransform _minimumMouseXShow;
     [SerializeField] private RectTransform _minimumMouseXPlace;
-    [SerializeField] private float _dragPlayerYOffset = -150f;
+    [SerializeField, Range(-0.5f, 0.5f)] private float _dragPlayerYOffset = -0.1f;
+    [SerializeField, Range(0f, 2f)] private float _dragPlayerXMult = 0.9f;
     [SerializeField] private LayerMask _floorMask = 1;
     [SerializeField] private Vector2 _spacingBetweenPlayersXZ = new Vector2(2f, 3f);
     [SerializeField] private Vector3 _outOfBoundsPlayerPos = new Vector3(10f, 0f, 0f);
@@ -77,12 +79,28 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
+    public Vector3 OffsetMousePosToPlayer(Vector2 mousePos)
+    {
+        mousePos.x = _dragPlayerXMult * (mousePos.x - Screen.width * 0.5f) + Screen.width * 0.5f;
+        mousePos.y += _dragPlayerYOffset * Screen.height;
+        return mousePos;
+    }
+
+    public Vector2 PlayerPosToMouse(int index)
+    {
+        var player = GetPlayer(index);
+        if (player == null) return new Vector2(-500, 0);
+        Vector2 screenPoint = Camera.main.WorldToScreenPoint(player.transform.position);
+        screenPoint.x = (screenPoint.x - Screen.width * 0.5f) / _dragPlayerXMult + Screen.width * 0.5f;
+        screenPoint.y -= _dragPlayerYOffset * Screen.height;
+        return screenPoint;
+    }
+
     public bool UpdatePlacingPlayer(Vector2 mousePos)
     {
         if (_placingPlayer == null) return false;
 
-        var ray = Camera.main.ScreenPointToRay(mousePos + Vector2.up * _dragPlayerYOffset);
-        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green);
+        var ray = Camera.main.ScreenPointToRay(OffsetMousePosToPlayer(mousePos));
         if (mousePos.x > _minimumMouseXPlace.position.x && Physics.Raycast(ray, out var hitInfo, 100f, _floorMask))
         {
             var position = hitInfo.point;
@@ -122,7 +140,17 @@ public class PlayerManager : MonoBehaviour
         {
             _placingPlayer.Place(data);
             _placingPlayer = null;
-            RefreshPlayers?.Invoke();
+            if (_players.All(p => p.PlayerData != null))
+            {
+                _cardCatalogPanel.SetShown(false);
+                _players.Sort((a, b) => b.transform.position.x.CompareTo(a.transform.position.x));
+                RefreshPlayers?.Invoke();
+                _playerUIManager.ToggleSelectPlayer(0);
+            }
+            else
+            {
+                RefreshPlayers?.Invoke();
+            }
             return true;
         }
         _placingPlayer.UpdateCanPlace(_outOfBoundsPlayerPos, false);

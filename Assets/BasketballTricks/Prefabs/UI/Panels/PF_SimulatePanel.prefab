@@ -134,6 +134,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameUIManager, Assembly-CSharp
+        m_MethodName: EndTutorial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1761050125291737714
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,7 +613,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Simulate
+  m_text: Let's Go!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 71432d64cab8fbe48aeaadd592f69523, type: 2}
   m_sharedMaterial: {fileID: 2195858300266884165, guid: 71432d64cab8fbe48aeaadd592f69523,
@@ -725,6 +737,7 @@ MonoBehaviour:
   _shownPosition: {x: 0, y: 0}
   _hiddenPosition: {x: 650, y: 0}
   _showTime: 0.5
+  _slideEase: 18
   _hideOtherPanelsWhenOpened:
   - {fileID: 0}
   _showOtherPanelsWhenHidden:

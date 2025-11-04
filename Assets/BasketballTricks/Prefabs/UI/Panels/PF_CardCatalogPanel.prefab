@@ -1199,7 +1199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rectTransform: {fileID: 3318022567605205429}
-  _shown: 1
+  _shown: 0
   _shownPosition: {x: 20, y: 0}
   _hiddenPosition: {x: -400, y: 0}
   _showTime: 0.5
