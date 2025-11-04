@@ -51,6 +51,8 @@ public class UICanvasController : MonoBehaviour
         _stateMachine.AddAnyTransition(StoreState, new BlankPredicate());
         _stateMachine.AddAnyTransition(TradeState, new BlankPredicate());
 
+        // Start in main menu
+        menusContainer.anchoredPosition = GetPosition(Menus.MainMenu);
         _stateMachine.SetState(MainMenuState);
     }
 
