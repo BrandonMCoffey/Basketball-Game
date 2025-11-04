@@ -3,7 +3,6 @@ using UnityEngine;
 using SaiUtils.StateMachine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
-using UnityEngine.Events;
 
 public class UICanvasController : MonoBehaviour
 {
