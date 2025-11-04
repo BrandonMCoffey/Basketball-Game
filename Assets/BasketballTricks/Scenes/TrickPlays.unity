@@ -1078,7 +1078,8 @@ MonoBehaviour:
   _crowdController: {fileID: 468289106}
   _minimumMouseXShow: {fileID: 3070299385534418960}
   _minimumMouseXPlace: {fileID: 3070299385534418959}
-  _dragPlayerYOffset: -150
+  _dragPlayerYOffset: -0.16
+  _dragPlayerXMult: 0.93
   _floorMask:
     serializedVersion: 2
     m_Bits: 128

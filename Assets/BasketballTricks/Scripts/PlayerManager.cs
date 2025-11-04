@@ -15,7 +15,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private CrowdController _crowdController;
     [SerializeField] private RectTransform _minimumMouseXShow;
     [SerializeField] private RectTransform _minimumMouseXPlace;
-    [SerializeField] private float _dragPlayerYOffset = -150f;
+    [SerializeField, Range(-0.5f, 0.5f)] private float _dragPlayerYOffset = -0.1f;
+    [SerializeField, Range(0f, 2f)] private float _dragPlayerXMult = 0.9f;
     [SerializeField] private LayerMask _floorMask = 1;
     [SerializeField] private Vector2 _spacingBetweenPlayersXZ = new Vector2(2f, 3f);
     [SerializeField] private Vector3 _outOfBoundsPlayerPos = new Vector3(10f, 0f, 0f);
@@ -81,7 +82,9 @@ public class PlayerManager : MonoBehaviour
     {
         if (_placingPlayer == null) return false;
 
-        var ray = Camera.main.ScreenPointToRay(mousePos + Vector2.up * _dragPlayerYOffset);
+        mousePos.x = _dragPlayerXMult * (mousePos.x - Screen.width * 0.5f) + Screen.width * 0.5f;
+        mousePos.y += _dragPlayerYOffset * Screen.height;
+        var ray = Camera.main.ScreenPointToRay(mousePos);
         Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green);
         if (mousePos.x > _minimumMouseXPlace.position.x && Physics.Raycast(ray, out var hitInfo, 100f, _floorMask))
         {
