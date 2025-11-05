@@ -18,12 +18,14 @@ MonoBehaviour:
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}
   _artData:
-    SkinColor: {r: 0.91054523, g: 0.860978, b: 0.6849638, a: 1}
+    SkinColor: {r: 0.6037736, g: 0.38233483, b: 0.23733233, a: 1}
     HairColor: {r: 0.015748262, g: 0.009220121, b: 0.0060447883, a: 1}
-    HairPrefab: {fileID: 919132149155446097, guid: 0d445ccf57db6a54a947b8f1bed48abf,
+    HairPrefab: {fileID: 919132149155446097, guid: d396ca15520a7c7499a4b6e137bad9e6,
       type: 3}
-    FacialHairPrefab: {fileID: 0}
-    AccessoryPrefab: {fileID: 0}
+    FacialHairPrefab: {fileID: 919132149155446097, guid: 981ab878c8e52a940b75c29b680e8f3e,
+      type: 3}
+    AccessoryPrefab: {fileID: 919132149155446097, guid: f901b7a9086c49e4b97e626cccf3c533,
+      type: 3}
   _action1: {fileID: 11400000, guid: 666f3c0d71544cb4aa16ebf468b448e5, type: 2}
   _action1DurationOverride: -1
   _action1PointsOverride: -1

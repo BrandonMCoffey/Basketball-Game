@@ -2159,6 +2159,176 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _skinColorGradient.key0.b
+      value: 0.24089235
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _skinColorGradient.key0.g
+      value: 0.32773444
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _skinColorGradient.key0.r
+      value: 0.3773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _skinColorGradient.key1.b
+      value: 0.1911712
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _skinColorGradient.key1.g
+      value: 0.26381764
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _skinColorGradient.key1.r
+      value: 0.33962262
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _skinColorGradient.key2.b
+      value: 0.13029546
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _skinColorGradient.key2.g
+      value: 0.16139299
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _skinColorGradient.key2.r
+      value: 0.2264151
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.ctime0
+      value: 39835
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.ctime1
+      value: 49537
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.ctime2
+      value: 56861
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.ctime3
+      value: 61873
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.ctime4
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.ctime5
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key0.b
+      value: 0.41509432
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key0.g
+      value: 0.11115109
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key0.r
+      value: 0.045686435
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key1.b
+      value: 0.18867922
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key1.g
+      value: 0.18867922
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key1.r
+      value: 0.18867922
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key2.b
+      value: 0.11480952
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key2.g
+      value: 0.2830189
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key2.r
+      value: 0.12051154
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key3.b
+      value: 0.08830739
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key3.g
+      value: 0.28617516
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key3.r
+      value: 0.29559743
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key4.b
+      value: 0.10151887
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key4.g
+      value: 0.10151887
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key4.r
+      value: 0.37106913
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key5.b
+      value: 0.13318795
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key5.g
+      value: 0.13318795
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.key5.r
+      value: 0.6886792
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944135332333604400, guid: e58b181fda57dca41a2a2f9d981c20bc,
+        type: 3}
+      propertyPath: _shirtColorGradient.m_NumColorKeys
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 9020085061792432871, guid: e58b181fda57dca41a2a2f9d981c20bc,
         type: 3}
       propertyPath: m_Name
