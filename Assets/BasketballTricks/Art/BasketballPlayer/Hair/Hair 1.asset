@@ -46,7 +46,7 @@ MonoBehaviour:
   _hairColorGraident:
     serializedVersion: 2
     key0: {r: 0, g: 0, b: 0, a: 1}
-    key1: {r: 0.3882353, g: 0.22729978, b: 0.14901963, a: 1}
+    key1: {r: 0.09433961, g: 0.06891635, b: 0.056514766, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -70,7 +70,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_ColorSpace: -1
+    m_ColorSpace: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   _facialHairChance: 0.5
