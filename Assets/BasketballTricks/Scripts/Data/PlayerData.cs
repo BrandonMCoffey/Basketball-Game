@@ -8,6 +8,10 @@ public class PlayerData : ScriptableObject
     [SerializeField] private Sprite _playerSprite;
     [SerializeField] private TeamData _team;
 
+    [SerializeField] private bool _customPlayerArt;
+    [SerializeField, HideIf(nameof(_customPlayerArt))] private RandomPlayerArtData _randomHairData;
+    [SerializeField, ShowIf(nameof(_customPlayerArt))] private PlayerArtData _artData;
+
     [Header("Action 1")] // Trick
     [SerializeField] private PlayerActionData _action1;
     [SerializeField] private float _action1DurationOverride = -1;
@@ -35,6 +39,8 @@ public class PlayerData : ScriptableObject
     public string PlayerName => _playerName;
     public Sprite PlayerSprite => _playerSprite;
     public Sprite TeamLogo => _team != null ? _team.TeamLogo : null;
+    public bool HasArtData => _customPlayerArt || _randomHairData != null;
+    public PlayerArtData ArtData => _customPlayerArt ? _artData : _randomHairData.GetData();
 
     public ActionData GetAction(int index)
     {
@@ -74,4 +80,23 @@ public class PlayerData : ScriptableObject
         _action2Data = _action2 != null ? _action2.Data : new ActionData(ActionType.Pass);
         _action3Data = _action3 != null ? _action3.Data : new ActionData(ActionType.Shot);
     }
+
+    [Button]
+    private void UpdateCustomPlayerArtFromRandom()
+    {
+        if (_randomHairData != null)
+        {
+            _artData = _randomHairData.GetData();
+        }
+    }
+}
+
+[System.Serializable]
+public struct PlayerArtData
+{
+    public Color SkinColor;
+    public Color HairColor;
+    public GameObject HairPrefab;
+    public GameObject FacialHairPrefab;
+    public GameObject AccessoryPrefab;
 }

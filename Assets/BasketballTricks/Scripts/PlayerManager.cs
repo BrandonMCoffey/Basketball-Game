@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +11,18 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private List<Player> _players = new List<Player>();
     [SerializeField] private Basketball _basketball;
     [SerializeField] private Transform _net;
+    [SerializeField] private float _arcGravity = 9.81f;
     [SerializeField] private CrowdController _crowdController;
-    [SerializeField] private RectTransform _minimumMouseX;
-    [SerializeField] private float _dragPlayerYOffset = -150f;
+    [SerializeField] private PlayerUIManager _playerUIManager;
+    [SerializeField] private SlideInPanel _cardCatalogPanel;
+    [SerializeField] private RectTransform _minimumMouseXShow;
+    [SerializeField] private RectTransform _minimumMouseXPlace;
+    [SerializeField, Range(-0.5f, 0.5f)] private float _dragPlayerYOffset = -0.1f;
+    [SerializeField, Range(0f, 2f)] private float _dragPlayerXMult = 0.9f;
     [SerializeField] private LayerMask _floorMask = 1;
     [SerializeField] private Vector2 _spacingBetweenPlayersXZ = new Vector2(2f, 3f);
+    [SerializeField] private Vector3 _outOfBoundsPlayerPos = new Vector3(10f, 0f, 0f);
+    [SerializeField] private List<RandomPlayerArtData> _randomPlayerArt;
 
     public event System.Action RefreshPlayers = delegate { };
 
@@ -42,32 +48,61 @@ public class PlayerManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        if (_randomPlayerArt.Count > 0)
+        {
+            foreach (var player in _players)
+            {
+                player.PlayerArt.SetPlayerArt(_randomPlayerArt[Random.Range(0, _randomPlayerArt.Count)].GetData());
+            }
+        }
+    }
+
     public Vector3 GetPlayerPosition(int index)
     {
         var player = GetPlayer(index);
         return player != null ? player.transform.position : transform.position;
     }
 
-    public bool NewPlayerToPlace()
+    public bool NewPlayerToPlace(PlayerData data)
     {
         foreach (var player in _players)
         {
             if (player.PlayerData == null)
             {
                 _placingPlayer = player;
-                _placingPlayer.SetAnimation("Placing");
+                _placingPlayer.SetAnimation(PlayerAnimation.Dangle, 0f);
+                if (data.HasArtData) _placingPlayer.PlayerArt.SetPlayerArt(data.ArtData);
                 return true;
             }
         }
         return false;
     }
 
+    public Vector3 OffsetMousePosToPlayer(Vector2 mousePos)
+    {
+        mousePos.x = _dragPlayerXMult * (mousePos.x - Screen.width * 0.5f) + Screen.width * 0.5f;
+        mousePos.y += _dragPlayerYOffset * Screen.height;
+        return mousePos;
+    }
+
+    public Vector2 PlayerPosToMouse(int index)
+    {
+        var player = GetPlayer(index);
+        if (player == null) return new Vector2(-500, 0);
+        Vector2 screenPoint = Camera.main.WorldToScreenPoint(player.transform.position);
+        screenPoint.x = (screenPoint.x - Screen.width * 0.5f) / _dragPlayerXMult + Screen.width * 0.5f;
+        screenPoint.y -= _dragPlayerYOffset * Screen.height;
+        return screenPoint;
+    }
+
     public bool UpdatePlacingPlayer(Vector2 mousePos)
     {
         if (_placingPlayer == null) return false;
 
-        var ray = Camera.main.ScreenPointToRay(mousePos + Vector2.up * _dragPlayerYOffset);
-        if (mousePos.x > _minimumMouseX.position.x && Physics.Raycast(ray, out var hitInfo, 100f, _floorMask))
+        var ray = Camera.main.ScreenPointToRay(OffsetMousePosToPlayer(mousePos));
+        if (mousePos.x > _minimumMouseXPlace.position.x && Physics.Raycast(ray, out var hitInfo, 100f, _floorMask))
         {
             var position = hitInfo.point;
             foreach (var player in _players)
@@ -87,7 +122,11 @@ public class PlayerManager : MonoBehaviour
             _placingPlayer.UpdateCanPlace(position, true);
             return true;
         }
-        // Should move anyways (Match floor plane?)
+        else if (mousePos.x <= _minimumMouseXShow.position.x)
+        {
+            _placingPlayer.UpdateCanPlace(_outOfBoundsPlayerPos, false);
+            return false;
+        }
         var plane = new Plane(Vector3.up, Vector3.up * 0.002f);
         plane.Raycast(ray, out float enter);
         _placingPlayer.UpdateCanPlace(ray.GetPoint(enter), false);
@@ -102,10 +141,20 @@ public class PlayerManager : MonoBehaviour
         {
             _placingPlayer.Place(data);
             _placingPlayer = null;
-            RefreshPlayers?.Invoke();
+            if (_players.All(p => p.PlayerData != null))
+            {
+                _cardCatalogPanel.SetShown(false);
+                _players.Sort((a, b) => b.transform.position.x.CompareTo(a.transform.position.x));
+                RefreshPlayers?.Invoke();
+                _playerUIManager.ToggleSelectPlayer(0);
+            }
+            else
+            {
+                RefreshPlayers?.Invoke();
+            }
             return true;
         }
-        _placingPlayer.UpdateCanPlace(Vector3.zero, false);
+        _placingPlayer.UpdateCanPlace(_outOfBoundsPlayerPos, false);
         _placingPlayer = null;
         return false;
     }
@@ -147,7 +196,13 @@ public class PlayerManager : MonoBehaviour
     private IEnumerator SimulateRoutine(SimulatePanelUI ui)
     {
         ui.ResetScore();
-        yield return new WaitForSeconds(1f);
+        var startPlayer = TimelineActions[0].Player;
+        startPlayer.SetAnimation(PlayerAnimation.IdleHold);
+        for (float t = 0; t < 1f; t += Time.deltaTime)
+        {
+            _basketball.transform.position = startPlayer.BasketballPosition;
+            yield return null;
+        }
         _crowdController.SetPlaying(true);
         for (int i = 0; i < TimelineActions.Count; i++)
         {
@@ -160,58 +215,118 @@ public class PlayerManager : MonoBehaviour
                 if (action.Mult > 0) ui.AddMult(action.Mult);
                 _crowdController.SetHype(ui.Points * ui.Mult / 500f);
                 player.SetActionText(action.Name, action.Duration);
-                player.SetAnimation("Action", 0.25f);
                 player.EmitParticles();
                 Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.Points} points and {action.Mult} mult.");
                 if (action.Type == ActionType.Pass)
                 {
+                    float tossPrepTime = 0.5f;
+                    float catchAnimationLeadTime = 0.5f;
+                    float catchHoldTime = 0.5f;
+
+                    float splitTime = Mathf.Max(0f, action.Duration - tossPrepTime - catchHoldTime) * 0.5f;
+
+                    // Face each other
                     var otherPlayer = TimelineActions[i + 1].Player;
-                    player.FaceOtherPlayer(otherPlayer, action.Duration);
-                    float timeScale = 1f / action.Duration;
-                    for (float t = 0; t < 1f; t += Time.deltaTime * timeScale * 2f)
+                    player.FaceOtherPlayer(otherPlayer, splitTime);
+                    player.SetAnimation(PlayerAnimation.IdleHold);
+                    for (float t = 0; t < splitTime; t += Time.deltaTime)
                     {
                         _basketball.transform.position = player.BasketballPosition;
                         yield return null;
                     }
-                    Vector3 startPos = player.BasketballPosition;
-                    for (float t = 0; t < 1f; t += Time.deltaTime * timeScale * 2f)
+
+                    // Pass the ball (toss hold)
+                    player.SetAnimation(action.Animation);
+                    for (float t = 0; t < tossPrepTime; t += Time.deltaTime)
                     {
-                        var pos = Vector3.Lerp(startPos, otherPlayer.BasketballPosition, t);
-                        float yOffset = Mathf.Abs(0.5f - t) * 2f;
-                        pos += Vector3.up * (1f - yOffset * yOffset);
-                        _basketball.transform.position = pos;
+                        _basketball.transform.position = player.BasketballPosition;
+                        yield return null;
+                    }
+
+                    // Pass the ball (arc)
+                    Vector3 startPos = player.BasketballPosition;
+                    Vector3 endPos = otherPlayer.HeadPosition; // Assumes the player catches near the head (TODO: Make this better)
+
+                    bool catchTriggered = false;
+                    float timeScale = 1f / splitTime;
+                    float catchT = Mathf.Max(0f, splitTime - catchAnimationLeadTime) * timeScale;
+
+                    Vector3 displacementXZ = new Vector3(endPos.x - startPos.x, 0, endPos.z - startPos.z);
+                    Vector3 velocityXZ = displacementXZ * timeScale;
+                    float displacementY = endPos.y - startPos.y;
+                    float velocityY = (displacementY * timeScale) + 0.5f * _arcGravity * splitTime;
+
+                    for (float t = 0; t < 1f; t += Time.deltaTime * timeScale)
+                    {
+                        Vector3 xzPos = startPos + velocityXZ * t;
+                        float yPos = startPos.y + velocityY * t - 0.5f * _arcGravity * t * t;
+                        float catchLerpDelta = catchTriggered ? (t - catchT) / (1 - catchT) : 0;
+                        _basketball.transform.position = Vector3.Lerp(new Vector3(xzPos.x, yPos, xzPos.z), otherPlayer.BasketballPosition, catchLerpDelta);
+
+                        if (!catchTriggered && t >= catchT)
+                        {
+                            catchTriggered = true;
+                            otherPlayer.SetAnimation(PlayerAnimation.Catch);
+                        }
+                        yield return null;
+                    }
+
+                    // Pass the ball (catch hold)
+                    for (float t = 0; t < catchHoldTime; t += Time.deltaTime)
+                    {
+                        _basketball.transform.position = otherPlayer.BasketballPosition;
                         yield return null;
                     }
                 }
                 else if (action.Type == ActionType.Shot)
                 {
-                    player.FacePosition(_net.position, action.Duration);
-                    float timeScale = 1f / action.Duration;
-                    for (float t = 0; t < 1f; t += Time.deltaTime * timeScale * 2f)
+                    float shotPrepTime = 0.5f;
+                    float splitTime = Mathf.Max(0.01f, action.Duration - shotPrepTime) * 0.5f;
+
+                    // Face the net
+                    player.FacePosition(_net.position, splitTime);
+                    player.SetAnimation(PlayerAnimation.IdleHold);
+                    for (float t = 0; t < splitTime; t += Time.deltaTime)
                     {
                         _basketball.transform.position = player.BasketballPosition;
                         yield return null;
                     }
 
+                    // Shoot (hold)
+                    player.SetAnimation(action.Animation); // Auto transitions to IdleHold in Animator Graph
+                    for (float t = 0; t < shotPrepTime; t += Time.deltaTime)
+                    {
+                        _basketball.transform.position = player.BasketballPosition;
+                        yield return null;
+                    }
+
+                    // Shoot (arc)
                     var startPos = player.BasketballPosition;
                     var endPos = _net.position;
-                    var controlPoint = (startPos + endPos) / 2f + Vector3.up * (2f + Vector3.Distance(startPos, endPos) / 3f);
 
-                    for (float t = 0; t < 1f; t += Time.deltaTime * timeScale * 2f)
+                    Vector3 displacementXZ = new Vector3(endPos.x - startPos.x, 0, endPos.z - startPos.z);
+                    Vector3 velocityXZ = displacementXZ / splitTime;
+                    float displacementY = endPos.y - startPos.y;
+                    float velocityY = (displacementY / splitTime) + 0.5f * _arcGravity * splitTime;
+
+                    for (float t = 0; t < splitTime; t += Time.deltaTime)
                     {
-                        float oneMinusT = 1f - t;
-                        Vector3 pos = oneMinusT * oneMinusT * startPos + 2f * oneMinusT * t * controlPoint + t * t * endPos;
-                        _basketball.transform.position = pos; 
+                        Vector3 xzPos = startPos + velocityXZ * t;
+                        float yPos = startPos.y + velocityY * t - 0.5f * _arcGravity * t * t;
+                        _basketball.transform.position = new Vector3(xzPos.x, yPos, xzPos.z);
                         yield return null;
                     }
                     _basketball.transform.position = endPos;
 
+                    // Fall through net
                     var groundPos = new Vector3(endPos.x, 0.22f, endPos.z);
-                    yield return _basketball.transform.DOMove(groundPos, 0.3f).SetEase(Ease.InQuad).WaitForCompletion();
+                    yield return _basketball.transform.DOMove(groundPos, 1f).SetEase(Ease.OutBounce).WaitForCompletion();
+                    OnSequenceCompleted();
                     break;
                 }
                 else
                 {
+                    player.SetAnimation(action.Animation);
                     float timeScale = 1f / action.Duration;
                     for (float t = 0; t < 1f; t += Time.deltaTime * timeScale)
                     {
@@ -219,11 +334,15 @@ public class PlayerManager : MonoBehaviour
                         yield return null;
                     }
                 }
-                player.SetAnimation("Idle", 0.25f);
             }
         }
         yield return new WaitForSeconds(1f);
         _crowdController.SetPlaying(false);
+    }
+
+    private void OnSequenceCompleted()
+    {
+        // TODO: Logic for end of sequence
     }
 }
 

@@ -3,7 +3,6 @@ using UnityEngine;
 using SaiUtils.StateMachine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
-using UnityEngine.Events;
 
 public class UICanvasController : MonoBehaviour
 {
@@ -51,6 +50,8 @@ public class UICanvasController : MonoBehaviour
         _stateMachine.AddAnyTransition(StoreState, new BlankPredicate());
         _stateMachine.AddAnyTransition(TradeState, new BlankPredicate());
 
+        // Start in main menu
+        menusContainer.anchoredPosition = GetPosition(Menus.MainMenu);
         _stateMachine.SetState(MainMenuState);
     }
 

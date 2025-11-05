@@ -9,14 +9,11 @@ EditorBuildSettings:
     path: Assets/BasketballTricks/Scenes/MainUI.unity
     guid: 868c899a7b8c1a644a0c1406f1e0f297
   - enabled: 1
-    path: Assets/BasketballTricks/Scenes/CardCatalog.unity
-    guid: 7f00634964c41094fafe78a66111c73a
+    path: Assets/BasketballTricks/Scenes/TrickPlays.unity
+    guid: 0d1f419c6a086ca478336e60bf980687
   - enabled: 1
     path: Assets/DribbleGame/Scenes/DribbleGame.unity
     guid: c850ee8c3b14cc8459e7e186857cf567
-  - enabled: 1
-    path: Assets/BasketballTricks/Scenes/TrickPlays.unity
-    guid: 0d1f419c6a086ca478336e60bf980687
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: e3270d48d4b5409439a8f8ad798a7105,
       type: 2}

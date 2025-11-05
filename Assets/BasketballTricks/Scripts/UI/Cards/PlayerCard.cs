@@ -220,7 +220,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
 
         _rectTransform.localScale = _initialScale * _popScale;
 
-        bool canPlace = PlayerManager.Instance.NewPlayerToPlace();
+        bool canPlace = PlayerManager.Instance.NewPlayerToPlace(_data);
         if (_parent != null && _holdParent != null) transform.SetParent(canPlace ? _parent : _holdParent, true);
         transform.SetAsLastSibling();
     }

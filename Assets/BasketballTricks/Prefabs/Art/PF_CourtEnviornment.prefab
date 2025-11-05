@@ -349,6 +349,66 @@ MonoBehaviour:
   - {fileID: 938447495775899730}
   - {fileID: 9134538781259438586}
   - {fileID: 1108536276742631820}
+  _skinColorGradient:
+    serializedVersion: 2
+    key0: {r: 0.8113208, g: 0.7295149, b: 0.5931827, a: 1}
+    key1: {r: 0.7075472, g: 0.511036, b: 0.32373622, a: 1}
+    key2: {r: 0.3301887, g: 0.23742552, b: 0.19468673, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 38165
+    ctime2: 64764
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: 0
+    m_NumColorKeys: 3
+    m_NumAlphaKeys: 2
+  _shirtColorGradient:
+    serializedVersion: 2
+    key0: {r: 0.1009256, g: 0.22024778, b: 0.7924528, a: 1}
+    key1: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
+    key2: {r: 0.29338795, g: 0.7264151, b: 0.2775454, a: 0}
+    key3: {r: 0.7830189, g: 0.75449944, b: 0.121885024, a: 0}
+    key4: {r: 0.6886792, g: 0.13318795, b: 0.13318795, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 40863
+    ctime1: 49537
+    ctime2: 56861
+    ctime3: 61873
+    ctime4: 65535
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 1
+    m_ColorSpace: 0
+    m_NumColorKeys: 5
+    m_NumAlphaKeys: 2
   _crowdPercent: 0.6
   _transitionSpeed: 5
   _rotationAmount: {x: 0, y: 15, z: 5}
@@ -357,6 +417,7 @@ MonoBehaviour:
   _hypeRotationAmount: {x: 15, y: 180, z: 25}
   _hypePositionAmountY: 1.2
   _hypeSpeedRange: {x: 4, y: 15}
+  _minHype: 1
   _maxHype: 20
   _hypeExponent: 3
 --- !u!1 &950291627479296471

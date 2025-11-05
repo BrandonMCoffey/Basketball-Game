@@ -20,5 +20,4 @@ MonoBehaviour:
     Mult: 2
     Accuracy: 0.8
     Icon: {fileID: 0}
-    Animation: {fileID: 0}
-  _animationDuration: 0
+    Animation: 101

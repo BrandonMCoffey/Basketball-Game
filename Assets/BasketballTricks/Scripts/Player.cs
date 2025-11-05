@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerData _playerData;
     [SerializeField] private Animator _animator;
+    [SerializeField] private PlayerArt _playerArt;
+    [SerializeField] private float _animationCrossfadeDuration = 0.25f;
     [SerializeField] private SpriteRenderer _positionIndicator;
     [SerializeField] private Color _positionColor = Color.cyan;
     [SerializeField] private ParticleSystem _particles;
@@ -17,6 +19,10 @@ public class Player : MonoBehaviour
     public PlayerData PlayerData => _playerData;
     public Color PositionColor => _positionColor;
     public Vector3 BasketballPosition => _basketballSocket.TransformPoint(_basketballOffset);
+    public PlayerArt PlayerArt => _playerArt;
+    public Vector3 HeadPosition => _playerArt.Head.position;
+
+    private float _fadeTimer;
 
     private void OnValidate()
     {
@@ -29,9 +35,17 @@ public class Player : MonoBehaviour
         _actionText.text = "";
     }
 
-    public void SetAnimation(string stateName, float fade = 0f)
+    private void Update()
     {
-        _animator.CrossFade(stateName, 0f);
+        _fadeTimer += Time.deltaTime;
+    }
+
+    public void SetAnimation(PlayerAnimation anim) => SetAnimation(anim, _animationCrossfadeDuration);
+    public void SetAnimation(PlayerAnimation anim, float fade)
+    {
+        //Debug.Log($"Play Anim {anim.ToString()} for {fade} fade. {_fadeTimer} seconds since last fade.");
+        _fadeTimer = 0;
+        _animator.CrossFadeInFixedTime(anim.ToString(), fade);
     }
 
     public void UpdateCanPlace(Vector3 pos, bool canPlace)
@@ -43,22 +57,22 @@ public class Player : MonoBehaviour
     public void Place(PlayerData data)
     {
         _playerData = data;
-        SetAnimation("Idle");
+        SetAnimation(PlayerAnimation.Idle);
     }
 
-    public void FaceOtherPlayer(Player otherPlayer, float passDuration)
+    public void FaceOtherPlayer(Player otherPlayer, float duration)
     {
         var pos = transform.position;
         var otherPos = otherPlayer.transform.position;
         (pos.y, otherPos.y) = (otherPos.y, pos.y);
-        transform.DOLookAt(otherPos, passDuration * 0.5f);
-        otherPlayer.transform.DOLookAt(pos, passDuration * 0.5f);
+        transform.DOLookAt(otherPos, duration);
+        otherPlayer.transform.DOLookAt(pos, duration);
     }
 
-    public void FacePosition(Vector3 pos, float passDuration)
+    public void FacePosition(Vector3 pos, float duration)
     {
         pos.y = transform.position.y;
-        transform.DOLookAt(pos, passDuration * 0.5f);
+        transform.DOLookAt(pos, duration);
     }
 
     public void SetActionText(string text, float duration)
@@ -82,7 +96,21 @@ public class Player : MonoBehaviour
 [System.Serializable]
 public enum PlayerAnimation
 {
-    Idle,
-    Placing,
-    Basketball
+    // Basic animations (0-9)
+    Idle = 1,
+    IdleHold = 2,
+
+    Dangle = 5,
+
+    // Passes (10-99)
+    Pass = 10,
+    Catch = 20,
+
+    // Tricks (100-199)
+    BasicDribble = 100,
+    SpiderDribble = 101,
+    FingerSpin = 120,
+
+    // Shots (200-299)
+    Shoot = 200,
 }

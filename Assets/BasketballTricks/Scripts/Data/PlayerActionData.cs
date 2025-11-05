@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerActionData : ScriptableObject
 {
     [SerializeField] private ActionData _data = new ActionData(ActionType.Trick);
-    [SerializeField] private float _animationDuration = 0;
 
     public ActionData Data => _data;
 
@@ -13,7 +12,6 @@ public class PlayerActionData : ScriptableObject
     {
         if (string.IsNullOrEmpty(_data.Name)) _data.Name = name;
         if (_data.Duration <= 0f) _data.Duration = 1f;
-        _animationDuration = _data.Animation != null ? _data.Animation.length : 0;
     }
 
     [Button]
@@ -46,7 +44,7 @@ public struct ActionData
     public float Mult;
     [Range(0, 1)] public float Accuracy;
     public Sprite Icon;
-    public AnimationClip Animation;
+    public PlayerAnimation Animation;
 
     public ActionData(ActionType type = ActionType.None)
     {
@@ -81,6 +79,12 @@ public struct ActionData
             _ => 0,
         };
         Icon = null;
-        Animation = null;
+        Animation = type switch
+        {
+            ActionType.Trick => PlayerAnimation.BasicDribble,
+            ActionType.Pass => PlayerAnimation.Pass,
+            ActionType.Shot => PlayerAnimation.Shoot,
+            _ => PlayerAnimation.BasicDribble,
+        };
     }
 }
