@@ -1431,7 +1431,7 @@ MonoBehaviour:
   _playerActionPanel: {fileID: 5543462133366450511}
   _playerName: {fileID: 1400051190342968915}
   _playerImage: {fileID: 336520696543414794}
-  _backgroundImage: {fileID: 3105316508922288664}
+  _backgroundImage: {fileID: 4981938966243506289}
   _actionVisuals:
   - {fileID: 2622003808374192410}
   - {fileID: 6348965369212106501}
