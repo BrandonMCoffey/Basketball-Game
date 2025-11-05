@@ -2158,20 +2158,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3057725918024520137, guid: e58b181fda57dca41a2a2f9d981c20bc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9020085061792432871, guid: e58b181fda57dca41a2a2f9d981c20bc,
         type: 3}
       propertyPath: m_Name
       value: PF_CourtEnvironment
-      objectReference: {fileID: 0}
-    - target: {fileID: 9020085061792432871, guid: e58b181fda57dca41a2a2f9d981c20bc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
