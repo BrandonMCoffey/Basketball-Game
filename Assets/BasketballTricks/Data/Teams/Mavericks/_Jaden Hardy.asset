@@ -10,36 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c84bf1ca33becc74c90bf18da6a7ee77, type: 3}
-  m_Name: Anthony Davis
+  m_Name: _Jaden Hardy
   m_EditorClassIdentifier: 
-  _playerName: Anthony Davis
-  _playerSprite: {fileID: 21300000, guid: 42085d59db13a5843bbaea8bc416f2ff, type: 3}
+  _playerName: Jaden Hardy
+  _playerSprite: {fileID: 21300000, guid: 12da0001919b81f4a9264cc3f52d4787, type: 3}
   _team: {fileID: 11400000, guid: 20469427191cff0439546e2ad34da37a, type: 2}
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}
   _artData:
-    SkinColor: {r: 0.6037736, g: 0.38233483, b: 0.23733233, a: 1}
-    HairColor: {r: 0.015748262, g: 0.009220121, b: 0.0060447883, a: 1}
-    HairPrefab: {fileID: 919132149155446097, guid: d396ca15520a7c7499a4b6e137bad9e6,
+    SkinColor: {r: 0.5203481, g: 0.38156906, b: 0.24683681, a: 1}
+    HairColor: {r: 0.15054128, g: 0.08813727, b: 0.05778353, a: 1}
+    HairPrefab: {fileID: 919132149155446097, guid: 0d445ccf57db6a54a947b8f1bed48abf,
       type: 3}
-    FacialHairPrefab: {fileID: 919132149155446097, guid: 981ab878c8e52a940b75c29b680e8f3e,
-      type: 3}
-    AccessoryPrefab: {fileID: 919132149155446097, guid: f901b7a9086c49e4b97e626cccf3c533,
-      type: 3}
-  _action1: {fileID: 11400000, guid: 666f3c0d71544cb4aa16ebf468b448e5, type: 2}
+    FacialHairPrefab: {fileID: 0}
+    AccessoryPrefab: {fileID: 0}
+  _action1: {fileID: 0}
   _action1DurationOverride: -1
   _action1PointsOverride: -1
   _action1MultOverride: -1
   _action1AccuracyOverride: 0
   _action1Data:
     Type: 1
-    Name: Spider Dribble
+    Name: Trick
     Duration: 1
     Points: 20
     Mult: 2
     Accuracy: 0.8
     Icon: {fileID: 0}
-    Animation: 101
+    Animation: 100
   _action2: {fileID: 0}
   _action2DurationOverride: -1
   _action2PointsOverride: -1
