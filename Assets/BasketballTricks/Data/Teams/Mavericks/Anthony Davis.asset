@@ -24,20 +24,20 @@ MonoBehaviour:
       type: 3}
     FacialHairPrefab: {fileID: 0}
     AccessoryPrefab: {fileID: 0}
-  _action1: {fileID: 0}
+  _action1: {fileID: 11400000, guid: 666f3c0d71544cb4aa16ebf468b448e5, type: 2}
   _action1DurationOverride: -1
   _action1PointsOverride: -1
   _action1MultOverride: -1
   _action1AccuracyOverride: 0
   _action1Data:
     Type: 1
-    Name: Trick
+    Name: Spider Dribble
     Duration: 1
     Points: 20
     Mult: 2
     Accuracy: 0.8
     Icon: {fileID: 0}
-    Animation: {fileID: 0}
+    Animation: 101
   _action2: {fileID: 0}
   _action2DurationOverride: -1
   _action2PointsOverride: -1
@@ -51,7 +51,7 @@ MonoBehaviour:
     Mult: 0
     Accuracy: 0.95
     Icon: {fileID: 0}
-    Animation: {fileID: 0}
+    Animation: 10
   _action3: {fileID: 0}
   _action3DurationOverride: -1
   _action3PointsOverride: -1
@@ -65,4 +65,4 @@ MonoBehaviour:
     Mult: 10
     Accuracy: 0.9
     Icon: {fileID: 0}
-    Animation: {fileID: 0}
+    Animation: 200

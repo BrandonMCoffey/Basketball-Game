@@ -9,6 +9,7 @@ public class PlayerArt : MonoBehaviour
     [SerializeField] private Vector3 _localHairPosition = new Vector3(0, -0.0159f, 0.00015f);
     [SerializeField] private Vector3 _localHairRotation = new Vector3(-90, 0, 0);
 
+    public Transform Head => _head;
     private GameObject _currentHair;
     private GameObject _currentFacialHair;
     private GameObject _currentHeadband;
