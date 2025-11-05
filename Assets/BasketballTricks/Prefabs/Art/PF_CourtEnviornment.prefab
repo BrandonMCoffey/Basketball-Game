@@ -357,6 +357,7 @@ MonoBehaviour:
   _hypeRotationAmount: {x: 15, y: 180, z: 25}
   _hypePositionAmountY: 1.2
   _hypeSpeedRange: {x: 4, y: 15}
+  _minHype: 1
   _maxHype: 20
   _hypeExponent: 3
 --- !u!1 &950291627479296471

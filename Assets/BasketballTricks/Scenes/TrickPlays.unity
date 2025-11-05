@@ -637,6 +637,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 506152f60c1adb3479ee2a0037e680b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1448990372 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6383826517330464357, guid: 5ae679fdd7a8b714b84f54fdb5083477,
+    type: 3}
+  m_PrefabInstance: {fileID: 2074509999}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1464733852
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1092,7 +1098,7 @@ MonoBehaviour:
   - {fileID: 1852127758}
   - {fileID: 1229214744}
   _basketball: {fileID: 292647101}
-  _net: {fileID: 0}
+  _net: {fileID: 1448990372}
   _arcGravity: 9.81
   _crowdController: {fileID: 468289106}
   _playerUIManager: {fileID: 888308602}
@@ -1176,11 +1182,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SK_BasketballGoal
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 5ae679fdd7a8b714b84f54fdb5083477,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2158,20 +2159,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3057725918024520137, guid: e58b181fda57dca41a2a2f9d981c20bc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9020085061792432871, guid: e58b181fda57dca41a2a2f9d981c20bc,
         type: 3}
       propertyPath: m_Name
       value: PF_CourtEnvironment
-      objectReference: {fileID: 0}
-    - target: {fileID: 9020085061792432871, guid: e58b181fda57dca41a2a2f9d981c20bc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
