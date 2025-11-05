@@ -5,7 +5,9 @@ using UnityEngine;
 public class CrowdController : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _crowd;
-    [SerializeField] private float _crowdPercent = 0.6f;
+    [SerializeField] private Gradient _skinColorGradient;
+    [SerializeField] private Gradient _shirtColorGradient;
+    [SerializeField, Range(0f, 1f)] private float _crowdPercent = 0.6f;
     [SerializeField] private float _transitionSpeed = 5f;
 
     [Header("Idle Animation")]
@@ -31,6 +33,8 @@ public class CrowdController : MonoBehaviour
     private struct CrowdPerson
     {
         public Transform Transform;
+        public SpriteRenderer ShirtRenderer;
+        public GameObject CameraFlash;
         public Vector3 Position;
         public Quaternion Rotation;
         public float PosSpeed;
@@ -53,9 +57,17 @@ public class CrowdController : MonoBehaviour
                 obj.SetActive(false);
                 continue;
             }
+            var head = obj.transform.GetChild(0).GetComponent<SpriteRenderer>();
+            var shirt = obj.transform.GetChild(1).GetComponent<SpriteRenderer>();
+            var cameraFlash = obj.transform.GetChild(2).gameObject;
+            cameraFlash.SetActive(false);
+            head.color = _skinColorGradient.Evaluate(Random.value);
+            shirt.color = _shirtColorGradient.Evaluate(Random.value);
             _crowdPeople.Add(new CrowdPerson
             {
                 Transform = obj.transform,
+                ShirtRenderer = shirt,
+                CameraFlash = cameraFlash,
                 Position = obj.transform.localPosition,
                 Rotation = obj.transform.localRotation,
                 PosSpeed = Random.Range(_speedRange.x, _speedRange.y),
