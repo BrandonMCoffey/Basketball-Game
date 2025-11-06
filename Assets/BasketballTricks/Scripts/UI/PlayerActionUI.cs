@@ -8,8 +8,7 @@ using UnityEngine.UI;
 public class PlayerActionUI : MonoBehaviour
 {
     [SerializeField] private SlideInPanel _playerActionPanel;
-    [SerializeField] private TMP_Text _playerName;
-    [SerializeField] private Image _playerImage;
+    [SerializeField] private PlayerCard _playerCardVisual;
     [SerializeField] private Image _backgroundImage;
     [SerializeField] private List<PlayerActionVisuals> _actionVisuals;
     [SerializeField] RectTransform _playerIconTransform;
@@ -41,8 +40,7 @@ public class PlayerActionUI : MonoBehaviour
 
     private void UpdateData()
     {
-        if (_playerName != null) _playerName.text = _playerData != null ? _playerData.PlayerName : "Player";
-        if (_playerImage != null) _playerImage.sprite = _playerData != null ? _playerData.PlayerSprite : null;
+        if (_playerCardVisual != null) _playerCardVisual.SetData(_playerData);
         for (int i = 0; i < _actionVisuals.Count; i++)
         {
             _actionVisuals[i].SetData(_playerData != null ? _playerData.GetAction(i) : new ActionData());

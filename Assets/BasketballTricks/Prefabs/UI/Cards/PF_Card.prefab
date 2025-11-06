@@ -874,6 +874,9 @@ MonoBehaviour:
   _score: {fileID: 0}
   _mult: {fileID: 0}
   _icon: {fileID: 7567312910253757179}
+  _defaultIconTrick: {fileID: 21300000, guid: ffdce43d5c7b6664da62fa04dcc36c94, type: 3}
+  _defaultIconPass: {fileID: 21300000, guid: 920fb76479d53624192a07a571882d66, type: 3}
+  _defaultIconShot: {fileID: 21300000, guid: 95b0323cdf448544988d2902fc78932d, type: 3}
 --- !u!1 &1637311068658903538
 GameObject:
   m_ObjectHideFlags: 0
@@ -1229,6 +1232,9 @@ MonoBehaviour:
   _score: {fileID: 0}
   _mult: {fileID: 0}
   _icon: {fileID: 1930193730649001601}
+  _defaultIconTrick: {fileID: 21300000, guid: ffdce43d5c7b6664da62fa04dcc36c94, type: 3}
+  _defaultIconPass: {fileID: 21300000, guid: 920fb76479d53624192a07a571882d66, type: 3}
+  _defaultIconShot: {fileID: 21300000, guid: 95b0323cdf448544988d2902fc78932d, type: 3}
 --- !u!1 &1874607419893769155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2374,6 +2380,9 @@ MonoBehaviour:
   _score: {fileID: 4858922919118474622}
   _mult: {fileID: 6130541266187103864}
   _icon: {fileID: 2155722262070610316}
+  _defaultIconTrick: {fileID: 0}
+  _defaultIconPass: {fileID: 0}
+  _defaultIconShot: {fileID: 0}
 --- !u!1 &4516049558726297950
 GameObject:
   m_ObjectHideFlags: 0
@@ -3571,6 +3580,9 @@ MonoBehaviour:
   _score: {fileID: 0}
   _mult: {fileID: 0}
   _icon: {fileID: 129754603180104096}
+  _defaultIconTrick: {fileID: 21300000, guid: ffdce43d5c7b6664da62fa04dcc36c94, type: 3}
+  _defaultIconPass: {fileID: 21300000, guid: 920fb76479d53624192a07a571882d66, type: 3}
+  _defaultIconShot: {fileID: 21300000, guid: 95b0323cdf448544988d2902fc78932d, type: 3}
 --- !u!1 &6899541420450576950
 GameObject:
   m_ObjectHideFlags: 0
