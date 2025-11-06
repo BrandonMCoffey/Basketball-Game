@@ -18,11 +18,11 @@ MonoBehaviour:
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}
   _artData:
-    SkinColor: {r: 0.8890212, g: 0.8345329, b: 0.6607959, a: 1}
+    SkinColor: {r: 0.754717, g: 0.6253684, b: 0.4734781, a: 1}
     HairColor: {r: 0.26265058, g: 0.1537738, b: 0.100815386, a: 1}
-    HairPrefab: {fileID: 919132149155446097, guid: 0d445ccf57db6a54a947b8f1bed48abf,
+    HairPrefab: {fileID: 919132149155446097, guid: 0168d8c13d0229e4d9a6ee2d74711c13,
       type: 3}
-    FacialHairPrefab: {fileID: 919132149155446097, guid: f689c0a94839cf348a7e3b620eff76c4,
+    FacialHairPrefab: {fileID: 919132149155446097, guid: c93bfe67c0f7de941afb4d6e6f65cb96,
       type: 3}
     AccessoryPrefab: {fileID: 0}
   _action1: {fileID: 0}
@@ -33,7 +33,7 @@ MonoBehaviour:
   _action1Data:
     Type: 1
     Name: Trick
-    Duration: 1
+    Duration: 3
     Points: 20
     Mult: 2
     Accuracy: 0.8

@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: d396ca15520a7c7499a4b6e137bad9e6
+guid: 67728691264e9d04eb47c46901afd9a2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_BasketballPlayerHair
-    second: {fileID: 2100000, guid: a045c423f2f1dd94db65bcb68cf2c8cc, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
