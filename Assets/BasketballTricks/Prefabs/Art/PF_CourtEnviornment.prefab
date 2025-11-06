@@ -351,9 +351,9 @@ MonoBehaviour:
   - {fileID: 1108536276742631820}
   _skinColorGradient:
     serializedVersion: 2
-    key0: {r: 0.8113208, g: 0.7295149, b: 0.5931827, a: 1}
-    key1: {r: 0.7075472, g: 0.511036, b: 0.32373622, a: 1}
-    key2: {r: 0.3301887, g: 0.23742552, b: 0.19468673, a: 0}
+    key0: {r: 0.3773585, g: 0.32773444, b: 0.24089235, a: 1}
+    key1: {r: 0.33962262, g: 0.26381764, b: 0.1911712, a: 1}
+    key2: {r: 0.2264151, g: 0.16139299, b: 0.13029546, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
@@ -381,20 +381,20 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   _shirtColorGradient:
     serializedVersion: 2
-    key0: {r: 0.1009256, g: 0.22024778, b: 0.7924528, a: 1}
+    key0: {r: 0.045686435, g: 0.11115109, b: 0.41509432, a: 1}
     key1: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
-    key2: {r: 0.29338795, g: 0.7264151, b: 0.2775454, a: 0}
-    key3: {r: 0.7830189, g: 0.75449944, b: 0.121885024, a: 0}
-    key4: {r: 0.6886792, g: 0.13318795, b: 0.13318795, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
+    key2: {r: 0.12051154, g: 0.2830189, b: 0.11480952, a: 0}
+    key3: {r: 0.29559743, g: 0.28617516, b: 0.08830739, a: 0}
+    key4: {r: 0.37106913, g: 0.10151887, b: 0.10151887, a: 0}
+    key5: {r: 0.6886792, g: 0.13318795, b: 0.13318795, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 40863
+    ctime0: 39835
     ctime1: 49537
     ctime2: 56861
     ctime3: 61873
     ctime4: 65535
-    ctime5: 0
+    ctime5: 65535
     ctime6: 0
     ctime7: 0
     atime0: 0
@@ -410,7 +410,8 @@ MonoBehaviour:
     m_NumColorKeys: 5
     m_NumAlphaKeys: 2
   _crowdPercent: 0.6
-  _transitionSpeed: 5
+  _playingTransitionSpeed: 4
+  _defaultTransitionSpeed: 1
   _rotationAmount: {x: 0, y: 15, z: 5}
   _positionAmountY: 0.1
   _speedRange: {x: 0.5, y: 1.2}

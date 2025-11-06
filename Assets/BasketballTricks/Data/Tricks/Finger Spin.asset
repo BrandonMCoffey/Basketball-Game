@@ -15,7 +15,7 @@ MonoBehaviour:
   _data:
     Type: 1
     Name: Finger Spin
-    Duration: 1
+    Duration: 3
     Points: 20
     Mult: 2
     Accuracy: 0.8

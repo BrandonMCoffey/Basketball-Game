@@ -52,7 +52,7 @@ public struct ActionData
         Name = type.ToString();
         Duration = type switch
         {
-            ActionType.Trick => 1,
+            ActionType.Trick => 3,
             ActionType.Pass => 2,
             ActionType.Shot => 4,
             _ => 0,

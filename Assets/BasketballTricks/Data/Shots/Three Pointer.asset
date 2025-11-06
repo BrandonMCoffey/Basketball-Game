@@ -15,10 +15,9 @@ MonoBehaviour:
   _data:
     Type: 2
     Name: Three Pointer
-    Duration: 2
+    Duration: 4
     Points: 5
     Mult: 0
     Accuracy: 0.95
     Icon: {fileID: 0}
-    Animation: {fileID: 0}
-  _animationDuration: 0
+    Animation: 100

@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -188,11 +189,44 @@ public class PlayerManager : MonoBehaviour
 
     public void RunSimulation(SimulatePanelUI ui)
     {
-        if (_simulating) return;
-        // Verify if sequence is valid
+        if (_simulating || !IsSequenceValid()) return;
         _simulating = true;
         StartCoroutine(SimulateRoutine(ui));
     }
+
+    private bool IsSequenceValid()
+    {
+        for (int i = 0; i < TimelineActions.Count; i++)
+        {
+            TimelineAction timelineAction = TimelineActions[i];
+            var player = timelineAction.Player;
+            if (player.PlayerData == null)
+            {
+                Debug.LogWarning("Cannot simulate sequence: A player has no data assigned.");
+                return false;
+            }
+            var action = player.PlayerData.GetAction(timelineAction.ActionIndex);
+            switch (action.Type)
+            {
+                case ActionType.Pass:
+                    if (i + 1 >= TimelineActions.Count || TimelineActions[i + 1].Player == player)
+                    {
+                        Debug.LogWarning("Cannot simulate sequence: Invalid pass action.");
+                        return false;
+                    }
+                    break;
+                case ActionType.Shot:
+                    if (i != TimelineActions.Count - 1)
+                    {
+                        Debug.LogWarning("Cannot simulate sequence: Shot action must be last in sequence.");
+                        return false;
+                    }
+                    break;
+            }
+        }
+        return true;
+    }
+
     private IEnumerator SimulateRoutine(SimulatePanelUI ui)
     {
         ui.ResetScore();
@@ -321,7 +355,6 @@ public class PlayerManager : MonoBehaviour
                     // Fall through net
                     var groundPos = new Vector3(endPos.x, 0.22f, endPos.z);
                     yield return _basketball.transform.DOMove(groundPos, 1f).SetEase(Ease.OutBounce).WaitForCompletion();
-                    OnSequenceCompleted();
                     break;
                 }
                 else
@@ -336,13 +369,19 @@ public class PlayerManager : MonoBehaviour
                 }
             }
         }
-        yield return new WaitForSeconds(1f);
-        _crowdController.SetPlaying(false);
+        yield return new WaitForSeconds(2f);
+        OnSequenceCompleted();
+        _simulating = false;
     }
 
     private void OnSequenceCompleted()
     {
         // TODO: Logic for end of sequence
+        _crowdController.SetPlaying(false);
+        foreach (var player in _players)
+        {
+            player.FacePosition(player.transform.position + new Vector3(0, 0, 1f), 1f);
+        }
     }
 }
 

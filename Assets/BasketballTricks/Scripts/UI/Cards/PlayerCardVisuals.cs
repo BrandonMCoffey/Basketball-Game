@@ -53,7 +53,7 @@ public class PlayerCardVisuals : MonoBehaviour
 
         for (int i = 0; i < _actionVisuals.Count; i++)
         {
-            _actionVisuals[i].SetData(_data.GetAction(i));
+            _actionVisuals[i].SetData(_data != null ? _data.GetAction(i) : new ActionData());
         }
     }
 

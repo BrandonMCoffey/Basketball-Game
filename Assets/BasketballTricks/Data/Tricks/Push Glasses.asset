@@ -15,10 +15,9 @@ MonoBehaviour:
   _data:
     Type: 1
     Name: Push Glasses
-    Duration: 1
+    Duration: 3
     Points: 20
     Mult: 2
     Accuracy: 0.8
     Icon: {fileID: 0}
-    Animation: {fileID: 0}
-  _animationDuration: 0
+    Animation: 100

@@ -8,7 +8,8 @@ public class CrowdController : MonoBehaviour
     [SerializeField] private Gradient _skinColorGradient;
     [SerializeField] private Gradient _shirtColorGradient;
     [SerializeField, Range(0f, 1f)] private float _crowdPercent = 0.6f;
-    [SerializeField] private float _transitionSpeed = 5f;
+    [SerializeField] private float _playingTransitionSpeed = 4f;
+    [SerializeField] private float _defaultTransitionSpeed = 1f;
 
     [Header("Idle Animation")]
     [SerializeField] private Vector3 _rotationAmount = new Vector3(0f, 15f, 5f);
@@ -88,15 +89,15 @@ public class CrowdController : MonoBehaviour
             float targetSpeed = Mathf.Lerp(_hypeSpeedRange.x, _hypeSpeedRange.y, easedHype);
             float targetPosY = Mathf.Lerp(0, _hypePositionAmountY, easedHype);
             Vector3 targetRot = Vector3.Lerp(Vector3.zero, _hypeRotationAmount, easedHype);
-            _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed, Time.deltaTime * _transitionSpeed);
-            _currentPositionY = Mathf.Lerp(_currentPositionY, targetPosY, Time.deltaTime * _transitionSpeed);
-            _currentRotation = Vector3.Lerp(_currentRotation, targetRot, Time.deltaTime * _transitionSpeed);
+            _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed, Time.deltaTime * _playingTransitionSpeed);
+            _currentPositionY = Mathf.Lerp(_currentPositionY, targetPosY, Time.deltaTime * _playingTransitionSpeed);
+            _currentRotation = Vector3.Lerp(_currentRotation, targetRot, Time.deltaTime * _playingTransitionSpeed);
         }
         else
         {
-            _currentSpeed = Mathf.Lerp(_currentSpeed, (_speedRange.x + _speedRange.y) / 2f, Time.deltaTime * _transitionSpeed);
-            _currentPositionY = Mathf.Lerp(_currentPositionY, _positionAmountY, Time.deltaTime * _transitionSpeed);
-            _currentRotation = Vector3.Lerp(_currentRotation, _rotationAmount, Time.deltaTime * _transitionSpeed);
+            _currentSpeed = Mathf.Lerp(_currentSpeed, (_speedRange.x + _speedRange.y) / 2f, Time.deltaTime * _defaultTransitionSpeed);
+            _currentPositionY = Mathf.Lerp(_currentPositionY, _positionAmountY, Time.deltaTime * _defaultTransitionSpeed);
+            _currentRotation = Vector3.Lerp(_currentRotation, _rotationAmount, Time.deltaTime * _defaultTransitionSpeed);
         }
 
         foreach (var person in _crowdPeople)
