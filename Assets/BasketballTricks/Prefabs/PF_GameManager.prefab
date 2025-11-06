@@ -141,6 +141,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c81d43b4eba52584795941f392925011, type: 2}
   - {fileID: 11400000, guid: 50ad3cf5f5ad33349b02c60c22da6083, type: 2}
   - {fileID: 11400000, guid: 8456fe0493824f542b0e4ff22df6b1bd, type: 2}
+  - {fileID: 11400000, guid: a93547280ba19604b87c5bfc654e3b2b, type: 2}
   _sceneTransition: {fileID: 6607912198263155716}
 --- !u!1 &9087500760679763712
 GameObject:
