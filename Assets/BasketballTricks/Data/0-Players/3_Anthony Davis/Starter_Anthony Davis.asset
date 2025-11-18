@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e683ebbb374544cbd2b020e65e5ca3, type: 3}
   m_Name: Starter_Anthony Davis
   m_EditorClassIdentifier: 
-  _playerData: {fileID: 11400000, guid: 500f5b5577c0d3c47b38fd798bc70ed2, type: 2}
+  _playerData: {fileID: 11400000, guid: 5fd42075e226b3647a92ea12b9d03202, type: 2}
   _cardTitle: Mavericks Player
   _rarity: 2
   _actions:
