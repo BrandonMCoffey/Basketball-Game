@@ -40,7 +40,7 @@ public class DribbleController : MonoBehaviour
     private float _ballRadius;
     private int _touches;
     private bool _grounded;
-    private PlayerCardData _activePlayer;
+    private GameCard _activePlayer;
 
     private bool Grounded => transform.position.y <= _ballRadius + _groundProximity;
 
@@ -89,7 +89,7 @@ public class DribbleController : MonoBehaviour
 
     private void UpdateDribbleText()
     {
-        _dribblesText.text = $"{(_activePlayer != null ? $"{_activePlayer.name}\n" : "")}Dribbles: {_dribbles}";
+        _dribblesText.text = $"{(_activePlayer != null ? $"{_activePlayer.PlayerData.PlayerName}\n" : "")}Dribbles: {_dribbles}";
     }
 
     public void ReturnToCatalog()
@@ -278,6 +278,7 @@ public class DribbleController : MonoBehaviour
         if (_activePlayer != null)
         {
             //_activePlayer.IncrementDribblingPractice();
+            _activePlayer.AddXP(5f);
         }
     }
 }

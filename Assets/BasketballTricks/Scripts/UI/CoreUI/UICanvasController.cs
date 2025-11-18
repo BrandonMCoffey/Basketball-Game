@@ -55,7 +55,12 @@ public class UICanvasController : MonoBehaviour
         _stateMachine.SetState(MainMenuState);
     }
 
-    public void PlayGame()
+    public void PlayHalftimeShow()
+    {
+        SceneManager.LoadSceneAsync("HalftimeShow");
+    }
+
+    public void PlaySandbox()
     {
         SceneManager.LoadSceneAsync("TrickPlays");
     }

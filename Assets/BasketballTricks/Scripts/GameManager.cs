@@ -9,13 +9,13 @@ public class GameManager : MonoBehaviour
     public static bool InTransition { get; private set; }
     public static event System.Action UpdateActivePlayers = delegate { };
 
-    [SerializeField] private List<PlayerCardData> _players;
+    [SerializeField] private List<GameCard> _players;
     [SerializeField] private CanvasGroup _sceneTransition;
 
     private int _selectedPlayerIndex = -1;
 
-    public List<PlayerCardData> Players => _players;
-    public PlayerCardData ActivePlayer => (_selectedPlayerIndex >= 0 && _selectedPlayerIndex < _players.Count) ? _players[_selectedPlayerIndex] : null;
+    public List<GameCard> Players => _players;
+    public GameCard ActivePlayer => (_selectedPlayerIndex >= 0 && _selectedPlayerIndex < _players.Count) ? _players[_selectedPlayerIndex] : null;
 
     private void Awake()
     {
@@ -86,5 +86,30 @@ public class GameManager : MonoBehaviour
     public static float EaseInOutQuart(float x)
     {
         return x < 0.5 ? 8 * x * x * x * x : 1 - Mathf.Pow(-2 * x + 2, 4) / 2;
+    }
+}
+
+[System.Serializable]
+public class GameCard
+{
+    [SerializeField] private PlayerCardData _cardData;
+    [SerializeField] private float _xp;
+    [SerializeField] private int _level = 1;
+
+    public bool Valid => _cardData != null;
+    public PlayerData PlayerData => _cardData.PlayerData;
+    public ActionData GetAction(int index) => _cardData.GetAction(index);
+
+    public void AddXP(float amount)
+    {
+        if (_level >= 3) return;
+        _xp += amount;
+        float xpForNextLevel = (_level + 1) * 100f;
+        while (_xp >= xpForNextLevel)
+        {
+            _xp -= xpForNextLevel;
+            _level++;
+            xpForNextLevel = (_level + 1) * 100f;
+        }
     }
 }

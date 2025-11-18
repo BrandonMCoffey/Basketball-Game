@@ -66,11 +66,11 @@ public class PlayerManager : MonoBehaviour
         return player != null ? player.transform.position : transform.position;
     }
 
-    public bool NewPlayerToPlace(PlayerCardData data)
+    public bool NewPlayerToPlace(GameCard data)
     {
         foreach (var player in _players)
         {
-            if (player.CardData == null)
+            if (!player.CardData.Valid)
             {
                 _placingPlayer = player;
                 _placingPlayer.SetAnimation(PlayerAnimation.Dangle, 0f);
@@ -108,7 +108,7 @@ public class PlayerManager : MonoBehaviour
             var position = hitInfo.point;
             foreach (var player in _players)
             {
-                if (player.CardData != null)
+                if (player.CardData.Valid)
                 {
                     var playerPos = player.transform.position;
                     float xDist = Mathf.Abs(position.x - playerPos.x);
@@ -134,7 +134,7 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
-    public bool AttemptPlacePlayer(PlayerCardData data, Vector2 mousePos)
+    public bool AttemptPlacePlayer(GameCard data, Vector2 mousePos)
     {
         if (_placingPlayer == null) return false;
 
@@ -142,7 +142,7 @@ public class PlayerManager : MonoBehaviour
         {
             _placingPlayer.Place(data);
             _placingPlayer = null;
-            if (_players.All(p => p.CardData != null))
+            if (_players.All(p => p.CardData.Valid))
             {
                 _cardCatalogPanel.SetShown(false);
                 _players.Sort((a, b) => b.transform.position.x.CompareTo(a.transform.position.x));
@@ -200,11 +200,12 @@ public class PlayerManager : MonoBehaviour
         {
             TimelineAction timelineAction = TimelineActions[i];
             var player = timelineAction.Player;
-            if (player.CardData == null)
+            if (!player.CardData.Valid)
             {
                 Debug.LogWarning("Cannot simulate sequence: A player has no data assigned.");
                 return false;
             }
+            // TODO: Check to make sure player passing has the ball or just recieved the ball from a pass
             var action = player.CardData.GetAction(timelineAction.ActionIndex);
             switch (action.Type)
             {

@@ -26441,6 +26441,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2723012667954797272, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+        type: 3}
+      propertyPath: m_Name
+      value: BTN_Sandbox
+      objectReference: {fileID: 0}
     - target: {fileID: 3244905803009763060, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -26484,7 +26489,7 @@ PrefabInstance:
     - target: {fileID: 4275964192124052402, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: PlayGame
+      value: PlayHalftimeShow
       objectReference: {fileID: 0}
     - target: {fileID: 4275964192124052402, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
         type: 3}
@@ -26520,6 +26525,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4626458899216751740, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+        type: 3}
+      propertyPath: m_text
+      value: Sandbox
       objectReference: {fileID: 0}
     - target: {fileID: 4740725136360449404, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
         type: 3}
@@ -26706,6 +26716,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7325815578531688370, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+        type: 3}
+      propertyPath: m_Name
+      value: BTN_HalftimeShow
+      objectReference: {fileID: 0}
     - target: {fileID: 7678152047808749600, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -26780,6 +26795,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8878799572385322712, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8878799572385322712, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8878799572385322712, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 38848435}
+    - target: {fileID: 8878799572385322712, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8878799572385322712, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlaySandbox
+      objectReference: {fileID: 0}
+    - target: {fileID: 8878799572385322712, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UICanvasController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8878799572385322712, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8995278184979992192, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
         type: 3}

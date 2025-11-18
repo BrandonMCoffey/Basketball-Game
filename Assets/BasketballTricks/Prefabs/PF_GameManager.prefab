@@ -130,12 +130,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _players:
-  - {fileID: 11400000, guid: 04c01f6db6dda6347a3d7b2972889874, type: 2}
-  - {fileID: 11400000, guid: 98eb2e11f85a0de44b5f95ca7da49876, type: 2}
-  - {fileID: 11400000, guid: 680b61da0331cf445bbc30274da9fce7, type: 2}
-  - {fileID: 11400000, guid: 94ce15d06b4c00f43bf37ddf73e05b5f, type: 2}
-  - {fileID: 11400000, guid: ef4b72e02cb4913469d3d3b2b4aa75e3, type: 2}
-  - {fileID: 11400000, guid: 43038797ecff65d49ab9371ca67f6c95, type: 2}
+  - _cardData: {fileID: 11400000, guid: 98eb2e11f85a0de44b5f95ca7da49876, type: 2}
+    _xp: 0
+    _level: 1
+  - _cardData: {fileID: 11400000, guid: 43038797ecff65d49ab9371ca67f6c95, type: 2}
+    _xp: 0
+    _level: 1
+  - _cardData: {fileID: 11400000, guid: 04c01f6db6dda6347a3d7b2972889874, type: 2}
+    _xp: 0
+    _level: 1
+  - _cardData: {fileID: 11400000, guid: ef4b72e02cb4913469d3d3b2b4aa75e3, type: 2}
+    _xp: 0
+    _level: 1
+  - _cardData: {fileID: 11400000, guid: 680b61da0331cf445bbc30274da9fce7, type: 2}
+    _xp: 0
+    _level: 1
+  - _cardData: {fileID: 11400000, guid: 94ce15d06b4c00f43bf37ddf73e05b5f, type: 2}
+    _xp: 0
+    _level: 1
   _sceneTransition: {fileID: 6607912198263155716}
 --- !u!1 &9087500760679763712
 GameObject:

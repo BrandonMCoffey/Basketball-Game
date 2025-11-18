@@ -119,7 +119,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
             _actionDetailTransform.DOScaleX(1, _holdAnimationDuration * 0.5f).SetEase(Ease.OutQuart);
         }
         _actionDetailIndex = index;
-        _actionDetails.SetData(_data.GetAction(index));
+        _actionDetails.SetData(_card.GetAction(index));
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -222,7 +222,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
 
         _rectTransform.localScale = _initialScale * _popScale;
 
-        bool canPlace = _canPlaceOnCourt && PlayerManager.Instance.NewPlayerToPlace(_data);
+        bool canPlace = _canPlaceOnCourt && PlayerManager.Instance.NewPlayerToPlace(_card);
         if (_parent != null && _holdParent != null) transform.SetParent(canPlace ? _parent : _holdParent, true);
         transform.SetAsLastSibling();
     }
@@ -240,12 +240,12 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     {
         if (!CanDrag || !_isDragging) return;
 
-        bool success = _canPlaceOnCourt && PlayerManager.Instance.AttemptPlacePlayer(_data, eventData.position);
+        bool success = _canPlaceOnCourt && PlayerManager.Instance.AttemptPlacePlayer(_card, eventData.position);
         if (success)
         {
             // TODO: Disable card permanently
             SetInteractable(false);
-            _data = null;
+            _card = null;
             transform.DOScale(Vector3.zero, 0.4f).SetEase(Ease.OutQuart);
             return;
         }

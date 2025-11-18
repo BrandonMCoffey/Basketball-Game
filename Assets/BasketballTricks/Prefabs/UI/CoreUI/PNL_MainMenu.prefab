@@ -335,6 +335,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9017061582157054842}
     m_Modifications:
+    - target: {fileID: 125401464473645423, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
+        type: 3}
+      propertyPath: m_text
+      value: Halftime Show
+      objectReference: {fileID: 0}
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
       propertyPath: m_Pivot.x
@@ -434,6 +439,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496289231760783709, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
+        type: 3}
+      propertyPath: _text
+      value: Halftime Show
       objectReference: {fileID: 0}
     - target: {fileID: 7224879588069095371, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
@@ -1005,7 +1015,7 @@ PrefabInstance:
     - target: {fileID: 125401464473645423, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
       propertyPath: m_text
-      value: Tournament
+      value: Sandbox
       objectReference: {fileID: 0}
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
@@ -1120,7 +1130,7 @@ PrefabInstance:
     - target: {fileID: 5496289231760783709, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
       propertyPath: _text
-      value: Tournament
+      value: Sandbox
       objectReference: {fileID: 0}
     - target: {fileID: 7224879588069095371, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}

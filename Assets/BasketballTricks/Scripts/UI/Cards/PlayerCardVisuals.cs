@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerCardVisuals : MonoBehaviour
 {
-    [SerializeField] protected PlayerCardData _data;
+    [SerializeField] protected GameCard _card;
 
     [Header("UI References")]
     [SerializeField] private TMP_Text _playerName;
@@ -34,24 +34,24 @@ public class PlayerCardVisuals : MonoBehaviour
 
     protected virtual void OnValidate()
     {
-        if (_data != null) UpdateVisuals();
+        if (_card != null) UpdateVisuals();
     }
 
-    public void SetData(PlayerCardData data)
+    public void SetData(GameCard data)
     {
-        _data = data;
+        _card = data;
         UpdateVisuals();
     }
 
     private void UpdateVisuals()
     {
-        if (_playerName != null) _playerName.text = _data != null ? _data.PlayerData.PlayerName : "Player";
-        if (_playerName2 != null) _playerName2.text = _data != null ? _data.PlayerData.PlayerName : "Player";
-        if (_playerImage != null) _playerImage.sprite = _data != null ? _data.PlayerData.PlayerSprite : _defaultPlayerImage;
+        if (_playerName != null) _playerName.text = _card.Valid ? _card.PlayerData.PlayerName : "Player";
+        if (_playerName2 != null) _playerName2.text = _card.Valid ? _card.PlayerData.PlayerName : "Player";
+        if (_playerImage != null) _playerImage.sprite = _card.Valid ? _card.PlayerData.PlayerSprite : _defaultPlayerImage;
 
         for (int i = 0; i < _actionVisuals.Count; i++)
         {
-            _actionVisuals[i].SetData(_data != null ? _data.GetAction(i) : new ActionData());
+            _actionVisuals[i].SetData(_card.Valid ? _card.GetAction(i) : new ActionData());
         }
     }
 
