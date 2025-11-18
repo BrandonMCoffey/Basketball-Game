@@ -25,6 +25,7 @@ public class RandomPlayerArtData : ScriptableObject
         {
             SkinColor = GetSkinColor(),
             HairColor = GetHairColor(),
+            JerseyTexture = null,
             HairPrefab = HairObject,
             FacialHairPrefab = GetFacialHair(),
             AccessoryPrefab = GetHeadBand()

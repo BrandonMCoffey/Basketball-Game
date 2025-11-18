@@ -12,7 +12,6 @@ public class PlayerCardVisuals : MonoBehaviour
     [SerializeField] private TMP_Text _playerName;
     [SerializeField] private TMP_Text _playerName2;
     [SerializeField] private Image _playerImage;
-    [SerializeField] private Image _teamImage;
     [SerializeField] private Sprite _defaultPlayerImage;
     [SerializeField] private Sprite _defaultTeamImage;
     [SerializeField] private List<PlayerActionVisuals> _actionVisuals;
@@ -49,7 +48,6 @@ public class PlayerCardVisuals : MonoBehaviour
         if (_playerName != null) _playerName.text = _data != null ? _data.PlayerName : "Player";
         if (_playerName2 != null) _playerName2.text = _data != null ? _data.PlayerName : "Player";
         if (_playerImage != null) _playerImage.sprite = _data != null ? _data.PlayerSprite : _defaultPlayerImage;
-        if (_teamImage != null) _teamImage.sprite = _data != null ? _data.TeamLogo : _defaultTeamImage;
 
         for (int i = 0; i < _actionVisuals.Count; i++)
         {

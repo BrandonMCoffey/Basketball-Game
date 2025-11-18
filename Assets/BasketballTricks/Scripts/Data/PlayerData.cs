@@ -6,7 +6,6 @@ public class PlayerData : ScriptableObject
 {
     [SerializeField] private string _playerName;
     [SerializeField] private Sprite _playerSprite;
-    [SerializeField] private TeamData _team;
 
     [SerializeField] private bool _customPlayerArt;
     [SerializeField, HideIf(nameof(_customPlayerArt))] private RandomPlayerArtData _randomHairData;
@@ -38,7 +37,6 @@ public class PlayerData : ScriptableObject
 
     public string PlayerName => _playerName;
     public Sprite PlayerSprite => _playerSprite;
-    public Sprite TeamLogo => _team != null ? _team.TeamLogo : null;
     public bool HasArtData => _customPlayerArt || _randomHairData != null;
     public PlayerArtData ArtData => _customPlayerArt ? _artData : _randomHairData.GetData();
 
@@ -96,6 +94,7 @@ public struct PlayerArtData
 {
     public Color SkinColor;
     public Color HairColor;
+    public Texture JerseyTexture;
     public GameObject HairPrefab;
     public GameObject FacialHairPrefab;
     public GameObject AccessoryPrefab;
