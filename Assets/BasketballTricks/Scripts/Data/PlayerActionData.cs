@@ -38,10 +38,11 @@ public enum ActionType
 public struct ActionData
 {
     public ActionType Type;
+    public CardRarity AssociatedRarity;
     public string Name;
+    public float Cost;
+    public float Hype;
     public float Duration;
-    public float Points;
-    public float Mult;
     [Range(0, 1)] public float Accuracy;
     public Sprite Icon;
     public PlayerAnimation Animation;
@@ -49,26 +50,21 @@ public struct ActionData
     public ActionData(ActionType type = ActionType.None)
     {
         Type = type;
+        AssociatedRarity = CardRarity.None;
         Name = type.ToString();
-        Duration = type switch
-        {
-            ActionType.Trick => 3,
-            ActionType.Pass => 2,
-            ActionType.Shot => 4,
-            _ => 0,
-        };
-        Points = type switch
+        Cost = 1;
+        Hype = type switch
         {
             ActionType.Trick => 20,
             ActionType.Pass => 5,
             ActionType.Shot => 5,
             _ => 0,
         };
-        Mult = type switch
+        Duration = type switch
         {
-            ActionType.Trick => 2,
-            ActionType.Pass => 0,
-            ActionType.Shot => 10,
+            ActionType.Trick => 3,
+            ActionType.Pass => 2,
+            ActionType.Shot => 4,
             _ => 0,
         };
         Accuracy = type switch

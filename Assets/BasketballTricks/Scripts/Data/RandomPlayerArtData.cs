@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "RandomPlayerArtData", menuName = "BasketballTricks/RandomPlayerArtData", order = 1)]
 public class RandomPlayerArtData : ScriptableObject
 {
     [SerializeField] private Gradient _skinGradient;

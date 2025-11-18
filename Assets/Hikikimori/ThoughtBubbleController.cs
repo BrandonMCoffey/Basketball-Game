@@ -11,7 +11,6 @@ public class ThoughtBubbleController : MonoBehaviour
     [SerializeField] private RectTransform _top;
     [SerializeField] private RectTransform _spawn;
     [SerializeField] private float _spacingBetweenBubbles = 20;
-    [SerializeField] private float _bubblePaddingLeftRight = 10;
     [SerializeField] private float _moveSpeed = 50;
     [SerializeField] private float _swaySpeed = 0.5f;
     [SerializeField] private float _swayAmplitude = 20;

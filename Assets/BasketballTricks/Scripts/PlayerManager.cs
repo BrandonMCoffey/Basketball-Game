@@ -245,12 +245,11 @@ public class PlayerManager : MonoBehaviour
             if (player.PlayerData != null)
             {
                 var action = player.PlayerData.GetAction(timelineAction.ActionIndex);
-                if (action.Points > 0) ui.AddPoints(action.Points);
-                if (action.Mult > 0) ui.AddMult(action.Mult);
+                if (action.Hype > 0) ui.AddPoints(action.Hype);
                 _crowdController.SetHype(ui.Points * ui.Mult / 500f);
                 player.SetActionText(action.Name, action.Duration);
                 player.EmitParticles();
-                Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.Points} points and {action.Mult} mult.");
+                Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.Hype} points.");
                 if (action.Type == ActionType.Pass)
                 {
                     float tossPrepTime = 0.5f;
