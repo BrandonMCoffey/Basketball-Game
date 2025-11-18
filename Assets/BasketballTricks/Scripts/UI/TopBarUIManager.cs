@@ -22,7 +22,7 @@ public class TopBarUIManager : MonoBehaviour
         for (; i < timeline.Count; i++)
         {
             var player = timeline[i].Player;
-            var action = player.PlayerData.GetAction(timeline[i].ActionIndex);
+            var action = player.CardData.GetAction(timeline[i].ActionIndex);
 
             if (i < _bars.Count)
             {

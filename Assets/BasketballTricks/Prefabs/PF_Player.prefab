@@ -5108,7 +5108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 506152f60c1adb3479ee2a0037e680b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerData: {fileID: 0}
+  _cardData: {fileID: 0}
   _animator: {fileID: 2742509778681835226}
   _playerArt: {fileID: 2839272202819358832}
   _animationCrossfadeDuration: 0.1

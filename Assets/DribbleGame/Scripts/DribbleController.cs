@@ -40,7 +40,7 @@ public class DribbleController : MonoBehaviour
     private float _ballRadius;
     private int _touches;
     private bool _grounded;
-    private PlayerData _activePlayer;
+    private PlayerCardData _activePlayer;
 
     private bool Grounded => transform.position.y <= _ballRadius + _groundProximity;
 

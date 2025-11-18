@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private PlayerData _playerData;
+    [SerializeField] private PlayerCardData _cardData;
     [SerializeField] private Animator _animator;
     [SerializeField] private PlayerArt _playerArt;
     [SerializeField] private float _animationCrossfadeDuration = 0.25f;
@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform _basketballSocket;
     [SerializeField] private Vector3 _basketballOffset;
 
-    public PlayerData PlayerData => _playerData;
+    public PlayerCardData CardData => _cardData;
     public Color PositionColor => _positionColor;
     public Vector3 BasketballPosition => _basketballSocket.TransformPoint(_basketballOffset);
     public PlayerArt PlayerArt => _playerArt;
@@ -54,9 +54,9 @@ public class Player : MonoBehaviour
         transform.position = pos + Vector3.up * 0.01f;
     }
 
-    public void Place(PlayerData data)
+    public void Place(PlayerCardData data)
     {
-        _playerData = data;
+        _cardData = data;
         SetAnimation(PlayerAnimation.Idle);
     }
 

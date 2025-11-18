@@ -16,7 +16,7 @@ public class PlayerActionUI : MonoBehaviour
     [SerializeField] RectTransform _glareEffect;
 
     private Player _player;
-    private PlayerData _playerData;
+    private PlayerCardData _playerData;
     
     private void Start()
     {
@@ -27,7 +27,7 @@ public class PlayerActionUI : MonoBehaviour
     {
         _playerActionPanel.SetShown(true);
         _player = player;
-        _playerData = player != null ? player.PlayerData : null;
+        _playerData = player != null ? player.CardData : null;
         PlayerShowAnims(true);
         UpdateData();
     }

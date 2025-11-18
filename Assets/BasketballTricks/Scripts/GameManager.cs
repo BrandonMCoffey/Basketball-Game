@@ -9,13 +9,13 @@ public class GameManager : MonoBehaviour
     public static bool InTransition { get; private set; }
     public static event System.Action UpdateActivePlayers = delegate { };
 
-    [SerializeField] private List<PlayerData> _players;
+    [SerializeField] private List<PlayerCardData> _players;
     [SerializeField] private CanvasGroup _sceneTransition;
 
     private int _selectedPlayerIndex = -1;
 
-    public List<PlayerData> Players => _players;
-    public PlayerData ActivePlayer => (_selectedPlayerIndex >= 0 && _selectedPlayerIndex < _players.Count) ? _players[_selectedPlayerIndex] : null;
+    public List<PlayerCardData> Players => _players;
+    public PlayerCardData ActivePlayer => (_selectedPlayerIndex >= 0 && _selectedPlayerIndex < _players.Count) ? _players[_selectedPlayerIndex] : null;
 
     private void Awake()
     {
@@ -41,14 +41,14 @@ public class GameManager : MonoBehaviour
 
     public void StartDribblePractice(int playerIndex)
     {
-        Debug.Log($"Starting dribble practice with {_players[playerIndex].PlayerName}");
+        Debug.Log($"Starting dribble practice with {_players[playerIndex].PlayerData.PlayerName}");
         _selectedPlayerIndex = playerIndex;
         TransitionToScene("DribbleGame");
     }
 
     public void StartShootingPractice(int playerIndex)
     {
-        Debug.Log($"Starting shooting practice with {_players[playerIndex].PlayerName}");
+        Debug.Log($"Starting shooting practice with {_players[playerIndex].PlayerData.PlayerName}");
         _selectedPlayerIndex = playerIndex;
         TransitionToScene("ShootingGame");
     }

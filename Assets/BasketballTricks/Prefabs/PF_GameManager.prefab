@@ -130,18 +130,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _players:
-  - {fileID: 11400000, guid: 5fd42075e226b3647a92ea12b9d03202, type: 2}
-  - {fileID: 11400000, guid: eb2e1118cac29144ba051f38d67f6e8a, type: 2}
-  - {fileID: 11400000, guid: 6836d731743c8b14788d89a6163c443b, type: 2}
-  - {fileID: 11400000, guid: 65cd1e95f609a9e4eb6740a4065199de, type: 2}
-  - {fileID: 11400000, guid: 500f5b5577c0d3c47b38fd798bc70ed2, type: 2}
-  - {fileID: 11400000, guid: ce37ce7eafdff5e45bc2b7dff7db031e, type: 2}
-  - {fileID: 11400000, guid: 92581f95ed01e3a4cbe5ab304fdc4a79, type: 2}
-  - {fileID: 11400000, guid: 61667283f8658c440b220cfffdd7703f, type: 2}
-  - {fileID: 11400000, guid: c81d43b4eba52584795941f392925011, type: 2}
-  - {fileID: 11400000, guid: 50ad3cf5f5ad33349b02c60c22da6083, type: 2}
-  - {fileID: 11400000, guid: 8456fe0493824f542b0e4ff22df6b1bd, type: 2}
-  - {fileID: 11400000, guid: a93547280ba19604b87c5bfc654e3b2b, type: 2}
+  - {fileID: 11400000, guid: 04c01f6db6dda6347a3d7b2972889874, type: 2}
+  - {fileID: 11400000, guid: 98eb2e11f85a0de44b5f95ca7da49876, type: 2}
+  - {fileID: 11400000, guid: 680b61da0331cf445bbc30274da9fce7, type: 2}
+  - {fileID: 11400000, guid: 94ce15d06b4c00f43bf37ddf73e05b5f, type: 2}
+  - {fileID: 11400000, guid: ef4b72e02cb4913469d3d3b2b4aa75e3, type: 2}
+  - {fileID: 11400000, guid: 43038797ecff65d49ab9371ca67f6c95, type: 2}
   _sceneTransition: {fileID: 6607912198263155716}
 --- !u!1 &9087500760679763712
 GameObject:
