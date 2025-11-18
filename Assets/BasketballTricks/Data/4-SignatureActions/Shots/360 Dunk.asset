@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 360 Dunk
   m_EditorClassIdentifier: 
   _data:
-    Type: 2
+    Type: 3
     AssociatedRarity: 4
     Name: 360 Dunk
     Cost: 4

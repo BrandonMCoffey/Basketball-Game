@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rondo Fake
   m_EditorClassIdentifier: 
   _data:
-    Type: 1
+    Type: 2
     AssociatedRarity: 4
     Name: Rondo Fake
     Cost: 3

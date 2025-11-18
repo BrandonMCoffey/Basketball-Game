@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dime Pass
   m_EditorClassIdentifier: 
   _data:
-    Type: 1
+    Type: 2
     AssociatedRarity: 2
     Name: Dime Pass
     Cost: 1

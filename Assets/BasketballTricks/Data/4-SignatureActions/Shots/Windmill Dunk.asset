@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Windmill Dunk
   m_EditorClassIdentifier: 
   _data:
-    Type: 2
+    Type: 3
     AssociatedRarity: 4
     Name: Windmill Dunk
     Cost: 4

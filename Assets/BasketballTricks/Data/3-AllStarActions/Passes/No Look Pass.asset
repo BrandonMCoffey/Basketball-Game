@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: No Look Pass
   m_EditorClassIdentifier: 
   _data:
-    Type: 1
+    Type: 2
     AssociatedRarity: 3
     Name: No Look Pass
     Cost: 2

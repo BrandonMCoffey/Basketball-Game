@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Finger Roll Layup
   m_EditorClassIdentifier: 
   _data:
-    Type: 2
+    Type: 3
     AssociatedRarity: 2
     Name: Finger Roll Layup
     Cost: 2

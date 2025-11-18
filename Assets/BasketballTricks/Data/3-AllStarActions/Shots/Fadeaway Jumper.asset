@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fadeaway Jumper
   m_EditorClassIdentifier: 
   _data:
-    Type: 2
+    Type: 3
     AssociatedRarity: 3
     Name: Fadeaway Jumper
     Cost: 3

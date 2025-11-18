@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Push Pass
   m_EditorClassIdentifier: 
   _data:
-    Type: 1
+    Type: 2
     AssociatedRarity: 1
     Name: Push Pass
     Cost: 1

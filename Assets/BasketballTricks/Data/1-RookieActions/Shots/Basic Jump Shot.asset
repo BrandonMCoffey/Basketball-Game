@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Basic Jump Shot
   m_EditorClassIdentifier: 
   _data:
-    Type: 2
+    Type: 3
     AssociatedRarity: 1
     Name: Basic Jump Shot
+    Cost: 1
+    Hype: 20
     Duration: 1
-    Points: 20
-    Mult: 2
     Accuracy: 0.8
     Icon: {fileID: 0}
     Animation: 200

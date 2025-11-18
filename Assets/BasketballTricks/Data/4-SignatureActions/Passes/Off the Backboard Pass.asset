@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Off the Backboard Pass
   m_EditorClassIdentifier: 
   _data:
-    Type: 1
+    Type: 2
     AssociatedRarity: 4
     Name: Off the Backboard Pass
     Cost: 3

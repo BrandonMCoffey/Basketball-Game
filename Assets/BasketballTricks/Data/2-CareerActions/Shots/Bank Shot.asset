@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bank Shot
   m_EditorClassIdentifier: 
   _data:
-    Type: 2
+    Type: 3
     AssociatedRarity: 2
     Name: Bank Shot
     Cost: 2

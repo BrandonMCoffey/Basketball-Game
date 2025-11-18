@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dribble Pass
   m_EditorClassIdentifier: 
   _data:
-    Type: 1
+    Type: 2
     AssociatedRarity: 2
     Name: Dribble Pass
     Cost: 1
