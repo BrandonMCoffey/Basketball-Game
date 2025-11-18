@@ -43,6 +43,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     private RectTransform _actionDetailTransform;
     private Transform _parent;
     private Transform _holdParent;
+    private bool _canPlaceOnCourt;
 
     private bool CanDrag => _canDrag && !_focusView && !_flipping;
 
@@ -70,13 +71,14 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         }
     }
 
-    public void Init(Transform parent, Transform holdParent)
+    public void Init(Transform parent, Transform holdParent, bool canPlaceOnCourt)
     {
         _initialPosition = _rectTransform.position;
         _initialRotation = _rectTransform.localRotation;
         _initialScale = _rectTransform.localScale;
         _parent = parent;
         _holdParent = holdParent;
+        _canPlaceOnCourt = canPlaceOnCourt;
     }
 
     public void RefreshTransform()
@@ -220,7 +222,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
 
         _rectTransform.localScale = _initialScale * _popScale;
 
-        bool canPlace = PlayerManager.Instance.NewPlayerToPlace(_data);
+        bool canPlace = _canPlaceOnCourt && PlayerManager.Instance.NewPlayerToPlace(_data);
         if (_parent != null && _holdParent != null) transform.SetParent(canPlace ? _parent : _holdParent, true);
         transform.SetAsLastSibling();
     }
@@ -231,14 +233,14 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         _currentDragPosition = (Vector3)eventData.position;
         _currentDragDelta = eventData.delta;
 
-        PlayerManager.Instance.UpdatePlacingPlayer(eventData.position);
+        if (_canPlaceOnCourt) PlayerManager.Instance.UpdatePlacingPlayer(eventData.position);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         if (!CanDrag || !_isDragging) return;
 
-        bool success = PlayerManager.Instance.AttemptPlacePlayer(_data, eventData.position);
+        bool success = _canPlaceOnCourt && PlayerManager.Instance.AttemptPlacePlayer(_data, eventData.position);
         if (success)
         {
             // TODO: Disable card permanently

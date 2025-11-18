@@ -1558,6 +1558,8 @@ MonoBehaviour:
   _cardPrefab: {fileID: 7844811598686170421, guid: 311f4ea549fbbe04bbebcbdf44f1aaef,
     type: 3}
   _cardParent: {fileID: 6617575546811985027}
+  _holdParent: {fileID: 3318022567605205429}
+  _dragOntoCourt: 1
   _cardSize: {x: 160, y: 220}
   _spacing: 20
   _columns: 2

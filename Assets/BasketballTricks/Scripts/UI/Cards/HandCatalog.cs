@@ -8,6 +8,8 @@ public class HandCatalog : MonoBehaviour
 {
     [SerializeField] private PlayerCard _cardPrefab;
     [SerializeField] private Transform _cardParent;
+    [SerializeField] private Transform _holdParent;
+    [SerializeField] private bool _dragOntoCourt;
     [SerializeField] private Vector2 _cardSize = new Vector2(200, 300);
     [SerializeField] private float _spacing = 10;
     [SerializeField, Range(1, 5)] private int _columns = 2;
@@ -30,6 +32,11 @@ public class HandCatalog : MonoBehaviour
         ToggleAnimations(true);
     }
 
+    private void OnValidate()
+    {
+        if (_holdParent == null) _holdParent = transform;
+    }
+
     public void StartGame() => GameManager.Instance.StartGame();
 
     private void CreateCards()
@@ -47,7 +54,7 @@ public class HandCatalog : MonoBehaviour
             rectTransform.anchorMin = rectTransform.anchorMax = rectTransform.pivot = Vector3.one * 0.5f;
             rectTransform.anchoredPosition = new Vector2(x, y + 20); // offset y for better centering - Sai
             rectTransform.sizeDelta = _cardSize;
-            card.Init(_cardParent, transform);
+            card.Init(_cardParent, _holdParent, _dragOntoCourt);
             card.transform.localScale = Vector3.zero;
             _cards.Add(card);
         }
