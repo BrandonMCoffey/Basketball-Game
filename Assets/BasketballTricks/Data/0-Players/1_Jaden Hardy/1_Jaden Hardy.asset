@@ -15,7 +15,7 @@ MonoBehaviour:
   _playerName: Jaden Hardy
   _playerNumber: 1
   _playerSprite: {fileID: 21300000, guid: 12da0001919b81f4a9264cc3f52d4787, type: 3}
-  _naturalPosition: 0
+  _naturalPosition: 2
   _secondaryNaturalPosition: 0
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}

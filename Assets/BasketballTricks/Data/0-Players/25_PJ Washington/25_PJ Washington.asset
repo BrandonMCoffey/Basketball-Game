@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c84bf1ca33becc74c90bf18da6a7ee77, type: 3}
   m_Name: 25_PJ Washington
   m_EditorClassIdentifier: 
-  _playerName: PJ Washington
+  _playerName: P.J. Washington
   _playerNumber: 25
   _playerSprite: {fileID: 21300000, guid: a9e2420d112a9ad47af30dacbbbedace, type: 3}
-  _naturalPosition: 0
-  _secondaryNaturalPosition: 0
+  _naturalPosition: 4
+  _secondaryNaturalPosition: 5
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}
   _artData:

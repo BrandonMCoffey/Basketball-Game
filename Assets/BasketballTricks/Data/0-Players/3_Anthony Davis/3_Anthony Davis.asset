@@ -15,8 +15,8 @@ MonoBehaviour:
   _playerName: Anthony Davis
   _playerNumber: 3
   _playerSprite: {fileID: 21300000, guid: f998cbac19b793947bbff9a8d61b5606, type: 3}
-  _naturalPosition: 0
-  _secondaryNaturalPosition: 0
+  _naturalPosition: 4
+  _secondaryNaturalPosition: 5
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}
   _artData:

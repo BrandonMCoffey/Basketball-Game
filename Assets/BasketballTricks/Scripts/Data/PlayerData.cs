@@ -63,7 +63,7 @@ public enum PlayerPosition
     None,
     PointGuard,
     ShootingGuard,
-    ShootingForward,
+    SmallForward,
     PowerForward,
     Center
 }
