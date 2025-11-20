@@ -29,7 +29,7 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
     private LockerRoomController _controller;
     private int _controllerIndex;
 
-    public bool HasGameCard => _activeGameCard != null;
+    public GameCard Card => _activeGameCard;
     public Vector3 OriginalPosition { get; private set; }
 
     private void OnValidate()

@@ -47,7 +47,7 @@ public class LockerRoomController : MonoBehaviour
                 locker.transform.DOMove(locker.OriginalPosition, 0.5f).SetEase(Ease.InOutCubic);
             }
             yield return new WaitForSeconds(0.1f);
-            _letsGoButton.interactable = _lockerPositions.All(selector => selector.HasGameCard);
+            _letsGoButton.interactable = _lockerPositions.All(selector => selector.Card != null);
             _letsGoButton.transform.DOMove(_letsGoOriginalPosition, 0.5f).SetEase(Ease.InOutCubic);
             _selectedIndex = -1;
             _moving = false;
@@ -70,5 +70,20 @@ public class LockerRoomController : MonoBehaviour
         _catalog.DOMove(_catalogOriginalPosition, 0.5f).SetEase(Ease.InOutCubic);
         _selectedIndex = index;
         _moving = false;
+    }
+
+    public void StartGame()
+    {
+        var players = PlayerManager.Instance.Players;
+        for (int i = 0; i < players.Count; i++)
+        {
+            players[i].Place(_lockerPositions[i].Card);
+        }
+        gameObject.SetActive(false);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 }
