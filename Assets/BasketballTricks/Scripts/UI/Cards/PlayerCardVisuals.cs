@@ -21,6 +21,8 @@ public class PlayerCardVisuals : MonoBehaviour
     [SerializeField] private CanvasGroup _frontGroup;
     [SerializeField] private CanvasGroup _backGroup;
 
+    public GameCard Card => _card;
+
     protected bool _isFlipped;
     protected bool _flipping;
 
@@ -45,13 +47,13 @@ public class PlayerCardVisuals : MonoBehaviour
 
     private void UpdateVisuals()
     {
-        if (_playerName != null) _playerName.text = _card.Valid ? _card.PlayerData.PlayerName : "Player";
-        if (_playerName2 != null) _playerName2.text = _card.Valid ? _card.PlayerData.PlayerName : "Player";
-        if (_playerImage != null) _playerImage.sprite = _card.Valid ? _card.PlayerData.PlayerSprite : _defaultPlayerImage;
+        if (_playerName != null) _playerName.text = _card != null ? _card.PlayerData.PlayerName : "Player";
+        if (_playerName2 != null) _playerName2.text = _card != null ? _card.PlayerData.PlayerName : "Player";
+        if (_playerImage != null) _playerImage.sprite = _card != null ? _card.PlayerData.PlayerSprite : _defaultPlayerImage;
 
         for (int i = 0; i < _actionVisuals.Count; i++)
         {
-            _actionVisuals[i].SetData(_card.Valid ? _card.GetAction(i) : new ActionData());
+            _actionVisuals[i].SetData(_card != null ? _card.GetAction(i) : new ActionData());
         }
     }
 

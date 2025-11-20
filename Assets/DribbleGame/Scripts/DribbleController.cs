@@ -54,7 +54,7 @@ public class DribbleController : MonoBehaviour
         _ballRadius = _sphereCollider.radius * transform.localScale.y;
 
         bool connected = GameManager.Instance != null;
-        if (connected) _activePlayer = GameManager.Instance.ActivePlayer;
+        if (connected) _activePlayer = GameManager.Instance.SelectedCard;
         _returnToCatalogButton.SetActive(connected);
         UpdateDribbleText();
     }

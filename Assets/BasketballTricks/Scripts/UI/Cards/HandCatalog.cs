@@ -12,7 +12,7 @@ public class HandCatalog : MonoBehaviour
     [SerializeField] private bool _dragOntoCourt;
     [SerializeField] private Vector2 _cardSize = new Vector2(200, 300);
     [SerializeField] private float _spacing = 10;
-    [SerializeField, Range(1, 5)] private int _columns = 2;
+    [SerializeField] private int _columns = 2;
     [SerializeField] private int _maxDisplayCards = 6;
     [SerializeField] private Button _prevButton;
     [SerializeField] private Button _nextButton;
@@ -22,6 +22,16 @@ public class HandCatalog : MonoBehaviour
     private List<PlayerCard> _cards;
     private bool _transitioning;
     private Coroutine _pageEffectsRoutine;
+
+    private void OnEnable()
+    {
+        GameManager.UpdatePlayerLoadout += RefreshCards;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.UpdatePlayerLoadout -= RefreshCards;
+    }
 
     private void Start()
     {
@@ -62,6 +72,15 @@ public class HandCatalog : MonoBehaviour
         UpdateCardData();
     }
 
+    private void RefreshCards()
+    {
+        var loadout = GameManager.Instance.GetPositionLoadout();
+        foreach (var card in _cards)
+        {
+            card.SetInteractable(card.Card != null && !loadout.Contains(card.Card));
+        }
+    }
+
     private void UpdateCardData()
     {
         var players = GameManager.Instance.Players;
@@ -100,9 +119,10 @@ public class HandCatalog : MonoBehaviour
                 _nextButton.interactable = _startIndex < count;
             }
         }
+        var loadout = GameManager.Instance.GetPositionLoadout();
         for (int i = 0; i < _cards.Count; i++)
         {
-            _cards[i].SetInteractable(disable ? false : true);
+            _cards[i].SetInteractable(disable ? false : (_cards[i].Card != null && !loadout.Contains(_cards[i].Card)));
         }
     }
 
@@ -147,8 +167,7 @@ public class HandCatalog : MonoBehaviour
         if (enabled) _pageEffectsRoutine = StartCoroutine(PageEffectsRoutine());
     }
 
-
-    IEnumerator PageEffectsRoutine()
+    private IEnumerator PageEffectsRoutine()
     {
         while (true)
         {

@@ -19,6 +19,7 @@ public class PlayerData : ScriptableObject
     public Sprite PlayerSprite => _playerSprite;
     public bool HasArtData => _customPlayerArt || _randomHairData != null;
     public PlayerArtData ArtData => _customPlayerArt ? _artData : _randomHairData.GetData();
+    public bool IsNaturalPosition(PlayerPosition position) => _naturalPosition == position || _secondaryNaturalPosition == position;
 
     private void OnValidate()
     {
@@ -44,6 +45,19 @@ public class PlayerData : ScriptableObject
         {
             _artData = _randomHairData.GetData();
         }
+    }
+
+    public static string PositionToString(PlayerPosition position)
+    {
+        return position switch
+        {
+            PlayerPosition.PointGuard => "PG",
+            PlayerPosition.ShootingGuard => "SG",
+            PlayerPosition.SmallForward => "SF",
+            PlayerPosition.PowerForward => "PF",
+            PlayerPosition.Center => "C",
+            _ => "NA"
+        };
     }
 }
 

@@ -70,7 +70,7 @@ public class PlayerManager : MonoBehaviour
     {
         foreach (var player in _players)
         {
-            if (!player.CardData.Valid)
+            if (player.CardData == null)
             {
                 _placingPlayer = player;
                 _placingPlayer.SetAnimation(PlayerAnimation.Dangle, 0f);
@@ -108,7 +108,7 @@ public class PlayerManager : MonoBehaviour
             var position = hitInfo.point;
             foreach (var player in _players)
             {
-                if (player.CardData.Valid)
+                if (player.CardData != null)
                 {
                     var playerPos = player.transform.position;
                     float xDist = Mathf.Abs(position.x - playerPos.x);
@@ -142,7 +142,7 @@ public class PlayerManager : MonoBehaviour
         {
             _placingPlayer.Place(data);
             _placingPlayer = null;
-            if (_players.All(p => p.CardData.Valid))
+            if (_players.All(p => p.CardData != null))
             {
                 _cardCatalogPanel.SetShown(false);
                 _players.Sort((a, b) => b.transform.position.x.CompareTo(a.transform.position.x));
@@ -200,7 +200,7 @@ public class PlayerManager : MonoBehaviour
         {
             TimelineAction timelineAction = TimelineActions[i];
             var player = timelineAction.Player;
-            if (!player.CardData.Valid)
+            if (player.CardData == null)
             {
                 Debug.LogWarning("Cannot simulate sequence: A player has no data assigned.");
                 return false;

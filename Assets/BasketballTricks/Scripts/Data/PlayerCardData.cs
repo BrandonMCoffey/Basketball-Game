@@ -14,6 +14,12 @@ public class PlayerCardData : ScriptableObject
 
     public PlayerData PlayerData => _playerData;
 
+    public int ActionCount => _actions.Count;
+    public int GetActionCount(int index)
+    {
+        if (index >= _actions.Count || index < 0) return 0;
+        return _actions[index].Count;
+    }
     public ActionData GetAction(int index)
     {
         if (index >= _actions.Count || index < 0) return new ActionData();
@@ -40,6 +46,7 @@ public class CustomPlayerAction
     [SerializeField, Range(0, 1)] private float _actionAccuracyOverride = 0;
     [ReadOnly] public ActionData DataPreview;
 
+    public int Count => _count;
     public ActionData GetData()
     {
         ActionData data = _action != null ? _action.Data : new ActionData(ActionType.Trick);

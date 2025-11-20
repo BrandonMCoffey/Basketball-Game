@@ -8,6 +8,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
 {
     [Header("Interactibility")]
     [SerializeField] private Image _raycastImage;
+    [SerializeField] private GameObject _disabledCover;
     [SerializeField] private bool _flipOnClick;
 
     [Header("Drag")]
@@ -37,7 +38,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     private Vector3 _currentDragDelta;
     private Vector3 _currentDragPosition;
     private Coroutine _holdCoroutine;
-    private bool _interactable;
+    [SerializeField] private bool _interactable;
     private bool _focusView;
     private int _actionDetailIndex;
     private RectTransform _actionDetailTransform;
@@ -100,6 +101,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         _focusViewGroup.alpha = _focusView ? 1 : 0;
         _focusViewGroup.blocksRaycasts = _focusView && _interactable && !_flipping;
         _focusViewGroup.interactable = _focusView && _interactable && !_flipping;
+        if (_disabledCover != null) _disabledCover.SetActive(!_interactable);
         if (_flipping && _actionDetailIndex >= 0) FocusShowAction(-1);
     }
 
@@ -239,6 +241,12 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     public void OnEndDrag(PointerEventData eventData)
     {
         if (!CanDrag || !_isDragging) return;
+
+        if (LockerPositionSelector.CurrentDropDestination != null)
+        {
+            LockerPositionSelector.CurrentDropDestination.AddCard(_card);
+            LockerPositionSelector.CurrentDropDestination = null;
+        }
 
         bool success = _canPlaceOnCourt && PlayerManager.Instance.AttemptPlacePlayer(_card, eventData.position);
         if (success)

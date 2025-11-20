@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,15 +8,16 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public static bool InTransition { get; private set; }
-    public static event System.Action UpdateActivePlayers = delegate { };
+    public static event System.Action UpdatePlayerLoadout = delegate { };
 
     [SerializeField] private List<GameCard> _players;
     [SerializeField] private CanvasGroup _sceneTransition;
 
-    private int _selectedPlayerIndex = -1;
+    private int _selectedCardIndex = -1;
+    private Dictionary<PlayerPosition, GameCard> _playerLoadout = new Dictionary<PlayerPosition, GameCard>();
 
     public List<GameCard> Players => _players;
-    public GameCard ActivePlayer => (_selectedPlayerIndex >= 0 && _selectedPlayerIndex < _players.Count) ? _players[_selectedPlayerIndex] : null;
+    public GameCard SelectedCard => (_selectedCardIndex >= 0 && _selectedCardIndex < _players.Count) ? _players[_selectedCardIndex] : null;
 
     private void Awake()
     {
@@ -42,15 +44,33 @@ public class GameManager : MonoBehaviour
     public void StartDribblePractice(int playerIndex)
     {
         Debug.Log($"Starting dribble practice with {_players[playerIndex].PlayerData.PlayerName}");
-        _selectedPlayerIndex = playerIndex;
+        _selectedCardIndex = playerIndex;
         TransitionToScene("DribbleGame");
     }
 
     public void StartShootingPractice(int playerIndex)
     {
         Debug.Log($"Starting shooting practice with {_players[playerIndex].PlayerData.PlayerName}");
-        _selectedPlayerIndex = playerIndex;
+        _selectedCardIndex = playerIndex;
         TransitionToScene("ShootingGame");
+    }
+
+    public List<GameCard> GetPositionLoadout()
+    {
+        return _playerLoadout.Values.ToList();
+    }
+
+    public void SetPositionCard(PlayerPosition position, GameCard card)
+    {
+        if (_playerLoadout.ContainsKey(position))
+        {
+            _playerLoadout[position] = card;
+        }
+        else
+        {
+            _playerLoadout.Add(position, card);
+        }
+        UpdatePlayerLoadout?.Invoke();
     }
 
     private void TransitionToScene(string newScene)
@@ -83,6 +103,7 @@ public class GameManager : MonoBehaviour
         }
         InTransition = false;
     }
+
     public static float EaseInOutQuart(float x)
     {
         return x < 0.5 ? 8 * x * x * x * x : 1 - Mathf.Pow(-2 * x + 2, 4) / 2;
@@ -96,8 +117,9 @@ public class GameCard
     [SerializeField] private float _xp;
     [SerializeField] private int _level = 1;
 
-    public bool Valid => _cardData != null;
     public PlayerData PlayerData => _cardData.PlayerData;
+    public int ActionCount => _cardData.ActionCount;
+    public int GetActionCount(int index) => _cardData.GetActionCount(index);
     public ActionData GetAction(int index) => _cardData.GetAction(index);
 
     public void AddXP(float amount)

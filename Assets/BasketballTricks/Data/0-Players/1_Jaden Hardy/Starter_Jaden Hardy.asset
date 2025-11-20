@@ -25,14 +25,30 @@ MonoBehaviour:
     DataPreview:
       Type: 1
       AssociatedRarity: 1
-      Name: Jab Step
+      Name: Basic Dribble
       Cost: 1
       Hype: 10
       Duration: 2
       Accuracy: 0.8
       Icon: {fileID: 0}
       Animation: 100
-  - _action: {fileID: 11400000, guid: cb4845fe54dd9cb48b734e6a01a4ff6e, type: 2}
+  - _action: {fileID: 11400000, guid: 96925483d1f5f5a47a0c339a7f80f9f0, type: 2}
+    _count: 2
+    _actionCostOverride: -1
+    _actionHypeOverride: -1
+    _actionDurationOverride: -1
+    _actionAccuracyOverride: 0
+    DataPreview:
+      Type: 1
+      AssociatedRarity: 2
+      Name: Finger Spin
+      Cost: 1
+      Hype: 15
+      Duration: 2
+      Accuracy: 0.8
+      Icon: {fileID: 0}
+      Animation: 100
+  - _action: {fileID: 11400000, guid: 3a82f927766e6f747be32fd1265cff5a, type: 2}
     _count: 1
     _actionCostOverride: -1
     _actionHypeOverride: -1
@@ -41,15 +57,15 @@ MonoBehaviour:
     DataPreview:
       Type: 2
       AssociatedRarity: 1
-      Name: Basic Chest Pass
+      Name: Overhead Pass
       Cost: 1
       Hype: 5
       Duration: 3
       Accuracy: 0.8
       Icon: {fileID: 0}
       Animation: 10
-  - _action: {fileID: 11400000, guid: 0e845e376c72b8643be50dc61df4df9e, type: 2}
-    _count: 1
+  - _action: {fileID: 11400000, guid: 9bcefe1b25703394cb6ef5a62524b008, type: 2}
+    _count: 2
     _actionCostOverride: -1
     _actionHypeOverride: -1
     _actionDurationOverride: -1
@@ -57,7 +73,7 @@ MonoBehaviour:
     DataPreview:
       Type: 3
       AssociatedRarity: 1
-      Name: Basic Layup
+      Name: Basic Jump Shot
       Cost: 1
       Hype: 20
       Duration: 1

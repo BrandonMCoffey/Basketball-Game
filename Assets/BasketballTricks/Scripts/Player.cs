@@ -6,11 +6,16 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private GameCard _cardData;
+    [SerializeField] private float _animationCrossfadeDuration = 0.25f;
+
+    [Header("Position")]
+    [SerializeField] private PlayerPosition _position;
+    [SerializeField] private Color _positionColor = Color.cyan;
+
+    [Header("References")]
     [SerializeField] private Animator _animator;
     [SerializeField] private PlayerArt _playerArt;
-    [SerializeField] private float _animationCrossfadeDuration = 0.25f;
     [SerializeField] private SpriteRenderer _positionIndicator;
-    [SerializeField] private Color _positionColor = Color.cyan;
     [SerializeField] private ParticleSystem _particles;
     [SerializeField] private TMP_Text _actionText;
     [SerializeField] private Transform _basketballSocket;

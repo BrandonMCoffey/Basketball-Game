@@ -43,7 +43,7 @@ public class PlayerActionUI : MonoBehaviour
         if (_playerCardVisual != null) _playerCardVisual.SetData(_playerData);
         for (int i = 0; i < _actionVisuals.Count; i++)
         {
-            _actionVisuals[i].SetData(_playerData.Valid ? _playerData.GetAction(i) : new ActionData());
+            _actionVisuals[i].SetData(_playerData != null ? _playerData.GetAction(i) : new ActionData());
         }
         if (_backgroundImage != null && _player != null)
         {

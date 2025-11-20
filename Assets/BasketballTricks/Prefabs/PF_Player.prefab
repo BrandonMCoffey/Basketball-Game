@@ -5112,11 +5112,12 @@ MonoBehaviour:
     _cardData: {fileID: 0}
     _xp: 0
     _level: 0
+  _animationCrossfadeDuration: 0.1
+  _position: 0
+  _positionColor: {r: 0, g: 1, b: 1, a: 1}
   _animator: {fileID: 2742509778681835226}
   _playerArt: {fileID: 2839272202819358832}
-  _animationCrossfadeDuration: 0.1
   _positionIndicator: {fileID: 3948933407729916951}
-  _positionColor: {r: 0, g: 1, b: 1, a: 1}
   _particles: {fileID: 8508551558105984109}
   _actionText: {fileID: 1233332882344065453}
   _basketballSocket: {fileID: 7616452415637796415}
