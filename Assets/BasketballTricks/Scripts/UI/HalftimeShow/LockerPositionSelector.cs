@@ -11,10 +11,12 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
 
     [SerializeField] private PlayerPosition _position;
     [SerializeField] private TMP_Text _positionText;
+    [SerializeField] private TMP_Text _positionText2;
     [SerializeField] private CanvasGroup _selectPlayerPanel;
     [SerializeField] private CanvasGroup _playerInfoPanel;
     [SerializeField] private TMP_Text _playerNameText;
     [SerializeField] private Image _playerImage;
+    [SerializeField] private Transform _selectPlayer;
     [SerializeField] private GameObject _playerInfo;
     [SerializeField] private GameObject _naturalPosition;
     [SerializeField] private GameObject _actionPanel;
@@ -35,6 +37,7 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
     private void OnValidate()
     {
         if (_positionText != null) _positionText.text = PlayerData.PositionToString(_position);
+        if (_positionText2 != null) _positionText2.text = PlayerData.PositionToString(_position);
     }
 
     public void Init(int index, Color color, LockerRoomController controller)

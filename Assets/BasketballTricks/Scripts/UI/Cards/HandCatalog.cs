@@ -33,7 +33,7 @@ public class HandCatalog : MonoBehaviour
         GameManager.UpdatePlayerLoadout -= RefreshCards;
     }
 
-    private void Start()
+    private void Awake()
     {
         CreateCards();
         if (_prevButton != null) _prevButton.onClick.AddListener(PreviousPage);

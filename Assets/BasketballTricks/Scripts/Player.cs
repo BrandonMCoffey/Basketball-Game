@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
     public void Place(GameCard data)
     {
         _cardData = data;
+        if (data.PlayerData.HasArtData) _playerArt.SetPlayerArt(data.PlayerData.ArtData);
         SetAnimation(PlayerAnimation.Idle);
     }
 
