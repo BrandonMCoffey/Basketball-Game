@@ -11,6 +11,9 @@ public class LockerRoomController : MonoBehaviour
     [SerializeField] private Transform _selectedPosition;
     [SerializeField] private Button _letsGoButton;
     [SerializeField] private Transform _catalog;
+    [SerializeField] private Ease _lockerEaseEnter = Ease.InQuart;
+    [SerializeField] private Ease _lockerEaseLeave = Ease.InQuart;
+    [SerializeField] private float _lockerDelay = 0.05f;
 
     private int _selectedIndex = -1;
     private Vector3 _letsGoOriginalPosition;
@@ -26,8 +29,25 @@ public class LockerRoomController : MonoBehaviour
         }
         _letsGoButton.interactable = false;
         _letsGoOriginalPosition = _letsGoButton.transform.position;
+        _letsGoButton.transform.position = _letsGoOriginalPosition + Vector3.down * 400f;
         _catalogOriginalPosition = _catalog.position;
         _catalog.position = _catalogOriginalPosition + Vector3.right * Screen.width;
+        StartCoroutine(StartShowLockersRoutine());
+    }
+
+    public IEnumerator StartShowLockersRoutine()
+    {
+        _moving = true;
+        for (int i = 0; i < _lockerPositions.Count; i++)
+        {
+            _lockerPositions[i].transform.position = _lockerPositions[i].OriginalPosition + Vector3.down * Screen.height;
+        }
+        for (int i = 0; i < _lockerPositions.Count; i++)
+        {
+            _lockerPositions[i].transform.DOMove(_lockerPositions[i].OriginalPosition, 0.5f).SetEase(_lockerEaseEnter);
+            yield return new WaitForSeconds(_lockerDelay);
+        }
+        _moving = false;
     }
 
     public void SelectPosition(int index)
@@ -44,11 +64,13 @@ public class LockerRoomController : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             foreach (var locker in _lockerPositions)
             {
-                locker.transform.DOMove(locker.OriginalPosition, 0.5f).SetEase(Ease.InOutCubic);
+                locker.transform.DOMove(locker.OriginalPosition, 0.5f).SetEase(_lockerEaseEnter);
+                yield return new WaitForSeconds(_lockerDelay);
             }
             yield return new WaitForSeconds(0.1f);
-            _letsGoButton.interactable = _lockerPositions.All(selector => selector.Card != null);
-            _letsGoButton.transform.DOMove(_letsGoOriginalPosition, 0.5f).SetEase(Ease.InOutCubic);
+            bool buttonInteractable = _lockerPositions.All(selector => selector.Card != null);
+            _letsGoButton.interactable = buttonInteractable;
+            if (buttonInteractable) _letsGoButton.transform.DOMove(_letsGoOriginalPosition, 0.5f).SetEase(Ease.InOutCubic);
             _selectedIndex = -1;
             _moving = false;
             yield break;
@@ -62,7 +84,8 @@ public class LockerRoomController : MonoBehaviour
             else
             {
                 var pos = _lockerPositions[i].OriginalPosition + Vector3.down * Screen.height;
-                _lockerPositions[i].transform.DOMove(pos, 0.5f).SetEase(Ease.InOutCubic);
+                _lockerPositions[i].transform.DOMove(pos, 0.5f).SetEase(_lockerEaseLeave);
+                yield return new WaitForSeconds(_lockerDelay);
             }
         }
         _letsGoButton.transform.DOMove(_letsGoOriginalPosition + Vector3.down * 400f, 0.5f).SetEase(Ease.InOutCubic);
