@@ -52,6 +52,7 @@ public struct ActionData
     public Sprite Icon;
     public PlayerAnimation Animation;
     public float Duration;
+    public string CardText;
 
     public ActionData(ActionType type = ActionType.None)
     {
@@ -85,6 +86,7 @@ public struct ActionData
             _ => PlayerAnimation.BasicDribble,
         };
         Duration = 2;
+        CardText = "";
     }
 }
 

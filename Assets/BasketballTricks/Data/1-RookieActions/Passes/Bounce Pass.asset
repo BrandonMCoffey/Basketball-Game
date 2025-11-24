@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041c9dffaf652874eb5e4e1ef3755211, type: 3}
-  m_Name: Basic Bounce Pass
+  m_Name: Bounce Pass
   m_EditorClassIdentifier: 
   _data:
     Type: 2
-    AssociatedRarity: 1
+    AssociatedRarity: 1s
     IllegalPositions: 31
     Name: Basic Bounce Pass
     Cost: 1
