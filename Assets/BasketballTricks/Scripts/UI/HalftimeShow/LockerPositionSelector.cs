@@ -30,9 +30,10 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
     private GameCard _activeGameCard;
     private LockerRoomController _controller;
     private int _controllerIndex;
+    private Vector3 _originalPosition;
 
     public GameCard Card => _activeGameCard;
-    public Vector3 OriginalPosition { get; private set; }
+    public Vector3 OriginalPosition => _originalPosition + (_activeGameCard != null ? Vector3.up * 200f : Vector3.zero);
 
     private void OnValidate()
     {
@@ -42,7 +43,7 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
 
     public void Init(int index, Color color, LockerRoomController controller)
     {
-        OriginalPosition = transform.position;
+        _originalPosition = transform.position;
         _controllerIndex = index;
         _controller = controller;
         Color.RGBToHSV(color, out float h, out float s, out float v);

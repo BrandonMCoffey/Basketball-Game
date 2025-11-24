@@ -40,6 +40,7 @@ public class CustomPlayerAction
 {
     [SerializeField] private PlayerActionData _action;
     [SerializeField] private int _count = 1;
+    [SerializeField] private int _unlockLevel = 0;
     [SerializeField] private float _actionCostOverride = -1;
     [SerializeField] private float _actionHypeOverride = -1;
     [SerializeField] private float _actionDurationOverride = -1;
