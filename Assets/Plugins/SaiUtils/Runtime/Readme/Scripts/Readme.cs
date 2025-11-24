@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SaiUtils.ReadmeSystem
 {
-    [CreateAssetMenu(fileName = "New_Readme.asset", menuName = "Readme")]
+    [CreateAssetMenu(fileName = "New_Readme.asset", menuName = "SaiUtils/Readme")]
     public class Readme : ScriptableObject
     {
 

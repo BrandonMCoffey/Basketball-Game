@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace SaiUtils.ScriptableVariables {
-    [CreateAssetMenu(menuName = "ScriptableVariables/Bool", fileName = "NewBoolVariable")]
+    [CreateAssetMenu(menuName = "SaiUtils/ScriptableVariables/Bool", fileName = "NewBoolVariable")]
     public class BoolVariable : ScriptableVariable<bool> { }
 }
 
