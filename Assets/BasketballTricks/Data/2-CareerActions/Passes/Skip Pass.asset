@@ -14,19 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data:
     Name: Skip Pass
+    CardText: '@NextEffect'
+    PreviewText: Next Pass played gains +5 Hype
     Type: 2
     AssociatedRarity: 2
     AllowedPositions: 5
     Cost: 1
-    HypeGain: 15
-    EnergyGain: 0
+    ActionLevel: 1
+    HypeGainPerLevel:
+    - 15
+    - 20
+    - 25
+    HasGainEnergy: 0
+    EnergyGainPerLevel:
+    - 0
+    - 0
+    - 0
     HasNextEffect: 1
     NextEffect:
       AppliesTo: 0
       RequiredType: 2
       EnergyEffect: 0
       HypeEffect: 5
+    NextEffectPreviewText: Next Pass played gains +5 Hype
     Icon: {fileID: 0}
     Animation: 10
     Duration: 2
-    CardText: Next pass gains +5 Hype

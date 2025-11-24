@@ -14,19 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data:
     Name: No-Look Pass
+    CardText: '@NextEffect'
+    PreviewText: Next Shot this game gains +10 Hype
     Type: 2
     AssociatedRarity: 3
-    AllowedPositions: 3
-    Cost: 1
-    HypeGain: 10
-    EnergyGain: 0
+    AllowedPositions: 5
+    Cost: 2
+    ActionLevel: 1
+    HypeGainPerLevel:
+    - 25
+    - 30
+    - 50
+    HasGainEnergy: 0
+    EnergyGainPerLevel:
+    - 0
+    - 0
+    - 0
     HasNextEffect: 1
     NextEffect:
       AppliesTo: 2
       RequiredType: 3
       EnergyEffect: 0
-      HypeEffect: 25
+      HypeEffect: 10
+    NextEffectPreviewText: Next Shot this game gains +10 Hype
     Icon: {fileID: 0}
     Animation: 10
     Duration: 2
-    CardText: Next Shot gains +10 Hype

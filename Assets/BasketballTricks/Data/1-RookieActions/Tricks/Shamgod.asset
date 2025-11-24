@@ -10,16 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041c9dffaf652874eb5e4e1ef3755211, type: 3}
-  m_Name: Behind the Back Dribble
+  m_Name: Shamgod
   m_EditorClassIdentifier: 
   _data:
+    Name: Shamgod
+    CardText: 
+    PreviewText: 
     Type: 1
-    AssociatedRarity: 2
-    IllegalPositions: 31
-    Name: Behind the Back Dribble
-    Cost: 1
-    Hype: 15
-    Duration: 2
-    Accuracy: 0.8
+    AssociatedRarity: 1
+    AllowedPositions: 13
+    Cost: 2
+    ActionLevel: 1
+    HypeGainPerLevel:
+    - 50
+    - 60
+    - 70
+    HasGainEnergy: 0
+    EnergyGainPerLevel:
+    - 0
+    - 0
+    - 0
+    HasNextEffect: 0
+    NextEffect:
+      AppliesTo: 0
+      RequiredType: 1
+      EnergyEffect: 0
+      HypeEffect: 0
+    NextEffectPreviewText: 
     Icon: {fileID: 0}
     Animation: 100
+    Duration: 2

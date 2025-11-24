@@ -14,19 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data:
     Name: Behing-the-Back Pass
+    CardText: '@NextEffect'
+    PreviewText: Next Trick this hand gains +10 Hype
     Type: 2
     AssociatedRarity: 2
     AllowedPositions: 3
     Cost: 1
-    HypeGain: 10
-    EnergyGain: 0
+    ActionLevel: 1
+    HypeGainPerLevel:
+    - 10
+    - 15
+    - 20
+    HasGainEnergy: 0
+    EnergyGainPerLevel:
+    - 0
+    - 0
+    - 0
     HasNextEffect: 1
     NextEffect:
       AppliesTo: 1
       RequiredType: 1
       EnergyEffect: 0
       HypeEffect: 10
+    NextEffectPreviewText: Next Trick this hand gains +10 Hype
     Icon: {fileID: 0}
     Animation: 10
     Duration: 2
-    CardText: Next trick this hand gains +10 Hype

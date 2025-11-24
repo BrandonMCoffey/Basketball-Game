@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041c9dffaf652874eb5e4e1ef3755211, type: 3}
-  m_Name: Touch Pass
+  m_Name: Hook Shot
   m_EditorClassIdentifier: 
   _data:
-    Name: Touch Pass
-    CardText: If last card played was pass, gain +1 Energy
-    PreviewText: If last card played was pass, gain +1 Energy
-    Type: 2
-    AssociatedRarity: 1
-    AllowedPositions: 31
-    Cost: 0
+    Name: Catch-and-Shoot 3
+    CardText: If no Tricks played this round, gain +1 energy
+    PreviewText: If no Tricks played this round, gain +1 energy
+    Type: 3
+    AssociatedRarity: 2
+    AllowedPositions: 19
+    Cost: 1
     ActionLevel: 1
     HypeGainPerLevel:
-    - 5
-    - 7
-    - 10
+    - 25
+    - 30
+    - 40
     HasGainEnergy: 0
     EnergyGainPerLevel:
     - 0
@@ -38,5 +38,5 @@ MonoBehaviour:
       HypeEffect: 0
     NextEffectPreviewText: 
     Icon: {fileID: 0}
-    Animation: 10
-    Duration: 1
+    Animation: 200
+    Duration: 2

@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041c9dffaf652874eb5e4e1ef3755211, type: 3}
-  m_Name: Touch Pass
+  m_Name: Fake-Out
   m_EditorClassIdentifier: 
   _data:
-    Name: Touch Pass
-    CardText: If last card played was pass, gain +1 Energy
-    PreviewText: If last card played was pass, gain +1 Energy
-    Type: 2
-    AssociatedRarity: 1
-    AllowedPositions: 31
-    Cost: 0
+    Name: Fake-Out
+    CardText: If next card is a pass, that pass draws 1 card
+    PreviewText: If next card is a pass, that pass draws 1 card
+    Type: 1
+    AssociatedRarity: 2
+    AllowedPositions: 1
+    Cost: 1
     ActionLevel: 1
     HypeGainPerLevel:
-    - 5
-    - 7
-    - 10
+    - 15
+    - 20
+    - 25
     HasGainEnergy: 0
     EnergyGainPerLevel:
     - 0
@@ -32,11 +32,11 @@ MonoBehaviour:
     - 0
     HasNextEffect: 0
     NextEffect:
-      AppliesTo: 0
-      RequiredType: 1
+      AppliesTo: 2
+      RequiredType: 3
       EnergyEffect: 0
-      HypeEffect: 0
-    NextEffectPreviewText: 
+      HypeEffect: 10
+    NextEffectPreviewText: Next Shot this game gains +10 Hype
     Icon: {fileID: 0}
-    Animation: 10
-    Duration: 1
+    Animation: 100
+    Duration: 2
