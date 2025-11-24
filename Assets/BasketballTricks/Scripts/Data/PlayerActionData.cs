@@ -1,5 +1,6 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "PlayerActionData", menuName = "BasketballTricks/PlayerActionData", order = 1)]
 public class PlayerActionData : ScriptableObject
@@ -37,44 +38,45 @@ public enum ActionType
 [System.Serializable]
 public struct ActionData
 {
+    public string Name;
     public ActionType Type;
     public CardRarity AssociatedRarity;
-    public string Name;
+    public PlayerPosition AllowedPositions;
     public float Cost;
-    public float Hype;
-    public float Duration;
-    [Range(0, 1)] public float Accuracy;
+    [Header("Effects")]
+    public float HypeGain;
+    public float EnergyGain;
+    public bool HasNextEffect;
+    [ShowIf(nameof(HasNextEffect))] public EffectNext NextEffect;
+    [Header("Visuals")]
     public Sprite Icon;
     public PlayerAnimation Animation;
+    public float Duration;
 
     public ActionData(ActionType type = ActionType.None)
     {
+        Name = type.ToString();
+        Icon = null;
         Type = type;
         AssociatedRarity = CardRarity.None;
-        Name = type.ToString();
+        AllowedPositions = PlayerPosition.All;
         Cost = 1;
-        Hype = type switch
+        HypeGain = type switch
         {
             ActionType.Trick => 20,
             ActionType.Pass => 5,
             ActionType.Shot => 5,
             _ => 0,
         };
-        Duration = type switch
+        EnergyGain = 0;
+        HasNextEffect = false;
+        NextEffect = new EffectNext
         {
-            ActionType.Trick => 3,
-            ActionType.Pass => 2,
-            ActionType.Shot => 4,
-            _ => 0,
+            AppliesTo = NextEffectAppliesTo.NextCardPlayed,
+            RequiredType = ActionType.Trick,
+            EnergyEffect = 0,
+            HypeEffect = 0,
         };
-        Accuracy = type switch
-        {
-            ActionType.Trick => 0.8f,
-            ActionType.Pass => 0.95f,
-            ActionType.Shot => 0.9f,
-            _ => 0,
-        };
-        Icon = null;
         Animation = type switch
         {
             ActionType.Trick => PlayerAnimation.BasicDribble,
@@ -82,5 +84,22 @@ public struct ActionData
             ActionType.Shot => PlayerAnimation.Shoot,
             _ => PlayerAnimation.BasicDribble,
         };
+        Duration = 2;
     }
+}
+
+[System.Serializable]
+public struct EffectNext
+{
+    public NextEffectAppliesTo AppliesTo;
+    public ActionType RequiredType;
+    public float EnergyEffect;
+    public float HypeEffect;
+}
+
+public enum NextEffectAppliesTo
+{
+    NextCardPlayed,
+    NextMatchingCardThisHand,
+    NextMatchingCardThisGame,
 }

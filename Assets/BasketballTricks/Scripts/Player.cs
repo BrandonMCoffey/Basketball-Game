@@ -7,8 +7,6 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private GameCard _cardData;
     [SerializeField] private float _animationCrossfadeDuration = 0.25f;
-
-    [Header("Position")]
     [SerializeField] private PlayerPosition _position;
     [SerializeField] private Color _positionColor = Color.cyan;
 

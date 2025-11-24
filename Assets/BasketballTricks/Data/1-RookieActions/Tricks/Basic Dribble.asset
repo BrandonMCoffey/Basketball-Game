@@ -13,12 +13,18 @@ MonoBehaviour:
   m_Name: Basic Dribble
   m_EditorClassIdentifier: 
   _data:
+    Name: Basic Dribble
     Type: 1
     AssociatedRarity: 1
-    Name: Basic Dribble
+    AllowedPositions: 31
     Cost: 1
     Hype: 10
-    Duration: 2
-    Accuracy: 0.8
+    HasNextEffect: 1
+    NextEffect:
+      AppliesTo: 0
+      AppliesToType: 1
+      EnergyEffect: 0
+      HypeEffect: 0
     Icon: {fileID: 0}
     Animation: 100
+    Duration: 2

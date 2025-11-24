@@ -15,6 +15,7 @@ MonoBehaviour:
   _data:
     Type: 1
     AssociatedRarity: 2
+    IllegalPositions: 31
     Name: Basic Spin Move
     Cost: 1
     Hype: 15

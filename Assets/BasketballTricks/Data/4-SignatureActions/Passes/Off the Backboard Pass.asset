@@ -15,6 +15,7 @@ MonoBehaviour:
   _data:
     Type: 2
     AssociatedRarity: 4
+    IllegalPositions: 31
     Name: Off the Backboard Pass
     Cost: 3
     Hype: 25

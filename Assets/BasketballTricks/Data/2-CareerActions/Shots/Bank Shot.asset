@@ -15,6 +15,7 @@ MonoBehaviour:
   _data:
     Type: 3
     AssociatedRarity: 2
+    IllegalPositions: 31
     Name: Bank Shot
     Cost: 2
     Hype: 25

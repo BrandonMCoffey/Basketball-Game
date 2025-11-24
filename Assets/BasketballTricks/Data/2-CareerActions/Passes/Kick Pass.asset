@@ -15,6 +15,7 @@ MonoBehaviour:
   _data:
     Type: 2
     AssociatedRarity: 2
+    IllegalPositions: 31
     Name: Kick Pass
     Cost: 1
     Hype: 10

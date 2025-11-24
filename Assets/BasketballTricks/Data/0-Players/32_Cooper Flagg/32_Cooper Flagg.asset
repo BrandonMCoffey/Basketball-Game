@@ -15,7 +15,7 @@ MonoBehaviour:
   _playerName: Cooper Flagg
   _playerNumber: 32
   _playerSprite: {fileID: 21300000, guid: f95787b03e0d4c74a8258df34d9d87eb, type: 3}
-  _naturalPosition: 1
+  _naturalPosition: 3
   _secondaryNaturalPosition: 3
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}

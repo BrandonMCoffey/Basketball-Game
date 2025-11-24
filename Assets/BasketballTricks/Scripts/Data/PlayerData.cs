@@ -9,7 +9,6 @@ public class PlayerData : ScriptableObject
     [SerializeField] private string _playerNumber;
     [SerializeField] private Sprite _playerSprite;
     [SerializeField] private PlayerPosition _naturalPosition;
-    [SerializeField] private PlayerPosition _secondaryNaturalPosition;
 
     [SerializeField] private bool _customPlayerArt;
     [SerializeField, HideIf(nameof(_customPlayerArt))] private RandomPlayerArtData _randomHairData;
@@ -19,7 +18,7 @@ public class PlayerData : ScriptableObject
     public Sprite PlayerSprite => _playerSprite;
     public bool HasArtData => _customPlayerArt || _randomHairData != null;
     public PlayerArtData ArtData => _customPlayerArt ? _artData : _randomHairData.GetData();
-    public bool IsNaturalPosition(PlayerPosition position) => _naturalPosition == position || _secondaryNaturalPosition == position;
+    public bool IsNaturalPosition(PlayerPosition position) => _naturalPosition.HasFlag(position);
 
     private void OnValidate()
     {
@@ -72,12 +71,14 @@ public struct PlayerArtData
     public GameObject AccessoryPrefab;
 }
 
+[System.Flags]
 public enum PlayerPosition
 {
-    None,
-    PointGuard,
-    ShootingGuard,
-    SmallForward,
-    PowerForward,
-    Center
+    None = 0,
+    All = PointGuard | ShootingGuard | SmallForward | PowerForward | Center,
+    PointGuard = 1 << 0,
+    ShootingGuard = 1 << 1,
+    SmallForward = 1 << 2,
+    PowerForward = 1 << 3,
+    Center = 1 << 4,
 }

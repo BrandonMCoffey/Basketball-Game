@@ -15,6 +15,7 @@ MonoBehaviour:
   _data:
     Type: 3
     AssociatedRarity: 4
+    IllegalPositions: 31
     Name: Skyhook
     Cost: 4
     Hype: 50

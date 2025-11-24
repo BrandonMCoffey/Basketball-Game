@@ -18,7 +18,7 @@ public class PlayerActionVisuals : MonoBehaviour
         if (_type != null) _type.text = data.Type.ToString();
         if (_name != null) _name.text = data.Name;
         if (_duration != null) _duration.text = $"{data.Duration} second{(data.Duration > 1 ? "s" : "")}";
-        if (_score != null) _score.text = $"Score: {data.Hype}";
+        if (_score != null) _score.text = $"Score: {data.HypeGain}";
         if (_icon != null) _icon.sprite = GetSprite(data);
     }
 

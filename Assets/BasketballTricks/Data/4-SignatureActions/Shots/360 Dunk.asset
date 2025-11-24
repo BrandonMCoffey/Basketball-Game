@@ -15,6 +15,7 @@ MonoBehaviour:
   _data:
     Type: 3
     AssociatedRarity: 4
+    IllegalPositions: 31
     Name: 360 Dunk
     Cost: 4
     Hype: 50

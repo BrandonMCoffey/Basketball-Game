@@ -246,11 +246,11 @@ public class PlayerManager : MonoBehaviour
             if (player.CardData != null)
             {
                 var action = player.CardData.GetAction(timelineAction.ActionIndex);
-                if (action.Hype > 0) ui.AddPoints(action.Hype);
+                if (action.HypeGain > 0) ui.AddPoints(action.HypeGain);
                 _crowdController.SetHype(ui.Points * ui.Mult / 500f);
                 player.SetActionText(action.Name, action.Duration);
                 player.EmitParticles();
-                Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.Hype} points.");
+                Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.HypeGain} points.");
                 if (action.Type == ActionType.Pass)
                 {
                     float tossPrepTime = 0.5f;
