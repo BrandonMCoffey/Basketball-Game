@@ -34,8 +34,11 @@ MonoBehaviour:
     NextEffect:
       AppliesTo: 1
       RequiredType: 3
+      HypeEffectPerLevel:
+      - 0
+      - 0
+      - 0
       EnergyEffect: 3
-      HypeEffect: 0
     NextEffectPreviewText: Next Shot this hand gains +3 Energy.
     Icon: {fileID: 0}
     Animation: 100

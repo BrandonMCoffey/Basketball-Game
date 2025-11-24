@@ -10,218 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13e683ebbb374544cbd2b020e65e5ca3, type: 3}
-  m_Name: Starter_Kyrie Irving
+  m_Name: Starter_Jaden Hardy
   m_EditorClassIdentifier: 
-  _playerData: {fileID: 11400000, guid: eb2e1118cac29144ba051f38d67f6e8a, type: 2}
+  _playerData: {fileID: 11400000, guid: 500f5b5577c0d3c47b38fd798bc70ed2, type: 2}
   _cardTitle: Mavericks Player
   _rarity: 2
   _actions:
-  - _action: {fileID: 11400000, guid: 3f847b2b7720ca649a2dde4ba0447c13, type: 2}
-    _count: 1
-    _unlockLevel: 0
-    DataPreview:
-      Name: Chest Pass
-      CardText: 
-      PreviewText: 
-      Type: 2
-      AssociatedRarity: 1
-      AllowedPositions: 31
-      Cost: 0
-      ActionLevel: 1
-      HypeGainPerLevel:
-      - 10
-      - 15
-      - 20
-      HasGainEnergy: 0
-      EnergyGainPerLevel:
-      - 0
-      - 0
-      - 0
-      HasNextEffect: 0
-      NextEffect:
-        AppliesTo: 0
-        RequiredType: 1
-        HypeEffectPerLevel:
-        - 5
-        - 10
-        - 15
-        EnergyEffect: 0
-      NextEffectPreviewText: 
-      Icon: {fileID: 0}
-      Animation: 10
-      Duration: 2
-  - _action: {fileID: 11400000, guid: ee61ed6a3a581ab4aa30b33d92ff56cd, type: 2}
-    _count: 1
-    _unlockLevel: 0
-    DataPreview:
-      Name: Bounce Pass
-      CardText: Next trick played costs 1 less Energy
-      PreviewText: Next trick played costs 1 less Energy
-      Type: 2
-      AssociatedRarity: 1
-      AllowedPositions: 31
-      Cost: 1
-      ActionLevel: 1
-      HypeGainPerLevel:
-      - 5
-      - 7
-      - 10
-      HasGainEnergy: 0
-      EnergyGainPerLevel:
-      - 0
-      - 0
-      - 0
-      HasNextEffect: 0
-      NextEffect:
-        AppliesTo: 0
-        RequiredType: 1
-        HypeEffectPerLevel:
-        - 5
-        - 10
-        - 15
-        EnergyEffect: 0
-      NextEffectPreviewText: 
-      Icon: {fileID: 0}
-      Animation: 10
-      Duration: 1
-  - _action: {fileID: 11400000, guid: 6b59435feab3f3f49b0fcfe7a04c0e2f, type: 2}
-    _count: 1
-    _unlockLevel: 0
-    DataPreview:
-      Name: Behing-the-Back Pass
-      CardText: '@NextEffect'
-      PreviewText: Next Trick this hand gains +5 Hype
-      Type: 2
-      AssociatedRarity: 2
-      AllowedPositions: 3
-      Cost: 1
-      ActionLevel: 1
-      HypeGainPerLevel:
-      - 10
-      - 15
-      - 20
-      HasGainEnergy: 0
-      EnergyGainPerLevel:
-      - 0
-      - 0
-      - 0
-      HasNextEffect: 1
-      NextEffect:
-        AppliesTo: 1
-        RequiredType: 1
-        HypeEffectPerLevel:
-        - 5
-        - 10
-        - 15
-        EnergyEffect: 0
-      NextEffectPreviewText: Next Trick this hand gains +5 Hype
-      Icon: {fileID: 0}
-      Animation: 10
-      Duration: 2
-  - _action: {fileID: 11400000, guid: eff3b2fd85f6db543a551ab8a6cf5a35, type: 2}
-    _count: 1
-    _unlockLevel: 0
-    DataPreview:
-      Name: Spider Dribble
-      CardText: 
-      PreviewText: 
-      Type: 1
-      AssociatedRarity: 1
-      AllowedPositions: 31
-      Cost: 1
-      ActionLevel: 1
-      HypeGainPerLevel:
-      - 50
-      - 60
-      - 70
-      HasGainEnergy: 0
-      EnergyGainPerLevel:
-      - 0
-      - 0
-      - 0
-      HasNextEffect: 0
-      NextEffect:
-        AppliesTo: 0
-        RequiredType: 1
-        HypeEffectPerLevel:
-        - 5
-        - 10
-        - 15
-        EnergyEffect: 0
-      NextEffectPreviewText: 
-      Icon: {fileID: 0}
-      Animation: 100
-      Duration: 2
-  - _action: {fileID: 11400000, guid: 96925483d1f5f5a47a0c339a7f80f9f0, type: 2}
-    _count: 1
-    _unlockLevel: 0
-    DataPreview:
-      Name: Behind-the-Back Dribble
-      CardText: '@NextEffect'
-      PreviewText: Next Shot this game gains +5 Hype
-      Type: 1
-      AssociatedRarity: 2
-      AllowedPositions: 31
-      Cost: 1
-      ActionLevel: 1
-      HypeGainPerLevel:
-      - 20
-      - 25
-      - 30
-      HasGainEnergy: 0
-      EnergyGainPerLevel:
-      - 0
-      - 0
-      - 0
-      HasNextEffect: 1
-      NextEffect:
-        AppliesTo: 2
-        RequiredType: 3
-        HypeEffectPerLevel:
-        - 5
-        - 10
-        - 15
-        EnergyEffect: 0
-      NextEffectPreviewText: Next Shot this game gains +5 Hype
-      Icon: {fileID: 0}
-      Animation: 100
-      Duration: 2
-  - _action: {fileID: 11400000, guid: 7914fcb3a0186c7438bb9e50c36c9882, type: 2}
-    _count: 1
-    _unlockLevel: 0
-    DataPreview:
-      Name: Shamgod
-      CardText: 
-      PreviewText: 
-      Type: 1
-      AssociatedRarity: 1
-      AllowedPositions: 13
-      Cost: 2
-      ActionLevel: 1
-      HypeGainPerLevel:
-      - 50
-      - 60
-      - 70
-      HasGainEnergy: 0
-      EnergyGainPerLevel:
-      - 0
-      - 0
-      - 0
-      HasNextEffect: 0
-      NextEffect:
-        AppliesTo: 0
-        RequiredType: 1
-        HypeEffectPerLevel:
-        - 5
-        - 10
-        - 15
-        EnergyEffect: 0
-      NextEffectPreviewText: 
-      Icon: {fileID: 0}
-      Animation: 100
-      Duration: 2
   - _action: {fileID: 11400000, guid: 9bcefe1b25703394cb6ef5a62524b008, type: 2}
-    _count: 1
+    _count: 2
     _unlockLevel: 0
     DataPreview:
       Name: 3-Pointer
@@ -254,3 +50,139 @@ MonoBehaviour:
       Icon: {fileID: 0}
       Animation: 200
       Duration: 1
+  - _action: {fileID: 0}
+    _count: 1
+    _unlockLevel: 0
+    DataPreview:
+      Name: Trick
+      CardText: 
+      PreviewText: 
+      Type: 1
+      AssociatedRarity: 0
+      AllowedPositions: 31
+      Cost: 1
+      ActionLevel: 1
+      HypeGainPerLevel:
+      - 5
+      - 7.5
+      - 10
+      HasGainEnergy: 0
+      EnergyGainPerLevel:
+      - 0
+      - 0
+      - 0
+      HasNextEffect: 0
+      NextEffect:
+        AppliesTo: 0
+        RequiredType: 1
+        HypeEffectPerLevel:
+        - 5
+        - 10
+        - 15
+        EnergyEffect: 0
+      NextEffectPreviewText: 
+      Icon: {fileID: 0}
+      Animation: 100
+      Duration: 2
+  - _action: {fileID: 0}
+    _count: 1
+    _unlockLevel: 0
+    DataPreview:
+      Name: Trick
+      CardText: 
+      PreviewText: 
+      Type: 1
+      AssociatedRarity: 0
+      AllowedPositions: 31
+      Cost: 1
+      ActionLevel: 1
+      HypeGainPerLevel:
+      - 5
+      - 7.5
+      - 10
+      HasGainEnergy: 0
+      EnergyGainPerLevel:
+      - 0
+      - 0
+      - 0
+      HasNextEffect: 0
+      NextEffect:
+        AppliesTo: 0
+        RequiredType: 1
+        HypeEffectPerLevel:
+        - 5
+        - 10
+        - 15
+        EnergyEffect: 0
+      NextEffectPreviewText: 
+      Icon: {fileID: 0}
+      Animation: 100
+      Duration: 2
+  - _action: {fileID: 0}
+    _count: 1
+    _unlockLevel: 0
+    DataPreview:
+      Name: Trick
+      CardText: 
+      PreviewText: 
+      Type: 1
+      AssociatedRarity: 0
+      AllowedPositions: 31
+      Cost: 1
+      ActionLevel: 1
+      HypeGainPerLevel:
+      - 5
+      - 7.5
+      - 10
+      HasGainEnergy: 0
+      EnergyGainPerLevel:
+      - 0
+      - 0
+      - 0
+      HasNextEffect: 0
+      NextEffect:
+        AppliesTo: 0
+        RequiredType: 1
+        HypeEffectPerLevel:
+        - 5
+        - 10
+        - 15
+        EnergyEffect: 0
+      NextEffectPreviewText: 
+      Icon: {fileID: 0}
+      Animation: 100
+      Duration: 2
+  - _action: {fileID: 0}
+    _count: 1
+    _unlockLevel: 0
+    DataPreview:
+      Name: Trick
+      CardText: 
+      PreviewText: 
+      Type: 1
+      AssociatedRarity: 0
+      AllowedPositions: 31
+      Cost: 1
+      ActionLevel: 1
+      HypeGainPerLevel:
+      - 5
+      - 7.5
+      - 10
+      HasGainEnergy: 0
+      EnergyGainPerLevel:
+      - 0
+      - 0
+      - 0
+      HasNextEffect: 0
+      NextEffect:
+        AppliesTo: 0
+        RequiredType: 1
+        HypeEffectPerLevel:
+        - 5
+        - 10
+        - 15
+        EnergyEffect: 0
+      NextEffectPreviewText: 
+      Icon: {fileID: 0}
+      Animation: 100
+      Duration: 2

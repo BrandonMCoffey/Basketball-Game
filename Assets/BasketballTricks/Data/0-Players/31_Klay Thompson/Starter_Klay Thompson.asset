@@ -16,67 +16,207 @@ MonoBehaviour:
   _cardTitle: Mavericks Player
   _rarity: 2
   _actions:
-  - _action: {fileID: 11400000, guid: b7f24de71e4bfaa48a4631efaed75589, type: 2}
+  - _action: {fileID: 11400000, guid: 3f847b2b7720ca649a2dde4ba0447c13, type: 2}
     _count: 2
-    _actionCostOverride: -1
-    _actionHypeOverride: -1
-    _actionDurationOverride: -1
-    _actionAccuracyOverride: 0
+    _unlockLevel: 0
     DataPreview:
+      Name: Chest Pass
+      CardText: 
+      PreviewText: 
+      Type: 2
+      AssociatedRarity: 1
+      AllowedPositions: 31
+      Cost: 0
+      ActionLevel: 1
+      HypeGainPerLevel:
+      - 10
+      - 15
+      - 20
+      HasGainEnergy: 0
+      EnergyGainPerLevel:
+      - 0
+      - 0
+      - 0
+      HasNextEffect: 0
+      NextEffect:
+        AppliesTo: 0
+        RequiredType: 1
+        HypeEffectPerLevel:
+        - 5
+        - 10
+        - 15
+        EnergyEffect: 0
+      NextEffectPreviewText: 
+      Icon: {fileID: 0}
+      Animation: 10
+      Duration: 2
+  - _action: {fileID: 11400000, guid: f7ad7111cc0536c428af9fac12d34bd6, type: 2}
+    _count: 1
+    _unlockLevel: 0
+    DataPreview:
+      Name: Fake Pump
+      CardText: Next Trick costs 1 less Energy
+      PreviewText: Next Trick costs 1 less Energy
       Type: 1
       AssociatedRarity: 2
-      Name: Ball Fake
+      AllowedPositions: 6
       Cost: 1
-      Hype: 15
-      Duration: 2
-      Accuracy: 0.8
+      ActionLevel: 1
+      HypeGainPerLevel:
+      - 20
+      - 25
+      - 30
+      HasGainEnergy: 0
+      EnergyGainPerLevel:
+      - 0
+      - 0
+      - 0
+      HasNextEffect: 0
+      NextEffect:
+        AppliesTo: 2
+        RequiredType: 3
+        HypeEffectPerLevel:
+        - 5
+        - 10
+        - 15
+        EnergyEffect: 0
+      NextEffectPreviewText: Next Shot this game gains +10 Hype
       Icon: {fileID: 0}
       Animation: 100
-  - _action: {fileID: 11400000, guid: cb4845fe54dd9cb48b734e6a01a4ff6e, type: 2}
+      Duration: 2
+  - _action: {fileID: 11400000, guid: 9bcefe1b25703394cb6ef5a62524b008, type: 2}
     _count: 1
-    _actionCostOverride: -1
-    _actionHypeOverride: -1
-    _actionDurationOverride: -1
-    _actionAccuracyOverride: 0
+    _unlockLevel: 0
     DataPreview:
-      Type: 2
-      AssociatedRarity: 1
-      Name: Basic Chest Pass
-      Cost: 1
-      Hype: 5
-      Duration: 3
-      Accuracy: 0.8
-      Icon: {fileID: 0}
-      Animation: 10
-  - _action: {fileID: 11400000, guid: d574826891e95014ca1cac4c9f1ac988, type: 2}
-    _count: 1
-    _actionCostOverride: -1
-    _actionHypeOverride: -1
-    _actionDurationOverride: -1
-    _actionAccuracyOverride: 0
-    DataPreview:
-      Type: 2
-      AssociatedRarity: 2
-      Name: Kick Pass
-      Cost: 1
-      Hype: 10
-      Duration: 3
-      Accuracy: 0.8
-      Icon: {fileID: 0}
-      Animation: 10
-  - _action: {fileID: 11400000, guid: 0e845e376c72b8643be50dc61df4df9e, type: 2}
-    _count: 1
-    _actionCostOverride: -1
-    _actionHypeOverride: -1
-    _actionDurationOverride: -1
-    _actionAccuracyOverride: 0
-    DataPreview:
+      Name: 3-Pointer
+      CardText: 
+      PreviewText: 
       Type: 3
       AssociatedRarity: 1
-      Name: Basic Layup
-      Cost: 1
-      Hype: 20
-      Duration: 1
-      Accuracy: 0.8
+      AllowedPositions: 3
+      Cost: 2
+      ActionLevel: 1
+      HypeGainPerLevel:
+      - 50
+      - 60
+      - 75
+      HasGainEnergy: 0
+      EnergyGainPerLevel:
+      - 0
+      - 0
+      - 0
+      HasNextEffect: 0
+      NextEffect:
+        AppliesTo: 0
+        RequiredType: 1
+        HypeEffectPerLevel:
+        - 5
+        - 10
+        - 15
+        EnergyEffect: 0
+      NextEffectPreviewText: 
       Icon: {fileID: 0}
       Animation: 200
+      Duration: 1
+  - _action: {fileID: 11400000, guid: ee1f0f88b018cd942ac90a994f7d167f, type: 2}
+    _count: 1
+    _unlockLevel: 0
+    DataPreview:
+      Name: Mid-Range Jumper
+      CardText: Gain +1 energy if this shot is last in sequence
+      PreviewText: Gain +1 energy if this shot is last in sequence
+      Type: 3
+      AssociatedRarity: 1
+      AllowedPositions: 31
+      Cost: 1
+      ActionLevel: 1
+      HypeGainPerLevel:
+      - 25
+      - 30
+      - 40
+      HasGainEnergy: 0
+      EnergyGainPerLevel:
+      - 0
+      - 0
+      - 0
+      HasNextEffect: 0
+      NextEffect:
+        AppliesTo: 0
+        RequiredType: 1
+        HypeEffectPerLevel:
+        - 5
+        - 10
+        - 15
+        EnergyEffect: 0
+      NextEffectPreviewText: 
+      Icon: {fileID: 0}
+      Animation: 200
+      Duration: 1
+  - _action: {fileID: 11400000, guid: 0e1db431e09e2434ebd7b34e168f217f, type: 2}
+    _count: 1
+    _unlockLevel: 0
+    DataPreview:
+      Name: Catch-and-Shoot 3
+      CardText: If receiver, +40 Bonus Hype
+      PreviewText: If receiver, +40 Bonus Hype
+      Type: 3
+      AssociatedRarity: 2
+      AllowedPositions: 2
+      Cost: 1
+      ActionLevel: 1
+      HypeGainPerLevel:
+      - 20
+      - 25
+      - 30
+      HasGainEnergy: 0
+      EnergyGainPerLevel:
+      - 0
+      - 0
+      - 0
+      HasNextEffect: 0
+      NextEffect:
+        AppliesTo: 0
+        RequiredType: 1
+        HypeEffectPerLevel:
+        - 5
+        - 10
+        - 15
+        EnergyEffect: 0
+      NextEffectPreviewText: 
+      Icon: {fileID: 0}
+      Animation: 200
+      Duration: 2
+  - _action: {fileID: 11400000, guid: 1be49f7b306fe9e4e845d29fc5c36e62, type: 2}
+    _count: 1
+    _unlockLevel: 0
+    DataPreview:
+      Name: Deep 3
+      CardText: 
+      PreviewText: 
+      Type: 3
+      AssociatedRarity: 2
+      AllowedPositions: 3
+      Cost: 3
+      ActionLevel: 1
+      HypeGainPerLevel:
+      - 75
+      - 100
+      - 125
+      HasGainEnergy: 0
+      EnergyGainPerLevel:
+      - 0
+      - 0
+      - 0
+      HasNextEffect: 0
+      NextEffect:
+        AppliesTo: 0
+        RequiredType: 1
+        HypeEffectPerLevel:
+        - 5
+        - 10
+        - 15
+        EnergyEffect: 0
+      NextEffectPreviewText: 
+      Icon: {fileID: 0}
+      Animation: 200
+      Duration: 2
