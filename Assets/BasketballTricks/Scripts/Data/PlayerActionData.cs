@@ -54,7 +54,7 @@ public struct ActionData
     [ShowIf(nameof(HasGainEnergy))] public List<float> EnergyGainPerLevel;
     public bool HasNextEffect;
     [ShowIf(nameof(HasNextEffect))] public EffectNext NextEffect;
-    [ShowIf(nameof(HasNextEffect))] public string NextEffectPreviewText;
+    [ShowIf(nameof(HasNextEffect)), ReadOnly] public string NextEffectPreviewText;
     [Header("Visuals")]
     public Sprite Icon;
     public PlayerAnimation Animation;
@@ -141,14 +141,14 @@ public struct EffectNext
             _ => "",
         };
         bool hypeEffectExists = HypeEffect != 0;
-        if (HypeEffect > 0) effectText += $"gains {HypeEffect} Hype";
-        else if (HypeEffect < 0) effectText += $"loses {Mathf.Abs(HypeEffect)} Hype";
+        if (HypeEffect > 0) effectText += $"gains +{HypeEffect} Hype";
+        else if (HypeEffect < 0) effectText += $"loses -{Mathf.Abs(HypeEffect)} Hype";
         bool energyEffectExists = EnergyEffect != 0;
         if (energyEffectExists)
         {
             if (hypeEffectExists) effectText += " and ";
-            if (EnergyEffect > 0) effectText += $"gains {EnergyEffect} Energy.";
-            else if (EnergyEffect < 0) effectText += $"loses {Mathf.Abs(EnergyEffect)} Energy.";
+            if (EnergyEffect > 0) effectText += $"gains +{EnergyEffect} Energy.";
+            else if (EnergyEffect < 0) effectText += $"loses -{Mathf.Abs(EnergyEffect)} Energy.";
         }
         return effectText;
     }
