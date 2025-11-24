@@ -48,7 +48,8 @@ public struct ActionData
     public int ActionLevel;
     [Header("Effects")]
     public List<float> HypeGainPerLevel;
-    public List<float> EnergyGainPerLevel;
+    public bool HasGainEnergy;
+    [ShowIf(nameof(HasGainEnergy))] public List<float> EnergyGainPerLevel;
     public bool HasNextEffect;
     [ShowIf(nameof(HasNextEffect))] public EffectNext NextEffect;
     [ShowIf(nameof(HasNextEffect))] public string NextEffectPreviewText;
@@ -87,6 +88,7 @@ public struct ActionData
             _ => 2f,
         };
         HypeGainPerLevel = new List<float> { baseHype, baseHype * 1.5f, baseHype * 2f };
+        HasGainEnergy = false;
         EnergyGainPerLevel = new List<float> { 0, 0, 0};
         HasNextEffect = false;
         NextEffect = new EffectNext
