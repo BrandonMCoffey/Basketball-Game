@@ -13,7 +13,7 @@ public class PlayerActionData : ScriptableObject
     {
         if (string.IsNullOrEmpty(_data.Name)) _data.Name = name;
         if (_data.Duration <= 0f) _data.Duration = 1f;
-        if (_data.HasNextEffect) _data.NextEffectPreviewText = _data.NextEffect.GetDisplayText();
+        if (_data.HasNextEffect) _data.NextEffectPreviewText = _data.NextEffect.GetDisplayText(_data.ActionLevel);
         _data.PreviewText = _data.GetDisplayText();
     }
 
@@ -60,8 +60,8 @@ public struct ActionData
     public PlayerAnimation Animation;
     public float Duration;
 
-    public float HypeGain => HypeGainPerLevel[Mathf.Clamp(ActionLevel, 0, HypeGainPerLevel.Count - 1)];
-    public float EnergyGain => EnergyGainPerLevel[Mathf.Clamp(ActionLevel, 0, EnergyGainPerLevel.Count - 1)];
+    public float HypeGain => HypeGainPerLevel.Count == 0 ? 10 : HypeGainPerLevel[Mathf.Clamp(ActionLevel - 1, 0, HypeGainPerLevel.Count - 1)];
+    public float EnergyGain => EnergyGainPerLevel.Count == 0 ? 0 : EnergyGainPerLevel[Mathf.Clamp(ActionLevel - 1, 0, EnergyGainPerLevel.Count - 1)];
 
     public ActionData(ActionType type = ActionType.None)
     {
@@ -96,7 +96,7 @@ public struct ActionData
             AppliesTo = NextEffectAppliesTo.NextCardPlayed,
             RequiredType = ActionType.Trick,
             EnergyEffect = 0,
-            HypeEffect = 0,
+            HypeEffectPerLevel = new List<float> { 5, 10, 15 },
         };
         NextEffectPreviewText = "";
         CardText = "";
@@ -118,7 +118,7 @@ public struct ActionData
         text = text.Replace("@Energy", EnergyGain.ToString("F1"));
         text = text.Replace("@Cost", Cost.ToString("F1"));
         text = text.Replace("@Duration", Duration.ToString("F1"));
-        text = text.Replace("@NextEffect", NextEffect.GetDisplayText());
+        text = text.Replace("@NextEffect", NextEffect.GetDisplayText(ActionLevel));
         return text;
     }
 }
@@ -128,10 +128,12 @@ public struct EffectNext
 {
     public NextEffectAppliesTo AppliesTo;
     public ActionType RequiredType;
+    public List<float> HypeEffectPerLevel;
     public float EnergyEffect;
-    public float HypeEffect;
 
-    public string GetDisplayText()
+    public float GetHypeEffect(int level) => HypeEffectPerLevel.Count == 0 ? 10 : HypeEffectPerLevel[Mathf.Clamp(level - 1, 0, HypeEffectPerLevel.Count - 1)];
+
+    public string GetDisplayText(int level)
     {
         string effectText = $"Next {RequiredType} ";
         effectText += AppliesTo switch
@@ -141,9 +143,10 @@ public struct EffectNext
             NextEffectAppliesTo.NextMatchingCardThisGame => "this game ",
             _ => "",
         };
-        bool hypeEffectExists = HypeEffect != 0;
-        if (HypeEffect > 0) effectText += $"gains +{HypeEffect} Hype";
-        else if (HypeEffect < 0) effectText += $"loses -{Mathf.Abs(HypeEffect)} Hype";
+        float hypeEffect = GetHypeEffect(level);
+        bool hypeEffectExists = hypeEffect != 0;
+        if (hypeEffect > 0) effectText += $"gains +{hypeEffect} Hype";
+        else if (hypeEffect < 0) effectText += $"loses -{Mathf.Abs(hypeEffect)} Hype";
         bool energyEffectExists = EnergyEffect != 0;
         if (energyEffectExists)
         {
