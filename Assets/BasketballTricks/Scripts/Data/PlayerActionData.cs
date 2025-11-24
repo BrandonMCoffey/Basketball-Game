@@ -13,6 +13,8 @@ public class PlayerActionData : ScriptableObject
     {
         if (string.IsNullOrEmpty(_data.Name)) _data.Name = name;
         if (_data.Duration <= 0f) _data.Duration = 1f;
+        if (_data.HasNextEffect) _data.NextEffectPreviewText = _data.NextEffect.GetDisplayText();
+        _data.PreviewText = _data.GetDisplayText();
     }
 
     [Button]
@@ -43,16 +45,22 @@ public struct ActionData
     public CardRarity AssociatedRarity;
     public PlayerPosition AllowedPositions;
     public float Cost;
+    public int ActionLevel;
     [Header("Effects")]
-    public float HypeGain;
-    public float EnergyGain;
+    public List<float> HypeGainPerLevel;
+    public List<float> EnergyGainPerLevel;
     public bool HasNextEffect;
     [ShowIf(nameof(HasNextEffect))] public EffectNext NextEffect;
+    [ShowIf(nameof(HasNextEffect))] public string NextEffectPreviewText;
     [Header("Visuals")]
+    public string CardText;
+    [ReadOnly] public string PreviewText;
     public Sprite Icon;
     public PlayerAnimation Animation;
     public float Duration;
-    public string CardText;
+
+    public float HypeGain => HypeGainPerLevel[Mathf.Clamp(ActionLevel, 0, HypeGainPerLevel.Count - 1)];
+    public float EnergyGain => EnergyGainPerLevel[Mathf.Clamp(ActionLevel, 0, EnergyGainPerLevel.Count - 1)];
 
     public ActionData(ActionType type = ActionType.None)
     {
@@ -62,14 +70,24 @@ public struct ActionData
         AssociatedRarity = CardRarity.None;
         AllowedPositions = PlayerPosition.All;
         Cost = 1;
-        HypeGain = type switch
+        ActionLevel = 1;
+        float baseHype = type switch
         {
-            ActionType.Trick => 20,
-            ActionType.Pass => 5,
-            ActionType.Shot => 5,
-            _ => 0,
+            ActionType.Trick => 2.5f,
+            ActionType.Pass => 1f,
+            ActionType.Shot => 5f,
+            _ => 2,
         };
-        EnergyGain = 0;
+        baseHype *= AssociatedRarity switch
+        {
+            CardRarity.Rookie => 2f,
+            CardRarity.Career => 4f,
+            CardRarity.AllStar => 8f,
+            CardRarity.Signature => 10f,
+            _ => 2f,
+        };
+        HypeGainPerLevel = new List<float> { baseHype, baseHype * 1.5f, baseHype * 2f };
+        EnergyGainPerLevel = new List<float> { 0, 0, 0};
         HasNextEffect = false;
         NextEffect = new EffectNext
         {
@@ -78,6 +96,9 @@ public struct ActionData
             EnergyEffect = 0,
             HypeEffect = 0,
         };
+        NextEffectPreviewText = "";
+        CardText = "";
+        PreviewText = CardText;
         Animation = type switch
         {
             ActionType.Trick => PlayerAnimation.BasicDribble,
@@ -86,7 +107,16 @@ public struct ActionData
             _ => PlayerAnimation.BasicDribble,
         };
         Duration = 2;
-        CardText = "";
+    }
+
+    public string GetDisplayText()
+    {
+        CardText.Replace("@Hype", HypeGain.ToString("F1"));
+        CardText.Replace("@Energy", EnergyGain.ToString("F1"));
+        CardText.Replace("@Cost", Cost.ToString("F1"));
+        CardText.Replace("@Duration", Duration.ToString("F1"));
+        CardText.Replace("@NextEffect", NextEffect.GetDisplayText());
+        return CardText;
     }
 }
 
@@ -97,6 +127,29 @@ public struct EffectNext
     public ActionType RequiredType;
     public float EnergyEffect;
     public float HypeEffect;
+
+    public string GetDisplayText()
+    {
+        string effectText = $"Next {RequiredType} ";
+        effectText += AppliesTo switch
+        {
+            NextEffectAppliesTo.NextCardPlayed => "played ",
+            NextEffectAppliesTo.NextMatchingCardThisHand => "this hand ",
+            NextEffectAppliesTo.NextMatchingCardThisGame => "this game ",
+            _ => "",
+        };
+        bool hypeEffectExists = HypeEffect != 0;
+        if (HypeEffect > 0) effectText += $"gains {HypeEffect} Hype";
+        else if (HypeEffect < 0) effectText += $"loses {Mathf.Abs(HypeEffect)} Hype";
+        bool energyEffectExists = EnergyEffect != 0;
+        if (energyEffectExists)
+        {
+            if (hypeEffectExists) effectText += " and ";
+            if (EnergyEffect > 0) effectText += $"gains {EnergyEffect} Energy.";
+            else if (EnergyEffect < 0) effectText += $"loses {Mathf.Abs(EnergyEffect)} Energy.";
+        }
+        return effectText;
+    }
 }
 
 public enum NextEffectAppliesTo
