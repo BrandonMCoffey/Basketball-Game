@@ -46,6 +46,7 @@ public struct ActionData
     [Range(0, 1)] public float Accuracy;
     public Sprite Icon;
     public PlayerAnimation Animation;
+    public string CardText;
 
     public ActionData(ActionType type = ActionType.None)
     {
@@ -53,6 +54,7 @@ public struct ActionData
         AssociatedRarity = CardRarity.None;
         Name = type.ToString();
         Cost = 1;
+        CardText = "";
         Hype = type switch
         {
             ActionType.Trick => 20,
