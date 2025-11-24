@@ -10,16 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041c9dffaf652874eb5e4e1ef3755211, type: 3}
-  m_Name: Touch Pass
+  m_Name: Mid-Range Jumper
   m_EditorClassIdentifier: 
   _data:
-    Type: 2
-    AssociatedRarity: 2
-    IllegalPositions: 31
-    Name: Touch Pass
-    Cost: 1
-    Hype: 10
-    Duration: 3
-    Accuracy: 0.8
+    Name: Mid-Range Jumper
+    Type: 3
+    AssociatedRarity: 1
+    AllowedPositions: 31
+    Cost: 2
+    HypeGain: 25
+    EnergyGain: 0
+    HasNextEffect: 0
+    NextEffect:
+      AppliesTo: 0
+      RequiredType: 1
+      EnergyEffect: 0
+      HypeEffect: 0
     Icon: {fileID: 0}
-    Animation: 10
+    Animation: 200
+    Duration: 1
+    CardText: Gain 1 energy if this shot is last in sequence

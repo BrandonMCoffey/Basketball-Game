@@ -19,7 +19,8 @@ MonoBehaviour:
     Name: Basic Bounce Pass
     Cost: 1
     Hype: 5
-    Duration: 3
+    Duration: 1
     Accuracy: 0.8
     Icon: {fileID: 0}
     Animation: 10
+    CardText: Next trick costs 1 less Energy
