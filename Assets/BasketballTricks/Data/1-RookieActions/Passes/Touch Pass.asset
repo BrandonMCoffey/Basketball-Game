@@ -10,16 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041c9dffaf652874eb5e4e1ef3755211, type: 3}
-  m_Name: Kick Pass
+  m_Name: Touch Pass
   m_EditorClassIdentifier: 
   _data:
+    Name: Touch Pass
     Type: 2
-    AssociatedRarity: 2
-    IllegalPositions: 31
-    Name: Kick Pass
-    Cost: 1
-    Hype: 10
-    Duration: 3
-    Accuracy: 0.8
+    AssociatedRarity: 1
+    AllowedPositions: 31
+    Cost: 0
+    HypeGain: 20
+    EnergyGain: 0
+    HasNextEffect: 0
+    NextEffect:
+      AppliesTo: 0
+      RequiredType: 1
+      EnergyEffect: 0
+      HypeEffect: 0
     Icon: {fileID: 0}
     Animation: 10
+    Duration: 1
+    CardText: If receiver, gain 1 Energy
