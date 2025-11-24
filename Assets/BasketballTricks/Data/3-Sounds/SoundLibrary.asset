@@ -15,3 +15,6 @@ MonoBehaviour:
   _sfxEventClips:
   - Event: 0
     Clip: {fileID: 0}
+  _musicTrackClips:
+  - Track: 0
+    Clip: {fileID: 0}
