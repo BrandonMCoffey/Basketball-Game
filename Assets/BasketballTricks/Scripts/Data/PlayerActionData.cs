@@ -113,12 +113,13 @@ public struct ActionData
 
     public string GetDisplayText()
     {
-        CardText.Replace("@Hype", HypeGain.ToString("F1"));
-        CardText.Replace("@Energy", EnergyGain.ToString("F1"));
-        CardText.Replace("@Cost", Cost.ToString("F1"));
-        CardText.Replace("@Duration", Duration.ToString("F1"));
-        CardText.Replace("@NextEffect", NextEffect.GetDisplayText());
-        return CardText;
+        string text = CardText;
+        text.Replace("@Hype", HypeGain.ToString("F1"));
+        text.Replace("@Energy", EnergyGain.ToString("F1"));
+        text.Replace("@Cost", Cost.ToString("F1"));
+        text.Replace("@Duration", Duration.ToString("F1"));
+        text.Replace("@NextEffect", NextEffect.GetDisplayText());
+        return text;
     }
 }
 
