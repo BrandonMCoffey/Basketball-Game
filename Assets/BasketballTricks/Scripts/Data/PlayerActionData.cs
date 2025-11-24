@@ -41,6 +41,8 @@ public enum ActionType
 public struct ActionData
 {
     public string Name;
+    [TextArea] public string CardText;
+    [TextArea, ReadOnly] public string PreviewText;
     public ActionType Type;
     public CardRarity AssociatedRarity;
     public PlayerPosition AllowedPositions;
@@ -54,8 +56,6 @@ public struct ActionData
     [ShowIf(nameof(HasNextEffect))] public EffectNext NextEffect;
     [ShowIf(nameof(HasNextEffect))] public string NextEffectPreviewText;
     [Header("Visuals")]
-    public string CardText;
-    [ReadOnly] public string PreviewText;
     public Sprite Icon;
     public PlayerAnimation Animation;
     public float Duration;
