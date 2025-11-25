@@ -19,12 +19,13 @@ MonoBehaviour:
     Type: 1
     AssociatedRarity: 3
     AllowedPositions: 6
-    Cost: 2
+    Cost:
+      isLevelable: 0
+      levels:
+      - 2
+      - 0
+      - 0
     ActionLevel: 1
-    HypeGainPerLevel:
-    - 45
-    - 55
-    - 70
     HypeGain:
       isLevelable: 1
       levels:
@@ -40,17 +41,24 @@ MonoBehaviour:
     NextEffect:
       AppliesTo: 1
       RequiredType: 3
-      HypeEffect:
+      AddHypeToCard:
         isLevelable: 1
         levels:
         - 0
         - 0
         - 0
-      HypeEffectPerLevel:
-      - 0
-      - 0
-      - 0
-      EnergyEffect: 3
+      AddEnergyGainToCard:
+        isLevelable: 0
+        levels:
+        - 3
+        - 3
+        - 3
+      AdjustCardCost:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
     NextEffectPreviewText: Next Shot this hand gains +3 Energy.
     Icon: {fileID: 0}
     Animation: 100

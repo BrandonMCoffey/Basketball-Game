@@ -14,17 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data:
     Name: Bounce Pass
-    CardText: Next trick played costs 1 less Energy
+    CardText: '@NextEffect'
     PreviewText: Next trick played costs 1 less Energy
     Type: 2
     AssociatedRarity: 1
     AllowedPositions: 31
-    Cost: 1
+    Cost:
+      isLevelable: 0
+      levels:
+      - 1
+      - 0
+      - 0
     ActionLevel: 1
-    HypeGainPerLevel:
-    - 5
-    - 7
-    - 10
     HypeGain:
       isLevelable: 1
       levels:
@@ -36,16 +37,29 @@ MonoBehaviour:
     - 0
     - 0
     - 0
-    HasNextEffect: 0
+    HasNextEffect: 1
     NextEffect:
       AppliesTo: 0
       RequiredType: 1
-      HypeEffectPerLevel:
-      - 5
-      - 10
-      - 15
-      EnergyEffect: 0
-    NextEffectPreviewText: 
+      AddHypeToCard:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      AddEnergyGainToCard:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      AdjustCardCost:
+        isLevelable: 0
+        levels:
+        - -1
+        - 0
+        - 0
+    NextEffectPreviewText: Next trick played costs 1 less Energy
     Icon: {fileID: 0}
     Animation: 10
     Duration: 1

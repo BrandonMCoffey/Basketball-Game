@@ -47,10 +47,9 @@ public struct ActionData
     public ActionType Type;
     public CardRarity AssociatedRarity;
     public PlayerPosition AllowedPositions;
-    public float Cost;
+    public LevelableFloat Cost;
     public int ActionLevel;
     [Header("Effects")]
-    public List<float> HypeGainPerLevel;
     public LevelableFloat HypeGain;
     public bool HasGainEnergy;
     [ShowIf(nameof(HasGainEnergy))] public List<float> EnergyGainPerLevel;
@@ -71,7 +70,7 @@ public struct ActionData
         Type = type;
         AssociatedRarity = CardRarity.None;
         AllowedPositions = PlayerPosition.All;
-        Cost = 1;
+        Cost = new LevelableFloat(false, 1);
         ActionLevel = 1;
         float baseHype = type switch
         {
@@ -88,8 +87,7 @@ public struct ActionData
             CardRarity.Signature => 10f,
             _ => 2f,
         };
-        HypeGainPerLevel = new List<float> { baseHype, baseHype * 1.5f, baseHype * 2f };
-        HypeGain = new LevelableFloat(baseHype, baseHype * 1.5f, baseHype * 2f);
+        HypeGain = new LevelableFloat(true, baseHype, baseHype * 1.5f, baseHype * 2f);
         HasGainEnergy = false;
         EnergyGainPerLevel = new List<float> { 0, 0, 0};
         HasNextEffect = false;
@@ -97,8 +95,9 @@ public struct ActionData
         {
             AppliesTo = NextEffectAppliesTo.NextCardPlayed,
             RequiredType = ActionType.Trick,
-            EnergyEffect = 0,
-            HypeEffect = new LevelableFloat(10, 15, 20),
+            AddHypeToCard = new LevelableFloat(true, 10, 15, 20),
+            AddEnergyGainToCard = new LevelableFloat(false),
+            AdjustCardCost = new LevelableFloat(false),
         };
         NextEffectPreviewText = "";
         CardText = "";
@@ -118,7 +117,7 @@ public struct ActionData
         string text = CardText;
         text = text.Replace("@Hype", HypeGain.GetValue(ActionLevel).ToString("F1"));
         text = text.Replace("@Energy", EnergyGain.ToString("F1"));
-        text = text.Replace("@Cost", Cost.ToString("F1"));
+        text = text.Replace("@Cost", Cost.GetValue(ActionLevel).ToString("F1"));
         text = text.Replace("@Duration", Duration.ToString("F1"));
         text = text.Replace("@NextEffect", NextEffect.GetDisplayText(ActionLevel));
         return text;
@@ -130,12 +129,20 @@ public struct EffectNext
 {
     public NextEffectAppliesTo AppliesTo;
     public ActionType RequiredType;
-    public LevelableFloat HypeEffect;
-    public float EnergyEffect;
+    public LevelableFloat AddHypeToCard;
+    public LevelableFloat AddEnergyGainToCard;
+    public LevelableFloat AdjustCardCost;
 
     public string GetDisplayText(int level)
     {
-        string effectText = $"Next {RequiredType} ";
+        string effectText = "Next ";
+        effectText += RequiredType switch
+        {
+            ActionType.Trick => "trick ",
+            ActionType.Pass => "pass ",
+            ActionType.Shot => "shot ",
+            _ => "card ",
+        };
         effectText += AppliesTo switch
         {
             NextEffectAppliesTo.NextCardPlayed => "played ",
@@ -143,16 +150,22 @@ public struct EffectNext
             NextEffectAppliesTo.NextMatchingCardThisGame => "this game ",
             _ => "",
         };
-        float hypeEffect = HypeEffect.GetValue(level);
-        bool hypeEffectExists = hypeEffect != 0;
+        float hypeEffect = AddHypeToCard.GetValue(level);
         if (hypeEffect > 0) effectText += $"gains +{hypeEffect} Hype";
         else if (hypeEffect < 0) effectText += $"loses -{Mathf.Abs(hypeEffect)} Hype";
-        bool energyEffectExists = EnergyEffect != 0;
-        if (energyEffectExists)
+        float energyEffect = AddEnergyGainToCard.GetValue(level);
+        if (energyEffect != 0)
         {
-            if (hypeEffectExists) effectText += " and ";
-            if (EnergyEffect > 0) effectText += $"gains +{EnergyEffect} Energy.";
-            else if (EnergyEffect < 0) effectText += $"loses -{Mathf.Abs(EnergyEffect)} Energy.";
+            if (hypeEffect != 0) effectText += " and ";
+            if (energyEffect > 0) effectText += $"gains +{energyEffect} Energy";
+            else if (energyEffect < 0) effectText += $"loses -{Mathf.Abs(energyEffect)} Energy";
+        }
+        float costEffect = AdjustCardCost.GetValue(level);
+        if (costEffect != 0)
+        {
+            if (hypeEffect != 0 || energyEffect != 0) effectText += " and ";
+            if (costEffect > 0) effectText += $"costs {costEffect} more Energy";
+            else if (costEffect < 0) effectText += $"costs {Mathf.Abs(costEffect)} less Energy";
         }
         return effectText;
     }

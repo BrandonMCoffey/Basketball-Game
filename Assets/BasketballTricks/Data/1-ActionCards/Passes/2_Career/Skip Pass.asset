@@ -19,12 +19,13 @@ MonoBehaviour:
     Type: 2
     AssociatedRarity: 2
     AllowedPositions: 5
-    Cost: 1
+    Cost:
+      isLevelable: 0
+      levels:
+      - 1
+      - 0
+      - 0
     ActionLevel: 1
-    HypeGainPerLevel:
-    - 15
-    - 20
-    - 25
     HypeGain:
       isLevelable: 1
       levels:
@@ -40,13 +41,24 @@ MonoBehaviour:
     NextEffect:
       AppliesTo: 0
       RequiredType: 2
-      HypeEffect:
+      AddHypeToCard:
         isLevelable: 1
         levels:
         - 10
         - 15
         - 20
-      EnergyEffect: 0
+      AddEnergyGainToCard:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      AdjustCardCost:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
     NextEffectPreviewText: Next Pass played gains +10 Hype
     Icon: {fileID: 0}
     Animation: 10
