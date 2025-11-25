@@ -32,11 +32,46 @@ MonoBehaviour:
       - 15
       - 20
       - 25
-    HasGainEnergy: 0
-    EnergyGainPerLevel:
-    - 0
-    - 0
-    - 0
+    EnergyGain:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
+    DrawCards:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
+    HasEffectIfPrevious: 0
+    EffectIfPrevious:
+      PreviousCardType: 0
+      HypeGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      EnergyGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      AdjustCost:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      DrawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+    EffectIfPreviousPreviewText: 
     HasNextEffect: 0
     NextEffect:
       AppliesTo: 0
@@ -50,6 +85,12 @@ MonoBehaviour:
       AdjustCardCost:
         isLevelable: 0
         levels: []
+      DrawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
     NextEffectPreviewText: 
     Icon: {fileID: 0}
     Animation: 100

@@ -15,7 +15,7 @@ MonoBehaviour:
   _data:
     Name: Eurostep Glide
     CardText: '@NextEffect'
-    PreviewText: Next Shot this hand gains +3 Energy.
+    PreviewText: Next shot this hand gains +3 Energy
     Type: 1
     AssociatedRarity: 3
     AllowedPositions: 6
@@ -32,11 +32,46 @@ MonoBehaviour:
       - 45
       - 55
       - 70
-    HasGainEnergy: 0
-    EnergyGainPerLevel:
-    - 0
-    - 0
-    - 0
+    EnergyGain:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
+    DrawCards:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
+    HasEffectIfPrevious: 0
+    EffectIfPrevious:
+      PreviousCardType: 0
+      HypeGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      EnergyGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      AdjustCost:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      DrawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+    EffectIfPreviousPreviewText: 
     HasNextEffect: 1
     NextEffect:
       AppliesTo: 1
@@ -59,7 +94,13 @@ MonoBehaviour:
         - 0
         - 0
         - 0
-    NextEffectPreviewText: Next Shot this hand gains +3 Energy.
+      DrawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+    NextEffectPreviewText: Next shot this hand gains +3 Energy
     Icon: {fileID: 0}
     Animation: 100
     Duration: 2

@@ -15,7 +15,7 @@ MonoBehaviour:
   _data:
     Name: Behind-the-Back Dribble
     CardText: '@NextEffect'
-    PreviewText: Next shot this game gains +10 Hype.
+    PreviewText: Next shot this game gains +10 Hype
     Type: 1
     AssociatedRarity: 2
     AllowedPositions: 31
@@ -32,11 +32,46 @@ MonoBehaviour:
       - 20
       - 25
       - 30
-    HasGainEnergy: 0
-    EnergyGainPerLevel:
-    - 0
-    - 0
-    - 0
+    EnergyGain:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
+    DrawCards:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
+    HasEffectIfPrevious: 0
+    EffectIfPrevious:
+      PreviousCardType: 0
+      HypeGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      EnergyGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      AdjustCost:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      DrawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+    EffectIfPreviousPreviewText: 
     HasNextEffect: 1
     NextEffect:
       AppliesTo: 2
@@ -59,7 +94,13 @@ MonoBehaviour:
         - 0
         - 0
         - 0
-    NextEffectPreviewText: Next shot this game gains +10 Hype.
+      DrawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+    NextEffectPreviewText: Next shot this game gains +10 Hype
     Icon: {fileID: 0}
     Animation: 100
     Duration: 2

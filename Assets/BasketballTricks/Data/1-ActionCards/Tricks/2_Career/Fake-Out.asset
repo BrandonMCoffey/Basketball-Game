@@ -32,25 +32,75 @@ MonoBehaviour:
       - 15
       - 20
       - 25
-    HasGainEnergy: 0
-    EnergyGainPerLevel:
-    - 0
-    - 0
-    - 0
-    HasNextEffect: 0
+    EnergyGain:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
+    DrawCards:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
+    HasEffectIfPrevious: 0
+    EffectIfPrevious:
+      PreviousCardType: 0
+      HypeGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      EnergyGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      AdjustCost:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      DrawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+    EffectIfPreviousPreviewText: 
+    HasNextEffect: 1
     NextEffect:
-      AppliesTo: 2
-      RequiredType: 3
+      AppliesTo: 0
+      RequiredType: 2
       AddHypeToCard:
         isLevelable: 0
-        levels: []
+        levels:
+        - 0
+        - 0
+        - 0
       AddEnergyGainToCard:
         isLevelable: 0
-        levels: []
+        levels:
+        - 0
+        - 0
+        - 0
       AdjustCardCost:
         isLevelable: 0
-        levels: []
-    NextEffectPreviewText: Next Shot this game gains +10 Hype
+        levels:
+        - 0
+        - 0
+        - 0
+      DrawCards:
+        isLevelable: 0
+        levels:
+        - 1
+        - 0
+        - 0
+    NextEffectPreviewText: Next pass played draw 1 cards
     Icon: {fileID: 0}
     Animation: 100
     Duration: 2

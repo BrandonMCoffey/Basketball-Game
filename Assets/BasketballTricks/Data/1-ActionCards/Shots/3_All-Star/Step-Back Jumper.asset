@@ -32,25 +32,75 @@ MonoBehaviour:
       - 45
       - 50
       - 60
-    HasGainEnergy: 0
-    EnergyGainPerLevel:
-    - 0
-    - 0
-    - 0
-    HasNextEffect: 0
+    EnergyGain:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
+    DrawCards:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
+    HasEffectIfPrevious: 0
+    EffectIfPrevious:
+      PreviousCardType: 0
+      HypeGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      EnergyGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      AdjustCost:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      DrawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+    EffectIfPreviousPreviewText: 
+    HasNextEffect: 1
     NextEffect:
-      AppliesTo: 0
+      AppliesTo: 2
       RequiredType: 1
       AddHypeToCard:
         isLevelable: 0
-        levels: []
+        levels:
+        - 0
+        - 0
+        - 0
       AddEnergyGainToCard:
         isLevelable: 0
-        levels: []
+        levels:
+        - 0
+        - 0
+        - 0
       AdjustCardCost:
         isLevelable: 0
-        levels: []
-    NextEffectPreviewText: 
+        levels:
+        - -10
+        - 0
+        - 0
+      DrawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+    NextEffectPreviewText: Next trick this game costs 10 less Energy
     Icon: {fileID: 0}
     Animation: 200
     Duration: 1
