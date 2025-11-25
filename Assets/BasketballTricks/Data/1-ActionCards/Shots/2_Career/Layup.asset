@@ -44,9 +44,16 @@ MonoBehaviour:
       - 0
       - 0
       - 0
+    MultiplyHype:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
     HasEffectIfPrevious: 0
     EffectIfPrevious:
-      PreviousCardType: 0
+      RequiredType: 0
+      RequiredPosition: 31
       HypeGain:
         isLevelable: 0
         levels:
@@ -71,27 +78,47 @@ MonoBehaviour:
         - 0
         - 0
         - 0
+      MultiplyHype:
+        isLevelable: 0
+        levels: []
     EffectIfPreviousPreviewText: 
-    HasNextEffect: 0
+    HasNextEffect: 1
     NextEffect:
-      AppliesTo: 0
-      RequiredType: 1
+      AppliesTo: 1
+      RequiredType: 3
+      RequiredPosition: 16
       AddHypeToCard:
         isLevelable: 0
-        levels: []
+        levels:
+        - 0
+        - 0
+        - 0
       AddEnergyGainToCard:
         isLevelable: 0
-        levels: []
+        levels:
+        - 0
+        - 0
+        - 0
       AdjustCardCost:
         isLevelable: 0
-        levels: []
+        levels:
+        - 0
+        - 0
+        - 0
       DrawCards:
         isLevelable: 0
         levels:
         - 0
         - 0
         - 0
-    NextEffectPreviewText: 
+      MultiplyHype:
+        isLevelable: 1
+        levels:
+        - 2
+        - 2
+        - 3
+    NextEffectPreviewText: Next shot from Center this hand multiplies Hype gain by
+      2
     Icon: {fileID: 0}
     Animation: 200
     Duration: 2

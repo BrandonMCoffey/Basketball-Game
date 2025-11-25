@@ -54,6 +54,7 @@ public struct ActionData
     public LevelableFloat HypeGain;
     public LevelableFloat EnergyGain;
     public LevelableFloat DrawCards;
+    public LevelableFloat MultiplyHype;
     public bool HasEffectIfPrevious;
     [ShowIf(nameof(HasEffectIfPrevious))] public EffectIfPrevious EffectIfPrevious;
     [ShowIf(nameof(HasEffectIfPrevious)), ReadOnly] public string EffectIfPreviousPreviewText;
@@ -71,7 +72,7 @@ public struct ActionData
         Icon = null;
         Type = type;
         AssociatedRarity = CardRarity.None;
-        AllowedPositions = PlayerPosition.All;
+        AllowedPositions = PlayerPosition.Any;
         Cost = new LevelableFloat(false, 1);
         ActionLevel = 1;
         float baseHype = type switch
@@ -92,14 +93,17 @@ public struct ActionData
         HypeGain = new LevelableFloat(true, baseHype, baseHype * 1.5f, baseHype * 2f);
         EnergyGain = new LevelableFloat(false);
         DrawCards = new LevelableFloat(false);
+        MultiplyHype = new LevelableFloat(false);
         HasEffectIfPrevious = false;
         EffectIfPrevious = new EffectIfPrevious()
         {
-            PreviousCardType = ActionType.None,
+            RequiredType = ActionType.None,
+            RequiredPosition = PlayerPosition.Any,
             HypeGain = new LevelableFloat(false),
             EnergyGain = new LevelableFloat(false),
             AdjustCost = new LevelableFloat(false),
             DrawCards = new LevelableFloat(false),
+            MultiplyHype = new LevelableFloat(false),
         };
         EffectIfPreviousPreviewText = "";
         HasNextEffect = false;
@@ -107,10 +111,12 @@ public struct ActionData
         {
             AppliesTo = NextEffectAppliesTo.NextCardPlayed,
             RequiredType = ActionType.Trick,
+            RequiredPosition = PlayerPosition.Any,
             AddHypeToCard = new LevelableFloat(false),
             AddEnergyGainToCard = new LevelableFloat(false),
             AdjustCardCost = new LevelableFloat(false),
             DrawCards = new LevelableFloat(false),
+            MultiplyHype = new LevelableFloat(false),
         };
         NextEffectPreviewText = "";
         CardText = "";
@@ -142,21 +148,32 @@ public struct ActionData
 [System.Serializable]
 public struct EffectIfPrevious
 {
-    public ActionType PreviousCardType;
+    public ActionType RequiredType;
+    public PlayerPosition RequiredPosition;
     public LevelableFloat HypeGain;
     public LevelableFloat EnergyGain;
     public LevelableFloat AdjustCost;
     public LevelableFloat DrawCards;
+    public LevelableFloat MultiplyHype;
 
     public string GetDisplayText(int level)
     {
         string effectText = "If last card played was ";
-        effectText += PreviousCardType switch
+        effectText += RequiredType switch
         {
             ActionType.Trick => "trick, ",
             ActionType.Pass => "pass, ",
             ActionType.Shot => "shot, ",
             _ => "card, ",
+        };
+        effectText += RequiredPosition switch
+        {
+            PlayerPosition.PointGuard => "from Point Guard ",
+            PlayerPosition.ShootingGuard => "from Shooting Guard ",
+            PlayerPosition.SmallForward => "from Small Forward ",
+            PlayerPosition.PowerForward => "from Power Forward ",
+            PlayerPosition.Center => "from Center ",
+            _ => "",
         };
         float hypeEffect = HypeGain.GetValue(level);
         if (hypeEffect > 0) effectText += $"gain +{hypeEffect} Hype";
@@ -182,6 +199,12 @@ public struct EffectIfPrevious
             if (drawEffect > 0) effectText += $"draw {drawEffect} cards";
             else if (drawEffect < 0) effectText += $"discard {Mathf.Abs(drawEffect)} cards";
         }
+        float multiplyHypeEffect = MultiplyHype.GetValue(level);
+        if (multiplyHypeEffect != 0)
+        {
+            if (hypeEffect != 0 || energyEffect != 0 || costEffect != 0 || drawEffect != 0) effectText += " and ";
+            effectText += $"multiply Hype gain by {multiplyHypeEffect}";
+        }
         return effectText;
     }
 }
@@ -191,10 +214,12 @@ public struct EffectNext
 {
     public NextEffectAppliesTo AppliesTo;
     public ActionType RequiredType;
+    public PlayerPosition RequiredPosition;
     public LevelableFloat AddHypeToCard;
     public LevelableFloat AddEnergyGainToCard;
     public LevelableFloat AdjustCardCost;
     public LevelableFloat DrawCards;
+    public LevelableFloat MultiplyHype;
 
     public string GetDisplayText(int level)
     {
@@ -205,6 +230,15 @@ public struct EffectNext
             ActionType.Pass => "pass ",
             ActionType.Shot => "shot ",
             _ => "card ",
+        };
+        effectText += RequiredPosition switch
+        {
+            PlayerPosition.PointGuard => "from Point Guard ",
+            PlayerPosition.ShootingGuard => "from Shooting Guard ",
+            PlayerPosition.SmallForward => "from Small Forward ",
+            PlayerPosition.PowerForward => "from Power Forward ",
+            PlayerPosition.Center => "from Center ",
+            _ => "",
         };
         effectText += AppliesTo switch
         {
@@ -236,6 +270,12 @@ public struct EffectNext
             if (hypeEffect != 0 || energyEffect != 0 || costEffect != 0) effectText += " and ";
             if (drawEffect > 0) effectText += $"draw {drawEffect} cards";
             else if (drawEffect < 0) effectText += $"discard {Mathf.Abs(drawEffect)} cards";
+        }
+        float multiplyHypeEffect = MultiplyHype.GetValue(level);
+        if (multiplyHypeEffect != 0)
+        {
+            if (hypeEffect != 0 || energyEffect != 0 || costEffect != 0 || drawEffect != 0) effectText += " and ";
+            effectText += $"multiplies Hype gain by {multiplyHypeEffect}";
         }
         return effectText;
     }

@@ -44,9 +44,16 @@ MonoBehaviour:
       - 0
       - 0
       - 0
+    MultiplyHype:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
     HasEffectIfPrevious: 0
     EffectIfPrevious:
-      PreviousCardType: 0
+      RequiredType: 0
+      RequiredPosition: 31
       HypeGain:
         isLevelable: 0
         levels:
@@ -71,11 +78,15 @@ MonoBehaviour:
         - 0
         - 0
         - 0
+      MultiplyHype:
+        isLevelable: 0
+        levels: []
     EffectIfPreviousPreviewText: 
     HasNextEffect: 1
     NextEffect:
       AppliesTo: 0
       RequiredType: 1
+      RequiredPosition: 31
       AddHypeToCard:
         isLevelable: 0
         levels:
@@ -95,6 +106,12 @@ MonoBehaviour:
         - 0
         - 0
       DrawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      MultiplyHype:
         isLevelable: 0
         levels:
         - 0

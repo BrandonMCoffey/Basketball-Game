@@ -75,7 +75,7 @@ public struct PlayerArtData
 public enum PlayerPosition
 {
     None = 0,
-    All = PointGuard | ShootingGuard | SmallForward | PowerForward | Center,
+    Any = PointGuard | ShootingGuard | SmallForward | PowerForward | Center,
     PointGuard = 1 << 0,
     ShootingGuard = 1 << 1,
     SmallForward = 1 << 2,
