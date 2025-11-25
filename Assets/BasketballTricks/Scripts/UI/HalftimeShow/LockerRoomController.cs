@@ -14,6 +14,7 @@ public class LockerRoomController : MonoBehaviour
     [SerializeField] private Ease _lockerEaseEnter = Ease.InQuart;
     [SerializeField] private Ease _lockerEaseLeave = Ease.InQuart;
     [SerializeField] private float _lockerDelay = 0.05f;
+    [SerializeField] private ActionDeckManager _deckManager;
 
     private int _selectedIndex = -1;
     private Vector3 _letsGoOriginalPosition;
@@ -102,6 +103,7 @@ public class LockerRoomController : MonoBehaviour
         {
             players[i].Place(_lockerPositions[i].Card);
         }
+        _deckManager.Init();
         gameObject.SetActive(false);
     }
 

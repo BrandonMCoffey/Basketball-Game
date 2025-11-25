@@ -83,7 +83,7 @@ public class HandCatalog : MonoBehaviour
 
     private void UpdateCardData()
     {
-        var players = GameManager.Instance.Players;
+        var players = GameManager.Instance.OwnedPlayers;
         var count = Mathf.Min(players.Count - _startIndex, _maxDisplayCards);
         for (int i = 0; i < _cards.Count; i++)
         {
@@ -115,7 +115,7 @@ public class HandCatalog : MonoBehaviour
             if (disable) _nextButton.interactable = false;
             else
             {
-                int count = (GameManager.Instance.Players.Count - 1) / _maxDisplayCards * _maxDisplayCards;
+                int count = (GameManager.Instance.OwnedPlayers.Count - 1) / _maxDisplayCards * _maxDisplayCards;
                 _nextButton.interactable = _startIndex < count;
             }
         }
@@ -128,7 +128,7 @@ public class HandCatalog : MonoBehaviour
 
     public void NextPage()
     {
-        int count = (GameManager.Instance.Players.Count - 1) / _maxDisplayCards * _maxDisplayCards;
+        int count = (GameManager.Instance.OwnedPlayers.Count - 1) / _maxDisplayCards * _maxDisplayCards;
         if (_startIndex == count) return;
         _startIndex = Mathf.Min(count, _startIndex + _maxDisplayCards);
         StartCoroutine(SwitchPageRoutine());

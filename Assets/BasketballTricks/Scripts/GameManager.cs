@@ -10,14 +10,14 @@ public class GameManager : MonoBehaviour
     public static bool InTransition { get; private set; }
     public static event System.Action UpdatePlayerLoadout = delegate { };
 
-    [SerializeField] private List<GameCard> _players;
+    [SerializeField] private List<GameCard> _ownedPlayers;
     [SerializeField] private CanvasGroup _sceneTransition;
 
     private int _selectedCardIndex = -1;
     private Dictionary<PlayerPosition, GameCard> _playerLoadout = new Dictionary<PlayerPosition, GameCard>();
 
-    public List<GameCard> Players => _players;
-    public GameCard SelectedCard => (_selectedCardIndex >= 0 && _selectedCardIndex < _players.Count) ? _players[_selectedCardIndex] : null;
+    public List<GameCard> OwnedPlayers => _ownedPlayers;
+    public GameCard SelectedCard => (_selectedCardIndex >= 0 && _selectedCardIndex < _ownedPlayers.Count) ? _ownedPlayers[_selectedCardIndex] : null;
 
     private void Awake()
     {
@@ -43,14 +43,14 @@ public class GameManager : MonoBehaviour
 
     public void StartDribblePractice(int playerIndex)
     {
-        Debug.Log($"Starting dribble practice with {_players[playerIndex].PlayerData.PlayerName}");
+        Debug.Log($"Starting dribble practice with {_ownedPlayers[playerIndex].PlayerData.PlayerName}");
         _selectedCardIndex = playerIndex;
         TransitionToScene("DribbleGame");
     }
 
     public void StartShootingPractice(int playerIndex)
     {
-        Debug.Log($"Starting shooting practice with {_players[playerIndex].PlayerData.PlayerName}");
+        Debug.Log($"Starting shooting practice with {_ownedPlayers[playerIndex].PlayerData.PlayerName}");
         _selectedCardIndex = playerIndex;
         TransitionToScene("ShootingGame");
     }
@@ -120,7 +120,12 @@ public class GameCard
     public PlayerData PlayerData => _cardData.PlayerData;
     public int ActionCount => _cardData.ActionCount;
     public int GetActionCount(int index) => _cardData.GetActionCount(index);
-    public ActionData GetAction(int index) => _cardData.GetAction(index);
+    public ActionData GetAction(int index)
+    {
+        var data = _cardData.GetAction(index);
+        data.ActionLevel = _level;
+        return data;
+    }
 
     public void AddXP(float amount)
     {

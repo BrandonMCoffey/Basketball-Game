@@ -2,7 +2,6 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -10,12 +9,16 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Instance;
 
     [SerializeField] private List<Player> _players = new List<Player>();
+    [SerializeField] private float _arcGravity = 9.81f;
+
+    [Header("References")]
     [SerializeField] private Basketball _basketball;
     [SerializeField] private Transform _net;
-    [SerializeField] private float _arcGravity = 9.81f;
     [SerializeField] private CrowdController _crowdController;
     [SerializeField] private PlayerUIManager _playerUIManager;
     [SerializeField] private SlideInPanel _cardCatalogPanel;
+
+    [Header("Drag & Drop Placement")]
     [SerializeField] private RectTransform _minimumMouseXShow;
     [SerializeField] private RectTransform _minimumMouseXPlace;
     [SerializeField, Range(-0.5f, 0.5f)] private float _dragPlayerYOffset = -0.1f;
