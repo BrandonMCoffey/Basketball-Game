@@ -253,6 +253,7 @@ public struct EffectIfSequence
             SequenceRequirements.First => $"If first {cardType} in sequence, ",
             SequenceRequirements.Last => $"If last {cardType} in sequence, ",
             SequenceRequirements.NoTypePlayed => $"If no {(OfType == ActionType.Pass ? "passe" : cardType)}s are played this sequence, ",
+            SequenceRequirements.ForEachOfType => $"For every {cardType} in sequence, ",
             _ => "",
         };
         float hypeEffect = HypeGain.GetValue(level);
@@ -381,5 +382,6 @@ public enum SequenceRequirements
 {
     First,
     Last,
-    NoTypePlayed
+    NoTypePlayed,
+    ForEachOfType,
 }

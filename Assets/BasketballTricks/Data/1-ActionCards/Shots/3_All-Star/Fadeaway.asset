@@ -50,14 +50,14 @@ MonoBehaviour:
       - 0
       - 0
       - 0
-    HasEffectIfSequence: 0
+    HasEffectIfSequence: 1
     EffectIfSequence:
-      Requirements: 0
-      OfType: 0
+      Requirements: 3
+      OfType: 1
       HypeGain:
         isLevelable: 0
         levels:
-        - 0
+        - 10
         - 0
         - 0
       EnergyGain:
@@ -84,7 +84,7 @@ MonoBehaviour:
         - 0
         - 0
         - 0
-    EffectIfSequencePreviewText: 
+    EffectIfSequencePreviewText: For every trick in sequence, gain +10 Hype
     HasEffectIfPrevious: 0
     EffectIfPrevious:
       RequiredType: 0
