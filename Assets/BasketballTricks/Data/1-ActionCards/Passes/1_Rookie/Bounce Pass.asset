@@ -50,6 +50,41 @@ MonoBehaviour:
       - 0
       - 0
       - 0
+    HasEffectIfSequence: 0
+    EffectIfSequence:
+      Requirements: 0
+      OfType: 0
+      HypeGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      EnergyGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      AdjustCost:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      DrawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      MultiplyHype:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+    EffectIfSequencePreviewText: 
     HasEffectIfPrevious: 0
     EffectIfPrevious:
       RequiredType: 0
@@ -112,6 +147,12 @@ MonoBehaviour:
         - 0
         - 0
       MultiplyHype:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      Retriggers:
         isLevelable: 0
         levels:
         - 0

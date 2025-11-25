@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data:
     Name: Sky-High Ball Fake
-    CardText: Next trick this sequence triggers an additional time
+    CardText: '@NextEffect'
     PreviewText: Next trick this sequence triggers an additional time
     Type: 1
     AssociatedRarity: 3
@@ -50,6 +50,41 @@ MonoBehaviour:
       - 0
       - 0
       - 0
+    HasEffectIfSequence: 0
+    EffectIfSequence:
+      Requirements: 0
+      OfType: 0
+      HypeGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      EnergyGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      AdjustCost:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      DrawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      MultiplyHype:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+    EffectIfSequencePreviewText: 
     HasEffectIfPrevious: 0
     EffectIfPrevious:
       RequiredType: 0
@@ -85,20 +120,29 @@ MonoBehaviour:
         - 0
         - 0
     EffectIfPreviousPreviewText: 
-    HasNextEffect: 0
+    HasNextEffect: 1
     NextEffect:
-      AppliesTo: 0
+      AppliesTo: 1
       RequiredType: 1
       RequiredPosition: 31
       AddHypeToCard:
         isLevelable: 0
-        levels: []
+        levels:
+        - 0
+        - 0
+        - 0
       AddEnergyGainToCard:
         isLevelable: 0
-        levels: []
+        levels:
+        - 0
+        - 0
+        - 0
       AdjustCardCost:
         isLevelable: 0
-        levels: []
+        levels:
+        - 0
+        - 0
+        - 0
       DrawCards:
         isLevelable: 0
         levels:
@@ -111,7 +155,13 @@ MonoBehaviour:
         - 0
         - 0
         - 0
-    NextEffectPreviewText: Next Trick played gains +5 Hype
+      Retriggers:
+        isLevelable: 0
+        levels:
+        - 1
+        - 0
+        - 0
+    NextEffectPreviewText: Next trick this sequence triggers an additional time
     Icon: {fileID: 0}
     Animation: 100
     Duration: 2

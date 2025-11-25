@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data:
     Name: Catch-and-Shoot 3
-    CardText: If no Tricks played this round, gain +1 energy
-    PreviewText: If no Tricks played this round, gain +1 energy
+    CardText: '@EffectIfSequence'
+    PreviewText: If no tricks are played this sequence, gain +1 Energy
     Type: 3
     AssociatedRarity: 2
     AllowedPositions: 19
@@ -50,6 +50,41 @@ MonoBehaviour:
       - 0
       - 0
       - 0
+    HasEffectIfSequence: 1
+    EffectIfSequence:
+      Requirements: 2
+      OfType: 1
+      HypeGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      EnergyGain:
+        isLevelable: 0
+        levels:
+        - 1
+        - 0
+        - 0
+      AdjustCost:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      DrawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      MultiplyHype:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+    EffectIfSequencePreviewText: If no tricks are played this sequence, gain +1 Energy
     HasEffectIfPrevious: 0
     EffectIfPrevious:
       RequiredType: 0
@@ -92,13 +127,22 @@ MonoBehaviour:
       RequiredPosition: 31
       AddHypeToCard:
         isLevelable: 0
-        levels: []
+        levels:
+        - 0
+        - 0
+        - 0
       AddEnergyGainToCard:
         isLevelable: 0
-        levels: []
+        levels:
+        - 0
+        - 0
+        - 0
       AdjustCardCost:
         isLevelable: 0
-        levels: []
+        levels:
+        - 0
+        - 0
+        - 0
       DrawCards:
         isLevelable: 0
         levels:
@@ -106,6 +150,12 @@ MonoBehaviour:
         - 0
         - 0
       MultiplyHype:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      Retriggers:
         isLevelable: 0
         levels:
         - 0

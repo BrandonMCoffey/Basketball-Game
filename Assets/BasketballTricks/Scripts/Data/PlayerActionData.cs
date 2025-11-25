@@ -16,6 +16,7 @@ public class PlayerActionData : ScriptableObject
         if (_data.Duration <= 0f) _data.Duration = 1f;
         if (_data.HasNextEffect) _data.NextEffectPreviewText = _data.NextEffect.GetDisplayText(_data.ActionLevel);
         if (_data.HasEffectIfPrevious) _data.EffectIfPreviousPreviewText = _data.EffectIfPrevious.GetDisplayText(_data.ActionLevel);
+        if (_data.HasEffectIfSequence) _data.EffectIfSequencePreviewText = _data.EffectIfSequence.GetDisplayText(_data.ActionLevel);
         _data.PreviewText = _data.GetDisplayText();
     }
 
@@ -55,6 +56,9 @@ public struct ActionData
     public LevelableFloat EnergyGain;
     public LevelableFloat DrawCards;
     public LevelableFloat MultiplyHype;
+    public bool HasEffectIfSequence;
+    [ShowIf(nameof(HasEffectIfSequence))] public EffectIfSequence EffectIfSequence;
+    [ShowIf(nameof(HasEffectIfSequence)), ReadOnly] public string EffectIfSequencePreviewText;
     public bool HasEffectIfPrevious;
     [ShowIf(nameof(HasEffectIfPrevious))] public EffectIfPrevious EffectIfPrevious;
     [ShowIf(nameof(HasEffectIfPrevious)), ReadOnly] public string EffectIfPreviousPreviewText;
@@ -94,6 +98,18 @@ public struct ActionData
         EnergyGain = new LevelableFloat(false);
         DrawCards = new LevelableFloat(false);
         MultiplyHype = new LevelableFloat(false);
+        HasEffectIfSequence = false;
+        EffectIfSequence = new EffectIfSequence()
+        {
+            Requirements = SequenceRequirements.First,
+            OfType = ActionType.None,
+            HypeGain = new LevelableFloat(false),
+            EnergyGain = new LevelableFloat(false),
+            AdjustCost = new LevelableFloat(false),
+            DrawCards = new LevelableFloat(false),
+            MultiplyHype = new LevelableFloat(false),
+        };
+        EffectIfSequencePreviewText = "";
         HasEffectIfPrevious = false;
         EffectIfPrevious = new EffectIfPrevious()
         {
@@ -139,8 +155,11 @@ public struct ActionData
         text = text.Replace("@Energy", EnergyGain.GetValue(ActionLevel).ToString("F1"));
         text = text.Replace("@Cost", Cost.GetValue(ActionLevel).ToString("F1"));
         text = text.Replace("@Duration", Duration.ToString("F1"));
-        text = text.Replace("@NextEffect", NextEffect.GetDisplayText(ActionLevel));
+        text = text.Replace("@DrawCards", DrawCards.GetValue(ActionLevel).ToString("F0"));
+        text = text.Replace("@MultiplyHype", MultiplyHype.GetValue(ActionLevel).ToString("F1"));
+        text = text.Replace("@EffectIfSequence", EffectIfSequence.GetDisplayText(ActionLevel));
         text = text.Replace("@EffectIfPrevious", EffectIfPrevious.GetDisplayText(ActionLevel));
+        text = text.Replace("@NextEffect", NextEffect.GetDisplayText(ActionLevel));
         return text;
     }
 }
@@ -210,6 +229,67 @@ public struct EffectIfPrevious
 }
 
 [System.Serializable]
+public struct EffectIfSequence
+{
+    public SequenceRequirements Requirements;
+    public ActionType OfType;
+    public LevelableFloat HypeGain;
+    public LevelableFloat EnergyGain;
+    public LevelableFloat AdjustCost;
+    public LevelableFloat DrawCards;
+    public LevelableFloat MultiplyHype;
+
+    public string GetDisplayText(int level)
+    {
+        string cardType = OfType switch
+        {
+            ActionType.Trick => "trick",
+            ActionType.Pass => "pass",
+            ActionType.Shot => "shot",
+            _ => "card",
+        };
+        string effectText = Requirements switch
+        {
+            SequenceRequirements.First => $"If first {cardType} in sequence, ",
+            SequenceRequirements.Last => $"If last {cardType} in sequence, ",
+            SequenceRequirements.NoTypePlayed => $"If no {(OfType == ActionType.Pass ? "passe" : cardType)}s are played this sequence, ",
+            _ => "",
+        };
+        float hypeEffect = HypeGain.GetValue(level);
+        if (hypeEffect > 0) effectText += $"gain +{hypeEffect} Hype";
+        else if (hypeEffect < 0) effectText += $"lose -{Mathf.Abs(hypeEffect)} Hype";
+        float energyEffect = EnergyGain.GetValue(level);
+        if (energyEffect != 0)
+        {
+            if (hypeEffect != 0) effectText += " and ";
+            if (energyEffect > 0) effectText += $"gain +{energyEffect} Energy";
+            else if (energyEffect < 0) effectText += $"lose -{Mathf.Abs(energyEffect)} Energy";
+        }
+        float costEffect = AdjustCost.GetValue(level);
+        if (costEffect != 0)
+        {
+            if (hypeEffect != 0 || energyEffect != 0) effectText += " and ";
+            if (costEffect > 0) effectText += $"increase cost by {costEffect}";
+            else if (costEffect < 0) effectText += $"reduce cost by {Mathf.Abs(costEffect)}";
+        }
+        float drawEffect = DrawCards.GetValue(level);
+        if (drawEffect != 0)
+        {
+            if (hypeEffect != 0 || energyEffect != 0 || costEffect != 0) effectText += " and ";
+            if (drawEffect > 0) effectText += $"draw {drawEffect} cards";
+            else if (drawEffect < 0) effectText += $"discard {Mathf.Abs(drawEffect)} cards";
+        }
+        float multiplyHypeEffect = MultiplyHype.GetValue(level);
+        if (multiplyHypeEffect != 0)
+        {
+            if (hypeEffect != 0 || energyEffect != 0 || costEffect != 0 || drawEffect != 0) effectText += " and ";
+            effectText += $"multiply Hype gain by {multiplyHypeEffect}";
+        }
+        return effectText;
+    }
+}
+
+[System.Serializable]
 public struct EffectNext
 {
     public NextEffectAppliesTo AppliesTo;
@@ -220,6 +300,7 @@ public struct EffectNext
     public LevelableFloat AdjustCardCost;
     public LevelableFloat DrawCards;
     public LevelableFloat MultiplyHype;
+    public LevelableFloat Retriggers;
 
     public string GetDisplayText(int level)
     {
@@ -231,20 +312,21 @@ public struct EffectNext
             ActionType.Shot => "shot ",
             _ => "card ",
         };
-        effectText += RequiredPosition switch
-        {
-            PlayerPosition.PointGuard => "from Point Guard ",
-            PlayerPosition.ShootingGuard => "from Shooting Guard ",
-            PlayerPosition.SmallForward => "from Small Forward ",
-            PlayerPosition.PowerForward => "from Power Forward ",
-            PlayerPosition.Center => "from Center ",
-            _ => "",
-        };
         effectText += AppliesTo switch
         {
             NextEffectAppliesTo.NextCardPlayed => "played ",
-            NextEffectAppliesTo.NextMatchingCardThisHand => "this hand ",
+            NextEffectAppliesTo.NextMatchingCardThisHand => "this sequence ",
             NextEffectAppliesTo.NextMatchingCardThisGame => "this game ",
+            NextEffectAppliesTo.NextCardDrawn => "drawn ",
+            _ => "",
+        };
+        effectText += RequiredPosition switch
+        {
+            PlayerPosition.PointGuard => "by Point Guard ",
+            PlayerPosition.ShootingGuard => "by Shooting Guard ",
+            PlayerPosition.SmallForward => "by Small Forward ",
+            PlayerPosition.PowerForward => "by Power Forward ",
+            PlayerPosition.Center => "by Center ",
             _ => "",
         };
         float hypeEffect = AddHypeToCard.GetValue(level);
@@ -277,6 +359,12 @@ public struct EffectNext
             if (hypeEffect != 0 || energyEffect != 0 || costEffect != 0 || drawEffect != 0) effectText += " and ";
             effectText += $"multiplies Hype gain by {multiplyHypeEffect}";
         }
+        float retriggerEffect = Retriggers.GetValue(level);
+        if (retriggerEffect != 0)
+        {
+            if (hypeEffect != 0 || energyEffect != 0 || costEffect != 0 || drawEffect != 0 || multiplyHypeEffect != 0) effectText += " and ";
+            effectText += $"triggers an additional {(retriggerEffect > 1 ? retriggerEffect + " times" : "time")}";
+        }
         return effectText;
     }
 }
@@ -286,4 +374,12 @@ public enum NextEffectAppliesTo
     NextCardPlayed,
     NextMatchingCardThisHand,
     NextMatchingCardThisGame,
+    NextCardDrawn,
+}
+
+public enum SequenceRequirements
+{
+    First,
+    Last,
+    NoTypePlayed
 }

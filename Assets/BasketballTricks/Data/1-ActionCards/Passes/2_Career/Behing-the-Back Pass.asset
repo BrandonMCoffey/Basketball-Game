@@ -15,7 +15,7 @@ MonoBehaviour:
   _data:
     Name: Behing-the-Back Pass
     CardText: '@NextEffect'
-    PreviewText: Next trick this hand gains +10 Hype
+    PreviewText: Next trick this sequence gains +10 Hype
     Type: 2
     AssociatedRarity: 2
     AllowedPositions: 3
@@ -50,6 +50,41 @@ MonoBehaviour:
       - 0
       - 0
       - 0
+    HasEffectIfSequence: 0
+    EffectIfSequence:
+      Requirements: 0
+      OfType: 0
+      HypeGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      EnergyGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      AdjustCost:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      DrawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      MultiplyHype:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+    EffectIfSequencePreviewText: 
     HasEffectIfPrevious: 0
     EffectIfPrevious:
       RequiredType: 0
@@ -120,7 +155,13 @@ MonoBehaviour:
         - 0
         - 0
         - 0
-    NextEffectPreviewText: Next trick this hand gains +10 Hype
+      Retriggers:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+    NextEffectPreviewText: Next trick this sequence gains +10 Hype
     Icon: {fileID: 0}
     Animation: 10
     Duration: 2
