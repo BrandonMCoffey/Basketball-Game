@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using System.Collections.Generic;
+using CoffeyUtils;
 
 [CreateAssetMenu(fileName = "PlayerActionData", menuName = "BasketballTricks/PlayerActionData", order = 1)]
 public class PlayerActionData : ScriptableObject
@@ -50,6 +51,7 @@ public struct ActionData
     public int ActionLevel;
     [Header("Effects")]
     public List<float> HypeGainPerLevel;
+    public LevelableFloat HypeGain;
     public bool HasGainEnergy;
     [ShowIf(nameof(HasGainEnergy))] public List<float> EnergyGainPerLevel;
     public bool HasNextEffect;
@@ -60,7 +62,6 @@ public struct ActionData
     public PlayerAnimation Animation;
     public float Duration;
 
-    public float HypeGain => HypeGainPerLevel.Count == 0 ? 10 : HypeGainPerLevel[Mathf.Clamp(ActionLevel - 1, 0, HypeGainPerLevel.Count - 1)];
     public float EnergyGain => EnergyGainPerLevel.Count == 0 ? 0 : EnergyGainPerLevel[Mathf.Clamp(ActionLevel - 1, 0, EnergyGainPerLevel.Count - 1)];
 
     public ActionData(ActionType type = ActionType.None)
@@ -88,6 +89,7 @@ public struct ActionData
             _ => 2f,
         };
         HypeGainPerLevel = new List<float> { baseHype, baseHype * 1.5f, baseHype * 2f };
+        HypeGain = new LevelableFloat(baseHype, baseHype * 1.5f, baseHype * 2f);
         HasGainEnergy = false;
         EnergyGainPerLevel = new List<float> { 0, 0, 0};
         HasNextEffect = false;
@@ -96,7 +98,7 @@ public struct ActionData
             AppliesTo = NextEffectAppliesTo.NextCardPlayed,
             RequiredType = ActionType.Trick,
             EnergyEffect = 0,
-            HypeEffectPerLevel = new List<float> { 5, 10, 15 },
+            HypeEffect = new LevelableFloat(10, 15, 20),
         };
         NextEffectPreviewText = "";
         CardText = "";
@@ -114,7 +116,7 @@ public struct ActionData
     public string GetDisplayText()
     {
         string text = CardText;
-        text = text.Replace("@Hype", HypeGain.ToString("F1"));
+        text = text.Replace("@Hype", HypeGain.GetValue(ActionLevel).ToString("F1"));
         text = text.Replace("@Energy", EnergyGain.ToString("F1"));
         text = text.Replace("@Cost", Cost.ToString("F1"));
         text = text.Replace("@Duration", Duration.ToString("F1"));
@@ -128,10 +130,8 @@ public struct EffectNext
 {
     public NextEffectAppliesTo AppliesTo;
     public ActionType RequiredType;
-    public List<float> HypeEffectPerLevel;
+    public LevelableFloat HypeEffect;
     public float EnergyEffect;
-
-    public float GetHypeEffect(int level) => HypeEffectPerLevel.Count == 0 ? 10 : HypeEffectPerLevel[Mathf.Clamp(level - 1, 0, HypeEffectPerLevel.Count - 1)];
 
     public string GetDisplayText(int level)
     {
@@ -143,7 +143,7 @@ public struct EffectNext
             NextEffectAppliesTo.NextMatchingCardThisGame => "this game ",
             _ => "",
         };
-        float hypeEffect = GetHypeEffect(level);
+        float hypeEffect = HypeEffect.GetValue(level);
         bool hypeEffectExists = hypeEffect != 0;
         if (hypeEffect > 0) effectText += $"gains +{hypeEffect} Hype";
         else if (hypeEffect < 0) effectText += $"loses -{Mathf.Abs(hypeEffect)} Hype";

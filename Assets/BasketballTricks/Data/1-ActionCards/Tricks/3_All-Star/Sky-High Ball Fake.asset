@@ -25,6 +25,12 @@ MonoBehaviour:
     - 10
     - 15
     - 25
+    HypeGain:
+      isLevelable: 1
+      levels:
+      - 10
+      - 15
+      - 25
     HasGainEnergy: 0
     EnergyGainPerLevel:
     - 0
@@ -34,9 +40,18 @@ MonoBehaviour:
     NextEffect:
       AppliesTo: 0
       RequiredType: 1
+      HypeEffect:
+        isLevelable: 1
+        levels:
+        - 5
+        - 10
+        - 15
+      HypeEffectPerLevel:
+      - 5
+      - 10
+      - 15
       EnergyEffect: 0
-      HypeEffect: 0
-    NextEffectPreviewText: 
+    NextEffectPreviewText: Next Trick played gains +5 Hype
     Icon: {fileID: 0}
     Animation: 100
     Duration: 2

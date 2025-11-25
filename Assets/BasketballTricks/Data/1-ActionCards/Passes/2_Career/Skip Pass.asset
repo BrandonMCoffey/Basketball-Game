@@ -15,7 +15,7 @@ MonoBehaviour:
   _data:
     Name: Skip Pass
     CardText: '@NextEffect'
-    PreviewText: Next Pass played gains +5 Hype
+    PreviewText: Next Pass played gains +10 Hype
     Type: 2
     AssociatedRarity: 2
     AllowedPositions: 5
@@ -25,6 +25,12 @@ MonoBehaviour:
     - 15
     - 20
     - 25
+    HypeGain:
+      isLevelable: 1
+      levels:
+      - 15
+      - 20
+      - 25
     HasGainEnergy: 0
     EnergyGainPerLevel:
     - 0
@@ -34,9 +40,14 @@ MonoBehaviour:
     NextEffect:
       AppliesTo: 0
       RequiredType: 2
+      HypeEffect:
+        isLevelable: 1
+        levels:
+        - 10
+        - 15
+        - 20
       EnergyEffect: 0
-      HypeEffect: 5
-    NextEffectPreviewText: Next Pass played gains +5 Hype
+    NextEffectPreviewText: Next Pass played gains +10 Hype
     Icon: {fileID: 0}
     Animation: 10
     Duration: 2

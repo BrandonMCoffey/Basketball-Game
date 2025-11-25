@@ -25,6 +25,12 @@ MonoBehaviour:
     - 25
     - 30
     - 40
+    HypeGain:
+      isLevelable: 1
+      levels:
+      - 25
+      - 30
+      - 40
     HasGainEnergy: 0
     EnergyGainPerLevel:
     - 0
@@ -34,8 +40,11 @@ MonoBehaviour:
     NextEffect:
       AppliesTo: 0
       RequiredType: 1
+      HypeEffectPerLevel:
+      - 5
+      - 10
+      - 15
       EnergyEffect: 0
-      HypeEffect: 0
     NextEffectPreviewText: 
     Icon: {fileID: 0}
     Animation: 200
