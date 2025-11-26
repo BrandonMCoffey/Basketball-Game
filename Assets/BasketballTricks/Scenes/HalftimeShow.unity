@@ -5449,9 +5449,10 @@ MonoBehaviour:
     type: 3}
   _handSize: 5
   _cardContainer: {fileID: 2031088294}
-  _arcRadius: 800
-  _arcAngleSpread: 40
-  _centerOffset: {x: 0, y: -600}
+  _dragReorderThreshold: 100
+  _horizontalScreenPercent: 0.7
+  _verticalSpread: 100
+  _maxRotationAngle: 10
   _selectedHeightOffset: 100
   _layoutDuration: 0.3
   _layoutEase: 27

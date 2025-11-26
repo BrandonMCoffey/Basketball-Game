@@ -36,6 +36,25 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         _canvas = GetComponentInParent<Canvas>();
     }
 
+    private void Update()
+    {
+        if (_isDragging)
+        {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                _rectTransform.parent as RectTransform,
+                Input.mousePosition,
+                _canvas.worldCamera,
+                out Vector2 localPoint
+            );
+            _rectTransform.localPosition = Vector3.Lerp(
+                _rectTransform.localPosition,
+                localPoint,
+                Time.deltaTime * _dragFollowSpeed
+            );
+            _manager.OnCardDragReorder(this);
+        }
+    }
+
     public void Init(ActionData data, Color color, ActionDeckManager manager)
     {
         _actionData = data;
@@ -59,6 +78,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         _wasDragged = false;
         _rectTransform.SetAsLastSibling();
         _rectTransform.DOScale(_selectScale, 0.2f);
+        _rectTransform.DOLocalRotate(Vector3.zero, 0.2f);
 
         _moveTween?.Kill();
     }
@@ -67,21 +87,6 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     {
         _isDragging = true;
         _wasDragged = true;
-
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            _rectTransform.parent as RectTransform,
-            eventData.position,
-            _canvas.worldCamera,
-            out Vector2 localPoint
-        );
-
-        _rectTransform.localPosition = Vector3.Lerp(
-            _rectTransform.localPosition,
-            localPoint,
-            Time.deltaTime * _dragFollowSpeed
-        );
-
-        _manager.OnCardDragReorder(this);
     }
 
     public void OnPointerUp(PointerEventData eventData)
