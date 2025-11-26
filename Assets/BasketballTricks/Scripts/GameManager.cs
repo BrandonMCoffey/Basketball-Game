@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
     private int _selectedCardIndex = -1;
     private Dictionary<PlayerPosition, GameCard> _playerLoadout = new Dictionary<PlayerPosition, GameCard>();
 
-    public List<GameCard> OwnedPlayers => _ownedPlayers;
+    // Creates a copy of the list to prevent external modification
+    public List<GameCard> OwnedPlayers => new List<GameCard>(_ownedPlayers);
     public GameCard SelectedCard => (_selectedCardIndex >= 0 && _selectedCardIndex < _ownedPlayers.Count) ? _ownedPlayers[_selectedCardIndex] : null;
 
     private void Awake()

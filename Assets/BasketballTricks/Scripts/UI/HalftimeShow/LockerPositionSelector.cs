@@ -33,7 +33,8 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
     private Vector3 _originalPosition;
 
     public GameCard Card => _activeGameCard;
-    public Vector3 OriginalPosition => _originalPosition + (_activeGameCard != null ? Vector3.up * 200f : Vector3.zero);
+    public PlayerPosition Position => _position;
+    public Vector3 OriginalPosition => _originalPosition;
 
     private void OnValidate()
     {

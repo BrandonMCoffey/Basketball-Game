@@ -7,6 +7,7 @@ public class ActionDeckManager : MonoBehaviour
 {
     [SerializeField] private ActionCard _cardPrefab;
     [SerializeField] private int _handSize = 5;
+    [SerializeField] private Transform _handPosition;
 
     private List<ActionDeckCard> _actionDeck = new List<ActionDeckCard>();
 
@@ -26,9 +27,10 @@ public class ActionDeckManager : MonoBehaviour
         int count = Mathf.Min(_handSize, _actionDeck.Count);
         for (int i = 0; i < count; i++)
         {
-            var actionCard = Instantiate(_cardPrefab, transform);
-            // TODO: Adjust positioning based on UI layout
-            actionCard.transform.position = transform.position + Vector3.right * (i - 2) * 300f + Vector3.down * 400;
+            var actionCard = Instantiate(_cardPrefab, _handPosition, false);
+            var pos = actionCard.transform.position;
+            pos.x = _handPosition.position.x + (i - 2) * 300f;
+            actionCard.transform.position = pos;
             actionCard.Init(_actionDeck[i].Player.CardData.GetAction(_actionDeck[i].ActionIndex), _actionDeck[i].Player.PositionColor);
         }
     }

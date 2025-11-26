@@ -1,4 +1,5 @@
 using DG.Tweening;
+using SaiUtils.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,30 @@ public class LockerRoomController : MonoBehaviour
         StartCoroutine(StartShowLockersRoutine());
     }
 
+    public void SelectRandomPlayers(bool allNaturalPositions)
+    {
+        var players = GameManager.Instance.OwnedPlayers;
+        players.Shuffle();
+        if (allNaturalPositions)
+        {
+            for (int i = 0; i < _lockerPositions.Count; i++)
+            {
+                var player = players.FirstOrDefault(p => p.PlayerData.IsNaturalPosition(_lockerPositions[i].Position));
+                if (player == null) player = players[0];
+                _lockerPositions[i].AddCard(player);
+                players.Remove(player);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < _lockerPositions.Count; i++)
+            {
+                _lockerPositions[i].AddCard(players[i]);
+            }
+        }
+    }
+
+
     public IEnumerator StartShowLockersRoutine()
     {
         _moving = true;
@@ -65,7 +90,8 @@ public class LockerRoomController : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             foreach (var locker in _lockerPositions)
             {
-                locker.transform.DOMove(locker.OriginalPosition, 0.5f).SetEase(_lockerEaseEnter);
+                var pos = locker.OriginalPosition + (locker.Card != null ? Vector3.up * 100f : Vector3.zero);
+                locker.transform.DOMove(pos, 0.5f).SetEase(_lockerEaseEnter);
                 yield return new WaitForSeconds(_lockerDelay);
             }
             yield return new WaitForSeconds(0.1f);
