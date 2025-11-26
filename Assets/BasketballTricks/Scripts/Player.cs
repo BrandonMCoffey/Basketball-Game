@@ -51,9 +51,14 @@ public class Player : MonoBehaviour
         _animator.CrossFadeInFixedTime(anim.ToString(), fade);
     }
 
+    public void ShowPositionIndicator(bool show)
+    {
+        if (_positionIndicator != null) _positionIndicator.enabled = show;
+    }
+
     public void UpdateCanPlace(Vector3 pos, bool canPlace)
     {
-        if (_positionIndicator != null) _positionIndicator.enabled = canPlace;
+        ShowPositionIndicator(canPlace);
         transform.position = pos + Vector3.up * 0.01f;
     }
 

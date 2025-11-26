@@ -21,7 +21,7 @@ public class PlayerUIManager : MonoBehaviour
             _playerControlsUI.Add(display);
         }
         UpdateDisplayTransforms();
-        _playerManager.RefreshPlayers += UpdateDisplayTransforms;
+        PlayerManager.RefreshPlayers += UpdateDisplayTransforms;
     }
 
     private void UpdateDisplayTransforms()

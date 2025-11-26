@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
-    [SerializeField] private ActionData _actionData;
+    [SerializeField] private GameAction _action;
     [SerializeField] private Image _colorImage;
     [SerializeField] private TMP_Text _playerNumber;
     [SerializeField] private TMP_Text _actionName;
@@ -22,6 +22,8 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     [Header("Drag")]
     [SerializeField] private float _selectScale = 1.1f;
     [SerializeField] private float _dragFollowSpeed = 20f;
+
+    public GameAction Action => _action;
 
     private ActionDeckManager _manager;
     private RectTransform _rectTransform;
@@ -59,19 +61,20 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         }
     }
 
-    public void Init(ActionDeckCard data, ActionDeckManager manager)
+    public void Init(GameAction gameAction, ActionDeckManager manager)
     {
-        _actionData = data.Player.CardData.GetAction(data.ActionIndex);
-        if (_playerNumber != null) _playerNumber.text = data.Player.CardData.PlayerData.PlayerNumber;
-        if (_actionName != null) _actionName.text = _actionData.Name;
-        if (_actionDescription != null) _actionDescription.text = _actionData.GetDisplayText();
-        if (_actionType != null) _actionType.text = _actionData.Type.ToString();
-        if (_actionCost != null) _actionCost.text = _actionData.Cost.GetValue(_actionData.ActionLevel).ToString("0");
-        if (_actionHype != null) _actionHype.text = _actionData.HypeGain.GetValue(_actionData.ActionLevel).ToString("0");
+        _action = gameAction;
+        var data = _action.Player.CardData.GetAction(_action.ActionIndex);
+        if (_playerNumber != null) _playerNumber.text = _action.Player.CardData.PlayerData.PlayerNumber;
+        if (_actionName != null) _actionName.text = data.Name;
+        if (_actionDescription != null) _actionDescription.text = data.GetDisplayText();
+        if (_actionType != null) _actionType.text = data.Type.ToString();
+        if (_actionCost != null) _actionCost.text = data.Cost.GetValue(data.ActionLevel).ToString("0");
+        if (_actionHype != null) _actionHype.text = data.HypeGain.GetValue(data.ActionLevel).ToString("0");
         if (_actionIcon != null)
         {
-            if (_actionData.Icon != null) _actionIcon.sprite = _actionData.Icon;
-            else _actionIcon.sprite = _actionData.Type switch
+            if (data.Icon != null) _actionIcon.sprite = data.Icon;
+            else _actionIcon.sprite = data.Type switch
             {
                 ActionType.Trick => _defaultTrickIcon,
                 ActionType.Pass => _defaultPassIcon,
@@ -79,8 +82,11 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
                 _ => null
             };
         }
-        if (_colorImage != null) _colorImage.color = data.Player.PositionColor;
+        if (_colorImage != null) _colorImage.color = _action.Player.PositionColor;
         _manager = manager;
+        _isDragging = false;
+        _wasDragged = false;
+        _isSelected = false;
     }
 
     public void OnPointerDown(PointerEventData eventData)

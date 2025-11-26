@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class SimulatePanelUI : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _pointsText;
-    [SerializeField] private TMP_Text _multText;
+    [SerializeField] private TMP_Text _hypeText;
     [SerializeField] private List<SlideInPanel> _hideAllPanels;
-
-    public float Points { get; private set; }
-    public float Mult { get; private set; }
 
     private void Awake()
     {
-        _pointsText.text = "";
-        _multText.text = "";
+        _hypeText.text = "";
+    }
+
+    private void Start()
+    {
+        PlayerManager.UpdateHype += SetHype;
     }
 
     public void StartSimulate()
@@ -23,26 +23,11 @@ public class SimulatePanelUI : MonoBehaviour
         {
             if (panel != null) panel.SetShown(false, false);
         }
-        PlayerManager.Instance.RunSimulation(this);
+        PlayerManager.Instance.RunSimulation();
     }
 
-    public void ResetScore()
+    public void SetHype(float hype)
     {
-        Points = 0;
-        Mult = 1;
-        _pointsText.text = $"Points: {Points}";
-        _multText.text = $"Mult: {Mult}";
-    }
-
-    public void AddPoints(float points)
-    {
-        Points += points;
-        _pointsText.text = $"Points: {Points}";
-    }
-
-    public void AddMult(float mult)
-    {
-        Mult += mult;
-        _multText.text = $"Mult: {Mult}";
+        if (_hypeText != null) _hypeText.text = $"Hype: {hype}";
     }
 }

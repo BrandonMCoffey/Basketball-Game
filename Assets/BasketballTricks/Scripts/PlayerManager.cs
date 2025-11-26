@@ -28,16 +28,22 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Vector3 _outOfBoundsPlayerPos = new Vector3(10f, 0f, 0f);
     [SerializeField] private List<RandomPlayerArtData> _randomPlayerArt;
 
-    public event System.Action RefreshPlayers = delegate { };
+    private const float _tossPrepTime = 0.5f;
+    private const float _catchAnimationLeadTime = 0.5f;
+    private const float _catchHoldTime = 0.5f;
+    private const float _shotPrepTime = 0.5f;
 
-    public List<TimelineAction> TimelineActions { get; private set; } = new List<TimelineAction>();
-    public event System.Action RefreshTimeline = delegate { };
-
-    public List<Player> Players => _players;
-    public Player GetPlayer(int index) => index < _players.Count ? _players[index] : null;
+    public List<GameAction> TimelineActions { get; private set; } = new List<GameAction>();
+    public static event System.Action RefreshTimeline = delegate { };
+    public static event System.Action RefreshPlayers = delegate { };
+    public static event System.Action<float> UpdateHype = delegate { };
 
     private bool _simulating;
     private Player _placingPlayer;
+
+    public List<Player> Players => _players;
+    public bool Simulating => _simulating;
+    public Player GetPlayer(int index) => index < _players.Count ? _players[index] : null;
 
     private void OnValidate()
     {
@@ -163,9 +169,15 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
+    public void PreviewSequence(List<GameAction> actions)
+    {
+        TimelineActions = new List<GameAction>(actions);
+        OnTimelineUpdated();
+    }
+
     public void AddAction(Player player, int actionIndex)
     {
-        TimelineActions.Add(new TimelineAction(player, actionIndex));
+        TimelineActions.Add(new GameAction(player, actionIndex));
         OnTimelineUpdated();
     }
 
@@ -181,7 +193,7 @@ public class PlayerManager : MonoBehaviour
 
         for (int i = 0; i < TimelineActions.Count; i++)
         {
-            TimelineAction timelineAction = TimelineActions[i];
+            GameAction timelineAction = TimelineActions[i];
             var player = timelineAction.Player;
             if (player.CardData != null)
             {
@@ -190,25 +202,25 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void RunSimulation(SimulatePanelUI ui)
+    public bool RunSimulation()
     {
-        if (_simulating || !IsSequenceValid()) return;
+        if (_simulating || !IsSequenceValid()) return false;
         _simulating = true;
-        StartCoroutine(SimulateRoutine(ui));
+        StartCoroutine(SimulateRoutine());
+        return true;
     }
 
     private bool IsSequenceValid()
     {
         for (int i = 0; i < TimelineActions.Count; i++)
         {
-            TimelineAction timelineAction = TimelineActions[i];
+            GameAction timelineAction = TimelineActions[i];
             var player = timelineAction.Player;
             if (player.CardData == null)
             {
                 Debug.LogWarning("Cannot simulate sequence: A player has no data assigned.");
                 return false;
             }
-            // TODO: Check to make sure player passing has the ball or just recieved the ball from a pass
             var action = player.CardData.GetAction(timelineAction.ActionIndex);
             switch (action.Type)
             {
@@ -231,9 +243,10 @@ public class PlayerManager : MonoBehaviour
         return true;
     }
 
-    private IEnumerator SimulateRoutine(SimulatePanelUI ui)
+    private IEnumerator SimulateRoutine()
     {
-        ui.ResetScore();
+        float hype = 0;
+        UpdateHype?.Invoke(hype);
         var startPlayer = TimelineActions[0].Player;
         startPlayer.SetAnimation(PlayerAnimation.IdleHold);
         for (float t = 0; t < 1f; t += Time.deltaTime)
@@ -242,145 +255,200 @@ public class PlayerManager : MonoBehaviour
             yield return null;
         }
         _crowdController.SetPlaying(true);
+        Player playerWithBall = TimelineActions[0].Player;
         for (int i = 0; i < TimelineActions.Count; i++)
         {
-            TimelineAction timelineAction = TimelineActions[i];
+            GameAction timelineAction = TimelineActions[i];
             var player = timelineAction.Player;
-            if (player.CardData != null)
+            if (player.CardData == null) continue;
+
+            // Pass
+            if (playerWithBall != player)
             {
-                var action = player.CardData.GetAction(timelineAction.ActionIndex);
-                if (action.HypeGain > 0) ui.AddPoints(action.HypeGain);
-                _crowdController.SetHype(ui.Points * ui.Mult / 500f);
-                player.SetActionText(action.Name, action.Duration);
-                player.EmitParticles();
-                Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.HypeGain} points.");
-                if (action.Type == ActionType.Pass)
+                Debug.Log($"Basic pass from {playerWithBall.name} to {player.name}");
+                // Face each other
+                playerWithBall.FaceOtherPlayer(player, 0.2f);
+                for (float t = 0; t < 0.2f; t += Time.deltaTime)
                 {
-                    float tossPrepTime = 0.5f;
-                    float catchAnimationLeadTime = 0.5f;
-                    float catchHoldTime = 0.5f;
-
-                    float splitTime = Mathf.Max(0f, action.Duration - tossPrepTime - catchHoldTime) * 0.5f;
-
-                    // Face each other
-                    var otherPlayer = TimelineActions[i + 1].Player;
-                    player.FaceOtherPlayer(otherPlayer, splitTime);
-                    player.SetAnimation(PlayerAnimation.IdleHold);
-                    for (float t = 0; t < splitTime; t += Time.deltaTime)
-                    {
-                        _basketball.transform.position = player.BasketballPosition;
-                        yield return null;
-                    }
-
-                    // Pass the ball (toss hold)
-                    player.SetAnimation(action.Animation);
-                    for (float t = 0; t < tossPrepTime; t += Time.deltaTime)
-                    {
-                        _basketball.transform.position = player.BasketballPosition;
-                        yield return null;
-                    }
-
-                    // Pass the ball (arc)
-                    Vector3 startPos = player.BasketballPosition;
-                    Vector3 endPos = otherPlayer.HeadPosition; // Assumes the player catches near the head (TODO: Make this better)
-
-                    bool catchTriggered = false;
-                    float timeScale = 1f / splitTime;
-                    float catchT = Mathf.Max(0f, splitTime - catchAnimationLeadTime) * timeScale;
-
-                    Vector3 displacementXZ = new Vector3(endPos.x - startPos.x, 0, endPos.z - startPos.z);
-                    Vector3 velocityXZ = displacementXZ * timeScale;
-                    float displacementY = endPos.y - startPos.y;
-                    float velocityY = (displacementY * timeScale) + 0.5f * _arcGravity * splitTime;
-
-                    for (float t = 0; t < 1f; t += Time.deltaTime * timeScale)
-                    {
-                        Vector3 xzPos = startPos + velocityXZ * t;
-                        float yPos = startPos.y + velocityY * t - 0.5f * _arcGravity * t * t;
-                        float catchLerpDelta = catchTriggered ? (t - catchT) / (1 - catchT) : 0;
-                        _basketball.transform.position = Vector3.Lerp(new Vector3(xzPos.x, yPos, xzPos.z), otherPlayer.BasketballPosition, catchLerpDelta);
-
-                        if (!catchTriggered && t >= catchT)
-                        {
-                            catchTriggered = true;
-                            otherPlayer.SetAnimation(PlayerAnimation.Catch);
-                        }
-                        yield return null;
-                    }
-
-                    // Pass the ball (catch hold)
-                    for (float t = 0; t < catchHoldTime; t += Time.deltaTime)
-                    {
-                        _basketball.transform.position = otherPlayer.BasketballPosition;
-                        yield return null;
-                    }
+                    _basketball.transform.position = playerWithBall.BasketballPosition;
+                    yield return null;
                 }
-                else if (action.Type == ActionType.Shot)
+
+                playerWithBall.SetAnimation(PlayerAnimation.Pass);
+                for (float t = 0; t < _tossPrepTime; t += Time.deltaTime)
                 {
-                    float shotPrepTime = 0.5f;
-                    float splitTime = Mathf.Max(0.01f, action.Duration - shotPrepTime) * 0.5f;
-
-                    // Face the net
-                    player.FacePosition(_net.position, splitTime);
-                    player.SetAnimation(PlayerAnimation.IdleHold);
-                    for (float t = 0; t < splitTime; t += Time.deltaTime)
-                    {
-                        _basketball.transform.position = player.BasketballPosition;
-                        yield return null;
-                    }
-
-                    // Shoot (hold)
-                    player.SetAnimation(action.Animation); // Auto transitions to IdleHold in Animator Graph
-                    for (float t = 0; t < shotPrepTime; t += Time.deltaTime)
-                    {
-                        _basketball.transform.position = player.BasketballPosition;
-                        yield return null;
-                    }
-
-                    // Shoot (arc)
-                    var startPos = player.BasketballPosition;
-                    var endPos = _net.position;
-
-                    Vector3 displacementXZ = new Vector3(endPos.x - startPos.x, 0, endPos.z - startPos.z);
-                    Vector3 velocityXZ = displacementXZ / splitTime;
-                    float displacementY = endPos.y - startPos.y;
-                    float velocityY = (displacementY / splitTime) + 0.5f * _arcGravity * splitTime;
-
-                    for (float t = 0; t < splitTime; t += Time.deltaTime)
-                    {
-                        Vector3 xzPos = startPos + velocityXZ * t;
-                        float yPos = startPos.y + velocityY * t - 0.5f * _arcGravity * t * t;
-                        _basketball.transform.position = new Vector3(xzPos.x, yPos, xzPos.z);
-                        yield return null;
-                    }
-                    _basketball.transform.position = endPos;
-
-                    // Fall through net
-                    var groundPos = new Vector3(endPos.x, 0.22f, endPos.z);
-                    yield return _basketball.transform.DOMove(groundPos, 1f).SetEase(Ease.OutBounce).WaitForCompletion();
-                    break;
+                    _basketball.transform.position = playerWithBall.BasketballPosition;
+                    yield return null;
                 }
-                else
+
+                // Pass the ball (arc)
+                Vector3 startPos = playerWithBall.BasketballPosition;
+                Vector3 endPos = player.HeadPosition;
+
+                bool catchTriggered = false;
+                float splitTime = 0.5f;
+                float timeScale = 1f;
+                float catchT = Mathf.Max(0f, splitTime - _catchAnimationLeadTime) * timeScale;
+
+                Vector3 displacementXZ = new Vector3(endPos.x - startPos.x, 0, endPos.z - startPos.z);
+                Vector3 velocityXZ = displacementXZ * timeScale;
+                float displacementY = endPos.y - startPos.y;
+                float velocityY = (displacementY * timeScale) + 0.5f * _arcGravity * splitTime;
+
+                for (float t = 0; t < 1f; t += Time.deltaTime * timeScale)
                 {
-                    player.SetAnimation(action.Animation);
-                    float timeScale = 1f / action.Duration;
-                    for (float t = 0; t < 1f; t += Time.deltaTime * timeScale)
+                    Vector3 xzPos = startPos + velocityXZ * t;
+                    float yPos = startPos.y + velocityY * t - 0.5f * _arcGravity * t * t;
+                    float catchLerpDelta = catchTriggered ? (t - catchT) / (1 - catchT) : 0;
+                    _basketball.transform.position = Vector3.Lerp(new Vector3(xzPos.x, yPos, xzPos.z), player.BasketballPosition, catchLerpDelta);
+
+                    if (!catchTriggered && t >= catchT)
                     {
-                        _basketball.transform.position = player.BasketballPosition;
-                        yield return null;
+                        catchTriggered = true;
+                        player.SetAnimation(PlayerAnimation.Catch);
                     }
+                    yield return null;
+                }
+
+                // Pass the ball (catch hold)
+                for (float t = 0; t < _catchHoldTime; t += Time.deltaTime)
+                {
+                    _basketball.transform.position = player.BasketballPosition;
+                    yield return null;
+                }
+            }
+            playerWithBall = player;
+
+            var action = player.CardData.GetAction(timelineAction.ActionIndex);
+            hype += action.HypeGain;
+            _crowdController.SetHype(hype / 100f);
+            UpdateHype?.Invoke(hype);
+            player.SetActionText(action.Name, action.Duration);
+            player.EmitParticles();
+            Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.HypeGain} points.");
+            if (action.Type == ActionType.Pass)
+            {
+                float splitTime = Mathf.Max(0f, action.Duration - _tossPrepTime - _catchHoldTime) * 0.5f;
+
+                // Face each other
+                var otherPlayer = TimelineActions[i + 1].Player;
+                player.FaceOtherPlayer(otherPlayer, splitTime);
+                player.SetAnimation(PlayerAnimation.IdleHold);
+                for (float t = 0; t < splitTime; t += Time.deltaTime)
+                {
+                    _basketball.transform.position = player.BasketballPosition;
+                    yield return null;
+                }
+
+                // Pass the ball (toss hold)
+                player.SetAnimation(action.Animation);
+                for (float t = 0; t < _tossPrepTime; t += Time.deltaTime)
+                {
+                    _basketball.transform.position = player.BasketballPosition;
+                    yield return null;
+                }
+
+                // Pass the ball (arc)
+                Vector3 startPos = player.BasketballPosition;
+                Vector3 endPos = otherPlayer.HeadPosition; // Assumes the player catches near the head (TODO: Make this better)
+
+                bool catchTriggered = false;
+                float timeScale = 1f / splitTime;
+                float catchT = Mathf.Max(0f, splitTime - _catchAnimationLeadTime) * timeScale;
+
+                Vector3 displacementXZ = new Vector3(endPos.x - startPos.x, 0, endPos.z - startPos.z);
+                Vector3 velocityXZ = displacementXZ * timeScale;
+                float displacementY = endPos.y - startPos.y;
+                float velocityY = (displacementY * timeScale) + 0.5f * _arcGravity * splitTime;
+
+                for (float t = 0; t < 1f; t += Time.deltaTime * timeScale)
+                {
+                    Vector3 xzPos = startPos + velocityXZ * t;
+                    float yPos = startPos.y + velocityY * t - 0.5f * _arcGravity * t * t;
+                    float catchLerpDelta = catchTriggered ? (t - catchT) / (1 - catchT) : 0;
+                    _basketball.transform.position = Vector3.Lerp(new Vector3(xzPos.x, yPos, xzPos.z), otherPlayer.BasketballPosition, catchLerpDelta);
+
+                    if (!catchTriggered && t >= catchT)
+                    {
+                        catchTriggered = true;
+                        otherPlayer.SetAnimation(PlayerAnimation.Catch);
+                    }
+                    yield return null;
+                }
+
+                // Pass the ball (catch hold)
+                for (float t = 0; t < _catchHoldTime; t += Time.deltaTime)
+                {
+                    _basketball.transform.position = otherPlayer.BasketballPosition;
+                    yield return null;
+                }
+                playerWithBall = otherPlayer;
+            }
+            else if (action.Type == ActionType.Shot)
+            {
+                float splitTime = Mathf.Max(0.01f, action.Duration - _shotPrepTime) * 0.5f;
+
+                // Face the net
+                player.FacePosition(_net.position, splitTime);
+                player.SetAnimation(PlayerAnimation.IdleHold);
+                for (float t = 0; t < splitTime; t += Time.deltaTime)
+                {
+                    _basketball.transform.position = player.BasketballPosition;
+                    yield return null;
+                }
+
+                // Shoot (hold)
+                player.SetAnimation(action.Animation); // Auto transitions to IdleHold in Animator Graph
+                for (float t = 0; t < _shotPrepTime; t += Time.deltaTime)
+                {
+                    _basketball.transform.position = player.BasketballPosition;
+                    yield return null;
+                }
+
+                // Shoot (arc)
+                var startPos = player.BasketballPosition;
+                var endPos = _net.position;
+
+                Vector3 displacementXZ = new Vector3(endPos.x - startPos.x, 0, endPos.z - startPos.z);
+                Vector3 velocityXZ = displacementXZ / splitTime;
+                float displacementY = endPos.y - startPos.y;
+                float velocityY = (displacementY / splitTime) + 0.5f * _arcGravity * splitTime;
+
+                for (float t = 0; t < splitTime; t += Time.deltaTime)
+                {
+                    Vector3 xzPos = startPos + velocityXZ * t;
+                    float yPos = startPos.y + velocityY * t - 0.5f * _arcGravity * t * t;
+                    _basketball.transform.position = new Vector3(xzPos.x, yPos, xzPos.z);
+                    yield return null;
+                }
+                _basketball.transform.position = endPos;
+
+                // Fall through net
+                var groundPos = new Vector3(endPos.x, 0.22f, endPos.z);
+                yield return _basketball.transform.DOMove(groundPos, 1f).SetEase(Ease.OutBounce).WaitForCompletion();
+                break;
+            }
+            else
+            {
+                player.SetAnimation(action.Animation);
+                float timeScale = 1f / action.Duration;
+                for (float t = 0; t < 1f; t += Time.deltaTime * timeScale)
+                {
+                    _basketball.transform.position = player.BasketballPosition;
+                    yield return null;
                 }
             }
         }
         yield return new WaitForSeconds(2f);
         OnSequenceCompleted();
-        _simulating = false;
     }
 
     private void OnSequenceCompleted()
     {
-        // TODO: Logic for end of sequence
+        _simulating = false;
         _crowdController.SetPlaying(false);
+        TimelineActions.Clear();
+        RefreshTimeline?.Invoke();
         foreach (var player in _players)
         {
             player.FacePosition(player.transform.position + new Vector3(0, 0, 1f), 1f);
@@ -388,12 +456,12 @@ public class PlayerManager : MonoBehaviour
     }
 }
 
-public struct TimelineAction
+public struct GameAction
 {
     public Player Player;
     public int ActionIndex;
 
-    public TimelineAction(Player player, int actionIndex)
+    public GameAction(Player player, int actionIndex)
     {
         Player = player;
         ActionIndex = actionIndex;

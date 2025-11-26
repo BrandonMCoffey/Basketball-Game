@@ -1,6 +1,7 @@
 using DG.Tweening;
 using SaiUtils.Extensions;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ActionDeckManager : MonoBehaviour
@@ -19,17 +20,28 @@ public class ActionDeckManager : MonoBehaviour
     [SerializeField] private Ease _layoutEase = Ease.OutBack;
 
     private List<ActionCard> _cards;
-    private List<ActionDeckCard> _actionDeck;
+    private List<GameAction> _actionDeck;
+    private bool _disabled;
+
+    private void OnEnable()
+    {
+        PlayerManager.RefreshTimeline += CheckSequenceCompleted;
+    }
+
+    private void OnDisable()
+    {
+        PlayerManager.RefreshTimeline -= CheckSequenceCompleted;
+    }
 
     public void Init()
     {
         var players = PlayerManager.Instance.Players;
-        _actionDeck = new List<ActionDeckCard>();
+        _actionDeck = new List<GameAction>();
         foreach (var player in players)
         {
             for (int i = 0; i < player.CardData.ActionCount; i++)
             {
-                _actionDeck.Add(new ActionDeckCard { Player = player, ActionIndex = i });
+                _actionDeck.Add(new GameAction(player, i));
             }
         }
         _actionDeck.Shuffle();
@@ -39,7 +51,8 @@ public class ActionDeckManager : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             var actionCard = Instantiate(_cardPrefab, _cardContainer, false);
-            actionCard.Init(_actionDeck[i], this);
+            actionCard.Init(_actionDeck[0], this);
+            _actionDeck.RemoveAt(0);
             _cards.Add(actionCard);
         }
         UpdateCardLayout(null);
@@ -47,11 +60,50 @@ public class ActionDeckManager : MonoBehaviour
 
     public void OnUpdateSelected()
     {
+        if (_disabled) return;
+        PlayerManager.Instance.PreviewSequence(_cards.Where(card => card.IsSelected).Select(card => card.Action).ToList());
+    }
 
+    public void StartSequence()
+    {
+        if (_disabled) return;
+        if (PlayerManager.Instance.RunSimulation())
+        {
+            _disabled = true;
+            foreach (var card in _cards)
+            {
+                card.transform.DOMove(card.transform.position + Vector3.down * Screen.height * 0.8f, 1f).SetEase(Ease.InBack);
+            }
+        }
+    }
+
+    private void CheckSequenceCompleted()
+    {
+        if (_disabled && !PlayerManager.Instance.Simulating)
+        {
+            _disabled = false;
+            foreach (var card in _cards)
+            {
+                if (card.IsSelected)
+                {
+                    if (_actionDeck.Count > 0)
+                    {
+                        card.Init(_actionDeck[0], this);
+                        _actionDeck.RemoveAt(0);
+                    }
+                    else
+                    {
+                        card.gameObject.SetActive(false);
+                    }
+                }
+            }
+            UpdateCardLayout(null);
+        }
     }
 
     public void UpdateCardLayout(ActionCard draggingCard = null)
     {
+        if (_disabled) return;
         int count = _cards.Count;
         float delta = count > 1 ? 1f / (count - 1) : 0f;
 
@@ -78,7 +130,7 @@ public class ActionDeckManager : MonoBehaviour
     public void OnCardDragReorder(ActionCard draggedCard)
     {
         int count = _cards.Count;
-        if (count <= 1) return;
+        if (_disabled || count <= 1) return;
 
         int draggedIndex = _cards.IndexOf(draggedCard);
         int newIndex = draggedIndex;
@@ -101,12 +153,7 @@ public class ActionDeckManager : MonoBehaviour
             _cards.RemoveAt(draggedIndex);
             _cards.Insert(newIndex, draggedCard);
             UpdateCardLayout(draggedCard);
+            if (_cards.Any(c => c.IsSelected)) OnUpdateSelected();
         }
     }
-}
-
-public struct ActionDeckCard
-{
-    public Player Player;
-    public int ActionIndex;
 }

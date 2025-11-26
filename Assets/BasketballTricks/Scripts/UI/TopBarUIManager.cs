@@ -11,7 +11,7 @@ public class TopBarUIManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerManager.Instance.RefreshTimeline += UpdateTimeline;
+        PlayerManager.RefreshTimeline += UpdateTimeline;
         _rectTransform = GetComponent<RectTransform>();
     }
 

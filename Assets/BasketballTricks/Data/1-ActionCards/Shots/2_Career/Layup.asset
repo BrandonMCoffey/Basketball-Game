@@ -115,7 +115,10 @@ MonoBehaviour:
         - 0
       MultiplyHype:
         isLevelable: 0
-        levels: []
+        levels:
+        - 0
+        - 0
+        - 0
     EffectIfPreviousPreviewText: 
     HasNextEffect: 1
     NextEffect:
@@ -162,4 +165,4 @@ MonoBehaviour:
       by 2
     Icon: {fileID: 0}
     Animation: 200
-    Duration: 2
+    Duration: 3
