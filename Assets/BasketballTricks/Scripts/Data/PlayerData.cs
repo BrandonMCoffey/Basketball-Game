@@ -14,6 +14,7 @@ public class PlayerData : ScriptableObject
     [SerializeField, ShowIf(nameof(_customPlayerArt))] private PlayerArtData _artData;
 
     public string PlayerName => _playerName;
+    public string PlayerNumber => _playerNumber;
     public Sprite PlayerSprite => _playerSprite;
     public bool HasArtData => _customPlayerArt || _randomHairData != null;
     public PlayerArtData ArtData => _customPlayerArt ? _artData : _randomHairData.GetData();

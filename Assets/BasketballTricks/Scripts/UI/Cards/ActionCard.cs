@@ -8,6 +8,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 {
     [SerializeField] private ActionData _actionData;
     [SerializeField] private Image _colorImage;
+    [SerializeField] private TMP_Text _playerNumber;
     [SerializeField] private TMP_Text _actionName;
     [SerializeField] private TMP_Text _actionDescription;
     [SerializeField] private TMP_Text _actionType;
@@ -58,18 +59,19 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         }
     }
 
-    public void Init(ActionData data, Color color, ActionDeckManager manager)
+    public void Init(ActionDeckCard data, ActionDeckManager manager)
     {
-        _actionData = data;
-        if (_actionName != null) _actionName.text = data.Name;
-        if (_actionDescription != null) _actionDescription.text = data.GetDisplayText();
-        if (_actionType != null) _actionType.text = data.Type.ToString();
-        if (_actionCost != null) _actionCost.text = data.Cost.GetValue(data.ActionLevel).ToString("0");
-        if (_actionHype != null) _actionHype.text = data.HypeGain.GetValue(data.ActionLevel).ToString("0");
+        _actionData = data.Player.CardData.GetAction(data.ActionIndex);
+        if (_playerNumber != null) _playerNumber.text = data.Player.CardData.PlayerData.PlayerNumber;
+        if (_actionName != null) _actionName.text = _actionData.Name;
+        if (_actionDescription != null) _actionDescription.text = _actionData.GetDisplayText();
+        if (_actionType != null) _actionType.text = _actionData.Type.ToString();
+        if (_actionCost != null) _actionCost.text = _actionData.Cost.GetValue(_actionData.ActionLevel).ToString("0");
+        if (_actionHype != null) _actionHype.text = _actionData.HypeGain.GetValue(_actionData.ActionLevel).ToString("0");
         if (_actionIcon != null)
         {
-            if (data.Icon != null) _actionIcon.sprite = data.Icon;
-            else _actionIcon.sprite = data.Type switch
+            if (_actionData.Icon != null) _actionIcon.sprite = _actionData.Icon;
+            else _actionIcon.sprite = _actionData.Type switch
             {
                 ActionType.Trick => _defaultTrickIcon,
                 ActionType.Pass => _defaultPassIcon,
@@ -77,13 +79,8 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
                 _ => null
             };
         }
-        if (_colorImage != null) _colorImage.color = color;
+        if (_colorImage != null) _colorImage.color = data.Player.PositionColor;
         _manager = manager;
-    }
-
-    public void SetSelected(bool selected)
-    {
-        _isSelected = selected;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -110,6 +107,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         if (!_wasDragged)
         {
             _isSelected = !_isSelected;
+            _manager.OnUpdateSelected();
         }
 
         _manager.UpdateCardLayout();

@@ -738,13 +738,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 522579632}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.97236997, z: -0.23344536, w: 0}
-  m_LocalPosition: {x: -6.68, y: 5, z: 10}
+  m_LocalRotation: {x: -0.0043696975, y: 0.9680002, z: -0.25034186, w: -0.016896367}
+  m_LocalPosition: {x: -6.4, y: 4.9, z: 11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 27, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 29, y: 182, z: 0}
 --- !u!114 &522579636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5451,9 +5451,9 @@ MonoBehaviour:
   _cardContainer: {fileID: 2031088294}
   _dragReorderThreshold: 100
   _horizontalScreenPercent: 0.6
-  _verticalSpread: 50
-  _maxRotationAngle: 10
-  _selectedHeightOffset: 100
+  _verticalSpread: 25
+  _maxRotationAngle: 5
+  _selectedHeightOffset: 50
   _layoutDuration: 0.3
   _layoutEase: 27
 --- !u!114 &6949764343152343268

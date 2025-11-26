@@ -39,10 +39,15 @@ public class ActionDeckManager : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             var actionCard = Instantiate(_cardPrefab, _cardContainer, false);
-            actionCard.Init(_actionDeck[i].Player.CardData.GetAction(_actionDeck[i].ActionIndex), _actionDeck[i].Player.PositionColor, this);
+            actionCard.Init(_actionDeck[i], this);
             _cards.Add(actionCard);
         }
         UpdateCardLayout(null);
+    }
+
+    public void OnUpdateSelected()
+    {
+
     }
 
     public void UpdateCardLayout(ActionCard draggingCard = null)
