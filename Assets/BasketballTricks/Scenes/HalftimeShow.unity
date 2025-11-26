@@ -739,7 +739,7 @@ Transform:
   m_GameObject: {fileID: 522579632}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.97236997, z: -0.23344536, w: 0}
-  m_LocalPosition: {x: -6.68, y: 5.73, z: 10}
+  m_LocalPosition: {x: -6.68, y: 5, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3916,7 +3916,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 200}
+  m_AnchoredPosition: {x: 0, y: 225}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2074509999
@@ -5450,8 +5450,8 @@ MonoBehaviour:
   _handSize: 5
   _cardContainer: {fileID: 2031088294}
   _dragReorderThreshold: 100
-  _horizontalScreenPercent: 0.7
-  _verticalSpread: 100
+  _horizontalScreenPercent: 0.6
+  _verticalSpread: 50
   _maxRotationAngle: 10
   _selectedHeightOffset: 100
   _layoutDuration: 0.3

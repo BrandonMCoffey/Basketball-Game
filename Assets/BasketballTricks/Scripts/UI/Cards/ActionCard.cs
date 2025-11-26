@@ -14,6 +14,9 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     [SerializeField] private TMP_Text _actionCost;
     [SerializeField] private TMP_Text _actionHype;
     [SerializeField] private Image _actionIcon;
+    [SerializeField] private Sprite _defaultTrickIcon;
+    [SerializeField] private Sprite _defaultPassIcon;
+    [SerializeField] private Sprite _defaultShotIcon;
 
     [Header("Drag")]
     [SerializeField] private float _selectScale = 1.1f;
@@ -63,7 +66,17 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         if (_actionType != null) _actionType.text = data.Type.ToString();
         if (_actionCost != null) _actionCost.text = data.Cost.GetValue(data.ActionLevel).ToString("0");
         if (_actionHype != null) _actionHype.text = data.HypeGain.GetValue(data.ActionLevel).ToString("0");
-        if (_actionIcon != null) _actionIcon.sprite = data.Icon;
+        if (_actionIcon != null)
+        {
+            if (data.Icon != null) _actionIcon.sprite = data.Icon;
+            else _actionIcon.sprite = data.Type switch
+            {
+                ActionType.Trick => _defaultTrickIcon,
+                ActionType.Pass => _defaultPassIcon,
+                ActionType.Shot => _defaultShotIcon,
+                _ => null
+            };
+        }
         if (_colorImage != null) _colorImage.color = color;
         _manager = manager;
     }

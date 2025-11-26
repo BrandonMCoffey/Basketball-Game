@@ -1,6 +1,5 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
-using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "BasketballTricks/PlayerData")]
 public class PlayerData : ScriptableObject

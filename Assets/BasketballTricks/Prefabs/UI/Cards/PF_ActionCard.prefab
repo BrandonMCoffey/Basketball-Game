@@ -761,7 +761,111 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5932cac204a808a41a37f765dd72cf31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actionData: {fileID: 0}
+  _actionData:
+    Name: 
+    CardText: 
+    PreviewText: 
+    Type: 0
+    AssociatedRarity: 0
+    AllowedPositions: 0
+    Cost:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
+    ActionLevel: 0
+    HypeGain:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
+    EnergyGain:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
+    DrawCards:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
+    MultiplyHype:
+      isLevelable: 0
+      levels:
+      - 0
+      - 0
+      - 0
+    HasEffectIfSequence: 0
+    EffectIfSequence:
+      Requirements: 0
+      OfType: 0
+      HypeGain:
+        isLevelable: 0
+        levels: []
+      EnergyGain:
+        isLevelable: 0
+        levels: []
+      AdjustCost:
+        isLevelable: 0
+        levels: []
+      DrawCards:
+        isLevelable: 0
+        levels: []
+      MultiplyHype:
+        isLevelable: 0
+        levels: []
+    EffectIfSequencePreviewText: 
+    HasEffectIfPrevious: 0
+    EffectIfPrevious:
+      RequiredType: 0
+      RequiredPosition: 0
+      HypeGain:
+        isLevelable: 0
+        levels: []
+      EnergyGain:
+        isLevelable: 0
+        levels: []
+      AdjustCost:
+        isLevelable: 0
+        levels: []
+      DrawCards:
+        isLevelable: 0
+        levels: []
+      MultiplyHype:
+        isLevelable: 0
+        levels: []
+    EffectIfPreviousPreviewText: 
+    HasNextEffect: 0
+    NextEffect:
+      AppliesTo: 0
+      RequiredType: 0
+      RequiredPosition: 0
+      AddHypeToCard:
+        isLevelable: 0
+        levels: []
+      AddEnergyGainToCard:
+        isLevelable: 0
+        levels: []
+      AdjustCardCost:
+        isLevelable: 0
+        levels: []
+      DrawCards:
+        isLevelable: 0
+        levels: []
+      MultiplyHype:
+        isLevelable: 0
+        levels: []
+      Retriggers:
+        isLevelable: 0
+        levels: []
+    NextEffectPreviewText: 
+    Icon: {fileID: 0}
+    Animation: 0
+    Duration: 0
   _colorImage: {fileID: 8438057640190950550}
   _actionName: {fileID: 4855567975314621590}
   _actionDescription: {fileID: 6115545258437418265}
@@ -769,6 +873,11 @@ MonoBehaviour:
   _actionCost: {fileID: 7980783768351239102}
   _actionHype: {fileID: 878717506819808544}
   _actionIcon: {fileID: 7325517488766204588}
+  _defaultTrickIcon: {fileID: 21300000, guid: ffdce43d5c7b6664da62fa04dcc36c94, type: 3}
+  _defaultPassIcon: {fileID: 21300000, guid: ef5d69434c9827741985c55ffea74e4d, type: 3}
+  _defaultShotIcon: {fileID: 21300000, guid: 920fb76479d53624192a07a571882d66, type: 3}
+  _selectScale: 1.1
+  _dragFollowSpeed: 20
 --- !u!1 &5654515746900208561
 GameObject:
   m_ObjectHideFlags: 0
