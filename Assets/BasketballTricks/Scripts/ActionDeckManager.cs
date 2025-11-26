@@ -48,9 +48,12 @@ public class ActionDeckManager : MonoBehaviour
 
         int count = Mathf.Min(_handSize, _actionDeck.Count);
         _cards = new List<ActionCard>(count);
+        float delta = count > 1 ? 1f / (count - 1) : 0f;
+        float horz = Screen.width * _horizontalScreenPercent * 0.5f;
         for (int i = 0; i < count; i++)
         {
-            var actionCard = Instantiate(_cardPrefab, _cardContainer, false);
+            float x = _cardContainer.position.x + Mathf.Lerp(-horz, horz, delta * i);
+            var actionCard = Instantiate(_cardPrefab, new Vector2(x, -Screen.height * 0.5f), Quaternion.identity, _cardContainer);
             actionCard.Init(_actionDeck[0], this);
             _actionDeck.RemoveAt(0);
             _cards.Add(actionCard);
