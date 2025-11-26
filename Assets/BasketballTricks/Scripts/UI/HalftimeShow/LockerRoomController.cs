@@ -58,6 +58,14 @@ public class LockerRoomController : MonoBehaviour
                 _lockerPositions[i].AddCard(players[i]);
             }
         }
+        foreach (var locker in _lockerPositions)
+        {
+            var pos = locker.OriginalPosition + (locker.Card != null ? Vector3.up * 100f : Vector3.zero);
+            locker.transform.DOMove(pos, 0.5f).SetEase(_lockerEaseEnter);
+        }
+        bool buttonInteractable = _lockerPositions.All(selector => selector.Card != null);
+        _letsGoButton.interactable = buttonInteractable;
+        if (buttonInteractable) _letsGoButton.transform.DOMove(_letsGoOriginalPosition, 0.5f).SetEase(Ease.InOutCubic);
     }
 
 
