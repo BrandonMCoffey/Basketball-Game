@@ -16,13 +16,12 @@ MonoBehaviour:
   _playerNumber: 2
   _playerSprite: {fileID: 21300000, guid: 42085d59db13a5843bbaea8bc416f2ff, type: 3}
   _naturalPosition: 0
-  _secondaryNaturalPosition: 0
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}
   _artData:
     SkinColor: {r: 0.7735849, g: 0.5505611, b: 0.3466536, a: 1}
     HairColor: {r: 0, g: 0, b: 0, a: 1}
-    JerseyTexture: {fileID: 0}
+    JerseyTexture: {fileID: 2800000, guid: 40b2d4d42ba8d6540990f6b16a6fc492, type: 3}
     HairPrefab: {fileID: 919132149155446097, guid: 5216e63bd3ef207489c130e09b74a187,
       type: 3}
     FacialHairPrefab: {fileID: 919132149155446097, guid: e156c6fbbe2037e45a31fc8b6141bb26,
