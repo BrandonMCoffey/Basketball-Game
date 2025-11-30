@@ -51,6 +51,12 @@ public class Player : MonoBehaviour
         _animator.CrossFadeInFixedTime(anim.ToString(), fade);
     }
 
+    public void SetPositionColor(Color color)
+    {
+        _positionColor = color;
+        if (_positionIndicator != null) _positionIndicator.color = _positionColor;
+    }
+
     public void ShowPositionIndicator(bool show)
     {
         if (_positionIndicator != null) _positionIndicator.enabled = show;

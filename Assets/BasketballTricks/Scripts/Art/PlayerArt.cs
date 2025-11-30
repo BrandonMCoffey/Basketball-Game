@@ -33,12 +33,20 @@ public class PlayerArt : MonoBehaviour
             SwitchMaterial(_skinRenderer, shirtMat, 1);
         }
 
-#if UNITY_EDITOR
-        if (!UnityEditor.EditorApplication.isPlaying)
+#if UNITY_EDITOR // Special handling to destroy objects from OnValidate calls
+        if (_currentHair != null || _currentFacialHair != null || _currentHeadband != null)
         {
-            if (_currentHair != null) DestroyImmediate(_currentHair);
-            if (_currentFacialHair != null) DestroyImmediate(_currentFacialHair);
-            if (_currentHeadband != null) DestroyImmediate(_currentHeadband);
+            var objs = new GameObject[] { _currentHair,  _currentFacialHair,  _currentHeadband };
+            UnityEditor.EditorApplication.delayCall += () =>
+            {
+                if (this != null)
+                    foreach (var obj in objs)
+                        if (obj != null)
+                            UnityEditor.Undo.DestroyObjectImmediate(obj);
+            };
+            _currentHair = null;
+            _currentFacialHair = null;
+            _currentHeadband = null;
         }
 #endif
         if (_currentHair != null) Destroy(_currentHair);
