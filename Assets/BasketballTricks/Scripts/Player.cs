@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
     public void SetActionText(string text, float duration)
     {
         _actionText.text = text;
-        StartCoroutine(ActionTextRoutine(duration));
+        if (duration >= 0) StartCoroutine(ActionTextRoutine(duration));
     }
 
     private IEnumerator ActionTextRoutine(float duration)

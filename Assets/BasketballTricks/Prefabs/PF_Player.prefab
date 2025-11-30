@@ -5140,6 +5140,9 @@ MonoBehaviour:
   _head: {fileID: 1399823886308218496}
   _localHairPosition: {x: 0, y: 0.00016, z: 0.00007}
   _localHairRotation: {x: -90, y: 0, z: 0}
+  _currentHair: {fileID: 0}
+  _currentFacialHair: {fileID: 0}
+  _currentHeadband: {fileID: 0}
 --- !u!1 &9086273440455142569
 GameObject:
   m_ObjectHideFlags: 0

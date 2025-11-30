@@ -10,9 +10,9 @@ public class PlayerArt : MonoBehaviour
     [SerializeField] private Vector3 _localHairRotation = new Vector3(-90, 0, 0);
 
     public Transform Head => _head;
-    private GameObject _currentHair;
-    private GameObject _currentFacialHair;
-    private GameObject _currentHeadband;
+    [SerializeField] private GameObject _currentHair;
+    [SerializeField] private GameObject _currentFacialHair;
+    [SerializeField] private GameObject _currentHeadband;
 
     public void SetPlayerArt(PlayerArtData art)
     {
@@ -33,6 +33,14 @@ public class PlayerArt : MonoBehaviour
             SwitchMaterial(_skinRenderer, shirtMat, 1);
         }
 
+#if UNITY_EDITOR
+        if (!UnityEditor.EditorApplication.isPlaying)
+        {
+            if (_currentHair != null) DestroyImmediate(_currentHair);
+            if (_currentFacialHair != null) DestroyImmediate(_currentFacialHair);
+            if (_currentHeadband != null) DestroyImmediate(_currentHeadband);
+        }
+#endif
         if (_currentHair != null) Destroy(_currentHair);
         if (_currentFacialHair != null) Destroy(_currentFacialHair);
         if (_currentHeadband != null) Destroy(_currentHeadband);
