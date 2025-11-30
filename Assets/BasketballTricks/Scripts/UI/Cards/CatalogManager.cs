@@ -15,20 +15,21 @@ public class CatalogManager : MonoBehaviour
 
     private void Start()
     {
-        InitializeCards(GameManager.Instance);
+        InitializeCards();
     }
 
     public void StartGame() => GameManager.Instance.StartGame();
 
-    private void InitializeCards(GameManager instance)
+    private void InitializeCards()
     {
-        _cards = new List<PlayerCardCatalog>(instance.OwnedPlayers.Count);
-        for (int i = 0; i < instance.OwnedPlayers.Count; i++)
+        var ownedPlayers = GameManager.Instance.OwnedPlayers;
+        _cards = new List<PlayerCardCatalog>(ownedPlayers.Count);
+        for (int i = 0; i < ownedPlayers.Count; i++)
         {
             var card = Instantiate(_cardPrefab, _grid.transform);
             if (card != null)
             {
-                card.SetData(instance.OwnedPlayers[i]);
+                card.SetData(ownedPlayers[i]);
                 card.SetIndex(i);
                 //card.InitCardActive(instance.Players[i].PlayerEnabled);
                 card.transform.localScale = Vector3.zero;

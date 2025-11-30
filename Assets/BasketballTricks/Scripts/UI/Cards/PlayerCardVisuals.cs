@@ -71,7 +71,7 @@ public class PlayerCardVisuals : MonoBehaviour
         bool halfway = false;
         for (float t = 0; t < 1f; t += Time.deltaTime * 2f)
         {
-            float delta = Mathf.Lerp(GameManager.EaseInOutQuart(t), t, 0.5f);
+            float delta = Mathf.Lerp(MathFunctions.EaseInOutQuart(t), t, 0.5f);
             float angle = _isFlipped ? Mathf.Lerp(0, 180, delta) : Mathf.Lerp(180, 360, delta);
             if (!halfway && angle >= (_isFlipped ? 90 : 270))
             {

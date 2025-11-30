@@ -42,19 +42,21 @@ public class LockerRoomController : MonoBehaviour
     {
         var players = GameManager.Instance.OwnedPlayers;
         players.Shuffle();
+        int count = Mathf.Min(players.Count, _lockerPositions.Count);
         if (allNaturalPositions)
         {
-            for (int i = 0; i < _lockerPositions.Count; i++)
+            // TODO: Some players have multiple natural positions, but as they are removed, they may be removed from consideration for other positions.
+            for (int i = 0; i < count; i++)
             {
                 var player = players.FirstOrDefault(p => p.PlayerData.IsNaturalPosition(_lockerPositions[i].Position));
-                if (player == null) player = players[0];
+                player ??= players[0];
                 _lockerPositions[i].AddCard(player);
                 players.Remove(player);
             }
         }
         else
         {
-            for (int i = 0; i < _lockerPositions.Count; i++)
+            for (int i = 0; i < count; i++)
             {
                 _lockerPositions[i].AddCard(players[i]);
             }

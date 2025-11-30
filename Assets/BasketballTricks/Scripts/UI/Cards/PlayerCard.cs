@@ -270,7 +270,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
 
         for (float t = 0; t < 1f; t += Time.deltaTime * _returnSpeed)
         {
-            float delta = GameManager.EaseInOutQuart(t);
+            float delta = MathFunctions.EaseInOutQuart(t);
             _rectTransform.position = Vector3.Lerp(currentPosition, _initialPosition, delta);
             _rectTransform.localRotation = Quaternion.Lerp(currentRotation, _initialRotation, delta);
             _rectTransform.localScale = Vector3.Lerp(_initialScale * _popScale, _initialScale, delta);
