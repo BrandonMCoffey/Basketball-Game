@@ -118,6 +118,13 @@ public class GameCard
     [SerializeField] private float _xp;
     [SerializeField] private int _level = 1;
 
+    public GameCard(PlayerCardData data)
+    {
+        _cardData = data;
+        _xp = 0;
+        _level = 1;
+    }
+
     public PlayerData PlayerData => _cardData.PlayerData;
     public int ActionCount => _cardData.ActionCount;
     public int GetActionCount(int index) => _cardData.GetActionCount(index);
