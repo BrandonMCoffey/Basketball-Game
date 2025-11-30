@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private List<Player> _players = new List<Player>();
     [SerializeField] private float _arcGravity = 9.81f;
+    [SerializeField] private bool _allowMultipleShots;
 
     [Header("References")]
     [SerializeField] private Basketball _basketball;
@@ -232,7 +233,7 @@ public class PlayerManager : MonoBehaviour
                     }
                     break;
                 case ActionType.Shot:
-                    if (i != TimelineActions.Count - 1)
+                    if (!_allowMultipleShots && i != TimelineActions.Count - 1)
                     {
                         Debug.LogWarning("Cannot simulate sequence: Shot action must be last in sequence.");
                         return false;
@@ -317,6 +318,7 @@ public class PlayerManager : MonoBehaviour
                     yield return null;
                 }
             }
+            playerWithBall.SetAnimation(PlayerAnimation.Idle);
             playerWithBall = player;
 
             var action = player.CardData.GetAction(timelineAction.ActionIndex);
@@ -328,7 +330,7 @@ public class PlayerManager : MonoBehaviour
             Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.HypeGain} points.");
             if (action.Type == ActionType.Pass)
             {
-                float splitTime = Mathf.Max(0f, action.Duration - _tossPrepTime - _catchHoldTime) * 0.5f;
+                float splitTime = 0.5f;// Mathf.Max(0f, action.Duration - _tossPrepTime - _catchHoldTime) * 0.5f;
 
                 // Face each other
                 var otherPlayer = TimelineActions[i + 1].Player;
@@ -426,7 +428,18 @@ public class PlayerManager : MonoBehaviour
                 // Fall through net
                 var groundPos = new Vector3(endPos.x, 0.22f, endPos.z);
                 yield return _basketball.transform.DOMove(groundPos, 1f).SetEase(Ease.OutBounce).WaitForCompletion();
-                break;
+                
+                if (_allowMultipleShots && i < TimelineActions.Count - 1)
+                {
+                    playerWithBall = _players[2]; // Give ball to Center
+                    playerWithBall.SetAnimation(PlayerAnimation.IdleHold);
+                    _basketball.transform.position = playerWithBall.BasketballPosition; // TODO: Pickup ball?
+                }
+                else
+                {
+                    yield return new WaitForSeconds(2f);
+                    break;
+                }
             }
             else
             {
@@ -437,9 +450,9 @@ public class PlayerManager : MonoBehaviour
                     _basketball.transform.position = player.BasketballPosition;
                     yield return null;
                 }
+                player.SetAnimation(PlayerAnimation.Idle);
             }
         }
-        yield return new WaitForSeconds(2f);
         OnSequenceCompleted();
     }
 
@@ -452,7 +465,9 @@ public class PlayerManager : MonoBehaviour
         foreach (var player in _players)
         {
             player.FacePosition(player.transform.position + new Vector3(0, 0, 1f), 1f);
+            player.SetAnimation(PlayerAnimation.Idle);
         }
+        _basketball.transform.position = new Vector3(0, -10f, 0);
     }
 }
 

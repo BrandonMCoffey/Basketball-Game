@@ -16,6 +16,7 @@ public class LockerRoomController : MonoBehaviour
     [SerializeField] private Ease _lockerEaseLeave = Ease.InQuart;
     [SerializeField] private float _lockerDelay = 0.05f;
     [SerializeField] private ActionDeckManager _deckManager;
+    [SerializeField] private Vector3 _offsetCardWhenSelected = Vector3.up * 80f;
 
     private int _selectedIndex = -1;
     private Vector3 _letsGoOriginalPosition;
@@ -60,7 +61,7 @@ public class LockerRoomController : MonoBehaviour
         }
         foreach (var locker in _lockerPositions)
         {
-            var pos = locker.OriginalPosition + (locker.Card != null ? Vector3.up * 100f : Vector3.zero);
+            var pos = locker.OriginalPosition + (locker.Card != null ? _offsetCardWhenSelected : Vector3.zero);
             locker.transform.DOMove(pos, 0.5f).SetEase(_lockerEaseEnter);
         }
         bool buttonInteractable = _lockerPositions.All(selector => selector.Card != null);
@@ -98,7 +99,7 @@ public class LockerRoomController : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             foreach (var locker in _lockerPositions)
             {
-                var pos = locker.OriginalPosition + (locker.Card != null ? Vector3.up * 100f : Vector3.zero);
+                var pos = locker.OriginalPosition + (locker.Card != null ? _offsetCardWhenSelected : Vector3.zero);
                 locker.transform.DOMove(pos, 0.5f).SetEase(_lockerEaseEnter);
                 yield return new WaitForSeconds(_lockerDelay);
             }

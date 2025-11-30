@@ -1697,6 +1697,7 @@ MonoBehaviour:
   _lockerEaseLeave: 11
   _lockerDelay: 0.05
   _deckManager: {fileID: 6949764343152343267}
+  _offsetCardWhenSelected: {x: 0, y: 80, z: 0}
 --- !u!1001 &1073880391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4282,6 +4283,7 @@ MonoBehaviour:
   - {fileID: 1229214744}
   - {fileID: 1464733854}
   _arcGravity: 9.81
+  _allowMultipleShots: 1
   _basketball: {fileID: 292647101}
   _net: {fileID: 1448990372}
   _crowdController: {fileID: 468289106}
