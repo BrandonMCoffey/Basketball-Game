@@ -10,20 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c84bf1ca33becc74c90bf18da6a7ee77, type: 3}
-  m_Name: 25_PJ Washington
+  m_Name: 7_Dwight Powell
   m_EditorClassIdentifier: 
-  _playerName: P.J. Washington
-  _playerNumber: 25
-  _playerSprite: {fileID: 21300000, guid: 7acc79bb1fbd7f147a99ba8da325cbbd, type: 3}
-  _naturalPosition: 5
+  _playerName: Dwight Powell
+  _playerNumber: 7
+  _playerSprite: {fileID: 21300000, guid: d0957a63b5567af458b111122c067714, type: 3}
+  _naturalPosition: 0
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}
   _artData:
-    SkinColor: {r: 0.6603774, g: 0.42305756, b: 0.20870416, a: 1}
+    SkinColor: {r: 0.40810746, g: 0.28110301, b: 0.18166491, a: 1}
     HairColor: {r: 0, g: 0, b: 0, a: 1}
-    JerseyTexture: {fileID: 2800000, guid: 18c03fa02307d624c9294e21f00b828a, type: 3}
-    HairPrefab: {fileID: 919132149155446097, guid: 572bf04d3de5a5843b1c3fa5be2402e7,
-      type: 3}
-    FacialHairPrefab: {fileID: 919132149155446097, guid: e156c6fbbe2037e45a31fc8b6141bb26,
-      type: 3}
+    JerseyTexture: {fileID: 2800000, guid: d84e6b8a0d802b34b9552632f9a7caa1, type: 3}
+    HairPrefab: {fileID: 0}
+    FacialHairPrefab: {fileID: 0}
     AccessoryPrefab: {fileID: 0}

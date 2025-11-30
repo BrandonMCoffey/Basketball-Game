@@ -10,21 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c84bf1ca33becc74c90bf18da6a7ee77, type: 3}
-  m_Name: 31_Klay Thompson
+  m_Name: 0_Dante Exum
   m_EditorClassIdentifier: 
-  _playerName: Klay Thompson
-  _playerNumber: 31
-  _playerSprite: {fileID: 21300000, guid: 7e66d227440ca5f4390f2000dd2ddd07, type: 3}
+  _playerName: Dante Exum
+  _playerNumber: 0
+  _playerSprite: {fileID: 21300000, guid: 4f2e8919d4bee2b4daea9b21ba437862, type: 3}
   _naturalPosition: 3
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}
   _artData:
-    SkinColor: {r: 0.8396226, g: 0.6445257, b: 0.43169275, a: 1}
-    HairColor: {r: 0.1981132, g: 0.13816966, b: 0.10933606, a: 1}
-    JerseyTexture: {fileID: 2800000, guid: cae348b77066c41408682fbd2346d2f6, type: 3}
+    SkinColor: {r: 0.5377358, g: 0.36736053, b: 0.22067462, a: 1}
+    HairColor: {r: 0.08660413, g: 0.050704047, b: 0.033241995, a: 1}
+    JerseyTexture: {fileID: 2800000, guid: 1ae1c8129f7d8de4bba6d8b6a91c6177, type: 3}
     HairPrefab: {fileID: 919132149155446097, guid: 72f0b3366c2838943bcb8db71411a9a1,
       type: 3}
-    FacialHairPrefab: {fileID: 919132149155446097, guid: f689c0a94839cf348a7e3b620eff76c4,
+    FacialHairPrefab: {fileID: 919132149155446097, guid: c93bfe67c0f7de941afb4d6e6f65cb96,
       type: 3}
-    AccessoryPrefab: {fileID: 919132149155446097, guid: f901b7a9086c49e4b97e626cccf3c533,
-      type: 3}
+    AccessoryPrefab: {fileID: 0}
