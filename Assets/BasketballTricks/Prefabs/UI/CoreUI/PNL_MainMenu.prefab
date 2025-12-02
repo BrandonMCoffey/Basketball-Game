@@ -294,7 +294,7 @@ PrefabInstance:
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
       propertyPath: m_Pivot.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
@@ -304,7 +304,7 @@ PrefabInstance:
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
@@ -314,7 +314,7 @@ PrefabInstance:
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
@@ -369,7 +369,7 @@ PrefabInstance:
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 150
+      value: -600
       objectReference: {fileID: 0}
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
@@ -425,6 +425,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _text
       value: Halftime Show
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496289231760783709, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
+        type: 3}
+      propertyPath: _delayBeforeOnScreen
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7224879588069095371, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
@@ -862,7 +867,7 @@ PrefabInstance:
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
       propertyPath: m_Pivot.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
@@ -872,7 +877,7 @@ PrefabInstance:
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
@@ -882,7 +887,7 @@ PrefabInstance:
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
@@ -942,7 +947,7 @@ PrefabInstance:
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -150
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 3233957687963385485, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
@@ -973,6 +978,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _text
       value: Trade
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496289231760783709, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
+        type: 3}
+      propertyPath: _delayBeforeOnScreen
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 7224879588069095371, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
@@ -1152,6 +1162,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _text
       value: Sandbox
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496289231760783709, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
+        type: 3}
+      propertyPath: _delayBeforeOnScreen
+      value: 0.125
       objectReference: {fileID: 0}
     - target: {fileID: 7224879588069095371, guid: 1a6b7f1e2edd6f74c94d6ed431971feb,
         type: 3}
