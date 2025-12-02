@@ -1,3 +1,4 @@
+using Cinemachine;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private CrowdController _crowdController;
     [SerializeField] private PlayerUIManager _playerUIManager;
     [SerializeField] private SlideInPanel _cardCatalogPanel;
+    [SerializeField] private CinemachineTargetGroup _cameraGroup;
 
     [Header("Drag & Drop Placement")]
     [SerializeField] private RectTransform _minimumMouseXShow;
@@ -38,6 +40,8 @@ public class PlayerManager : MonoBehaviour
     public static event System.Action RefreshTimeline = delegate { };
     public static event System.Action RefreshPlayers = delegate { };
     public static event System.Action<float> UpdateHype = delegate { };
+
+    public float Hype { get; private set; }
 
     private bool _simulating;
     private Player _placingPlayer;
@@ -246,8 +250,8 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator SimulateRoutine()
     {
-        float hype = 0;
-        UpdateHype?.Invoke(hype);
+        Hype = 0;
+        UpdateHype?.Invoke(Hype);
         var startPlayer = TimelineActions[0].Player;
         startPlayer.SetAnimation(PlayerAnimation.IdleHold);
         for (float t = 0; t < 1f; t += Time.deltaTime)
@@ -257,6 +261,14 @@ public class PlayerManager : MonoBehaviour
         }
         _crowdController.SetPlaying(true);
         Player playerWithBall = TimelineActions[0].Player;
+        foreach (var player in _players)
+        {
+            _cameraGroup.RemoveMember(player.transform);
+        }
+        _cameraGroup.RemoveMember(_basketball.transform);
+        _cameraGroup.RemoveMember(_net);
+        _cameraGroup.AddMember(_basketball.transform, 1, 1);
+        _cameraGroup.AddMember(playerWithBall.transform, 1, 1);
         for (int i = 0; i < TimelineActions.Count; i++)
         {
             GameAction timelineAction = TimelineActions[i];
@@ -266,6 +278,7 @@ public class PlayerManager : MonoBehaviour
             // Pass
             if (playerWithBall != player)
             {
+                _cameraGroup.AddMember(player.transform, 1, 1);
                 Debug.Log($"Basic pass from {playerWithBall.name} to {player.name}");
                 // Face each other
                 playerWithBall.FaceOtherPlayer(player, 0.2f);
@@ -307,6 +320,7 @@ public class PlayerManager : MonoBehaviour
                     {
                         catchTriggered = true;
                         player.SetAnimation(PlayerAnimation.Catch);
+                        _cameraGroup.RemoveMember(playerWithBall.transform);
                     }
                     yield return null;
                 }
@@ -322,9 +336,9 @@ public class PlayerManager : MonoBehaviour
             playerWithBall = player;
 
             var action = player.CardData.GetAction(timelineAction.ActionIndex);
-            hype += action.HypeGain.GetValue(action.ActionLevel);
-            _crowdController.SetHype(hype / 100f);
-            UpdateHype?.Invoke(hype);
+            Hype += action.HypeGain.GetValue(action.ActionLevel);
+            _crowdController.SetHype(Hype / 100f);
+            UpdateHype?.Invoke(Hype);
             player.SetActionText(action.Name, action.Duration);
             player.EmitParticles();
             Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.HypeGain} points.");
@@ -334,6 +348,7 @@ public class PlayerManager : MonoBehaviour
 
                 // Face each other
                 var otherPlayer = TimelineActions[i + 1].Player;
+                _cameraGroup.AddMember(otherPlayer.transform, 1, 1);
                 player.FaceOtherPlayer(otherPlayer, splitTime);
                 player.SetAnimation(PlayerAnimation.IdleHold);
                 for (float t = 0; t < splitTime; t += Time.deltaTime)
@@ -374,6 +389,7 @@ public class PlayerManager : MonoBehaviour
                     {
                         catchTriggered = true;
                         otherPlayer.SetAnimation(PlayerAnimation.Catch);
+                        _cameraGroup.RemoveMember(player.transform);
                     }
                     yield return null;
                 }
@@ -391,6 +407,7 @@ public class PlayerManager : MonoBehaviour
                 float splitTime = Mathf.Max(0.01f, action.Duration - _shotPrepTime) * 0.5f;
 
                 // Face the net
+                _cameraGroup.AddMember(_net, 1, 3);
                 player.FacePosition(_net.position, splitTime);
                 player.SetAnimation(PlayerAnimation.IdleHold);
                 for (float t = 0; t < splitTime; t += Time.deltaTime)
@@ -431,6 +448,9 @@ public class PlayerManager : MonoBehaviour
                 
                 if (_allowMultipleShots && i < TimelineActions.Count - 1)
                 {
+                    _cameraGroup.RemoveMember(player.transform);
+                    _cameraGroup.RemoveMember(_net);
+                    _cameraGroup.AddMember(_players[2].transform, 1, 3);
                     playerWithBall = _players[2]; // Give ball to Center
                     playerWithBall.SetAnimation(PlayerAnimation.IdleHold);
                     _basketball.transform.position = playerWithBall.BasketballPosition; // TODO: Pickup ball?
@@ -462,6 +482,16 @@ public class PlayerManager : MonoBehaviour
         _crowdController.SetPlaying(false);
         TimelineActions.Clear();
         RefreshTimeline?.Invoke();
+        _cameraGroup.RemoveMember(_basketball.transform);
+        _cameraGroup.RemoveMember(_net);
+        foreach (var player in _players)
+        {
+            _cameraGroup.RemoveMember(player.transform);
+        }
+        foreach (var player in _players)
+        {
+            _cameraGroup.AddMember(player.transform, 1, 1);
+        }
         foreach (var player in _players)
         {
             player.FacePosition(player.transform.position + new Vector3(0, 0, 1f), 1f);
