@@ -513,7 +513,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -40, y: 180}
+  m_SizeDelta: {x: -40, y: 160}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &2903566440127692139
 CanvasRenderer:
@@ -570,7 +570,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &483993444024544394
 RectTransform:
   m_ObjectHideFlags: 0
@@ -664,7 +664,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 20}
+  m_AnchoredPosition: {x: 0, y: 125}
   m_SizeDelta: {x: -40, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5466159318124103235
@@ -761,111 +761,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5932cac204a808a41a37f765dd72cf31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actionData:
-    Name: 
-    CardText: 
-    PreviewText: 
-    Type: 0
-    AssociatedRarity: 0
-    AllowedPositions: 0
-    Cost:
-      isLevelable: 0
-      levels:
-      - 0
-      - 0
-      - 0
-    ActionLevel: 0
-    HypeGain:
-      isLevelable: 0
-      levels:
-      - 0
-      - 0
-      - 0
-    EnergyGain:
-      isLevelable: 0
-      levels:
-      - 0
-      - 0
-      - 0
-    DrawCards:
-      isLevelable: 0
-      levels:
-      - 0
-      - 0
-      - 0
-    MultiplyHype:
-      isLevelable: 0
-      levels:
-      - 0
-      - 0
-      - 0
-    HasEffectIfSequence: 0
-    EffectIfSequence:
-      Requirements: 0
-      OfType: 0
-      HypeGain:
-        isLevelable: 0
-        levels: []
-      EnergyGain:
-        isLevelable: 0
-        levels: []
-      AdjustCost:
-        isLevelable: 0
-        levels: []
-      DrawCards:
-        isLevelable: 0
-        levels: []
-      MultiplyHype:
-        isLevelable: 0
-        levels: []
-    EffectIfSequencePreviewText: 
-    HasEffectIfPrevious: 0
-    EffectIfPrevious:
-      RequiredType: 0
-      RequiredPosition: 0
-      HypeGain:
-        isLevelable: 0
-        levels: []
-      EnergyGain:
-        isLevelable: 0
-        levels: []
-      AdjustCost:
-        isLevelable: 0
-        levels: []
-      DrawCards:
-        isLevelable: 0
-        levels: []
-      MultiplyHype:
-        isLevelable: 0
-        levels: []
-    EffectIfPreviousPreviewText: 
-    HasNextEffect: 0
-    NextEffect:
-      AppliesTo: 0
-      RequiredType: 0
-      RequiredPosition: 0
-      AddHypeToCard:
-        isLevelable: 0
-        levels: []
-      AddEnergyGainToCard:
-        isLevelable: 0
-        levels: []
-      AdjustCardCost:
-        isLevelable: 0
-        levels: []
-      DrawCards:
-        isLevelable: 0
-        levels: []
-      MultiplyHype:
-        isLevelable: 0
-        levels: []
-      Retriggers:
-        isLevelable: 0
-        levels: []
-    NextEffectPreviewText: 
-    Icon: {fileID: 0}
-    Animation: 0
-    Duration: 0
   _colorImage: {fileID: 8438057640190950550}
   _playerNumber: {fileID: 878717506819808544}
   _actionName: {fileID: 4855567975314621590}
@@ -877,7 +772,8 @@ MonoBehaviour:
   _defaultTrickIcon: {fileID: 21300000, guid: ffdce43d5c7b6664da62fa04dcc36c94, type: 3}
   _defaultPassIcon: {fileID: 21300000, guid: ef5d69434c9827741985c55ffea74e4d, type: 3}
   _defaultShotIcon: {fileID: 21300000, guid: 920fb76479d53624192a07a571882d66, type: 3}
-  _selectScale: 1.1
+  _dragScale: 1.25
+  _selectedScale: 1.2
   _dragFollowSpeed: 20
 --- !u!1 &5654515746900208561
 GameObject:
@@ -914,7 +810,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 2.8, y: 350.4}
   m_SizeDelta: {x: 125, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &8771761264354486656
@@ -1021,7 +917,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: b3abda8bdf353c34795a01096c0e9d40, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1333,7 +1229,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 25}
+  m_AnchoredPosition: {x: 0, y: 3}
   m_SizeDelta: {x: -20, y: -50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3509929081097495798
@@ -1467,8 +1363,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 100}
-  m_SizeDelta: {x: 180, y: 180}
+  m_AnchoredPosition: {x: 0, y: 16.8}
+  m_SizeDelta: {x: 120, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1530007093102029453
 CanvasRenderer:
@@ -1491,14 +1387,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.23270428, g: 0.23270428, b: 0.23270428, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b2e80edb44eb1ad4eaea5b0486f6f3ad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f998cbac19b793947bbff9a8d61b5606, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1541,11 +1437,11 @@ RectTransform:
   - {fileID: 274368608289945808}
   m_Father: {fileID: 5038901226111165036}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 5, y: -5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -5}
   m_SizeDelta: {x: 80, y: 80}
-  m_Pivot: {x: 1, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &2535360972950519994
 CanvasRenderer:
   m_ObjectHideFlags: 0

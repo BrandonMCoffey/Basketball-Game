@@ -1,3 +1,4 @@
+using CoffeyUtils;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,12 +40,10 @@ public class PlayerCardData : ScriptableObject
 public class CustomPlayerAction
 {
     [SerializeField] private PlayerActionData _action;
-    [SerializeField] private int _count = 1;
-    [SerializeField] private int _unlockLevel = 0;
+    [SerializeField] private LevelableFloat _count = new LevelableFloat(false, 1, 1, 1);
     [ReadOnly] public ActionData DataPreview;
 
-    public int Count => _count;
-    public int UnlockLevel => _unlockLevel;
+    public int Count => Mathf.RoundToInt(_action != null ? _count.GetValue(_action.Data.ActionLevel) : _count.GetValue(1));
     public ActionData GetData()
     {
         ActionData data = _action != null ? _action.Data : new ActionData(ActionType.Trick);

@@ -46,6 +46,11 @@ public class ActionDeckManager : MonoBehaviour
         }
         _actionDeck.Shuffle();
 
+        for (int i = _cardContainer.childCount - 1; i >= 0; i--)
+        {
+            Destroy(_cardContainer.GetChild(i).gameObject);
+        }
+
         int count = Mathf.Min(_handSize, _actionDeck.Count);
         _cards = new List<ActionCard>(count);
         float delta = count > 1 ? 1f / (count - 1) : 0f;

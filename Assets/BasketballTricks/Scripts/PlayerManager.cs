@@ -322,7 +322,7 @@ public class PlayerManager : MonoBehaviour
             playerWithBall = player;
 
             var action = player.CardData.GetAction(timelineAction.ActionIndex);
-            hype += action.HypeGain;
+            hype += action.HypeGain.GetValue(action.ActionLevel);
             _crowdController.SetHype(hype / 100f);
             UpdateHype?.Invoke(hype);
             player.SetActionText(action.Name, action.Duration);

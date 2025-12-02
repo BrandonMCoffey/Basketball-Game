@@ -58,8 +58,8 @@ MonoBehaviour:
         isLevelable: 0
         levels:
         - 10
-        - 0
-        - 0
+        - 12
+        - 15
       EnergyGain:
         isLevelable: 0
         levels:

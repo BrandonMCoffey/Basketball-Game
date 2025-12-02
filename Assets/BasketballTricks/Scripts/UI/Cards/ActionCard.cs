@@ -20,7 +20,8 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     [SerializeField] private Sprite _defaultShotIcon;
 
     [Header("Drag")]
-    [SerializeField] private float _selectScale = 1.1f;
+    [SerializeField] private float _dragScale = 1.25f;
+    [SerializeField] private float _selectedScale = 1.2f;
     [SerializeField] private float _dragFollowSpeed = 20f;
 
     public GameAction Action => _action;
@@ -93,7 +94,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     {
         _wasDragged = false;
         _rectTransform.SetAsLastSibling();
-        _rectTransform.DOScale(_selectScale, 0.2f);
+        _rectTransform.DOScale(_dragScale, 0.2f);
         _rectTransform.DOLocalRotate(Vector3.zero, 0.2f);
 
         _moveTween?.Kill();
@@ -108,13 +109,13 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     public void OnPointerUp(PointerEventData eventData)
     {
         _isDragging = false;
-        _rectTransform.DOScale(1f, 0.2f);
 
         if (!_wasDragged)
         {
             _isSelected = !_isSelected;
             _manager.OnUpdateSelected();
         }
+        _rectTransform.DOScale(_isSelected ? _selectedScale : 1f, 0.2f);
 
         _manager.UpdateCardLayout();
     }
