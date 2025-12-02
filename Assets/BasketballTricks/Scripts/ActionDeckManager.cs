@@ -57,7 +57,7 @@ public class ActionDeckManager : MonoBehaviour
         float horz = Screen.width * _horizontalScreenPercent * 0.5f;
         for (int i = 0; i < count; i++)
         {
-            float x = _cardContainer.position.x + Mathf.Lerp(-horz, horz, delta * i);
+            float x = _cardContainer.localPosition.x + Mathf.Lerp(-horz, horz, delta * i);
             var actionCard = Instantiate(_cardPrefab, new Vector2(x, -Screen.height * 0.5f), Quaternion.identity, _cardContainer);
             actionCard.Init(_actionDeck[0], this);
             _actionDeck.RemoveAt(0);
@@ -80,7 +80,7 @@ public class ActionDeckManager : MonoBehaviour
             _disabled = true;
             foreach (var card in _cards)
             {
-                card.transform.DOMove(card.transform.position + Vector3.down * Screen.height * 0.8f, 1f).SetEase(Ease.InBack);
+                card.transform.DOMove(card.transform.localPosition + Vector3.down * Screen.height * 0.8f, 1f).SetEase(Ease.InBack);
             }
         }
     }

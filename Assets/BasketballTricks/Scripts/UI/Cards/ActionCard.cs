@@ -131,6 +131,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         }
 
         _rotTween = _rectTransform.DOLocalRotateQuaternion(targetRot, duration);
+        _rectTransform.DOScale(_isSelected ? _selectedScale : 1f, 0.2f);
     }
 
     public void UpdateRotationOnly(Quaternion targetRot, float duration)
