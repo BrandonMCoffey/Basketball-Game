@@ -72,6 +72,10 @@ public class PlayerManager : MonoBehaviour
                 player.PlayerArt.SetPlayerArt(_randomPlayerArt[Random.Range(0, _randomPlayerArt.Count)].GetData());
             }
         }
+        foreach (var player in _players)
+        {
+            _cameraGroup.AddMember(player.transform, 1, 2);
+        }
     }
 
     public Vector3 GetPlayerPosition(int index)
@@ -267,8 +271,7 @@ public class PlayerManager : MonoBehaviour
         }
         _cameraGroup.RemoveMember(_basketball.transform);
         _cameraGroup.RemoveMember(_net);
-        _cameraGroup.AddMember(_basketball.transform, 1, 1);
-        _cameraGroup.AddMember(playerWithBall.transform, 1, 1);
+        _cameraGroup.AddMember(playerWithBall.transform, 1, 2);
         for (int i = 0; i < TimelineActions.Count; i++)
         {
             GameAction timelineAction = TimelineActions[i];
@@ -278,7 +281,7 @@ public class PlayerManager : MonoBehaviour
             // Pass
             if (playerWithBall != player)
             {
-                _cameraGroup.AddMember(player.transform, 1, 1);
+                _cameraGroup.AddMember(player.transform, 1, 2);
                 Debug.Log($"Basic pass from {playerWithBall.name} to {player.name}");
                 // Face each other
                 playerWithBall.FaceOtherPlayer(player, 0.2f);
@@ -348,7 +351,7 @@ public class PlayerManager : MonoBehaviour
 
                 // Face each other
                 var otherPlayer = TimelineActions[i + 1].Player;
-                _cameraGroup.AddMember(otherPlayer.transform, 1, 1);
+                _cameraGroup.AddMember(otherPlayer.transform, 1, 2);
                 player.FaceOtherPlayer(otherPlayer, splitTime);
                 player.SetAnimation(PlayerAnimation.IdleHold);
                 for (float t = 0; t < splitTime; t += Time.deltaTime)
@@ -450,7 +453,7 @@ public class PlayerManager : MonoBehaviour
                 {
                     _cameraGroup.RemoveMember(player.transform);
                     _cameraGroup.RemoveMember(_net);
-                    _cameraGroup.AddMember(_players[2].transform, 1, 3);
+                    _cameraGroup.AddMember(_players[2].transform, 1, 2);
                     playerWithBall = _players[2]; // Give ball to Center
                     playerWithBall.SetAnimation(PlayerAnimation.IdleHold);
                     _basketball.transform.position = playerWithBall.BasketballPosition; // TODO: Pickup ball?
@@ -482,7 +485,6 @@ public class PlayerManager : MonoBehaviour
         _crowdController.SetPlaying(false);
         TimelineActions.Clear();
         RefreshTimeline?.Invoke();
-        _cameraGroup.RemoveMember(_basketball.transform);
         _cameraGroup.RemoveMember(_net);
         foreach (var player in _players)
         {
@@ -490,7 +492,7 @@ public class PlayerManager : MonoBehaviour
         }
         foreach (var player in _players)
         {
-            _cameraGroup.AddMember(player.transform, 1, 1);
+            _cameraGroup.AddMember(player.transform, 1, 2);
         }
         foreach (var player in _players)
         {

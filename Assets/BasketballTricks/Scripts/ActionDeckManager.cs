@@ -12,7 +12,7 @@ public class ActionDeckManager : MonoBehaviour
     [SerializeField] private float _dragReorderThreshold = 50f;
 
     [Header("Card Layout")]
-    [SerializeField, Range(0f, 1f)] private float _horizontalScreenPercent = 0.7f;
+    [SerializeField] private float _horizontalSpread = 700f;
     [SerializeField] private float _verticalSpread = 50f;
     [SerializeField] private float _maxRotationAngle = 30f;
     [SerializeField] private float _selectedHeightOffset = 100f;
@@ -54,10 +54,9 @@ public class ActionDeckManager : MonoBehaviour
         int count = Mathf.Min(_handSize, _actionDeck.Count);
         _cards = new List<ActionCard>(count);
         float delta = count > 1 ? 1f / (count - 1) : 0f;
-        float horz = Screen.width * _horizontalScreenPercent * 0.5f;
         for (int i = 0; i < count; i++)
         {
-            float x = _cardContainer.localPosition.x + Mathf.Lerp(-horz, horz, delta * i);
+            float x = _cardContainer.localPosition.x + Mathf.Lerp(-_horizontalSpread, _horizontalSpread, delta * i);
             var actionCard = Instantiate(_cardPrefab, new Vector2(x, -Screen.height * 0.5f), Quaternion.identity, _cardContainer);
             actionCard.Init(_actionDeck[0], this);
             _actionDeck.RemoveAt(0);
@@ -119,11 +118,10 @@ public class ActionDeckManager : MonoBehaviour
         {
             ActionCard card = _cards[i];
 
-            float horz = Screen.width * _horizontalScreenPercent * 0.5f;
             float vert = _verticalSpread * 0.5f;
             float vertDelta = Mathf.Abs(2f * delta * i - 1f);
             vertDelta *= vertDelta;
-            Vector2 pos = new Vector2(Mathf.Lerp(-horz, horz, delta * i), Mathf.Lerp(vert, -vert, vertDelta));
+            Vector2 pos = new Vector2(Mathf.Lerp(-_horizontalSpread, _horizontalSpread, delta * i), Mathf.Lerp(vert, -vert, vertDelta));
             if (card.IsSelected && card != draggingCard) pos.y += _selectedHeightOffset;
 
             Quaternion rot = Quaternion.Euler(0f, 0f, Mathf.Lerp(_maxRotationAngle, -_maxRotationAngle, delta * i));
@@ -148,9 +146,8 @@ public class ActionDeckManager : MonoBehaviour
         {
             if (i == draggedIndex) continue;
 
-            float horz = Screen.width * _horizontalScreenPercent * 0.5f;
-            float x = Mathf.Lerp(-horz, horz, delta * i);
-            float threshold = Mathf.Min(_dragReorderThreshold, horz * delta - 10f);
+            float x = Mathf.Lerp(-_horizontalSpread, _horizontalSpread, delta * i);
+            float threshold = Mathf.Min(_dragReorderThreshold, _horizontalSpread * delta - 10f);
             
             if (draggedCard.transform.localPosition.x > x - threshold && draggedIndex < i) newIndex = i;
             else if (draggedCard.transform.localPosition.x < x + threshold && draggedIndex > i) newIndex = i;
