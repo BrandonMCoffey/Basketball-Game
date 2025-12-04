@@ -3147,7 +3147,7 @@ MonoBehaviour:
   - {fileID: 1272317963}
   - {fileID: 878855986}
   _selectedPosition: {fileID: 1445854258}
-  _letsGoButton: {fileID: 1542875927}
+  _letsGoButton: {fileID: 1542875931}
   _letsGoButtonT: {fileID: 1542875926}
   _catalog: {fileID: 3318022568213214731}
   _lockerEaseEnter: 27
@@ -6094,13 +6094,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Let's Go!
+  m_text: Let's Go
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 71432d64cab8fbe48aeaadd592f69523, type: 2}
   m_sharedMaterial: {fileID: 2195858300266884165, guid: 71432d64cab8fbe48aeaadd592f69523,
@@ -6128,8 +6128,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 55
-  m_fontSizeBase: 55
+  m_fontSize: 79.6
+  m_fontSizeBase: 79.6
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6189,8 +6189,8 @@ GameObject:
   - component: {fileID: 1542875926}
   - component: {fileID: 1542875929}
   - component: {fileID: 1542875928}
-  - component: {fileID: 1542875927}
   - component: {fileID: 1542875930}
+  - component: {fileID: 1542875931}
   m_Layer: 5
   m_Name: BTN_Start
   m_TagString: Untagged
@@ -6210,10 +6210,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1500660495}
   - {fileID: 1638159549}
   - {fileID: 1607486518}
   - {fileID: 168347320}
+  - {fileID: 1500660495}
   m_Father: {fileID: 997397656}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
@@ -6221,62 +6221,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 30}
   m_SizeDelta: {x: 500, y: 150}
   m_Pivot: {x: 0.5, y: 0}
---- !u!114 &1542875927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542875925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.2509804}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 0
-  m_TargetGraphic: {fileID: 1542875928}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 997397657}
-        m_TargetAssemblyTypeName: LockerRoomController, Assembly-CSharp
-        m_MethodName: StartGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1542875928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6328,6 +6272,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _glareTransform: {fileID: 792965274}
+--- !u!114 &1542875931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542875925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7110f468bbb13cb409cd86f0f3bb6513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: Let's Go
+  _onButtonPressed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 997397657}
+        m_TargetAssemblyTypeName: LockerRoomController, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _easeType: 27
+  _moveTextOnPress: 1
+  _moveTextUpOnPress: 0
+  _invokeOnAnimComplete: 1
+  _buttonText: {fileID: 1500660496}
 --- !u!1 &1607486517
 GameObject:
   m_ObjectHideFlags: 0

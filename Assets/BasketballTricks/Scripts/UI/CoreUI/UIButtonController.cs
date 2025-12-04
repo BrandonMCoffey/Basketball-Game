@@ -88,6 +88,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
         _rectTransform.anchoredPosition = _startOffScreen ? new Vector2(_onScreenAnchoredPos.x, -Screen.height * 2) : _onScreenAnchoredPos;
 
         _onScreenButtonTextContainerPos = _buttonTextContainer.anchoredPosition;
+
         _buttonTextContainer.anchoredPosition = _startOffScreen ? 
             new Vector2(_onScreenButtonTextContainerPos.x, -Screen.height * 2) : 
             _onScreenButtonTextContainerPos;
