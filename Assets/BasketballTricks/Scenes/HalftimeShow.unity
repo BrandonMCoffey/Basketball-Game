@@ -3061,9 +3061,9 @@ MonoBehaviour:
   _catalog: {fileID: 3318022568213214731}
   _lockerEaseEnter: 27
   _lockerEaseLeave: 11
-  _lockerDelay: 0.12
+  _lockerDelay: 0.125
   _deckManager: {fileID: 6949764343152343267}
-  _offsetCardWhenSelected: {x: 0, y: 65, z: 0}
+  _offsetCardWhenSelected: {x: 0, y: 300, z: 0}
 --- !u!1001 &1052307914
 PrefabInstance:
   m_ObjectHideFlags: 0

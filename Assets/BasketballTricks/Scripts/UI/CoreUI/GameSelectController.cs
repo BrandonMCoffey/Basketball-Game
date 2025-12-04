@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
-using UnityEngine.Video;
 using UnityEngine.UI;
 using System;
 
@@ -51,7 +48,6 @@ public class GameSelectController : MonoBehaviour
         AnimateOnScreen();
     }
 
-    // Sets initial positions of UI elements
     void Initialize()
     {
         _leftSidePanelOnScreenPos = _leftSidePanel.anchoredPosition;
@@ -82,11 +78,10 @@ public class GameSelectController : MonoBehaviour
         _zenVideoImage.enabled = false;
     }
 
-    // Animates UI elements onto the screen
     public void AnimateOnScreen()
     {
         _leftSidePanel.DOAnchorPos(_leftSidePanelOnScreenPos, 0.3f).SetEase(_easeType);
-        _titlePanel.DOAnchorPos(_titlePanelOnScreenPos, 0.3f).SetEase(_easeType).SetDelay(0.12f);
+        _titlePanel.DOAnchorPos(_titlePanelOnScreenPos, 0.3f).SetEase(Ease.OutQuart).SetDelay(0.12f);
         _halfTimeButton.DOAnchorPos(_halfTimeButtonOnScreenPos, 0.3f).SetEase(_easeType).SetDelay(0.25f);
         _zenButton.DOAnchorPos(_zenButtonOnScreenPos, 0.3f).SetEase(_easeType).SetDelay(0.35f);
     }
@@ -94,7 +89,7 @@ public class GameSelectController : MonoBehaviour
     public void AnimateOffScreen(Action callback = null)
     {
         _leftSidePanel.DOAnchorPos(new Vector2(-Screen.width * 2, _leftSidePanelOnScreenPos.y), 0.3f).SetEase(_easeType);
-        _titlePanel.DOAnchorPos(new Vector2(-Screen.width * 2, _titlePanelOnScreenPos.y), 0.3f).SetEase(_easeType).SetDelay(0.12f);
+        _titlePanel.DOAnchorPos(new Vector2(-Screen.width * 2, _titlePanelOnScreenPos.y), 0.3f).SetEase(Ease.OutQuart).SetDelay(0.12f);
         _halfTimeButton.DOAnchorPos(new Vector2(-Screen.width * 2, _halfTimeButtonOnScreenPos.y), 0.3f).SetEase(_easeType).SetDelay(0.25f);
         _zenButton.DOAnchorPos(new Vector2(-Screen.width * 2, _zenButtonOnScreenPos.y), 0.3f).SetEase(_easeType).SetDelay(0.35f).OnComplete(() =>
         {

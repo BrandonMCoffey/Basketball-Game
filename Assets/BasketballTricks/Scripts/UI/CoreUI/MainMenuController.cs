@@ -13,8 +13,8 @@ public class MainMenuController : MonoBehaviour
     private void Start() 
     {
         _titlePanelOnScreenPos = _titlePanel.anchoredPosition;
-        _titlePanel.anchoredPosition = new Vector2(_titlePanelOnScreenPos.x, Screen.height * 2);
-        _titlePanel.DOAnchorPos(_titlePanelOnScreenPos, 0.5f).SetEase(Ease.OutBack).SetDelay(0.2f);
+        _titlePanel.anchoredPosition = new Vector2(_titlePanelOnScreenPos.x, Screen.height);
+        _titlePanel.DOAnchorPos(_titlePanelOnScreenPos, 0.5f).SetEase(Ease.OutQuart).SetDelay(0.2f);
     }
 
     public void Enable()
@@ -26,7 +26,7 @@ public class MainMenuController : MonoBehaviour
 
     public void AnimateOffScreen()
     {
-        _titlePanel.DOAnchorPos(new Vector2(_titlePanelOnScreenPos.x, Screen.height * 2), 0.5f).SetEase(Ease.InBack);
+        _titlePanel.DOAnchorPos(new Vector2(_titlePanelOnScreenPos.x, Screen.height), 0.5f).SetEase(Ease.OutQuart);
         _playButton.AnimateOffScreen();
         _tradeButton.AnimateOffScreen();
         _leaderButton.AnimateOffScreen();
