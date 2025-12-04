@@ -38,11 +38,18 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
     public PlayerPosition Position => _position;
     public Vector3 OriginalPosition => _originalPosition;
     Coroutine _addPlayerAnimRoutine;
+    RectTransform _rectTransform;
+    public RectTransform RectTransform => _rectTransform;
 
     private void OnValidate()
     {
         if (_positionText != null) _positionText.text = PlayerData.PositionToString(_position);
         if (_positionText2 != null) _positionText2.text = PlayerData.PositionToString(_position);
+    }
+
+    void Start() 
+    {
+        _rectTransform = GetComponent<RectTransform>();
     }
 
     public void Init(int index, Color color, LockerRoomController controller)

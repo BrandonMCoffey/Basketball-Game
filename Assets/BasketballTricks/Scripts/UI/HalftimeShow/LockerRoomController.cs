@@ -15,16 +15,20 @@ public class LockerRoomController : MonoBehaviour
     [SerializeField] private Ease _lockerEaseEnter = Ease.InQuart;
     [SerializeField] private Ease _lockerEaseLeave = Ease.InQuart;
     [SerializeField] private float _lockerDelay = 0.05f;
-    [SerializeField] private ActionDeckManager _deckManager;
-    [SerializeField] private Vector3 _offsetCardWhenSelected = Vector3.up * 80f;
+    [SerializeField] private ActionDeckManager _deckManager; 
+    [SerializeField, Range(0, 0.5f)] private float _offsetCardWhenSelectedY = 0.1f;
+
+    private Vector3 _offsetCardWhenSelected => _rectTransform.rect.height * Vector3.up * _offsetCardWhenSelectedY;
 
     private int _selectedIndex = -1;
     private Vector3 _letsGoOriginalPosition;
     private Vector3 _catalogOriginalPosition;
     private bool _moving;
+    private RectTransform _rectTransform;
 
     private void Start()
     {
+        _rectTransform = GetComponent<RectTransform>();
         var players = PlayerManager.Instance.Players;
         for (int i = 0; i < _lockerPositions.Count; i++)
         {
