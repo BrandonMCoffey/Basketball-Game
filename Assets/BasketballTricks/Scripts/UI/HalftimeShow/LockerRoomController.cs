@@ -26,10 +26,12 @@ public class LockerRoomController : MonoBehaviour
     private Vector3 _catalogOriginalPosition;
     private bool _moving;
     private RectTransform _rectTransform;
+    private HandCatalog _handCatalogRef;
 
     private void Start()
     {
         _rectTransform = GetComponent<RectTransform>();
+        _handCatalogRef = _catalog.GetComponent<HandCatalog>();
         var players = PlayerManager.Instance.Players;
         for (int i = 0; i < _lockerPositions.Count; i++)
         {
@@ -135,7 +137,12 @@ public class LockerRoomController : MonoBehaviour
         }
         _letsGoButtonT.DOAnchorPos(_letsGoOriginalPosition + Vector3.down * 400f, 0.5f).SetEase(Ease.InOutCubic);
         yield return new WaitForSeconds(0.25f);
-        _catalog.DOAnchorPos(_catalogOriginalPosition, 0.5f).SetEase(Ease.InOutCubic);
+        _handCatalogRef.HideCards();
+        _catalog.DOAnchorPos(_catalogOriginalPosition, 0.35f).SetEase(Ease.InOutCubic).OnComplete(() =>
+        {
+            Debug.Log("Showing cards in catalog");
+            _handCatalogRef.ShowCards();
+        });
         _selectedIndex = index;
         _moving = false;
     }
