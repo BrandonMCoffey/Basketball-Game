@@ -9,16 +9,16 @@ using UnityEngine.UI;
 public class LockerRoomController : MonoBehaviour
 {
     [SerializeField] private List<LockerPositionSelector> _lockerPositions = new List<LockerPositionSelector>();
-    [SerializeField] private Transform _selectedPosition;
+    [SerializeField] private RectTransform _selectedPosition;
     [SerializeField] private Button _letsGoButton;
     [SerializeField] private Transform _catalog;
     [SerializeField] private Ease _lockerEaseEnter = Ease.InQuart;
     [SerializeField] private Ease _lockerEaseLeave = Ease.InQuart;
     [SerializeField] private float _lockerDelay = 0.05f;
     [SerializeField] private ActionDeckManager _deckManager; 
-    [SerializeField, Range(0, 0.5f)] private float _offsetCardWhenSelectedY = 0.1f;
+    [SerializeField, Range(0, 0.5f)] private float _cardSelectedOffsetY = 0.1f;
 
-    private Vector3 _offsetCardWhenSelected => _rectTransform.rect.height * Vector3.up * _offsetCardWhenSelectedY;
+    private Vector3 CardVertical => _rectTransform.rect.height * Vector3.up;
 
     private int _selectedIndex = -1;
     private Vector3 _letsGoOriginalPosition;
@@ -67,8 +67,8 @@ public class LockerRoomController : MonoBehaviour
         }
         foreach (var locker in _lockerPositions)
         {
-            var pos = locker.OriginalPosition + (locker.Card != null ? _offsetCardWhenSelected : Vector3.zero);
-            locker.transform.DOMove(pos, 0.5f).SetEase(_lockerEaseEnter);
+            var pos = locker.OriginalPosition + (locker.Card != null ? CardVertical * _cardSelectedOffsetY : Vector3.zero);
+            locker.RectTransform.DOAnchorPos(pos, 0.5f).SetEase(_lockerEaseEnter);
         }
         bool buttonInteractable = _lockerPositions.All(selector => selector.Card != null);
         _letsGoButton.interactable = buttonInteractable;
@@ -81,13 +81,13 @@ public class LockerRoomController : MonoBehaviour
         _moving = true;
         for (int i = 0; i < _lockerPositions.Count; i++)
         {
-            _lockerPositions[i].transform.position = _lockerPositions[i].OriginalPosition + Vector3.down * Screen.height;
+            _lockerPositions[i].RectTransform.anchoredPosition = _lockerPositions[i].OriginalPosition - CardVertical * 3;
         }
 
         yield return new WaitForSeconds(0.5f);
         for (int i = 0; i < _lockerPositions.Count; i++)
         {
-            _lockerPositions[i].transform.DOMove(_lockerPositions[i].OriginalPosition, 0.25f).SetEase(_lockerEaseEnter);
+            _lockerPositions[i].RectTransform.DOAnchorPos(_lockerPositions[i].OriginalPosition, 0.25f).SetEase(_lockerEaseEnter);
             yield return new WaitForSeconds(_lockerDelay);
         }
         _moving = false;
@@ -101,14 +101,14 @@ public class LockerRoomController : MonoBehaviour
     private IEnumerator SelectPositionRoutine(int index)
     {
         _moving = true;
-        if (_selectedIndex == index)
+        if (_selectedIndex == index || index == -1)
         {
             _catalog.DOMove(_catalogOriginalPosition + Vector3.right * Screen.width, 1f).SetEase(Ease.InOutCubic);
             yield return new WaitForSeconds(0.5f);
             foreach (var locker in _lockerPositions)
             {
-                var pos = locker.OriginalPosition + (locker.Card != null ? _offsetCardWhenSelected : Vector3.zero);
-                locker.transform.DOMove(pos, 0.5f).SetEase(_lockerEaseEnter);
+                var pos = locker.OriginalPosition + (locker.Card != null ? CardVertical * _cardSelectedOffsetY : Vector3.zero);
+                locker.RectTransform.DOAnchorPos(pos, 0.5f).SetEase(_lockerEaseEnter);
                 yield return new WaitForSeconds(_lockerDelay);
             }
             yield return new WaitForSeconds(0.1f);
@@ -123,12 +123,12 @@ public class LockerRoomController : MonoBehaviour
         {
             if (i == index)
             {
-                _lockerPositions[i].transform.DOMove(_selectedPosition.position, 0.5f).SetEase(Ease.InOutCubic);
+                _lockerPositions[i].RectTransform.DOAnchorPos(_selectedPosition.anchoredPosition, 0.5f).SetEase(Ease.InOutCubic);
             }
             else
             {
-                var pos = _lockerPositions[i].OriginalPosition + Vector3.down * Screen.height;
-                _lockerPositions[i].transform.DOMove(pos, 0.5f).SetEase(_lockerEaseLeave);
+                var pos = _lockerPositions[i].OriginalPosition - CardVertical * 3;
+                _lockerPositions[i].RectTransform.DOAnchorPos(pos, 0.5f).SetEase(_lockerEaseLeave);
                 yield return new WaitForSeconds(_lockerDelay);
             }
         }

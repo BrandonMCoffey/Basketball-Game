@@ -47,14 +47,14 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
         if (_positionText2 != null) _positionText2.text = PlayerData.PositionToString(_position);
     }
 
-    void Start() 
+    private void Awake() 
     {
         _rectTransform = GetComponent<RectTransform>();
     }
 
     public void Init(int index, Color color, LockerRoomController controller)
     {
-        _originalPosition = transform.position;
+        _originalPosition = RectTransform.anchoredPosition;
         _controllerIndex = index;
         _controller = controller;
         Color.RGBToHSV(color, out float h, out float s, out float v);
