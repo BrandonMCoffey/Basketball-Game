@@ -79,9 +79,11 @@ public class LockerRoomController : MonoBehaviour
         {
             _lockerPositions[i].transform.position = _lockerPositions[i].OriginalPosition + Vector3.down * Screen.height;
         }
+
+        yield return new WaitForSeconds(0.5f);
         for (int i = 0; i < _lockerPositions.Count; i++)
         {
-            _lockerPositions[i].transform.DOMove(_lockerPositions[i].OriginalPosition, 0.5f).SetEase(_lockerEaseEnter);
+            _lockerPositions[i].transform.DOMove(_lockerPositions[i].OriginalPosition, 0.25f).SetEase(_lockerEaseEnter);
             yield return new WaitForSeconds(_lockerDelay);
         }
         _moving = false;

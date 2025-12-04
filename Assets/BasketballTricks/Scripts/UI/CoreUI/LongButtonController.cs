@@ -3,13 +3,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using UnityEngine.Events;
+using Sirenix.OdinInspector;
 
 public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [Header("Button Settings")]
     [SerializeField] string _text;
     [SerializeField] UnityEvent _onButtonPressed;
-    [SerializeField] bool _moveTextUpOnPress = true;
+    [SerializeField] bool _moveTextOnPress = true;
+    [SerializeField, ShowIf("_moveTextOnPress")] bool _moveTextUpOnPress = true;
 
 
     [Header("References")]
@@ -18,7 +20,7 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
     float _moveTextAmount = 100f;
     Vector2 _originalTextPos;
     bool _checkForMousePos = false;
-    RectTransform _rectTransform;
+    RectTransform _rectTransform;   
 
     void OnValidate()
     {
@@ -53,16 +55,18 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        transform.DOScale(1.25f, 0.2f);
-        _buttonText.rectTransform.DOAnchorPosY(_buttonText.rectTransform.anchoredPosition.y - _moveTextAmount, 0.2f);
+        _rectTransform.DOScale(1.25f, 0.2f);
+        if (_moveTextOnPress)
+            _buttonText.rectTransform.DOAnchorPos(_originalTextPos + Vector2.up * _moveTextAmount, 0.2f);
         _checkForMousePos = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        transform.DOScale(1f, 0.2f);
+        _rectTransform.DOScale(1f, 0.2f);
         _checkForMousePos = false;
-        _buttonText.rectTransform.DOAnchorPos(_originalTextPos, 0.2f);
+        if (_moveTextOnPress)
+            _buttonText.rectTransform.DOAnchorPos(_originalTextPos, 0.2f);
         _onButtonPressed?.Invoke();
 
     }
