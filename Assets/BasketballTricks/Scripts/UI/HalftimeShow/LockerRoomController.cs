@@ -104,7 +104,7 @@ public class LockerRoomController : MonoBehaviour
         _moving = true;
         if (_selectedIndex == index || index == -1)
         {
-            _catalog.DOMove(_catalogOriginalPosition + Vector3.right * 2000, 1f).SetEase(Ease.InOutCubic);
+            _catalog.DOAnchorPos(_catalogOriginalPosition + Vector3.right * 2000, 1f).SetEase(Ease.InOutCubic);
             yield return new WaitForSeconds(0.5f);
             foreach (var locker in _lockerPositions)
             {
