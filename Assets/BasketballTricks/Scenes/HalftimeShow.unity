@@ -3148,6 +3148,7 @@ MonoBehaviour:
   - {fileID: 878855986}
   _selectedPosition: {fileID: 1445854258}
   _letsGoButton: {fileID: 1542875927}
+  _letsGoButtonT: {fileID: 1542875926}
   _catalog: {fileID: 3318022568213214731}
   _lockerEaseEnter: 27
   _lockerEaseLeave: 11
