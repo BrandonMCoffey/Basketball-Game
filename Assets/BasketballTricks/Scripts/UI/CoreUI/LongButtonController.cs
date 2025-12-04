@@ -10,6 +10,7 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
     [Header("Button Settings")]
     [SerializeField] string _text;
     [SerializeField] UnityEvent _onButtonPressed;
+    [SerializeField] Ease _easeType = Ease.OutBack;
     [SerializeField] bool _moveTextOnPress = true;
     [SerializeField, ShowIf("_moveTextOnPress")] bool _moveTextUpOnPress = true;
 
@@ -46,28 +47,28 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
             RectTransformUtility.ScreenPointToLocalPointInRectangle(_buttonText.rectTransform.parent as RectTransform, Input.mousePosition, null, out localPoint);
             if (!_rectTransform.rect.Contains(localPoint))
             {
-                transform.DOScale(1f, 0.2f);
+                transform.DOScale(1f, 0.2f).SetEase(_easeType);
                 _checkForMousePos = false;
-                _buttonText.rectTransform.DOAnchorPos(_originalTextPos, 0.2f);
+                _buttonText.rectTransform.DOAnchorPos(_originalTextPos, 0.2f).SetEase(_easeType);
             }
         }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        _rectTransform.DOScale(1.25f, 0.2f);
+        _rectTransform.DOScale(1.25f, 0.2f).SetEase(_easeType);
         if (_moveTextOnPress)
-            _buttonText.rectTransform.DOAnchorPos(_originalTextPos + Vector2.up * _moveTextAmount, 0.2f);
+            _buttonText.rectTransform.DOAnchorPos(_originalTextPos + Vector2.up * _moveTextAmount, 0.2f).SetEase(_easeType);
         _checkForMousePos = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        _rectTransform.DOScale(1f, 0.2f);
-        _checkForMousePos = false;
+        _rectTransform.DOScale(1f, 0.2f).SetEase(_easeType);
         if (_moveTextOnPress)
-            _buttonText.rectTransform.DOAnchorPos(_originalTextPos, 0.2f);
-        _onButtonPressed?.Invoke();
+            _buttonText.rectTransform.DOAnchorPos(_originalTextPos, 0.2f).SetEase(_easeType);
+        if (_checkForMousePos) _onButtonPressed?.Invoke();
+        _checkForMousePos = false;
 
     }
 }

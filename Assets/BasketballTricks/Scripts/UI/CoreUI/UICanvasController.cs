@@ -39,12 +39,12 @@ public class UICanvasController : MonoBehaviour
         }
     }
 
-    public void ChangeToGameSelect(float delay = 0.35f)
+    public void ChangeToGameSelect(float delay = 0.5f)
     {
         StartCoroutine(_stateMachine.ChangeStateWithDelayCoroutine(GameSelectState, delay));
     }
 
-    public void ChangeToMainMenu(float delay = 0.35f)
+    public void ChangeToMainMenu(float delay = 0.5f)
     {
         StartCoroutine(_stateMachine.ChangeStateWithDelayCoroutine(MainMenuState, delay));
     }

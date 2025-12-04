@@ -1,8 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class LockerPositionSelector : MonoBehaviour, IDropHandler
 {
@@ -20,6 +22,7 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
     [SerializeField] private GameObject _naturalPosition;
     [SerializeField] private GameObject _actionPanel;
     [SerializeField] private List<TMP_Text> _actionList;
+    [SerializeField] private RectTransform _addButtonImage;
 
     [Header("Colors")]
     [SerializeField] private List<Image> _coloredImages;
@@ -34,6 +37,7 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
     public GameCard Card => _activeGameCard;
     public PlayerPosition Position => _position;
     public Vector3 OriginalPosition => _originalPosition;
+    Coroutine _addPlayerAnimRoutine;
 
     private void OnValidate()
     {
@@ -61,7 +65,19 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
         if (_activeGameCard == null || _activeGameCard == null)
         {
             _playerInfo.SetActive(false);
+
+            if (_addPlayerAnimRoutine != null) StopCoroutine(_addPlayerAnimRoutine);
+            _addPlayerAnimRoutine = StartCoroutine(AddPlayerAnimationRoutine());
+            
             return;
+        }
+        {
+            if (_addPlayerAnimRoutine != null)
+            {
+                StopCoroutine(_addPlayerAnimRoutine);
+                _addPlayerAnimRoutine = null;
+            }
+            _addButtonImage.DOScale(1f, 0.2f).SetEase(Ease.OutQuad);
         }
         if (_playerNameText != null) _playerNameText.text = _activeGameCard != null ? _activeGameCard.PlayerData.PlayerName : "Player Name";
         if (_playerImage != null)
@@ -104,5 +120,16 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
         _activeGameCard = card;
         GameManager.Instance.SetPositionCard(_position, card);
         UpdateVisuals();
+    }
+
+    IEnumerator AddPlayerAnimationRoutine()
+    {
+        while (true)
+        {
+            _addButtonImage.DOScale(1.2f, 0.5f).SetEase(Ease.OutQuad);
+            yield return new WaitForSeconds(0.5f);
+            _addButtonImage.DOScale(1f, 0.5f).SetEase(Ease.OutQuad);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }
