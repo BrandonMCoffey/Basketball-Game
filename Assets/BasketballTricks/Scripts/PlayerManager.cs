@@ -19,6 +19,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private CrowdController _crowdController;
     [SerializeField] private PlayerUIManager _playerUIManager;
     [SerializeField] private SlideInPanel _cardCatalogPanel;
+    [SerializeField] private CinemachineVirtualCamera _normalCamera;
+    [SerializeField] private CinemachineVirtualCamera _trickCamera;
     [SerializeField] private CinemachineTargetGroup _cameraGroup;
 
     [Header("Drag & Drop Placement")]
@@ -76,6 +78,8 @@ public class PlayerManager : MonoBehaviour
         {
             _cameraGroup.AddMember(player.transform, 1, 2);
         }
+        _normalCamera.Priority = 10;
+        _trickCamera.Priority = 5;
     }
 
     public Vector3 GetPlayerPosition(int index)
@@ -272,6 +276,8 @@ public class PlayerManager : MonoBehaviour
         _cameraGroup.RemoveMember(_basketball.transform);
         _cameraGroup.RemoveMember(_net);
         _cameraGroup.AddMember(playerWithBall.transform, 1, 2);
+        _normalCamera.Priority = 5;
+        _trickCamera.Priority = 10;
         for (int i = 0; i < TimelineActions.Count; i++)
         {
             GameAction timelineAction = TimelineActions[i];
@@ -485,6 +491,8 @@ public class PlayerManager : MonoBehaviour
         _crowdController.SetPlaying(false);
         TimelineActions.Clear();
         RefreshTimeline?.Invoke();
+        _normalCamera.Priority = 10;
+        _trickCamera.Priority = 5;
         _cameraGroup.RemoveMember(_net);
         foreach (var player in _players)
         {
