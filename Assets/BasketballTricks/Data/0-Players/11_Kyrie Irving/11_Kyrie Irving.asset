@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerName: Kyrie Irving
   _playerNumber: 11
-  _playerSprite: {fileID: 21300000, guid: 274b423be0dfab44384b4a23fa3f8614, type: 3}
+  _playerSprite: {fileID: 21300000, guid: 480ad77a236b99f4eac66186aa4db26f, type: 3}
   _naturalPosition: 3
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}
