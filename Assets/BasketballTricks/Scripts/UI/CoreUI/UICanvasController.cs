@@ -1,111 +1,54 @@
-using System.Collections.Generic;
 using UnityEngine;
 using SaiUtils.StateMachine;
-using DG.Tweening;
-using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class UICanvasController : MonoBehaviour
 {
+    public static UICanvasController Instance { get; private set; }
     private StateMachine _stateMachine;
 
-    [Header("Animation Settings")]
-    public float transitionDuration = 0.4f;
-    public Ease transitionEase = Ease.OutExpo;
-
-    [Header("Panel References")]
-    public RectTransform menusContainer;
-    public MenuReference navBarContainer;
-    public List<MenuPositions> menuPositions;
-
-    [Header("Main Menu References")]
-    public MenuReference playerData;
-    public MenuReference campaignButton;
-    public MenuReference tournamentButton;
-    public MenuReference tradeButton;
-
-    [Header("Trade Menu References")]
-    public MenuReference cardContainer;
-    public MenuReference tradeBoxesContainer;
-
     public UIMainMenuState MainMenuState { get; private set; }
-    public UIVaultState VaultState { get; private set; }
+    public UIGameSelectState GameSelectState { get; private set; }
     public UIStoreState StoreState { get; private set; }
     public UITradeState TradeState { get; private set; }
 
-    public Vector2 GetPosition(Menus menu)
-    {
-        return menuPositions.Find(x => x.MenuName == menu).Position;
-    }
+    [SerializeField] MainMenuController _mainMenuController;
+    public MainMenuController MainMenuController => _mainMenuController;
+    [SerializeField] GameSelectController _gameSelectController;
+    public GameSelectController GameSelectController => _gameSelectController;
 
     private void Awake()
     {
         _stateMachine = new StateMachine();
         MainMenuState = new UIMainMenuState(this);
-        VaultState = new UIVaultState(this);
-        StoreState = new UIStoreState(this);
-        TradeState = new UITradeState(this);
+        GameSelectState = new UIGameSelectState(this);
 
         _stateMachine.AddAnyTransition(MainMenuState, new BlankPredicate());
-        _stateMachine.AddAnyTransition(VaultState, new BlankPredicate());
-        _stateMachine.AddAnyTransition(StoreState, new BlankPredicate());
-        _stateMachine.AddAnyTransition(TradeState, new BlankPredicate());
+        _stateMachine.AddAnyTransition(GameSelectState, new BlankPredicate());
 
         // Start in main menu
-        menusContainer.anchoredPosition = GetPosition(Menus.MainMenu);
         _stateMachine.SetState(MainMenuState);
-    }
 
-    public void PlayHalftimeShow()
-    {
-        SceneManager.LoadSceneAsync("HalftimeShow");
-    }
-
-    public void PlaySandbox()
-    {
-        SceneManager.LoadSceneAsync("TrickPlays");
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Instance == null)
         {
-            _stateMachine.ChangeState(MainMenuState);
+            Instance = this;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else
         {
-            _stateMachine.ChangeState(VaultState);
+            Destroy(gameObject);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            _stateMachine.ChangeState(StoreState);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            _stateMachine.ChangeState(TradeState);
-        }
-        _stateMachine.Update();
     }
 
-    void FixedUpdate()
+    public void ChangeToGameSelect(float delay = 0.35f)
     {
-        _stateMachine.FixedUpdate();
+        StartCoroutine(_stateMachine.ChangeStateWithDelayCoroutine(GameSelectState, delay));
     }
 
+    public void ChangeToMainMenu(float delay = 0.35f)
+    {
+        StartCoroutine(_stateMachine.ChangeStateWithDelayCoroutine(MainMenuState, delay));
+    }
 
 }
-
-public enum Menus
-{
-    MainMenu,
-    Vault,
-    Store,
-    Trade
-}
-
-[System.Serializable]
-public struct MenuPositions
-{
-    public Menus MenuName;
-    public Vector2 Position;
-}
+    
 

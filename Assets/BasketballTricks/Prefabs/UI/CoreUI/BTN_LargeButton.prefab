@@ -341,6 +341,9 @@ MonoBehaviour:
   _buttonText: {fileID: 125401464473645423}
   _iconContainer: {fileID: 102018539505732875}
   _buttonIcon: {fileID: 1747784539613628399}
+  _onButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7292392396212794714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,13 +611,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7898818194944809720}
-  m_LocalRotation: {x: -0, y: -0, z: 0.05385389, w: 0.99854887}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 102018539505732875}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 6.174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -143, y: 0}
