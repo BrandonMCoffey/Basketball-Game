@@ -58,10 +58,10 @@ public class GameSelectController : MonoBehaviour
         _leftSidePanel.anchoredPosition = new Vector2(-Screen.width * 2, _leftSidePanelOnScreenPos.y);
 
         _descriptionPanelOnScreenPos = _descriptionPanel.anchoredPosition;
-        _descriptionPanel.anchoredPosition = new Vector2(Screen.width * 2, _descriptionPanelOnScreenPos.y);
+        _descriptionPanel.anchoredPosition = new Vector2(Screen.width * 3, _descriptionPanelOnScreenPos.y);
 
         _descriptionTextOnScreenPos = _descriptionText.rectTransform.anchoredPosition;
-        _descriptionText.rectTransform.anchoredPosition = new Vector2(Screen.width * 2, _descriptionTextOnScreenPos.y);
+        _descriptionText.rectTransform.anchoredPosition = new Vector2(Screen.width * 3, _descriptionTextOnScreenPos.y);
 
         _titlePanelOnScreenPos = _titlePanel.anchoredPosition;
         _titlePanel.anchoredPosition = new Vector2(-Screen.width * 2, _titlePanelOnScreenPos.y);
@@ -117,47 +117,55 @@ public class GameSelectController : MonoBehaviour
         _isDescriptionPanelOnScreen = true;
     }
 
-    void AnimateDescriptionBounce()
+    void AnimateDescriptionBounce(Action functionality = null)
     {
         _exampleVideo.DOScale(new Vector3(1.1f, 1.1f, 1f), 0.2f).SetEase(_easeType);
         _descriptionPanel.DOAnchorPosY(_descriptionPanelOnScreenPos.y + 50f, 0.2f).SetEase(_easeType).OnComplete(() =>
         {
+            functionality?.Invoke();
             _descriptionPanel.DOAnchorPosY(_descriptionPanelOnScreenPos.y, 0.3f).SetEase(Ease.OutBounce);
             _exampleVideo.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBounce);
         });
     }
 
     public void HalfTimeShowSelect()
-    {
-        _descriptionText.text = _halfTimeDescriptionText;
-        _halfTimeVideoImage.enabled = true;
-        _zenVideoImage.enabled = false;
-        
+    {  
         if (!_isDescriptionPanelOnScreen)
         {
+            _descriptionText.text = _halfTimeDescriptionText;
+            _halfTimeVideoImage.enabled = true;
+            _zenVideoImage.enabled = false;
             AnimateDescriptionPanelOnScreen();
             return;
         }
         
-        if (_currentGameMode == GameMode.HalfTime) return;
-        AnimateDescriptionBounce();   
+        AnimateDescriptionBounce(() =>
+        {
+            _descriptionText.text = _halfTimeDescriptionText;
+            _halfTimeVideoImage.enabled = true;
+            _zenVideoImage.enabled = false;
+        });   
         _currentGameMode = GameMode.HalfTime;
     }
 
     public void SandboxSelect()
     {
-        _descriptionText.text = _zenDescriptionText;
-        _halfTimeVideoImage.enabled = false;
-        _zenVideoImage.enabled = true;
         
         if (!_isDescriptionPanelOnScreen)
         {
+            _descriptionText.text = _zenDescriptionText;
+            _halfTimeVideoImage.enabled = false;
+            _zenVideoImage.enabled = true;
             AnimateDescriptionPanelOnScreen();
             return;
         }
 
-        if (_currentGameMode == GameMode.Zen) return;
-        AnimateDescriptionBounce();
+        AnimateDescriptionBounce(() =>
+        {
+            _descriptionText.text = _zenDescriptionText;
+            _halfTimeVideoImage.enabled = false;
+            _zenVideoImage.enabled = true;
+        });
         _currentGameMode = GameMode.Zen;
     }
 

@@ -7687,6 +7687,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 423396446}
     m_Modifications:
+    - target: {fileID: 4419365819710602407, guid: ae84d61afa270974d98cf615d5eae28a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -35
+      objectReference: {fileID: 0}
     - target: {fileID: 5067705815943728779, guid: ae84d61afa270974d98cf615d5eae28a,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -7927,6 +7932,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PNL_MainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 5666220992772709677, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5694398813453030502, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
         type: 3}
