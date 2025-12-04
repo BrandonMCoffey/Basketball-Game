@@ -68,13 +68,22 @@ namespace SaiUtils.StateMachine
             _currentStateNode = _stateNodes[state.GetType()]; 
         }
 
-        IEnumerator ChangeStateWithDelayCoroutine(IState state, float delay)
+        public IEnumerator ChangeStateWithDelayCoroutine(IState state, float delay)
         {
-            // wait for a delay
-            yield return new WaitForSeconds(delay);
+            // if the state is the same as the current state, do nothing
+            if (state == _currentStateNode.State) yield break; 
 
-            // change the state
-            ChangeState(state);
+            // store the current state as the previous state and find the next state in the dictionary
+            var previousState = _currentStateNode;
+            var nextState = _stateNodes[state.GetType()].State;
+
+            // call the OnExit method of the previous state and the OnEnter method of the next state
+            previousState.State?.OnExit();
+            yield return new WaitForSeconds(delay); 
+            nextState?.OnEnter();
+
+            // set the current state to the next state
+            _currentStateNode = _stateNodes[state.GetType()]; 
         }
 
         ITransition GetTransition()

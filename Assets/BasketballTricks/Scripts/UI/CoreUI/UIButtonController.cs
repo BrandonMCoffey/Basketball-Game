@@ -43,27 +43,45 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
     {
         CreateImages();
         Initialize();
-        AnimateOnScreen(_delayBeforeOnScreen);
+        AnimateOnScreen();
     }
 
     // Animates button and its elements onto the screen
-    void AnimateOnScreen(float delay)
+    public void AnimateOnScreen()
     {
-        _rectTransform.DOAnchorPos(_onScreenAnchoredPos, 0.5f).SetDelay(delay).SetEase(Ease.OutBack);
+        _rectTransform.DOAnchorPos(_onScreenAnchoredPos, 0.5f).SetDelay(_delayBeforeOnScreen).SetEase(Ease.OutBack);
 
-        _buttonTextContainer.DOAnchorPos(_onScreenButtonTextContainerPos, 0.5f).SetDelay(delay + 0.2f).SetEase(Ease.OutBack);
+        _buttonTextContainer.DOAnchorPos(_onScreenButtonTextContainerPos, 0.5f).SetDelay(_delayBeforeOnScreen + 0.2f).SetEase(Ease.OutBack);
+        for (int i = 0; i < _iconContainer.childCount; i++)
+        {
+            //if (_icons == null || _icons.Count == 0) return;
+            RectTransform iconRect = _iconContainer.GetChild(i).GetComponent<RectTransform>();
+            iconRect.DOAnchorPos(_iconPositions[i], 0.5f).SetDelay(_delayBeforeOnScreen + 0.2f + i * 0.05f).SetEase(Ease.OutBack);
+        }
+    }
+
+    public void AnimateOffScreen()
+    {
+        _rectTransform.DOAnchorPos(new Vector2(_onScreenAnchoredPos.x, -Screen.height * 2), 0.5f).SetEase(Ease.InBack).SetDelay(_delayBeforeOnScreen);
+
+        _buttonTextContainer.DOAnchorPos(new Vector2(_onScreenButtonTextContainerPos.x, -Screen.height * 2), 0.5f).SetDelay(_delayBeforeOnScreen + 0.2f).SetEase(Ease.InBack);
 
         for (int i = 0; i < _iconContainer.childCount; i++)
         {
             //if (_icons == null || _icons.Count == 0) return;
             RectTransform iconRect = _iconContainer.GetChild(i).GetComponent<RectTransform>();
-            iconRect.DOAnchorPos(_iconPositions[i], 0.5f).SetDelay(delay + 0.2f + i * 0.05f).SetEase(Ease.OutBack);
+            iconRect.DOAnchorPos(new Vector2(_iconPositions[i].x, -Screen.height * 2), 0.5f).SetDelay(_delayBeforeOnScreen + 0.2f + i * 0.05f).SetEase(Ease.InBack);
         }
     }
 
     // Sets initial positions of button and its elements
     void Initialize()
     {
+        if (_icons == null || _icons.Count == 0)
+        {
+            _buttonIcon.rectTransform.localPosition = Vector2.zero;
+        }
+
         _rectTransform = GetComponent<RectTransform>();
         _onScreenAnchoredPos = _rectTransform.anchoredPosition;
         _rectTransform.anchoredPosition = _startOffScreen ? new Vector2(_onScreenAnchoredPos.x, -Screen.height * 2) : _onScreenAnchoredPos;
@@ -92,7 +110,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
         //     return;
         // }
         // _buttonIcon.sprite = _icons[0];
-        _buttonIcon.rectTransform.localRotation = Quaternion.Euler(0, 0, Random.Range(-6f, 6f));
+        //_buttonIcon.rectTransform.localRotation = Quaternion.Euler(0, 0, Random.Range(-6f, 6f));
 
         for (int i = 1; i < _icons.Count; i++)
         {
