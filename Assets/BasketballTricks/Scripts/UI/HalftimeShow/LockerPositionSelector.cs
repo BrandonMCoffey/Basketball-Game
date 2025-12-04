@@ -64,7 +64,16 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
             return;
         }
         if (_playerNameText != null) _playerNameText.text = _activeGameCard != null ? _activeGameCard.PlayerData.PlayerName : "Player Name";
-        if (_playerImage != null) _playerImage.sprite = _activeGameCard != null ? _activeGameCard.PlayerData.PlayerSprite : null;
+        if (_playerImage != null)
+        {
+            _playerImage.sprite = _activeGameCard != null ? _activeGameCard.PlayerData.PlayerSprite : null;
+            var aspect = _playerImage.GetComponent < AspectRatioFitter>();
+            if (aspect != null)
+            {
+                _playerImage.SetNativeSize();
+                aspect.aspectRatio = _playerImage.sprite != null ? (float)_playerImage.sprite.rect.width / _playerImage.sprite.rect.height : 1f;
+            }
+        }
         if (_naturalPosition != null) _naturalPosition.SetActive(_activeGameCard != null && _activeGameCard.PlayerData.IsNaturalPosition(_position));
         int i = 0;
         int count = Mathf.Min(_actionList.Count, _activeGameCard != null ? _activeGameCard.ActionCount : 0);
