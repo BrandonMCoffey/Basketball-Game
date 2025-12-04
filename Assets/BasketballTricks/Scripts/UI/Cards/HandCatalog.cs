@@ -93,6 +93,20 @@ public class HandCatalog : MonoBehaviour
         StartCoroutine(ShowCardsRoutine(count));
     }
 
+    public void HideCards()
+    {
+        for (int i = 0; i < _cards.Count; i++)
+        {
+            _cards[i].transform.localScale = Vector3.zero;
+        }
+        UpdateInteractibility(true);
+    }
+
+    public void ShowCards()
+    {
+        UpdateCardData();
+    }
+
     private IEnumerator ShowCardsRoutine(int cardsToShow)
     {
         if (_transitioning) yield return null;
