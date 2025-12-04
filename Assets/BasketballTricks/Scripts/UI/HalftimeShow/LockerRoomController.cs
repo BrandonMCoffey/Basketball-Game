@@ -108,8 +108,15 @@ public class LockerRoomController : MonoBehaviour
         {
             _catalog.DOAnchorPos(_catalogOriginalPosition + Vector3.right * 2000, 1f).SetEase(Ease.InOutCubic);
             yield return new WaitForSeconds(0.5f);
-            foreach (var locker in _lockerPositions)
+            if (_selectedIndex >= 0)
             {
+                _lockerPositions[_selectedIndex].RectTransform.DOAnchorPos(_lockerPositions[_selectedIndex].OriginalPosition, 0.5f).SetEase(Ease.InOutCubic);
+                yield return new WaitForSeconds(_lockerDelay);
+            }
+            for (int i = 0; i < _lockerPositions.Count; i++)
+            {
+                if (i == index) continue;
+                LockerPositionSelector locker = _lockerPositions[i];
                 var pos = locker.OriginalPosition + (locker.Card != null ? CardVertical * _cardSelectedOffsetY : Vector3.zero);
                 locker.RectTransform.DOAnchorPos(pos, 0.5f).SetEase(_lockerEaseEnter);
                 yield return new WaitForSeconds(_lockerDelay);
