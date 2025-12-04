@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerName: Cooper Flagg
   _playerNumber: 32
-  _playerSprite: {fileID: 21300000, guid: 24af9decc7d3419418e080cefa5183f6, type: 3}
+  _playerSprite: {fileID: 21300000, guid: 9638783c18b0e8141a82f361ffd0540e, type: 3}
   _naturalPosition: 3
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}
