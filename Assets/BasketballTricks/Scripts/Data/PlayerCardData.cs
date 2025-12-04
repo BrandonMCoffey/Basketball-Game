@@ -23,7 +23,7 @@ public class PlayerCardData : ScriptableObject
     }
     public ActionData GetAction(int index)
     {
-        if (index >= _actions.Count || index < 0) return new ActionData();
+        if (index >= _actions.Count || index < 0) return new ActionData(index == 2 ? ActionType.Shot : (index == 1 ? ActionType.Pass : ActionType.Trick));
         return _actions[index].GetData();
     }
 
@@ -41,12 +41,14 @@ public class CustomPlayerAction
 {
     [SerializeField] private PlayerActionData _action;
     [SerializeField] private LevelableFloat _count = new LevelableFloat(false, 1, 1, 1);
+    [SerializeField] private Sprite _imageOverride;
     [ReadOnly] public ActionData DataPreview;
 
     public int Count => Mathf.RoundToInt(_action != null ? _count.GetValue(_action.Data.ActionLevel) : _count.GetValue(1));
     public ActionData GetData()
     {
         ActionData data = _action != null ? _action.Data : new ActionData(ActionType.Trick);
+        if (_imageOverride != null) data.Icon = _imageOverride;
         return data;
     }
 }
