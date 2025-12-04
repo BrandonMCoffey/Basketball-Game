@@ -8,7 +8,7 @@ public class ActionDeckManager : MonoBehaviour
 {
     [SerializeField] private ActionCard _cardPrefab;
     [SerializeField] private int _handSize = 5;
-    [SerializeField] private Transform _cardContainer;
+    [SerializeField] private RectTransform _cardContainer;
     [SerializeField] private float _dragReorderThreshold = 50f;
 
     [Header("Card Layout")]
@@ -79,7 +79,7 @@ public class ActionDeckManager : MonoBehaviour
             _disabled = true;
             foreach (var card in _cards)
             {
-                card.transform.DOMove(card.transform.localPosition + Vector3.down * Screen.height * 0.8f, 1f).SetEase(Ease.InBack);
+                card.RectTransform.DOAnchorPos(card.RectTransform.anchoredPosition + Vector2.down * 1080f, 1f).SetEase(Ease.InBack);
             }
         }
     }

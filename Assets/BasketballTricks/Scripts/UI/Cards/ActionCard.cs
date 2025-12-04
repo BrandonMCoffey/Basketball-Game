@@ -35,6 +35,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     private Tween _rotTween;
     private bool _isSelected;
 
+    public RectTransform RectTransform => _rectTransform;
     public bool IsSelected => _isSelected;
 
     private void Awake()
@@ -127,7 +128,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
         if (!_isDragging)
         {
-            _moveTween = _rectTransform.DOLocalMove(targetPos, duration).SetEase(ease);
+            _moveTween = _rectTransform.DOAnchorPos(targetPos, duration).SetEase(ease);
         }
 
         _rotTween = _rectTransform.DOLocalRotateQuaternion(targetRot, duration);
