@@ -28,6 +28,7 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
     [SerializeField] private List<Image> _coloredImages;
     [SerializeField, Range(0, 1)] private float _saturationAdjust = 0.8f;
     [SerializeField, Range(0, 1)] private float _valueAdjust = 0.8f;
+    [SerializeField, Range(0, 1)] private float _alpha = 0.8f;
 
     private GameCard _activeGameCard;
     private LockerRoomController _controller;
@@ -60,9 +61,11 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
         Color.RGBToHSV(color, out float h, out float s, out float v);
         s *= _saturationAdjust;
         v *= _valueAdjust;
+        var c = Color.HSVToRGB(h, s, v);
+        c.a = _alpha;
         foreach (var image in _coloredImages)
         {
-            image.color = Color.HSVToRGB(h, s, v);
+            image.color = c;
         }
         UpdateVisuals();
     }

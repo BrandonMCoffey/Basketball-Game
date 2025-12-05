@@ -10,7 +10,7 @@ public class LockerRoomController : MonoBehaviour
 {
     [SerializeField] private List<LockerPositionSelector> _lockerPositions = new List<LockerPositionSelector>();
     [SerializeField] private RectTransform _selectedPosition;
-    [SerializeField] private Button _letsGoButton;
+    [SerializeField] private LongButtonController _letsGoButton;
     [SerializeField] private RectTransform _letsGoButtonT;
     [SerializeField] private RectTransform _catalog;
     [SerializeField] private Ease _lockerEaseEnter = Ease.InQuart;
@@ -37,7 +37,7 @@ public class LockerRoomController : MonoBehaviour
         {
             _lockerPositions[i].Init(i, players[i].PositionColor, this);
         }
-        _letsGoButton.interactable = false;
+        _letsGoButton.Interactable = false;
         _letsGoOriginalPosition = _letsGoButtonT.anchoredPosition;
         _letsGoButtonT.DOAnchorPos(_letsGoOriginalPosition + Vector3.down * 400f, 0);
         _catalogOriginalPosition = _catalog.anchoredPosition;
@@ -74,7 +74,7 @@ public class LockerRoomController : MonoBehaviour
             locker.RectTransform.DOAnchorPos(pos, 0.5f).SetEase(_lockerEaseEnter);
         }
         bool buttonInteractable = _lockerPositions.All(selector => selector.Card != null);
-        _letsGoButton.interactable = buttonInteractable;
+        _letsGoButton.Interactable = buttonInteractable;
         if (buttonInteractable) _letsGoButtonT.DOAnchorPos(_letsGoOriginalPosition, 0.5f).SetEase(Ease.InOutCubic);
     }
 
@@ -108,15 +108,22 @@ public class LockerRoomController : MonoBehaviour
         {
             _catalog.DOAnchorPos(_catalogOriginalPosition + Vector3.right * 2000, 1f).SetEase(Ease.InOutCubic);
             yield return new WaitForSeconds(0.5f);
-            foreach (var locker in _lockerPositions)
+            if (_selectedIndex >= 0)
             {
+                _lockerPositions[_selectedIndex].RectTransform.DOAnchorPos(_lockerPositions[_selectedIndex].OriginalPosition, 0.5f).SetEase(Ease.InOutCubic);
+                yield return new WaitForSeconds(_lockerDelay);
+            }
+            for (int i = 0; i < _lockerPositions.Count; i++)
+            {
+                if (i == index) continue;
+                LockerPositionSelector locker = _lockerPositions[i];
                 var pos = locker.OriginalPosition + (locker.Card != null ? CardVertical * _cardSelectedOffsetY : Vector3.zero);
                 locker.RectTransform.DOAnchorPos(pos, 0.5f).SetEase(_lockerEaseEnter);
                 yield return new WaitForSeconds(_lockerDelay);
             }
             yield return new WaitForSeconds(0.1f);
             bool buttonInteractable = _lockerPositions.All(selector => selector.Card != null);
-            _letsGoButton.interactable = buttonInteractable;
+            _letsGoButton.Interactable = buttonInteractable;
             if (buttonInteractable) _letsGoButtonT.DOAnchorPos(_letsGoOriginalPosition, 0.5f).SetEase(Ease.InOutCubic);
             _selectedIndex = -1;
             _moving = false;

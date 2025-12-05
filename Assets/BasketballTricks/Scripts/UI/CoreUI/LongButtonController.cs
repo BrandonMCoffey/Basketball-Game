@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using DG.Tweening;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
+using System.Collections;
 
 public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -13,11 +14,21 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
     [SerializeField] Ease _easeType = Ease.OutBack;
     [SerializeField] bool _moveTextOnPress = true;
     [SerializeField, ShowIf("_moveTextOnPress")] bool _moveTextUpOnPress = true;
-
+    [SerializeField] bool _invokeOnAnimComplete = false;
 
     [Header("References")]
     [SerializeField] TextMeshProUGUI _buttonText;
 
+    bool _interactable = true;
+    public bool Interactable 
+    { 
+        get => _interactable; 
+        set
+        {
+            _interactable = value;
+            _buttonText.color = _interactable ? Color.white : Color.gray;
+        }
+    }
     float _moveTextAmount = 100f;
     Vector2 _originalTextPos;
     bool _checkForMousePos = false;
@@ -56,19 +67,29 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (!_interactable) return;
         _rectTransform.DOScale(1.25f, 0.2f).SetEase(_easeType);
-        if (_moveTextOnPress)
+        if (false)
             _buttonText.rectTransform.DOAnchorPos(_originalTextPos + Vector2.up * _moveTextAmount, 0.2f).SetEase(_easeType);
         _checkForMousePos = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (!_interactable) return;
         _rectTransform.DOScale(1f, 0.2f).SetEase(_easeType);
-        if (_moveTextOnPress)
+        if (false)
             _buttonText.rectTransform.DOAnchorPos(_originalTextPos, 0.2f).SetEase(_easeType);
-        if (_checkForMousePos) _onButtonPressed?.Invoke();
+        if (_checkForMousePos) StartCoroutine(InvokeActionRoutine(0.2f));
         _checkForMousePos = false;
+    }
 
+    IEnumerator InvokeActionRoutine(float delay = 0f)
+    {
+        if (_invokeOnAnimComplete)
+        {
+            yield return new WaitForSeconds(delay);
+        }
+        _onButtonPressed?.Invoke();
     }
 }
