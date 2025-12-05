@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hook Shot
   m_EditorClassIdentifier: 
   _data:
-    Name: Catch-and-Shoot 3
+    Name: Hook Shot
     CardText: '@EffectIfSequence'
     PreviewText: If no tricks are played this sequence, gain +1 Energy
     Type: 3

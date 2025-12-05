@@ -15,23 +15,23 @@ MonoBehaviour:
   _data:
     Name: No-Look Pass
     CardText: '@NextEffect'
-    PreviewText: Next shot this game gains +10 Hype
+    PreviewText: Next shot this game gains +20 Hype
     Type: 2
     AssociatedRarity: 3
     AllowedPositions: 5
     Cost:
       isLevelable: 0
       levels:
-      - 2
+      - 0
       - 0
       - 0
     ActionLevel: 1
     HypeGain:
       isLevelable: 1
       levels:
-      - 25
-      - 30
-      - 50
+      - 10
+      - 15
+      - 20
     EnergyGain:
       isLevelable: 0
       levels:
@@ -128,9 +128,9 @@ MonoBehaviour:
       AddHypeToCard:
         isLevelable: 1
         levels:
-        - 10
-        - 15
         - 20
+        - 25
+        - 30
       AddEnergyGainToCard:
         isLevelable: 0
         levels:
@@ -161,7 +161,7 @@ MonoBehaviour:
         - 0
         - 0
         - 0
-    NextEffectPreviewText: Next shot this game gains +10 Hype
+    NextEffectPreviewText: Next shot this game gains +20 Hype
     Icon: {fileID: 0}
     Animation: 10
     Duration: 2

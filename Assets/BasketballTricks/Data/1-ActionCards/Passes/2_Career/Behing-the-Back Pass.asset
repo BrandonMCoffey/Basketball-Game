@@ -22,16 +22,16 @@ MonoBehaviour:
     Cost:
       isLevelable: 0
       levels:
-      - 1
+      - 0
       - 0
       - 0
     ActionLevel: 1
     HypeGain:
       isLevelable: 1
       levels:
+      - 5
       - 10
       - 15
-      - 20
     EnergyGain:
       isLevelable: 0
       levels:

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Step-Back Jumper
   m_EditorClassIdentifier: 
   _data:
-    Name: Fadeaway
+    Name: Step-Back Jumper
     CardText: Next Trick drawn costs 0
     PreviewText: Next Trick drawn costs 0
     Type: 3

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data:
     Name: Catch-and-Shoot 3
-    CardText: If receiver, +40 Bonus Hype
-    PreviewText: If receiver, +40 Bonus Hype
+    CardText: If receiver, +40 Bonus Hype.
+    PreviewText: If receiver, +40 Bonus Hype.
     Type: 3
     AssociatedRarity: 2
     AllowedPositions: 2
