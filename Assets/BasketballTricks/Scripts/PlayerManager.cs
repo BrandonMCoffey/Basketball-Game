@@ -15,13 +15,11 @@ public class PlayerManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Basketball _basketball;
-    [SerializeField] private Transform _net;
+    [SerializeField] private BasketballGoal _goal;
     [SerializeField] private CrowdController _crowdController;
     [SerializeField] private PlayerUIManager _playerUIManager;
     [SerializeField] private SlideInPanel _cardCatalogPanel;
-    [SerializeField] private CinemachineVirtualCamera _normalCamera;
-    [SerializeField] private CinemachineVirtualCamera _trickCamera;
-    [SerializeField] private CinemachineTargetGroup _cameraGroup;
+    [SerializeField] private TrickshotCamera _trickshotCamera;
 
     [Header("Drag & Drop Placement")]
     [SerializeField] private RectTransform _minimumMouseXShow;
@@ -74,12 +72,7 @@ public class PlayerManager : MonoBehaviour
                 player.PlayerArt.SetPlayerArt(_randomPlayerArt[Random.Range(0, _randomPlayerArt.Count)].GetData());
             }
         }
-        foreach (var player in _players)
-        {
-            _cameraGroup.AddMember(player.transform, 1, 2);
-        }
-        _normalCamera.Priority = 10;
-        _trickCamera.Priority = 5;
+        _trickshotCamera.SetNormalCamera();
     }
 
     public Vector3 GetPlayerPosition(int index)
@@ -219,7 +212,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (_simulating || !IsSequenceValid()) return false;
         _simulating = true;
-        StartCoroutine(SimulateRoutine());
+        StartCoroutine(TrickshotRoutine());
         return true;
     }
 
@@ -256,213 +249,42 @@ public class PlayerManager : MonoBehaviour
         return true;
     }
 
-    private IEnumerator SimulateRoutine()
+    private IEnumerator TrickshotRoutine()
     {
         Hype = 0;
         UpdateHype?.Invoke(Hype);
-        var startPlayer = TimelineActions[0].Player;
-        startPlayer.SetAnimation(PlayerAnimation.IdleHold);
-        for (float t = 0; t < 1f; t += Time.deltaTime)
-        {
-            _basketball.transform.position = startPlayer.BasketballPosition;
-            yield return null;
-        }
         _crowdController.SetPlaying(true);
         Player playerWithBall = TimelineActions[0].Player;
-        foreach (var player in _players)
-        {
-            _cameraGroup.RemoveMember(player.transform);
-        }
-        _cameraGroup.RemoveMember(_basketball.transform);
-        _cameraGroup.RemoveMember(_net);
-        _cameraGroup.AddMember(playerWithBall.transform, 1, 2);
-        _normalCamera.Priority = 5;
-        _trickCamera.Priority = 10;
+        _trickshotCamera.SetTrickCamera(playerWithBall.CameraTarget);
+        yield return StartCoroutine(HoldBallRoutine(playerWithBall, 1f, PlayerAnimation.IdleHold));
         for (int i = 0; i < TimelineActions.Count; i++)
         {
-            GameAction timelineAction = TimelineActions[i];
-            var player = timelineAction.Player;
-            if (player.CardData == null) continue;
+            yield return StartCoroutine(HoldBallRoutine(playerWithBall, 0.3f, PlayerAnimation.IdleHold));
 
-            // Pass
-            if (playerWithBall != player)
+            var timelinePlayer = TimelineActions[i].Player;
+            if (playerWithBall != timelinePlayer)
             {
-                _cameraGroup.AddMember(player.transform, 1, 2);
-                Debug.Log($"Basic pass from {playerWithBall.name} to {player.name}");
-                // Face each other
-                playerWithBall.FaceOtherPlayer(player, 0.2f);
-                for (float t = 0; t < 0.2f; t += Time.deltaTime)
-                {
-                    _basketball.transform.position = playerWithBall.BasketballPosition;
-                    yield return null;
-                }
-
-                playerWithBall.SetAnimation(PlayerAnimation.Pass);
-                for (float t = 0; t < _tossPrepTime; t += Time.deltaTime)
-                {
-                    _basketball.transform.position = playerWithBall.BasketballPosition;
-                    yield return null;
-                }
-
-                // Pass the ball (arc)
-                Vector3 startPos = playerWithBall.BasketballPosition;
-                Vector3 endPos = player.HeadPosition;
-
-                bool catchTriggered = false;
-                float splitTime = 0.5f;
-                float timeScale = 1f;
-                float catchT = Mathf.Max(0f, splitTime - _catchAnimationLeadTime) * timeScale;
-
-                Vector3 displacementXZ = new Vector3(endPos.x - startPos.x, 0, endPos.z - startPos.z);
-                Vector3 velocityXZ = displacementXZ * timeScale;
-                float displacementY = endPos.y - startPos.y;
-                float velocityY = (displacementY * timeScale) + 0.5f * _arcGravity * splitTime;
-
-                for (float t = 0; t < 1f; t += Time.deltaTime * timeScale)
-                {
-                    Vector3 xzPos = startPos + velocityXZ * t;
-                    float yPos = startPos.y + velocityY * t - 0.5f * _arcGravity * t * t;
-                    float catchLerpDelta = catchTriggered ? (t - catchT) / (1 - catchT) : 0;
-                    _basketball.transform.position = Vector3.Lerp(new Vector3(xzPos.x, yPos, xzPos.z), player.BasketballPosition, catchLerpDelta);
-
-                    if (!catchTriggered && t >= catchT)
-                    {
-                        catchTriggered = true;
-                        player.SetAnimation(PlayerAnimation.Catch);
-                        _cameraGroup.RemoveMember(playerWithBall.transform);
-                    }
-                    yield return null;
-                }
-
-                // Pass the ball (catch hold)
-                for (float t = 0; t < _catchHoldTime; t += Time.deltaTime)
-                {
-                    _basketball.transform.position = player.BasketballPosition;
-                    yield return null;
-                }
+                yield return StartCoroutine(PassRoutine(playerWithBall, timelinePlayer));
+                playerWithBall = timelinePlayer;
+                yield return StartCoroutine(HoldBallRoutine(playerWithBall, 0.3f, PlayerAnimation.IdleHold));
             }
-            playerWithBall.SetAnimation(PlayerAnimation.Idle);
-            playerWithBall = player;
 
-            var action = player.CardData.GetAction(timelineAction.ActionIndex);
-            Hype += action.HypeGain.GetValue(action.ActionLevel);
-            _crowdController.SetHype(Hype / 100f);
-            UpdateHype?.Invoke(Hype);
-            player.SetActionText(action.Name, action.Duration);
-            player.EmitParticles();
-            Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.HypeGain} points.");
+            var action = playerWithBall.CardData.GetAction(TimelineActions[i].ActionIndex);
+            ApplyActionEffects(playerWithBall, action);
             if (action.Type == ActionType.Pass)
             {
-                float splitTime = 0.5f;// Mathf.Max(0f, action.Duration - _tossPrepTime - _catchHoldTime) * 0.5f;
-
-                // Face each other
-                var otherPlayer = TimelineActions[i + 1].Player;
-                _cameraGroup.AddMember(otherPlayer.transform, 1, 2);
-                player.FaceOtherPlayer(otherPlayer, splitTime);
-                player.SetAnimation(PlayerAnimation.IdleHold);
-                for (float t = 0; t < splitTime; t += Time.deltaTime)
-                {
-                    _basketball.transform.position = player.BasketballPosition;
-                    yield return null;
-                }
-
-                // Pass the ball (toss hold)
-                player.SetAnimation(action.Animation);
-                for (float t = 0; t < _tossPrepTime; t += Time.deltaTime)
-                {
-                    _basketball.transform.position = player.BasketballPosition;
-                    yield return null;
-                }
-
-                // Pass the ball (arc)
-                Vector3 startPos = player.BasketballPosition;
-                Vector3 endPos = otherPlayer.HeadPosition; // Assumes the player catches near the head (TODO: Make this better)
-
-                bool catchTriggered = false;
-                float timeScale = 1f / splitTime;
-                float catchT = Mathf.Max(0f, splitTime - _catchAnimationLeadTime) * timeScale;
-
-                Vector3 displacementXZ = new Vector3(endPos.x - startPos.x, 0, endPos.z - startPos.z);
-                Vector3 velocityXZ = displacementXZ * timeScale;
-                float displacementY = endPos.y - startPos.y;
-                float velocityY = (displacementY * timeScale) + 0.5f * _arcGravity * splitTime;
-
-                for (float t = 0; t < 1f; t += Time.deltaTime * timeScale)
-                {
-                    Vector3 xzPos = startPos + velocityXZ * t;
-                    float yPos = startPos.y + velocityY * t - 0.5f * _arcGravity * t * t;
-                    float catchLerpDelta = catchTriggered ? (t - catchT) / (1 - catchT) : 0;
-                    _basketball.transform.position = Vector3.Lerp(new Vector3(xzPos.x, yPos, xzPos.z), otherPlayer.BasketballPosition, catchLerpDelta);
-
-                    if (!catchTriggered && t >= catchT)
-                    {
-                        catchTriggered = true;
-                        otherPlayer.SetAnimation(PlayerAnimation.Catch);
-                        _cameraGroup.RemoveMember(player.transform);
-                    }
-                    yield return null;
-                }
-
-                // Pass the ball (catch hold)
-                for (float t = 0; t < _catchHoldTime; t += Time.deltaTime)
-                {
-                    _basketball.transform.position = otherPlayer.BasketballPosition;
-                    yield return null;
-                }
-                playerWithBall = otherPlayer;
+                var passToPlayer = TimelineActions[i + 1].Player;
+                yield return StartCoroutine(PassRoutine(playerWithBall, passToPlayer));
+                playerWithBall = passToPlayer;
             }
             else if (action.Type == ActionType.Shot)
             {
-                float splitTime = Mathf.Max(0.01f, action.Duration - _shotPrepTime) * 0.5f;
+                yield return StartCoroutine(ShotRoutine(playerWithBall));
 
-                // Face the net
-                _cameraGroup.AddMember(_net, 1, 3);
-                player.FacePosition(_net.position, splitTime);
-                player.SetAnimation(PlayerAnimation.IdleHold);
-                for (float t = 0; t < splitTime; t += Time.deltaTime)
-                {
-                    _basketball.transform.position = player.BasketballPosition;
-                    yield return null;
-                }
-
-                // Shoot (hold)
-                player.SetAnimation(action.Animation); // Auto transitions to IdleHold in Animator Graph
-                for (float t = 0; t < _shotPrepTime; t += Time.deltaTime)
-                {
-                    _basketball.transform.position = player.BasketballPosition;
-                    yield return null;
-                }
-
-                // Shoot (arc)
-                var startPos = player.BasketballPosition;
-                var endPos = _net.position;
-
-                Vector3 displacementXZ = new Vector3(endPos.x - startPos.x, 0, endPos.z - startPos.z);
-                Vector3 velocityXZ = displacementXZ / splitTime;
-                float displacementY = endPos.y - startPos.y;
-                float velocityY = (displacementY / splitTime) + 0.5f * _arcGravity * splitTime;
-
-                for (float t = 0; t < splitTime; t += Time.deltaTime)
-                {
-                    Vector3 xzPos = startPos + velocityXZ * t;
-                    float yPos = startPos.y + velocityY * t - 0.5f * _arcGravity * t * t;
-                    _basketball.transform.position = new Vector3(xzPos.x, yPos, xzPos.z);
-                    yield return null;
-                }
-                _basketball.transform.position = endPos;
-
-                // Fall through net
-                var groundPos = new Vector3(endPos.x, 0.22f, endPos.z);
-                yield return _basketball.transform.DOMove(groundPos, 1f).SetEase(Ease.OutBounce).WaitForCompletion();
-                
                 if (_allowMultipleShots && i < TimelineActions.Count - 1)
                 {
-                    _cameraGroup.RemoveMember(player.transform);
-                    _cameraGroup.RemoveMember(_net);
-                    _cameraGroup.AddMember(_players[2].transform, 1, 2);
-                    playerWithBall = _players[2]; // Give ball to Center
-                    playerWithBall.SetAnimation(PlayerAnimation.IdleHold);
-                    _basketball.transform.position = playerWithBall.BasketballPosition; // TODO: Pickup ball?
+                    playerWithBall = _players[2]; // Give ball to center
+                    _trickshotCamera.SetTrickFocus(playerWithBall.CameraTarget);
                 }
                 else
                 {
@@ -470,19 +292,116 @@ public class PlayerManager : MonoBehaviour
                     break;
                 }
             }
-            else
+            else // Trick
             {
-                player.SetAnimation(action.Animation);
-                float timeScale = 1f / action.Duration;
-                for (float t = 0; t < 1f; t += Time.deltaTime * timeScale)
-                {
-                    _basketball.transform.position = player.BasketballPosition;
-                    yield return null;
-                }
-                player.SetAnimation(PlayerAnimation.Idle);
+                yield return StartCoroutine(HoldBallRoutine(playerWithBall, action.Duration, action.Animation));
             }
         }
         OnSequenceCompleted();
+    }
+
+    private IEnumerator HoldBallRoutine(Player player, float duration, PlayerAnimation? animation)
+    {
+        if (animation.HasValue) player.SetAnimation(animation.Value);
+        for (float t = 0; t < duration; t += Time.deltaTime)
+        {
+            _basketball.transform.position = player.BasketballPosition;
+            yield return null;
+        }
+    }
+
+    private void ApplyActionEffects(Player player, ActionData action)
+    {
+        Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.HypeGain} points.");
+
+        Hype += action.HypeGain.GetValue(action.ActionLevel);
+        _crowdController.SetHype(Hype / 100f);
+        UpdateHype?.Invoke(Hype);
+        player.SetActionText(action.Name, action.Duration);
+        player.EmitParticles();
+    }
+
+    private IEnumerator PassRoutine(Player fromPlayer, Player toPlayer)
+    {
+        float splitTime = 0.5f;// Mathf.Max(0f, action.Duration - _tossPrepTime - _catchHoldTime) * 0.5f;
+
+        // Face each other
+        _trickshotCamera.SetTrickFocus(fromPlayer.CameraTarget, toPlayer.CameraTarget);
+        fromPlayer.FaceOtherPlayer(toPlayer, splitTime);
+        yield return StartCoroutine(HoldBallRoutine(fromPlayer, splitTime, PlayerAnimation.IdleHold));
+
+        // Pass the ball (toss hold)
+        yield return StartCoroutine(HoldBallRoutine(fromPlayer, _tossPrepTime, PlayerAnimation.Pass));
+
+        // Pass the ball (arc)
+        Vector3 startPos = fromPlayer.BasketballPosition;
+        Vector3 endPos = toPlayer.HeadPosition; // Assumes the player catches near the head (TODO: Make this better)
+
+        bool catchTriggered = false;
+        float timeScale = 1f / splitTime;
+        float catchT = Mathf.Max(0f, splitTime - _catchAnimationLeadTime) * timeScale;
+
+        Vector3 displacementXZ = new Vector3(endPos.x - startPos.x, 0, endPos.z - startPos.z);
+        Vector3 velocityXZ = displacementXZ * timeScale;
+        float displacementY = endPos.y - startPos.y;
+        float velocityY = (displacementY * timeScale) + 0.5f * _arcGravity * splitTime;
+
+        for (float t = 0; t < 1f; t += Time.deltaTime * timeScale)
+        {
+            Vector3 xzPos = startPos + velocityXZ * t;
+            float yPos = startPos.y + velocityY * t - 0.5f * _arcGravity * t * t;
+            float catchLerpDelta = catchTriggered ? (t - catchT) / (1 - catchT) : 0;
+            _basketball.transform.position = Vector3.Lerp(new Vector3(xzPos.x, yPos, xzPos.z), toPlayer.BasketballPosition, catchLerpDelta);
+
+            if (!catchTriggered && t >= catchT)
+            {
+                catchTriggered = true;
+                toPlayer.SetAnimation(PlayerAnimation.Catch);
+                _trickshotCamera.SetTrickFocus(toPlayer.CameraTarget);
+            }
+            yield return null;
+        }
+        fromPlayer.SetAnimation(PlayerAnimation.Idle);
+
+        // Pass the ball (catch hold)
+        yield return StartCoroutine(HoldBallRoutine(toPlayer, _catchHoldTime, null));
+    }
+
+    private IEnumerator ShotRoutine(Player player)
+    {
+        float splitTime = 0.5f;
+
+        // Face the net
+        _trickshotCamera.SetTrickFocus(player.CameraTarget, _goal.NetTarget);
+        player.FacePosition(_goal.NetTarget.position, splitTime);
+        yield return StartCoroutine(HoldBallRoutine(player, splitTime, PlayerAnimation.IdleHold));
+
+        // Shoot (hold)
+        yield return StartCoroutine(HoldBallRoutine(player, _shotPrepTime, PlayerAnimation.Shoot));
+
+        // Shoot (arc)
+        var startPos = player.BasketballPosition;
+        var endPos = _goal.NetTarget.position + Vector3.up * 0.25f;
+
+        Vector3 displacementXZ = new Vector3(endPos.x - startPos.x, 0, endPos.z - startPos.z);
+        Vector3 velocityXZ = displacementXZ / splitTime;
+        float displacementY = endPos.y - startPos.y;
+        float velocityY = (displacementY / splitTime) + 0.5f * _arcGravity * splitTime;
+
+        for (float t = 0; t < splitTime; t += Time.deltaTime)
+        {
+            Vector3 xzPos = startPos + velocityXZ * t;
+            float yPos = startPos.y + velocityY * t - 0.5f * _arcGravity * t * t;
+            _basketball.transform.position = new Vector3(xzPos.x, yPos, xzPos.z);
+            yield return null;
+        }
+        _basketball.transform.position = endPos;
+
+        player.SetAnimation(PlayerAnimation.Idle); // Victory dance?
+
+        // Fall through net
+        var groundPos = new Vector3(endPos.x, 0.22f, endPos.z);
+        yield return _basketball.transform.DOMove(groundPos, 1f).SetEase(Ease.OutBounce).WaitForCompletion();
     }
 
     private void OnSequenceCompleted()
@@ -491,17 +410,7 @@ public class PlayerManager : MonoBehaviour
         _crowdController.SetPlaying(false);
         TimelineActions.Clear();
         RefreshTimeline?.Invoke();
-        _normalCamera.Priority = 10;
-        _trickCamera.Priority = 5;
-        _cameraGroup.RemoveMember(_net);
-        foreach (var player in _players)
-        {
-            _cameraGroup.RemoveMember(player.transform);
-        }
-        foreach (var player in _players)
-        {
-            _cameraGroup.AddMember(player.transform, 1, 2);
-        }
+        _trickshotCamera.SetNormalCamera();
         foreach (var player in _players)
         {
             player.FacePosition(player.transform.position + new Vector3(0, 0, 1f), 1f);

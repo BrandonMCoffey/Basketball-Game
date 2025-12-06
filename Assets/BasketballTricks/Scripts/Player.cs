@@ -16,13 +16,15 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteRenderer _positionIndicator;
     [SerializeField] private ParticleSystem _particles;
     [SerializeField] private TMP_Text _actionText;
+    [SerializeField] private Transform _cameraTarget;
     [SerializeField] private Transform _basketballSocket;
     [SerializeField] private Vector3 _basketballOffset;
 
     public GameCard CardData => _cardData;
     public Color PositionColor => _positionColor;
-    public Vector3 BasketballPosition => _basketballSocket.TransformPoint(_basketballOffset);
     public PlayerArt PlayerArt => _playerArt;
+    public Transform CameraTarget => _cameraTarget;
+    public Vector3 BasketballPosition => _basketballSocket.TransformPoint(_basketballOffset);
     public Vector3 HeadPosition => _playerArt.Head.position;
 
     private float _fadeTimer;
@@ -111,7 +113,7 @@ public class Player : MonoBehaviour
 [System.Serializable]
 public enum PlayerAnimation
 {
-    // Basic animations (0-9)
+    // Basic animations (1-9)
     Idle = 1,
     IdleHold = 2,
 
