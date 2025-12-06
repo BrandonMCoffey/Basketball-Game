@@ -14,154 +14,177 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data:
     Name: Step-Back Jumper
-    CardText: Next Trick drawn costs 0
-    PreviewText: Next Trick drawn costs 0
+    _cardText: Next Trick drawn costs 0
+    _previewText: Next Trick drawn costs 0
+    _cardSummary: For 2 cost, gain +45 Hype. On next trick drawn reduce cost by 100.
     Type: 3
     AssociatedRarity: 3
     AllowedPositions: 3
-    Cost:
-      isLevelable: 0
-      levels:
-      - 2
-      - 0
-      - 0
     ActionLevel: 1
-    HypeGain:
-      isLevelable: 1
-      levels:
-      - 45
-      - 50
-      - 60
-    EnergyGain:
-      isLevelable: 0
-      levels:
-      - 0
-      - 0
-      - 0
-    DrawCards:
-      isLevelable: 0
-      levels:
-      - 0
-      - 0
-      - 0
-    MultiplyHype:
-      isLevelable: 0
-      levels:
-      - 0
-      - 0
-      - 0
+    _cardData:
+      _cost:
+        isLevelable: 0
+        levels:
+        - 2
+        - 0
+        - 0
+      _hypeGain:
+        isLevelable: 1
+        levels:
+        - 45
+        - 50
+        - 60
+      _multiplyHype:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      _energyGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      _drawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      _retriggerCard:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
     HasEffectIfSequence: 0
     EffectIfSequence:
       Requirements: 0
       OfType: 0
-      HypeGain:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      EnergyGain:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      AdjustCost:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      DrawCards:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      MultiplyHype:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-    EffectIfSequencePreviewText: 
+      Effects:
+        _cost:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _hypeGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _multiplyHype:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _energyGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _drawCards:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _retriggerCard:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+    _effectIfSequencePreviewText: 
     HasEffectIfPrevious: 0
     EffectIfPrevious:
       RequiredType: 0
       RequiredPosition: 31
-      HypeGain:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      EnergyGain:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      AdjustCost:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      DrawCards:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      MultiplyHype:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-    EffectIfPreviousPreviewText: 
+      Effects:
+        _cost:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _hypeGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _multiplyHype:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _energyGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _drawCards:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _retriggerCard:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+    _effectIfPreviousPreviewText: 
     HasNextEffect: 1
     NextEffect:
       AppliesTo: 3
       RequiredType: 1
       RequiredPosition: 31
-      AddHypeToCard:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      AddEnergyGainToCard:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      AdjustCardCost:
-        isLevelable: 0
-        levels:
-        - -10
-        - 0
-        - 0
-      DrawCards:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      MultiplyHype:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      Retriggers:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-    NextEffectPreviewText: Next trick drawn costs 10 less Energy
+      Effects:
+        _cost:
+          isLevelable: 0
+          levels:
+          - -100
+          - 0
+          - 0
+        _hypeGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _multiplyHype:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _energyGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _drawCards:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _retriggerCard:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+    _nextEffectPreviewText: On next trick drawn reduce cost by 100
     Icon: {fileID: 0}
     Animation: 200
     Duration: 2

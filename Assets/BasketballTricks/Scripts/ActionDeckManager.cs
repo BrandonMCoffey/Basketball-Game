@@ -68,8 +68,16 @@ public class ActionDeckManager : MonoBehaviour
     public void OnUpdateSelected()
     {
         if (_disabled) return;
+        var sequence = _cards.Where(card => card.IsSelected).Select(card => card.Action).ToList();
+        PlayerManager.Instance.PreviewSequence(sequence);
+
         // TODO: Calculate sequence cost and display
-        PlayerManager.Instance.PreviewSequence(_cards.Where(card => card.IsSelected).Select(card => card.Action).ToList());
+        float cost = 0;
+        foreach (var card in sequence)
+        {
+            cost += card.Player.CardData.GetAction(card.ActionIndex).Effects.Cost;
+        }
+        Debug.Log($"Sequence Cost: {cost}");
     }
 
     public void StartSequence()

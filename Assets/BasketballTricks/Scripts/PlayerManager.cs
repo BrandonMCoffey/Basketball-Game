@@ -40,6 +40,8 @@ public class PlayerManager : MonoBehaviour
     public static event System.Action RefreshPlayers = delegate { };
     public static event System.Action<float> UpdateHype = delegate { };
 
+    private List<EffectNext> _effectNextStack = new List<EffectNext>();
+
     public float Hype { get; private set; }
 
     private bool _simulating;
@@ -311,14 +313,29 @@ public class PlayerManager : MonoBehaviour
 
     private void ApplyActionEffects(Player player, ActionData action)
     {
-        // TODO: Use data to calculate and apply effects
-        Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.HypeGain} points.");
+        Debug.Log($"Play Action: {action.ActionSummary}");
+        var effects = action.Effects;
 
-        Hype += action.HypeGain.GetValue(action.ActionLevel);
-        _crowdController.SetHype(Hype / 100f);
-        UpdateHype?.Invoke(Hype);
+        for (int i = _effectNextStack.Count - 1; i >= 0; i--)
+        {
+            EffectNext nextEffect = _effectNextStack[i];
+            // TODO: Check and apply and delete any matching next effects
+        }
+
+        Hype += effects.HypeGain;
+        // TODO: Apply other effects
+
+        // TODO: Check sequence for effects if previous and sequence effects
+
+        _effectNextStack.Add(action.NextEffect);
+
+        // Action visual effects
         player.SetActionText(action.Name, action.Duration);
         player.EmitParticles();
+
+        // Update visuals
+        UpdateHype?.Invoke(Hype);
+        _crowdController.SetHype(Hype / 100f);
     }
 
     private IEnumerator PassRoutine(Player fromPlayer, Player toPlayer)

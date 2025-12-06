@@ -14,154 +14,179 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data:
     Name: Sky-High Ball Fake
-    CardText: '@NextEffect'
-    PreviewText: Next trick this sequence triggers an additional time
+    _cardText: Next trick this sequence triggers an additional time
+    _previewText: Next trick this sequence triggers an additional time
+    _cardSummary: For 1 cost, gain +10 Hype. On next trick this sequence trigger
+      card an additional time.
     Type: 1
     AssociatedRarity: 3
     AllowedPositions: 12
-    Cost:
-      isLevelable: 0
-      levels:
-      - 1
-      - 0
-      - 0
     ActionLevel: 1
-    HypeGain:
-      isLevelable: 1
-      levels:
-      - 10
-      - 15
-      - 25
-    EnergyGain:
-      isLevelable: 0
-      levels:
-      - 0
-      - 0
-      - 0
-    DrawCards:
-      isLevelable: 0
-      levels:
-      - 0
-      - 0
-      - 0
-    MultiplyHype:
-      isLevelable: 0
-      levels:
-      - 0
-      - 0
-      - 0
-    HasEffectIfSequence: 0
-    EffectIfSequence:
-      Requirements: 0
-      OfType: 0
-      HypeGain:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      EnergyGain:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      AdjustCost:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      DrawCards:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      MultiplyHype:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-    EffectIfSequencePreviewText: 
-    HasEffectIfPrevious: 0
-    EffectIfPrevious:
-      RequiredType: 0
-      RequiredPosition: 31
-      HypeGain:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      EnergyGain:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      AdjustCost:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      DrawCards:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      MultiplyHype:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-    EffectIfPreviousPreviewText: 
-    HasNextEffect: 1
-    NextEffect:
-      AppliesTo: 1
-      RequiredType: 1
-      RequiredPosition: 31
-      AddHypeToCard:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      AddEnergyGainToCard:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      AdjustCardCost:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      DrawCards:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      MultiplyHype:
-        isLevelable: 0
-        levels:
-        - 0
-        - 0
-        - 0
-      Retriggers:
+    _cardData:
+      _cost:
         isLevelable: 0
         levels:
         - 1
         - 0
         - 0
-    NextEffectPreviewText: Next trick this sequence triggers an additional time
+      _hypeGain:
+        isLevelable: 1
+        levels:
+        - 10
+        - 15
+        - 25
+      _multiplyHype:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      _energyGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      _drawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      _retriggerCard:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+    HasEffectIfSequence: 0
+    EffectIfSequence:
+      Requirements: 0
+      OfType: 0
+      Effects:
+        _cost:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _hypeGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _multiplyHype:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _energyGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _drawCards:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _retriggerCard:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+    _effectIfSequencePreviewText: 
+    HasEffectIfPrevious: 0
+    EffectIfPrevious:
+      RequiredType: 0
+      RequiredPosition: 31
+      Effects:
+        _cost:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _hypeGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _multiplyHype:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _energyGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _drawCards:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _retriggerCard:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+    _effectIfPreviousPreviewText: 
+    HasNextEffect: 1
+    NextEffect:
+      AppliesTo: 1
+      RequiredType: 1
+      RequiredPosition: 31
+      Effects:
+        _cost:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _hypeGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _multiplyHype:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _energyGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _drawCards:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _retriggerCard:
+          isLevelable: 0
+          levels:
+          - 1
+          - 0
+          - 0
+    _nextEffectPreviewText: On next trick this sequence trigger card an additional
+      time
     Icon: {fileID: 0}
     Animation: 100
     Duration: 2

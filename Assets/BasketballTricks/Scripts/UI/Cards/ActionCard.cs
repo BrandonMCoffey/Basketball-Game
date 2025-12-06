@@ -67,12 +67,13 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     {
         _action = gameAction;
         var data = _action.Player.CardData.GetAction(_action.ActionIndex);
+        var effects = data.Effects;
         if (_playerNumber != null) _playerNumber.text = _action.Player.CardData.PlayerData.PlayerNumber;
         if (_actionName != null) _actionName.text = data.Name;
         if (_actionDescription != null) _actionDescription.text = data.GetDisplayText();
         if (_actionType != null) _actionType.text = data.Type.ToString();
-        if (_actionCost != null) _actionCost.text = data.Cost.GetValue(data.ActionLevel).ToString("0");
-        if (_actionHype != null) _actionHype.text = data.HypeGain.GetValue(data.ActionLevel).ToString("0");
+        if (_actionCost != null) _actionCost.text = effects.Cost.ToString("0");
+        if (_actionHype != null) _actionHype.text = effects.HypeGain.ToString("0");
         if (_actionIcon != null)
         {
             if (data.Icon != null) _actionIcon.sprite = data.Icon;
