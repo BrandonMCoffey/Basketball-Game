@@ -65,6 +65,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+        Hype = 0;
+        UpdateHype?.Invoke(Hype);
         if (_randomPlayerArt.Count > 0)
         {
             foreach (var player in _players)
@@ -251,8 +253,6 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator TrickshotRoutine()
     {
-        Hype = 0;
-        UpdateHype?.Invoke(Hype);
         _crowdController.SetPlaying(true);
         Player playerWithBall = TimelineActions[0].Player;
         _trickshotCamera.SetTrickCamera(playerWithBall.CameraTarget);
