@@ -16,7 +16,7 @@ namespace CoffeyUtils
         }
 
         //public static implicit operator float(LevelableFloat lf) => lf.GetValue(1);
-        public override string ToString() => GetValue(1).ToString();
+        //public override string ToString() => GetValue(1).ToString();
 
         // Level starts as 1 and goes up (normally to 3)
         public float GetValue(int level)

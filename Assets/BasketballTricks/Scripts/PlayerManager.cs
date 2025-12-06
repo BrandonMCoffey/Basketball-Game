@@ -312,6 +312,7 @@ public class PlayerManager : MonoBehaviour
 
     private void ApplyActionEffects(Player player, ActionData action)
     {
+        // TODO: Use data to calculate and apply effects
         Debug.Log($"Play Action: {action.Name} for {action.Duration} seconds. Get {action.HypeGain} points.");
 
         Hype += action.HypeGain.GetValue(action.ActionLevel);
