@@ -15,6 +15,12 @@ public class CostDisplay : MonoBehaviour
         UpdateCostDisplay(3, 5);
     }
 
+    private void Awake()
+    {
+        PlayerManager.UpdateEnergy += UpdateCostDisplay;
+    }
+
+    public void UpdateCostDisplay(float cost, float max) => UpdateCostDisplay(Mathf.RoundToInt(cost), Mathf.RoundToInt(max));
     public void UpdateCostDisplay(int cost, int max)
     {
         if (cost > _costList.Count || max > _costList.Count)

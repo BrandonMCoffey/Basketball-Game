@@ -39,10 +39,12 @@ public class PlayerManager : MonoBehaviour
     public static event System.Action RefreshTimeline = delegate { };
     public static event System.Action RefreshPlayers = delegate { };
     public static event System.Action<float> UpdateHype = delegate { };
+    public static event System.Action<float, float> UpdateEnergy = delegate { };
 
     private List<EffectNext> _effectNextStack = new List<EffectNext>();
 
     public float Hype { get; private set; }
+    private float _maxEnergy = 5;
 
     private bool _simulating;
     private Player _placingPlayer;
@@ -68,6 +70,7 @@ public class PlayerManager : MonoBehaviour
     {
         Hype = 0;
         UpdateHype?.Invoke(Hype);
+        UpdateEnergy?.Invoke(0, _maxEnergy);
         if (_randomPlayerArt.Count > 0)
         {
             foreach (var player in _players)
@@ -209,6 +212,14 @@ public class PlayerManager : MonoBehaviour
                 // Add visual to player
             }
         }
+
+        // TODO: Calculate sequence cost and display
+        float cost = 0;
+        foreach (var card in TimelineActions)
+        {
+            cost += card.Player.CardData.GetAction(card.ActionIndex).Effects.Cost;
+        }
+        UpdateEnergy(cost, _maxEnergy);
     }
 
     public bool RunSimulation()
