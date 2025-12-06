@@ -9,6 +9,7 @@ public class ActionDeckManager : MonoBehaviour
     [SerializeField] private ActionCard _cardPrefab;
     [SerializeField] private int _handSize = 5;
     [SerializeField] private RectTransform _cardContainer;
+    [SerializeField] private CostDisplay _costDisplay;
     [SerializeField] private float _dragReorderThreshold = 50f;
 
     [Header("Card Layout")]
@@ -62,6 +63,7 @@ public class ActionDeckManager : MonoBehaviour
             _actionDeck.RemoveAt(0);
             _cards.Add(actionCard);
         }
+        _costDisplay.UpdateCostDisplay(0, 5);
         UpdateCardLayout(null);
     }
 
@@ -77,7 +79,7 @@ public class ActionDeckManager : MonoBehaviour
         {
             cost += card.Player.CardData.GetAction(card.ActionIndex).Effects.Cost;
         }
-        Debug.Log($"Sequence Cost: {cost}");
+        _costDisplay.UpdateCostDisplay(Mathf.RoundToInt(cost), 5);
     }
 
     public void StartSequence()

@@ -271,7 +271,7 @@ public class PlayerManager : MonoBehaviour
             }
 
             var action = playerWithBall.CardData.GetAction(TimelineActions[i].ActionIndex);
-            ApplyActionEffects(playerWithBall, action);
+            ApplyActionEffects(playerWithBall, action, i);
             if (action.Type == ActionType.Pass)
             {
                 var passToPlayer = TimelineActions[i + 1].Player;
@@ -311,7 +311,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void ApplyActionEffects(Player player, ActionData action)
+    private void ApplyActionEffects(Player player, ActionData action, int timelineIndex)
     {
         Debug.Log($"Play Action: {action.ActionSummary}");
         var effects = action.Effects;
@@ -320,12 +320,53 @@ public class PlayerManager : MonoBehaviour
         {
             EffectNext nextEffect = _effectNextStack[i];
             // TODO: Check and apply and delete any matching next effects
+            if (nextEffect.AppliesTo == NextEffectAppliesTo.NextCardDrawn) continue;
+            if (nextEffect.RequiredType == action.Type && nextEffect.RequiredPosition.HasFlag(player.Position))
+            {
+                Debug.Log("Bonus: Next Effect applies to played card!");
+                effects += nextEffect.Effects.GetEffects(action.ActionLevel);
+                _effectNextStack.RemoveAt(i);
+            }
+            else if (nextEffect.AppliesTo == NextEffectAppliesTo.NextCardPlayed)
+            {
+                _effectNextStack.RemoveAt(i);
+            }
+        }
+
+        if (action.HasEffectIfPrevious && timelineIndex > 0)
+        {
+            var previous = TimelineActions[timelineIndex - 1];
+            var previousAction = previous.Player.CardData.GetAction(previous.ActionIndex);
+            if (action.UseEffectIfPrevious(previousAction.Type, previous.Player.Position, out var effectIfPrevious))
+            {
+                Debug.Log("Bonus: Effect if Previous is Applied!");
+                effects += effectIfPrevious;
+            }
+        }
+
+        if (action.HasEffectIfSequence)
+        {
+            int count = action.EffectIfSequence.Requirements switch
+            {
+                SequenceRequirements.First => timelineIndex == 0 ? 1 : 0,
+                SequenceRequirements.Last => timelineIndex == TimelineActions.Count - 1 ? 1 : 0,
+                SequenceRequirements.NoTypePlayed => !TimelineActions.Any(o => o.Player.CardData.GetAction(o.ActionIndex).Type == action.EffectIfSequence.OfType) ? 1 : 0,
+                SequenceRequirements.ForEachOfType => TimelineActions.Count(o => o.Player.CardData.GetAction(o.ActionIndex).Type == action.EffectIfSequence.OfType),
+                _ => 0
+            };
+            if (count > 0)
+            {
+                Debug.Log($"Bonus: Effect if sequence is applied{(count > 1 ? count + " times!" : "!")}");
+                var effectIfSequence = action.EffectIfSequence.Effects.GetEffects(action.ActionLevel);
+                for (int i = 0; i < count; i++)
+                {
+                    effects += effectIfSequence;
+                }
+            }
         }
 
         Hype += effects.HypeGain;
         // TODO: Apply other effects
-
-        // TODO: Check sequence for effects if previous and sequence effects
 
         _effectNextStack.Add(action.NextEffect);
 
@@ -432,6 +473,22 @@ public class PlayerManager : MonoBehaviour
         {
             player.FacePosition(player.transform.position + new Vector3(0, 0, 1f), 1f);
             player.SetAnimation(PlayerAnimation.Idle);
+        }
+        for (int i = _effectNextStack.Count - 1; i >= 0; i--)
+        {
+            switch (_effectNextStack[i].AppliesTo)
+            {
+                case NextEffectAppliesTo.NextMatchingCardThisGame:
+                    // Save for next round
+                    break;
+                case NextEffectAppliesTo.NextCardDrawn:
+                    // TODO: Send to action deck manager
+                    _effectNextStack.RemoveAt(i);
+                    break;
+                default:
+                    _effectNextStack.RemoveAt(i);
+                    break;
+            }
         }
         _basketball.transform.position = new Vector3(0, -10f, 0);
     }

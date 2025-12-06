@@ -57,6 +57,16 @@ public struct ActionData
 
     public GetEffects Effects => _cardData.GetEffects(ActionLevel);
     public string ActionSummary => _cardSummary;
+    public bool UseEffectIfPrevious(ActionType type, PlayerPosition position, out GetEffects effects)
+    {
+        if (EffectIfPrevious.RequiredType == type && EffectIfPrevious.RequiredPosition.HasFlag(position))
+        {
+            effects = EffectIfPrevious.Effects.GetEffects(ActionLevel);
+            return true;
+        }
+        effects = new GetEffects();
+        return false;
+    }
 
     public ActionData(ActionType type = ActionType.None)
     {
@@ -255,6 +265,13 @@ public struct EffectIfPrevious
     public ActionType RequiredType;
     public PlayerPosition RequiredPosition;
     public AppliedEffects Effects;
+
+    public EffectIfPrevious(ActionType type)
+    {
+        RequiredType = type;
+        RequiredPosition = PlayerPosition.None;
+        Effects = new AppliedEffects(0, 0);
+    }
 
     public string GetDisplayText(int level)
     {

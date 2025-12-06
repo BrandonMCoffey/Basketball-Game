@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Vector3 _basketballOffset;
 
     public GameCard CardData => _cardData;
+    public PlayerPosition Position => _position;
     public Color PositionColor => _positionColor;
     public PlayerArt PlayerArt => _playerArt;
     public Transform CameraTarget => _cameraTarget;
