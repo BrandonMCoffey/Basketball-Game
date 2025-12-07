@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private PlayerArt _playerArt;
     [SerializeField] private SpriteRenderer _positionIndicator;
-    [SerializeField] private ParticleSystem _particles;
     [SerializeField] private TMP_Text _actionText;
     [SerializeField] private Transform _cameraTarget;
     [SerializeField] private Transform _basketballSocket;
@@ -103,11 +102,6 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(duration - 0.1f);
         _actionText.text = "";
-    }
-
-    public void EmitParticles()
-    {
-        _particles.Emit(30);
     }
 }
 

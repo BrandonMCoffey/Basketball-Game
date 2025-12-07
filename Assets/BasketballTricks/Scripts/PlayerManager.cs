@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PlayerUIManager _playerUIManager;
     [SerializeField] private SlideInPanel _cardCatalogPanel;
     [SerializeField] private TrickshotCamera _trickshotCamera;
+    [SerializeField] private ActionVisualPreview _actionVisualPreview;
 
     [Header("Drag & Drop Placement")]
     [SerializeField] private RectTransform _minimumMouseXShow;
@@ -29,6 +30,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Vector2 _spacingBetweenPlayersXZ = new Vector2(2f, 3f);
     [SerializeField] private Vector3 _outOfBoundsPlayerPos = new Vector3(10f, 0f, 0f);
     [SerializeField] private List<RandomPlayerArtData> _randomPlayerArt;
+
+    private List<ActionVisualPreview> _actionVisualPreviews;
 
     private const float _tossPrepTime = 0.5f;
     private const float _catchAnimationLeadTime = 0.5f;
@@ -79,6 +82,13 @@ public class PlayerManager : MonoBehaviour
             }
         }
         _trickshotCamera.SetNormalCamera();
+        _actionVisualPreviews = new List<ActionVisualPreview>(5);
+        for (int i = 0; i < 5; i++)
+        {
+            var preview = Instantiate(_actionVisualPreview, transform);
+            preview.gameObject.SetActive(false);
+            _actionVisualPreviews.Add(preview);
+        }
     }
 
     public Vector3 GetPlayerPosition(int index)
@@ -203,22 +213,45 @@ public class PlayerManager : MonoBehaviour
     {
         RefreshTimeline?.Invoke();
 
+        float cost = 0;
+        int j = 0;
+        var player = TimelineActions[0].Player;
         for (int i = 0; i < TimelineActions.Count; i++)
         {
-            GameAction timelineAction = TimelineActions[i];
-            var player = timelineAction.Player;
-            if (player.CardData != null)
+            if (_actionVisualPreviews.Count <= j)
             {
-                // Add visual to player
+                _actionVisualPreviews.Add(Instantiate(_actionVisualPreview, transform));
             }
+            if (player != TimelineActions[i].Player)
+            {
+                _actionVisualPreviews[j].ShowPass(player.transform.position, TimelineActions[i].Player.transform.position, Color.black);
+                j++;
+                cost++;
+            }
+            player = TimelineActions[i].Player;
+            int index = TimelineActions[i].ActionIndex;
+            var type = player.CardData.GetAction(index).Type;
+            cost += player.CardData.GetAction(index).Effects.Cost;
+            switch (type)
+            {
+                case ActionType.Trick:
+                    _actionVisualPreviews[j].ShowTrick(player.transform.position);
+                    break;
+                case ActionType.Pass:
+                    _actionVisualPreviews[j].ShowPass(player.transform.position, TimelineActions[i + 1].Player.transform.position, player.PositionColor);
+                    break;
+                case ActionType.Shot:
+                    _actionVisualPreviews[j].ShowShot(player.transform.position, _goal.NetTarget.position);
+                    player = Players[2]; // Center picks up
+                    break;
+            }
+            j++;
+        }
+        for (; j < _actionVisualPreviews.Count; j++)
+        {
+            _actionVisualPreviews[j].gameObject.SetActive(false);
         }
 
-        // TODO: Calculate sequence cost and display
-        float cost = 0;
-        foreach (var card in TimelineActions)
-        {
-            cost += card.Player.CardData.GetAction(card.ActionIndex).Effects.Cost;
-        }
         UpdateEnergy(cost, _maxEnergy);
     }
 
@@ -383,7 +416,6 @@ public class PlayerManager : MonoBehaviour
 
         // Action visual effects
         player.SetActionText(action.Name, action.Duration);
-        player.EmitParticles();
 
         // Update visuals
         UpdateHype?.Invoke(Hype);

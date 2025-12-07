@@ -9042,6 +9042,8 @@ MonoBehaviour:
   _playerUIManager: {fileID: 0}
   _cardCatalogPanel: {fileID: 0}
   _trickshotCamera: {fileID: 398774079}
+  _actionVisualPreview: {fileID: 5880307669300248513, guid: ca18809360386cb4f8885a2da71d4e00,
+    type: 3}
   _minimumMouseXShow: {fileID: 0}
   _minimumMouseXPlace: {fileID: 0}
   _dragPlayerYOffset: -0.16
