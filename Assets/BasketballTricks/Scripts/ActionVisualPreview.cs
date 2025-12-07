@@ -39,7 +39,7 @@ public class ActionVisualPreview : MonoBehaviour
         _passSpriteRenderer.color = color;
     }
 
-    public void ShowShot(Vector3 fromPlayer, Vector3 toNet)
+    public void ShowShot(Vector3 fromPlayer, Vector3 toNet, Color color)
     {
         ShowType(2);
         fromPlayer.y = toNet.y = 0f;
@@ -48,5 +48,6 @@ public class ActionVisualPreview : MonoBehaviour
         float dist = Vector3.Distance(fromPlayer, toNet);
         _shotSpriteRenderer.size = new Vector2(dist, _shotSpriteRenderer.size.y);
         _shotSpriteRenderer.transform.localPosition = new Vector3(0f, _shotSpriteRenderer.transform.localPosition.y, dist * 0.5f);
+        _shotSpriteRenderer.color = color;
     }
 }

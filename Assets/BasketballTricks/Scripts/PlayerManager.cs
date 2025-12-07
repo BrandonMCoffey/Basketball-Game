@@ -211,21 +211,19 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTimelineUpdated()
     {
+        if (_simulating) return;
         RefreshTimeline?.Invoke();
 
         float cost = 0;
         int j = 0;
-        var player = TimelineActions[0].Player;
+        Player player = null;
         for (int i = 0; i < TimelineActions.Count; i++)
         {
-            if (_actionVisualPreviews.Count <= j)
+            if (_actionVisualPreviews.Count <= j) _actionVisualPreviews.Add(Instantiate(_actionVisualPreview, transform));
+            if (player != null && player != TimelineActions[i].Player)
             {
-                _actionVisualPreviews.Add(Instantiate(_actionVisualPreview, transform));
-            }
-            if (player != TimelineActions[i].Player)
-            {
-                _actionVisualPreviews[j].ShowPass(player.transform.position, TimelineActions[i].Player.transform.position, Color.black);
-                j++;
+                _actionVisualPreviews[j++].ShowPass(player.transform.position, TimelineActions[i].Player.transform.position, Color.black);
+                if (_actionVisualPreviews.Count <= j) _actionVisualPreviews.Add(Instantiate(_actionVisualPreview, transform));
                 cost++;
             }
             player = TimelineActions[i].Player;
@@ -235,30 +233,37 @@ public class PlayerManager : MonoBehaviour
             switch (type)
             {
                 case ActionType.Trick:
-                    _actionVisualPreviews[j].ShowTrick(player.transform.position);
+                    _actionVisualPreviews[j++].ShowTrick(player.transform.position);
                     break;
                 case ActionType.Pass:
-                    _actionVisualPreviews[j].ShowPass(player.transform.position, TimelineActions[i + 1].Player.transform.position, player.PositionColor);
+                    if (i < TimelineActions.Count - 1)
+                    {
+                        _actionVisualPreviews[j++].ShowPass(player.transform.position, TimelineActions[i + 1].Player.transform.position, player.PositionColor);
+                        player = TimelineActions[i + 1].Player;
+                    }
                     break;
                 case ActionType.Shot:
-                    _actionVisualPreviews[j].ShowShot(player.transform.position, _goal.NetTarget.position);
+                    _actionVisualPreviews[j++].ShowShot(player.transform.position, _goal.NetTarget.position, player.PositionColor);
                     player = Players[2]; // Center picks up
                     break;
             }
-            j++;
         }
         for (; j < _actionVisualPreviews.Count; j++)
         {
             _actionVisualPreviews[j].gameObject.SetActive(false);
         }
 
-        UpdateEnergy(cost, _maxEnergy);
+        UpdateEnergy?.Invoke(cost, _maxEnergy);
     }
 
     public bool RunSimulation()
     {
         if (_simulating || !IsSequenceValid()) return false;
         _simulating = true;
+        foreach (var preview in _actionVisualPreviews)
+        {
+            preview.gameObject.SetActive(false);
+        }
         StartCoroutine(TrickshotRoutine());
         return true;
     }
@@ -511,6 +516,8 @@ public class PlayerManager : MonoBehaviour
         _crowdController.SetPlaying(false);
         TimelineActions.Clear();
         RefreshTimeline?.Invoke();
+        // TODO: Update costs
+        UpdateEnergy?.Invoke(0, _maxEnergy);
         _trickshotCamera.SetNormalCamera();
         foreach (var player in _players)
         {
