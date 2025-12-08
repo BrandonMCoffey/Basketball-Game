@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         
         if (_resetDataOnStart || !GameSaveData.Load(ref _saveData))
         {
-            Debug.Log("No save data found. Initializing with starting cards.");
+            if (!_resetDataOnStart) Debug.Log("No save data found. Initializing with starting cards.");
             _saveData = new GameSaveData(_startingCards);
             GameSaveData.Save(_saveData);
         }

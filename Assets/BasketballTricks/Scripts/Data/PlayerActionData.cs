@@ -90,7 +90,7 @@ public struct ActionData
             CardRarity.Signature => 5f,
             _ => 2f,
         };
-        _cardData = new AppliedEffects(2, baseHype);
+        _cardData = new AppliedEffects(1, baseHype);
         HasEffectIfSequence = false;
         EffectIfSequence = new EffectIfSequence()
         {
