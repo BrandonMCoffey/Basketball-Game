@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ActionVisualPreview : MonoBehaviour
@@ -8,7 +9,8 @@ public class ActionVisualPreview : MonoBehaviour
     [SerializeField] private SpriteRenderer _passSpriteRenderer;
 
     [SerializeField] private GameObject _shotVisuals;
-    [SerializeField] private SpriteRenderer _shotSpriteRenderer;
+    [SerializeField] private LineRenderer _shotLineRenderer;
+    [SerializeField] private int _lineSegments = 20;
 
     public void ShowType(int type)
     {
@@ -40,12 +42,25 @@ public class ActionVisualPreview : MonoBehaviour
     public void ShowShot(Vector3 fromPlayer, Vector3 toNet, Color color)
     {
         ShowType(2);
-        fromPlayer.y = toNet.y = 0f;
         transform.position = fromPlayer;
         transform.LookAt(toNet);
-        float dist = Vector3.Distance(fromPlayer, toNet);
-        _shotSpriteRenderer.size = new Vector2(dist, _shotSpriteRenderer.size.y);
-        _shotSpriteRenderer.transform.localPosition = new Vector3(0f, _shotSpriteRenderer.transform.localPosition.y, dist * 0.5f);
-        _shotSpriteRenderer.color = color;
+        var positions = new List<Vector3>(_lineSegments);
+        for (int i = 0; i < _lineSegments; i++)
+        {
+            float delta = (float)(i + 1) / (_lineSegments + 1);
+            var pos = Vector3.Lerp(fromPlayer, toNet, delta);
+            pos.y = fromPlayer.y + (toNet.y - fromPlayer.y) * ShotCurve(delta);
+            positions.Add(pos);
+        }
+        _shotLineRenderer.positionCount = positions.Count;
+        _shotLineRenderer.SetPositions(positions.ToArray());
+        var gradient = new Gradient();
+        gradient.colorKeys = new GradientColorKey[] { new GradientColorKey(color, 0) };
+        _shotLineRenderer.colorGradient = gradient;
+    }
+
+    private float ShotCurve(float x)
+    {
+        return 1.33333f * (1 - Mathf.Pow(1 - x * 1.5f, 2));
     }
 }

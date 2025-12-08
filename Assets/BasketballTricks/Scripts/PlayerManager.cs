@@ -235,7 +235,7 @@ public class PlayerManager : MonoBehaviour
                     }
                     break;
                 case ActionType.Shot:
-                    _actionVisualPreviews[j++].ShowShot(player.transform.position, _goal.NetTarget.position, player.PositionColor);
+                    _actionVisualPreviews[j++].ShowShot(player.transform.position + Vector3.up * 1f, _goal.NetTarget.position + Vector3.up * 0.1f, player.PositionColor);
                     player = Players[2]; // Center picks up
                     break;
             }

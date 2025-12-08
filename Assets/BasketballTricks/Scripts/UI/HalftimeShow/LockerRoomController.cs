@@ -87,9 +87,10 @@ public class LockerRoomController : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-        for (int i = 0; i < _lockerPositions.Count; i++)
+        foreach (LockerPositionSelector locker in _lockerPositions)
         {
-            _lockerPositions[i].RectTransform.DOAnchorPos(_lockerPositions[i].OriginalPosition, 0.25f).SetEase(_lockerEaseEnter);
+            var pos = locker.OriginalPosition + (locker.Card != null ? CardVertical * _cardSelectedOffsetY : Vector3.zero);
+            locker.RectTransform.DOAnchorPos(pos, 0.25f).SetEase(_lockerEaseEnter);
             yield return new WaitForSeconds(_lockerDelay);
         }
         _moving = false;
