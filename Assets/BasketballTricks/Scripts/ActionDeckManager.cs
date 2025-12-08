@@ -1,6 +1,7 @@
 using DG.Tweening;
 using SaiUtils.Extensions;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -69,6 +70,29 @@ public class ActionDeckManager : MonoBehaviour
     {
         if (_disabled) return;
         PlayerManager.Instance.PreviewSequence(_cards.Where(card => card.IsSelected).ToList());
+    }
+
+    public void DiscardSelectedCards()
+    {
+        StartCoroutine(DiscardRoutine());
+    }
+
+    private IEnumerator DiscardRoutine()
+    {
+        foreach (var card in _cards)
+        {
+            if (card.IsSelected) card.RectTransform.DOAnchorPos(card.RectTransform.anchoredPosition + Vector2.down * 1080f, _layoutDuration).SetEase(Ease.InBack);
+        }
+        yield return new WaitForSeconds(_layoutDuration + 0.1f);
+        for (int i = _cards.Count - 1; i >= 0; i--)
+        {
+            if (_cards[i].IsSelected)
+            {
+                _cards[i].Init(_actionDeck[0], this);
+                _actionDeck.RemoveAt(0);
+            }
+        }
+        UpdateCardLayout(null);
     }
 
     public void StartSequence()
