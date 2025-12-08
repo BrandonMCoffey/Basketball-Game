@@ -15,6 +15,11 @@ public class PlayerActionData : ScriptableObject
         if (_data.Duration <= 0f) _data.Duration = 1f;
         _data.UpdatePreviewText();
     }
+
+    public void PrepareForGameplay()
+    {
+        _data.NextEffect.Level = _data.ActionLevel;
+    }
 }
 
 public enum ActionType
@@ -332,7 +337,11 @@ public struct EffectNext
     public ActionType RequiredType;
     public PlayerPosition RequiredPosition;
     public AppliedEffects Effects;
+    [HideInInspector] public int Level;
 
+    public GetEffects GetEffects() => Effects.GetEffects(Level);
+
+    public string GetDisplayText() => GetDisplayText(Level);
     public string GetDisplayText(int level)
     {
         string effectText = "On next ";

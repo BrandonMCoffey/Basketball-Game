@@ -54,6 +54,14 @@ public class PlayerCardData : ScriptableObject
             _actions[i].UpdateDataPreview();
         }
     }
+
+    public void PrepareForGameplay()
+    {
+        for (int i = 0; i < _actions.Count; i++)
+        {
+            _actions[i].PrepareForGameplay();
+        }
+    }
 }
 
 [System.Serializable]
@@ -81,6 +89,10 @@ public struct CustomPlayerAction
         return data;
     }
     public void UpdateDataPreview() => _dataPreview = GetData();
+    public void PrepareForGameplay()
+    {
+        if (_action != null) _action.PrepareForGameplay();
+    }
 }
 
 public enum CardRarity

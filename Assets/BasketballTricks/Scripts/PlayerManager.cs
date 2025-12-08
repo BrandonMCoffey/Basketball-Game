@@ -43,8 +43,8 @@ public class PlayerManager : MonoBehaviour
     public static event System.Action RefreshPlayers = delegate { };
     public static event System.Action<float> UpdateHype = delegate { };
     public static event System.Action<float, float> UpdateEnergy = delegate { };
-
-    private List<EffectNext> _effectNextStack = new List<EffectNext>();
+    public static event System.Action UpdateEffectNextStack = delegate { };
+    public List<EffectNext> EffectNextStack { get; private set; } = new List<EffectNext>();
 
     public float Hype { get; private set; }
     private float _maxEnergy = 5;
@@ -201,6 +201,7 @@ public class PlayerManager : MonoBehaviour
         int j = 0;
         Player player = null;
         var tempEffectNextStack = new List<EffectNext>();
+        List<int> skipActualStackIndexes = new List<int>();
         for (int i = 0; i < TimelineActions.Count; i++)
         {
             float adjustCost = 0;
@@ -235,17 +236,19 @@ public class PlayerManager : MonoBehaviour
             }
 
             int tempCount = tempEffectNextStack.Count;
-            int stackCount = _effectNextStack.Count;
+            int stackCount = EffectNextStack.Count;
             for (int k = 0; k < tempCount + stackCount; k++)
             {
-                EffectNext nextEffect = k < tempCount ? tempEffectNextStack[k] : _effectNextStack[k - tempCount];
+                if (k >= tempCount && skipActualStackIndexes.Contains(k - tempCount)) continue; 
+                EffectNext nextEffect = k < tempCount ? tempEffectNextStack[k] : EffectNextStack[k - tempCount];
                 if (nextEffect.AppliesTo == NextEffectAppliesTo.NextCardDrawn) continue;
                 if (nextEffect.RequiredType == action.Type && nextEffect.RequiredPosition.HasFlag(player.Position))
                 {
-                    var effects = nextEffect.Effects.GetEffects(action.ActionLevel);
+                    var effects = nextEffect.GetEffects();
                     adjustCost += effects.Cost;
                     adjustHype += effects.HypeGain;
                     if (k < tempCount) tempEffectNextStack.RemoveAt(k);
+                    else skipActualStackIndexes.Add(k - tempCount);
                 }
                 else if (nextEffect.AppliesTo == NextEffectAppliesTo.NextCardPlayed)
                 {
@@ -410,20 +413,23 @@ public class PlayerManager : MonoBehaviour
         Debug.Log($"Play Action: {action.ActionSummary}");
         var effects = action.Effects;
 
-        for (int i = _effectNextStack.Count - 1; i >= 0; i--)
+        for (int i = EffectNextStack.Count - 1; i >= 0; i--)
         {
-            EffectNext nextEffect = _effectNextStack[i];
+            EffectNext nextEffect = EffectNextStack[i];
             // TODO: Check and apply and delete any matching next effects
             if (nextEffect.AppliesTo == NextEffectAppliesTo.NextCardDrawn) continue;
             if (nextEffect.RequiredType == action.Type && nextEffect.RequiredPosition.HasFlag(player.Position))
             {
                 Debug.Log("Bonus: Next Effect applies to played card!");
-                effects += nextEffect.Effects.GetEffects(action.ActionLevel);
-                _effectNextStack.RemoveAt(i);
+                effects += nextEffect.GetEffects();
+                EffectNextStack.RemoveAt(i);
+                UpdateEffectNextStack?.Invoke();
             }
             else if (nextEffect.AppliesTo == NextEffectAppliesTo.NextCardPlayed)
             {
-                _effectNextStack.RemoveAt(i);
+                Debug.Log("Next effect did not match. Removing from stack.");
+                EffectNextStack.RemoveAt(i);
+                UpdateEffectNextStack?.Invoke();
             }
         }
 
@@ -464,7 +470,8 @@ public class PlayerManager : MonoBehaviour
 
         if (action.HasNextEffect)
         {
-            _effectNextStack.Add(action.NextEffect);
+            EffectNextStack.Add(action.NextEffect);
+            UpdateEffectNextStack?.Invoke();
         }
 
         // Action visual effects
@@ -572,22 +579,23 @@ public class PlayerManager : MonoBehaviour
             player.FacePosition(player.transform.position + new Vector3(0, 0, 1f), 1f);
             player.SetAnimation(PlayerAnimation.Idle);
         }
-        for (int i = _effectNextStack.Count - 1; i >= 0; i--)
+        for (int i = EffectNextStack.Count - 1; i >= 0; i--)
         {
-            switch (_effectNextStack[i].AppliesTo)
+            switch (EffectNextStack[i].AppliesTo)
             {
                 case NextEffectAppliesTo.NextMatchingCardThisGame:
                     // Save for next round
                     break;
                 case NextEffectAppliesTo.NextCardDrawn:
                     // TODO: Send to action deck manager
-                    _effectNextStack.RemoveAt(i);
+                    EffectNextStack.RemoveAt(i);
                     break;
                 default:
-                    _effectNextStack.RemoveAt(i);
+                    EffectNextStack.RemoveAt(i);
                     break;
             }
         }
+        UpdateEffectNextStack?.Invoke();
         _basketball.transform.position = new Vector3(0, -10f, 0);
     }
 }

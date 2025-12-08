@@ -24,6 +24,11 @@ public class GameCard
         return data;
     }
 
+    public void PrepareForGameplay()
+    {
+        _cardData.PrepareForGameplay();
+    }
+
     public void AddXP(float amount)
     {
         if (_level >= 3) return;
