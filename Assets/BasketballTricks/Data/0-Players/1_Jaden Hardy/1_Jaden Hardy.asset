@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerName: Jaden Hardy
   _playerNumber: 1
-  _playerSprite: {fileID: 21300000, guid: 8010a89c467cd65448c4555b3c8abc7a, type: 3}
+  _playerSprite: {fileID: 21300000, guid: 5075004565b4b74408f060d4ccaf6c8a, type: 3}
   _naturalPosition: 2
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}

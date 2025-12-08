@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerName: Dante Exum
   _playerNumber: 0
-  _playerSprite: {fileID: 21300000, guid: 6bd0a45e8c8e872478a0a76fccfe1c79, type: 3}
+  _playerSprite: {fileID: 21300000, guid: 5de959f388e8a9c4cbe9856c971130d2, type: 3}
   _naturalPosition: 3
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}

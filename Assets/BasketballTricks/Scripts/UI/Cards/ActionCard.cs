@@ -8,6 +8,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 {
     [SerializeField] private GameAction _action;
     [SerializeField] private Image _colorImage;
+    [SerializeField] private Image _playerImage;
     [SerializeField] private TMP_Text _playerNumber;
     [SerializeField] private TMP_Text _actionName;
     [SerializeField] private TMP_Text _actionDescription;
@@ -18,6 +19,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     [SerializeField] private Sprite _defaultTrickIcon;
     [SerializeField] private Sprite _defaultPassIcon;
     [SerializeField] private Sprite _defaultShotIcon;
+    [SerializeField] private GameObject _showWhenNotSelected;
 
     [Header("Drag")]
     [SerializeField] private float _dragScale = 1.25f;
@@ -71,6 +73,14 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         _isDragging = false;
         _wasDragged = false;
         _isSelected = false;
+        _playerImage.sprite = gameAction.Player.CardData.PlayerData.PlayerSprite;
+        var aspect = _playerImage.GetComponent<AspectRatioFitter>();
+        if (aspect != null)
+        {
+            _playerImage.SetNativeSize();
+            aspect.aspectRatio = _playerImage.sprite != null ? (float)_playerImage.sprite.rect.width / _playerImage.sprite.rect.height : 1f;
+        }
+        _showWhenNotSelected.SetActive(true);
     }
 
     public void RefreshVisuals(float adjustCost = 0, float adjustHype = 0)
@@ -128,6 +138,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         if (!_wasDragged)
         {
             _isSelected = !_isSelected;
+            _showWhenNotSelected.SetActive(!_isSelected);
             _manager.OnUpdateSelected();
             if (!_isSelected) RefreshVisuals();
         }

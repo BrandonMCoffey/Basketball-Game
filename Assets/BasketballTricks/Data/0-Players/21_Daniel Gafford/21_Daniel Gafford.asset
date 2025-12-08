@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerName: Daniel Gafford
   _playerNumber: 21
-  _playerSprite: {fileID: 21300000, guid: 04d5e843bf4a9ee4ab63d1c5fe1413f2, type: 3}
+  _playerSprite: {fileID: 21300000, guid: 8f3ca4f75166735448258cba16077a49, type: 3}
   _naturalPosition: 24
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}
