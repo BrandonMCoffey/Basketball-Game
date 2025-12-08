@@ -66,14 +66,31 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     public void Init(GameAction gameAction, ActionDeckManager manager)
     {
         _action = gameAction;
+        RefreshVisuals();
+        _manager = manager;
+        _isDragging = false;
+        _wasDragged = false;
+        _isSelected = false;
+    }
+
+    public void RefreshVisuals(float adjustCost = 0, float adjustHype = 0)
+    {
         var data = _action.Player.CardData.GetAction(_action.ActionIndex);
         var effects = data.Effects;
         if (_playerNumber != null) _playerNumber.text = _action.Player.CardData.PlayerData.PlayerNumber;
         if (_actionName != null) _actionName.text = data.Name;
         if (_actionDescription != null) _actionDescription.text = data.GetDisplayText();
         if (_actionType != null) _actionType.text = data.Type.ToString();
-        if (_actionCost != null) _actionCost.text = effects.Cost.ToString("0");
-        if (_actionHype != null) _actionHype.text = effects.HypeGain.ToString("0");
+        if (_actionCost != null)
+        {
+            _actionCost.text = (effects.Cost + adjustCost).ToString("0");
+            _actionCost.color = adjustCost == 0 ? Color.white : (adjustCost < 0 ? Color.green : Color.red);
+        }
+        if (_actionHype != null)
+        {
+            _actionHype.text = (effects.HypeGain + adjustHype).ToString("0");
+            _actionHype.color = adjustHype == 0 ? Color.white : (adjustHype > 0 ? Color.green : Color.red);
+        }
         if (_actionIcon != null)
         {
             if (data.Icon != null) _actionIcon.sprite = data.Icon;
@@ -86,10 +103,6 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
             };
         }
         if (_colorImage != null) _colorImage.color = _action.Player.PositionColor;
-        _manager = manager;
-        _isDragging = false;
-        _wasDragged = false;
-        _isSelected = false;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -116,6 +129,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         {
             _isSelected = !_isSelected;
             _manager.OnUpdateSelected();
+            if (!_isSelected) RefreshVisuals();
         }
         _rectTransform.DOScale(_isSelected ? _selectedScale : 1f, 0.2f);
 

@@ -68,8 +68,7 @@ public class ActionDeckManager : MonoBehaviour
     public void OnUpdateSelected()
     {
         if (_disabled) return;
-        var sequence = _cards.Where(card => card.IsSelected).Select(card => card.Action).ToList();
-        PlayerManager.Instance.PreviewSequence(sequence);
+        PlayerManager.Instance.PreviewSequence(_cards.Where(card => card.IsSelected).ToList());
     }
 
     public void StartSequence()

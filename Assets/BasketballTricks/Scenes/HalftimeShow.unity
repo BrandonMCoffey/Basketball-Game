@@ -11220,10 +11220,10 @@ MonoBehaviour:
   _handSize: 5
   _cardContainer: {fileID: 2031088294}
   _dragReorderThreshold: 100
-  _horizontalSpread: 650
-  _verticalSpread: 25
+  _horizontalSpread: 620
+  _verticalSpread: 20
   _maxRotationAngle: 5
-  _selectedHeightOffset: 50
+  _selectedHeightOffset: 40
   _layoutDuration: 0.3
   _layoutEase: 27
 --- !u!114 &6949764343152343268

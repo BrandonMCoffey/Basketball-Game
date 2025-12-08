@@ -25,7 +25,7 @@ public class TopBarActionUI : MonoBehaviour
 
     public void RemoveAction()
     {
-        PlayerManager.Instance.RemoveAction(_index);
+        //PlayerManager.Instance.RemoveAction(_index);
     }
 
     private Sprite GetSprite(ActionData data)

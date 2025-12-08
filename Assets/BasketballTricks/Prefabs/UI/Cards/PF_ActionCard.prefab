@@ -849,8 +849,8 @@ MonoBehaviour:
   _defaultTrickIcon: {fileID: 21300000, guid: ffdce43d5c7b6664da62fa04dcc36c94, type: 3}
   _defaultPassIcon: {fileID: 21300000, guid: ef5d69434c9827741985c55ffea74e4d, type: 3}
   _defaultShotIcon: {fileID: 21300000, guid: 920fb76479d53624192a07a571882d66, type: 3}
-  _dragScale: 1.25
-  _selectedScale: 1.2
+  _dragScale: 1.2
+  _selectedScale: 1.15
   _dragFollowSpeed: 20
 --- !u!1 &5843959226710031485
 GameObject:

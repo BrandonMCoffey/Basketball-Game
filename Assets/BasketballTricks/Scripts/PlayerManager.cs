@@ -191,46 +191,32 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
-    public void PreviewSequence(List<GameAction> actions)
-    {
-        TimelineActions = new List<GameAction>(actions);
-        OnTimelineUpdated();
-    }
-
-    public void AddAction(Player player, int actionIndex)
-    {
-        TimelineActions.Add(new GameAction(player, actionIndex));
-        OnTimelineUpdated();
-    }
-
-    public void RemoveAction(int timelineIndex)
-    {
-        TimelineActions.RemoveAt(timelineIndex);
-        OnTimelineUpdated();
-    }
-
-    private void OnTimelineUpdated()
+    public void PreviewSequence(List<ActionCard> cards)
     {
         if (_simulating) return;
+        TimelineActions = cards.Select(card => card.Action).ToList();
         RefreshTimeline?.Invoke();
 
         float cost = 0;
         int j = 0;
         Player player = null;
+        var tempEffectNextStack = new List<EffectNext>();
         for (int i = 0; i < TimelineActions.Count; i++)
         {
+            float adjustCost = 0;
+            float adjustHype = 0;
             if (_actionVisualPreviews.Count <= j) _actionVisualPreviews.Add(Instantiate(_actionVisualPreview, transform));
             if (player != null && player != TimelineActions[i].Player)
             {
                 _actionVisualPreviews[j++].ShowPass(player.transform.position, TimelineActions[i].Player.transform.position, Color.black);
                 if (_actionVisualPreviews.Count <= j) _actionVisualPreviews.Add(Instantiate(_actionVisualPreview, transform));
-                cost++;
+                adjustCost++;
             }
             player = TimelineActions[i].Player;
             int index = TimelineActions[i].ActionIndex;
-            var type = player.CardData.GetAction(index).Type;
+            var action = player.CardData.GetAction(index);
             cost += player.CardData.GetAction(index).Effects.Cost;
-            switch (type)
+            switch (action.Type)
             {
                 case ActionType.Trick:
                     _actionVisualPreviews[j++].ShowTrick(player.transform.position);
@@ -247,6 +233,65 @@ public class PlayerManager : MonoBehaviour
                     player = Players[2]; // Center picks up
                     break;
             }
+
+            int tempCount = tempEffectNextStack.Count;
+            int stackCount = _effectNextStack.Count;
+            for (int k = 0; k < tempCount + stackCount; k++)
+            {
+                EffectNext nextEffect = k < tempCount ? tempEffectNextStack[k] : _effectNextStack[k - tempCount];
+                if (nextEffect.AppliesTo == NextEffectAppliesTo.NextCardDrawn) continue;
+                if (nextEffect.RequiredType == action.Type && nextEffect.RequiredPosition.HasFlag(player.Position))
+                {
+                    var effects = nextEffect.Effects.GetEffects(action.ActionLevel);
+                    adjustCost += effects.Cost;
+                    adjustHype += effects.HypeGain;
+                    if (k < tempCount) tempEffectNextStack.RemoveAt(k);
+                }
+                else if (nextEffect.AppliesTo == NextEffectAppliesTo.NextCardPlayed)
+                {
+                    if (k < tempCount) tempEffectNextStack.RemoveAt(k);
+                }
+            }
+
+            if (action.HasEffectIfPrevious && i > 0)
+            {
+                var previous = cards[i - 1];
+                var previousAction = previous.Action.Player.CardData.GetAction(previous.Action.ActionIndex);
+                if (action.UseEffectIfPrevious(previousAction.Type, previous.Action.Player.Position, out var effectIfPrevious))
+                {
+                    adjustCost += effectIfPrevious.Cost;
+                    adjustHype += effectIfPrevious.HypeGain;
+                }
+            }
+
+            if (action.HasEffectIfSequence)
+            {
+                int count = action.EffectIfSequence.Requirements switch
+                {
+                    SequenceRequirements.First => i == 0 ? 1 : 0,
+                    SequenceRequirements.Last => i == TimelineActions.Count - 1 ? 1 : 0,
+                    SequenceRequirements.NoTypePlayed => !TimelineActions.Any(o => o.Player.CardData.GetAction(o.ActionIndex).Type == action.EffectIfSequence.OfType) ? 1 : 0,
+                    SequenceRequirements.ForEachOfType => TimelineActions.Count(o => o.Player.CardData.GetAction(o.ActionIndex).Type == action.EffectIfSequence.OfType),
+                    _ => 0
+                };
+                if (count > 0)
+                {
+                    Debug.Log($"Bonus: Effect if sequence is applied{(count > 1 ? count + " times!" : "!")}");
+                    var effectIfSequence = action.EffectIfSequence.Effects.GetEffects(action.ActionLevel);
+                    for (int k = 0; k < count; k++)
+                    {
+                        adjustCost += effectIfSequence.Cost;
+                        adjustHype += effectIfSequence.HypeGain;
+                    }
+                }
+            }
+            if (action.HasNextEffect)
+            {
+                tempEffectNextStack.Add(action.NextEffect);
+            }
+
+            cards[i].RefreshVisuals(adjustCost, adjustHype);
+            cost += adjustCost;
         }
         for (; j < _actionVisualPreviews.Count; j++)
         {
@@ -417,7 +462,10 @@ public class PlayerManager : MonoBehaviour
         Hype += effects.HypeGain;
         // TODO: Apply other effects
 
-        _effectNextStack.Add(action.NextEffect);
+        if (action.HasNextEffect)
+        {
+            _effectNextStack.Add(action.NextEffect);
+        }
 
         // Action visual effects
         player.SetActionText(action.Name, action.Duration);
