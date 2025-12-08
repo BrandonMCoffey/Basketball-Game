@@ -10,6 +10,7 @@ public class DataAnalyzer : ScriptableObject
 
     [Space(20)]
     [SerializeField] private bool _showCardsUnderActions;
+    [SerializeField] private ActionType _typeFilter;
     [SerializeField] private List<PlayerActionData> _actionsToAnalyze = new List<PlayerActionData>();
     [SerializeField] private List<ActionDataAnalysis> _actionsAnalysis = new List<ActionDataAnalysis>();
 
@@ -57,7 +58,7 @@ public class DataAnalyzer : ScriptableObject
             _cardsAnalysis.Add(new CardDataAnalysis
             {
                 Card = card,
-                Details = $"{card.Rarity} card with {count} actions.",
+                Details = $"{card.Rarity} card with {count} actions. ({card.PlayerData.NaturalPosition})",
                 Actions = list,
                 ShowActionsUnderCards = _showActionsUnderCards
             });
@@ -66,6 +67,7 @@ public class DataAnalyzer : ScriptableObject
         _actionsAnalysis = new List<ActionDataAnalysis>(_actionsToAnalyze.Count);
         foreach (var action in _actionsToAnalyze)
         {
+            if (_typeFilter != ActionType.None && action.Data.Type != _typeFilter) continue;
             List<string> list = new List<string>();
             int cardCount = 0;
             int totalCount = 0;
@@ -76,7 +78,7 @@ public class DataAnalyzer : ScriptableObject
                 {
                     if (cardAction.GetActionSO() == action)
                     {
-                        list.Add($"{cardAction.Count}x | {card.PlayerData.PlayerName} | {card.CardTitle} ({card.Rarity})");
+                        list.Add($"{cardAction.Count}x | {card.PlayerData.PlayerName} | {card.CardTitle} ({card.Rarity}, {card.PlayerData.NaturalPosition})");
                         cardCount++;
                         totalCount += cardAction.Count;
                     }

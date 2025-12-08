@@ -18,6 +18,7 @@ public class PlayerData : ScriptableObject
     public Sprite PlayerSprite => _playerSprite;
     public bool HasArtData => _customPlayerArt || _randomHairData != null;
     public PlayerArtData ArtData => _customPlayerArt ? _artData : _randomHairData.GetData();
+    public PlayerPosition NaturalPosition => _naturalPosition;
     public bool IsNaturalPosition(PlayerPosition position) => _naturalPosition.HasFlag(position);
 
     private void OnValidate()
@@ -50,11 +51,11 @@ public class PlayerData : ScriptableObject
     {
         return position switch
         {
-            PlayerPosition.PointGuard => "PG",
-            PlayerPosition.ShootingGuard => "SG",
-            PlayerPosition.SmallForward => "SF",
-            PlayerPosition.PowerForward => "PF",
-            PlayerPosition.Center => "C",
+            PlayerPosition.PG => "PG",
+            PlayerPosition.SG => "SG",
+            PlayerPosition.SF => "SF",
+            PlayerPosition.PF => "PF",
+            PlayerPosition.C => "C",
             _ => "NA"
         };
     }
@@ -75,10 +76,10 @@ public struct PlayerArtData
 public enum PlayerPosition
 {
     None = 0,
-    Any = PointGuard | ShootingGuard | SmallForward | PowerForward | Center,
-    PointGuard = 1 << 0,
-    ShootingGuard = 1 << 1,
-    SmallForward = 1 << 2,
-    PowerForward = 1 << 3,
-    Center = 1 << 4,
+    Any = PG | SG | SF | PF | C,
+    PG = 1 << 0,
+    SG = 1 << 1,
+    SF = 1 << 2,
+    PF = 1 << 3,
+    C = 1 << 4,
 }

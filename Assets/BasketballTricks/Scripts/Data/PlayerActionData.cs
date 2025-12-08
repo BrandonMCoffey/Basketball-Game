@@ -289,11 +289,11 @@ public struct EffectIfPrevious
         };
         effectText += RequiredPosition switch
         {
-            PlayerPosition.PointGuard => " from Point Guard, ",
-            PlayerPosition.ShootingGuard => " from Shooting Guard, ",
-            PlayerPosition.SmallForward => " from Small Forward, ",
-            PlayerPosition.PowerForward => " from Power Forward, ",
-            PlayerPosition.Center => " from Center, ",
+            PlayerPosition.PG => " from Point Guard, ",
+            PlayerPosition.SG => " from Shooting Guard, ",
+            PlayerPosition.SF => " from Small Forward, ",
+            PlayerPosition.PF => " from Power Forward, ",
+            PlayerPosition.C => " from Center, ",
             _ => ", ",
         };
         effectText += Effects.GetDisplayText(level);
@@ -362,11 +362,11 @@ public struct EffectNext
         };
         effectText += RequiredPosition switch
         {
-            PlayerPosition.PointGuard => "by Point Guard ",
-            PlayerPosition.ShootingGuard => "by Shooting Guard ",
-            PlayerPosition.SmallForward => "by Small Forward ",
-            PlayerPosition.PowerForward => "by Power Forward ",
-            PlayerPosition.Center => "by Center ",
+            PlayerPosition.PG => "by Point Guard ",
+            PlayerPosition.SG => "by Shooting Guard ",
+            PlayerPosition.SF => "by Small Forward ",
+            PlayerPosition.PF => "by Power Forward ",
+            PlayerPosition.C => "by Center ",
             _ => "",
         };
         effectText += Effects.GetDisplayText(level);
