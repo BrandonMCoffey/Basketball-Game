@@ -1,6 +1,5 @@
 using UnityEngine;
 using SaiUtils.StateMachine;
-using System.Collections;
 
 public class UICanvasController : MonoBehaviour
 {

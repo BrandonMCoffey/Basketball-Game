@@ -1,7 +1,6 @@
 using CoffeyUtils;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "PlayerActionData", menuName = "BasketballTricks/PlayerActionData", order = 1)]
 public class PlayerActionData : ScriptableObject
@@ -68,27 +67,27 @@ public struct ActionData
         return false;
     }
 
-    public ActionData(ActionType type = ActionType.None)
+    public ActionData(ActionType type = ActionType.None, CardRarity rarity = CardRarity.Rookie)
     {
         Name = type.ToString();
         Icon = null;
         Type = type;
-        AssociatedRarity = CardRarity.None;
+        AssociatedRarity = rarity;
         AllowedPositions = PlayerPosition.Any;
         ActionLevel = 1;
         float baseHype = type switch
         {
-            ActionType.Trick => 2.5f,
-            ActionType.Pass => 1f,
-            ActionType.Shot => 5f,
+            ActionType.Trick => 5f,
+            ActionType.Pass => 2f,
+            ActionType.Shot => 10f,
             _ => 2,
         };
         baseHype *= AssociatedRarity switch
         {
             CardRarity.Rookie => 2f,
-            CardRarity.Career => 4f,
-            CardRarity.AllStar => 8f,
-            CardRarity.Signature => 10f,
+            CardRarity.Career => 3f,
+            CardRarity.AllStar => 4f,
+            CardRarity.Signature => 5f,
             _ => 2f,
         };
         _cardData = new AppliedEffects(2, baseHype);

@@ -148,7 +148,7 @@ public class LockerRoomController : MonoBehaviour
         _handCatalogRef.HideCards();
         _catalog.DOAnchorPos(_catalogOriginalPosition, 0.35f).SetEase(Ease.InOutCubic).OnComplete(() =>
         {
-            Debug.Log("Showing cards in catalog");
+            //Debug.Log("Showing cards in catalog");
             _handCatalogRef.ShowCards();
         });
         _selectedIndex = index;

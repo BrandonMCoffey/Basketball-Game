@@ -48,6 +48,9 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
         _moveTextAmount = _moveTextUpOnPress ? -100f : 100f;
         _originalTextPos = _buttonText.rectTransform.anchoredPosition;
         _rectTransform = GetComponent<RectTransform>();
+
+        // Force no moving text
+        _moveTextOnPress = false;
     }
 
     private void Update()
@@ -69,7 +72,7 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
     {
         if (!_interactable) return;
         _rectTransform.DOScale(1.25f, 0.2f).SetEase(_easeType);
-        if (false)
+        if (_moveTextOnPress)
             _buttonText.rectTransform.DOAnchorPos(_originalTextPos + Vector2.up * _moveTextAmount, 0.2f).SetEase(_easeType);
         _checkForMousePos = true;
     }
@@ -78,7 +81,7 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
     {
         if (!_interactable) return;
         _rectTransform.DOScale(1f, 0.2f).SetEase(_easeType);
-        if (false)
+        if (_moveTextOnPress)
             _buttonText.rectTransform.DOAnchorPos(_originalTextPos, 0.2f).SetEase(_easeType);
         if (_checkForMousePos) StartCoroutine(InvokeActionRoutine(0.2f));
         _checkForMousePos = false;
