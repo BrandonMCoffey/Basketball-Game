@@ -204,15 +204,20 @@ public class PlayerManager : MonoBehaviour
         List<int> skipActualStackIndexes = new List<int>();
         for (int i = 0; i < TimelineActions.Count; i++)
         {
+            // Extra Pass Check
             float adjustCost = 0;
             float adjustHype = 0;
             if (_actionVisualPreviews.Count <= j) _actionVisualPreviews.Add(Instantiate(_actionVisualPreview, transform));
             if (player != null && player != TimelineActions[i].Player)
             {
-                _actionVisualPreviews[j++].ShowPass(player.transform.position, TimelineActions[i].Player.transform.position, Color.black);
+                bool passCostsExtra = i < TimelineActions.Count - 1 ? TimelineActions[i].Player.CardData.GetAction(TimelineActions[i].ActionIndex).Type != ActionType.Pass : true;
+
+                _actionVisualPreviews[j++].ShowPass(player.transform.position, TimelineActions[i].Player.transform.position, Color.black, passCostsExtra);
                 if (_actionVisualPreviews.Count <= j) _actionVisualPreviews.Add(Instantiate(_actionVisualPreview, transform));
-                adjustCost++;
+                
+                if (passCostsExtra) adjustCost++;
             }
+
             player = TimelineActions[i].Player;
             int index = TimelineActions[i].ActionIndex;
             var action = player.CardData.GetAction(index);
@@ -225,7 +230,7 @@ public class PlayerManager : MonoBehaviour
                 case ActionType.Pass:
                     if (i < TimelineActions.Count - 1)
                     {
-                        _actionVisualPreviews[j++].ShowPass(player.transform.position, TimelineActions[i + 1].Player.transform.position, player.PositionColor);
+                        _actionVisualPreviews[j++].ShowPass(player.transform.position, TimelineActions[i + 1].Player.transform.position, player.PositionColor, false);
                         player = TimelineActions[i + 1].Player;
                     }
                     break;

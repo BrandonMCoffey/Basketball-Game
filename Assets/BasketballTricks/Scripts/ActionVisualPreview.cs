@@ -25,7 +25,7 @@ public class ActionVisualPreview : MonoBehaviour
         transform.SetPositionAndRotation(playerPos, Quaternion.identity);
     }
 
-    public void ShowPass(Vector3 fromPlayer, Vector3 toPlayer, Color color)
+    public void ShowPass(Vector3 fromPlayer, Vector3 toPlayer, Color color, bool extraCost)
     {
         ShowType(1);
         fromPlayer.y = toPlayer.y = 0f;
