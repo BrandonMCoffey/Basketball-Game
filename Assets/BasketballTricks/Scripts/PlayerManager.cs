@@ -51,6 +51,7 @@ public class PlayerManager : MonoBehaviour
 
     private bool _simulating;
     private Player _placingPlayer;
+    private float _energyRemaining;
 
     public List<Player> Players => _players;
     public bool Simulating => _simulating;
@@ -191,6 +192,11 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
+    public bool CanPlay(ActionCard card)
+    {
+        return card.Action.Player.CardData.GetAction(card.Action.ActionIndex).Effects.Cost <= _energyRemaining;
+    }
+
     public void PreviewSequence(List<ActionCard> cards, int playedIndex)
     {
         if (_simulating) return;
@@ -310,6 +316,7 @@ public class PlayerManager : MonoBehaviour
             _actionVisualPreviews[j].gameObject.SetActive(false);
         }
 
+        _energyRemaining = _maxEnergy - cost;
         UpdateEnergy?.Invoke(cost, _maxEnergy);
     }
 

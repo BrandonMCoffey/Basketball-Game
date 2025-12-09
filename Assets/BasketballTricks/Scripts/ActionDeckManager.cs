@@ -72,11 +72,18 @@ public class ActionDeckManager : MonoBehaviour
 
     public void PlayCard(ActionCard card)
     {
+        if (!PlayerManager.Instance.CanPlay(card))
+        {
+            // TODO: Effects
+            return;
+        }
+
         _playedIndex++;
         int index = _cards.IndexOf(card);
         if (index != _playedIndex)
         {
-            (_cards[index], _cards[_playedIndex]) = (_cards[_playedIndex], _cards[index]);
+            _cards.RemoveAt(index);
+            _cards.Insert(_playedIndex, card);
         }
         PlayerManager.Instance.PreviewSequence(_cards, _playedIndex);
     }
@@ -175,10 +182,10 @@ public class ActionDeckManager : MonoBehaviour
 
     public void OnCardDragReorder(ActionCard draggedCard)
     {
-        int count = _cards.Count;
+        int count = _cards.Count - _playedIndex - 1;
         if (_disabled || count <= 1) return;
 
-        int draggedIndex = _cards.IndexOf(draggedCard);
+        int draggedIndex = _cards.IndexOf(draggedCard) - _playedIndex - 1;
         int newIndex = draggedIndex;
 
         float delta = 1f / (count - 1);
@@ -195,8 +202,8 @@ public class ActionDeckManager : MonoBehaviour
 
         if (newIndex != draggedIndex)
         {
-            _cards.RemoveAt(draggedIndex);
-            _cards.Insert(newIndex, draggedCard);
+            _cards.RemoveAt(draggedIndex + _playedIndex + 1);
+            _cards.Insert(newIndex + _playedIndex + 1, draggedCard);
             UpdateCardLayout(draggedCard);
             if (_cards.Any(c => c.IsSelected)) OnUpdateSelected();
         }
