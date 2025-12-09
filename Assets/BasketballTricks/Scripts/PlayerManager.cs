@@ -329,8 +329,8 @@ public class PlayerManager : MonoBehaviour
             else
             {
                 // TODO: Highlight cards
-                //Debug.Log($"For {action.Name}: {sequenceCost} + {adjustCost} out of {_maxEnergy}");
-                bool locked = _maxEnergy < sequenceCost + adjustCost;
+                //Debug.Log($"For {action.Name}: {sequenceCost} + {player.CardData.GetAction(actionIndex).Effects.Cost} + {adjustCost} out of {_maxEnergy}");
+                bool locked = _maxEnergy < sequenceCost + player.CardData.GetAction(actionIndex).Effects.Cost + adjustCost;
                 cards[i - TimelineActions.Count].SetLocked(locked);
                 if (!locked)
                 {

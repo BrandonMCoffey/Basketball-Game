@@ -186,15 +186,15 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
                 _showWhenDiscarding.SetActive(true);
                 return;
             }
-            /*
             if (!_wasDragged)
             {
+                /*
                 _isSelected = !_isSelected;
                 _showWhenNotSelected.SetActive(!_isSelected);
                 _manager.OnUpdateSelected();
                 if (!_isSelected) RefreshVisuals();
+                */
             }
-            */
             _rectTransform.DOScale(_isSelected ? _selectedScale : 1f, 0.2f);
         }
 

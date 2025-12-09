@@ -98,6 +98,7 @@ public class ActionDeckManager : MonoBehaviour
         yield return new WaitForSeconds(_layoutDuration + 0.1f);
         card.Init(_actionDeck[0], this);
         _actionDeck.RemoveAt(0);
+        PlayerManager.Instance.PreviewSequence(_playedActions, _cards);
         UpdateCardLayout(null);
     }
 
