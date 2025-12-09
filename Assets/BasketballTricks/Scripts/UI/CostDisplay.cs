@@ -5,7 +5,6 @@ using UnityEngine;
 public class CostDisplay : MonoBehaviour
 {
     [SerializeField] private TMP_Text _costText;
-    [SerializeField] private LongButtonController _disablePlayButton;
     [SerializeField] private Color _unusedColor = Color.blue;
     [SerializeField] private Color _spentColor = Color.green;
     //[SerializeField] private Color _overSpentColor = Color.red;
@@ -35,7 +34,6 @@ public class CostDisplay : MonoBehaviour
     public void UpdateCostDisplay(int cost, int max)
     {
         if (_costText != null) _costText.text = $"{cost}/{max}";
-        if (_disablePlayButton != null) _disablePlayButton.Interactable = cost <= max;
 
         if (cost > _costList.Count || max > _costList.Count)
         {
