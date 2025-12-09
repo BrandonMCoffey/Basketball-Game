@@ -24,6 +24,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     [Header("Drag")]
     [SerializeField] private float _dragScale = 1.25f;
     [SerializeField] private float _selectedScale = 1.2f;
+    [SerializeField] private float _playScale = 1.25f;
     [SerializeField] private float _dragFollowSpeed = 20f;
 
     public GameAction Action => _action;
@@ -33,6 +34,8 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     private Canvas _canvas;
     private bool _isDragging;
     private bool _wasDragged;
+    private bool _canPlay;
+    private bool _played;
     private Tween _moveTween;
     private Tween _rotTween;
     private bool _isSelected;
@@ -73,7 +76,10 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         _isDragging = false;
         _wasDragged = false;
         _isSelected = false;
+        _canPlay = false;
+        _played = false;
         _playerImage.sprite = gameAction.Player.CardData.PlayerData.PlayerSprite;
+        _rectTransform.DOScale(1f, 0.2f);
         var aspect = _playerImage.GetComponent<AspectRatioFitter>();
         if (aspect != null)
         {
@@ -117,6 +123,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (_played) return;
         _wasDragged = false;
         _rectTransform.SetAsLastSibling();
         _rectTransform.DOScale(_dragScale, 0.2f);
@@ -127,28 +134,49 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (_played) return;
         _isDragging = true;
         _wasDragged = true;
+
+        bool canPlay = transform.position.y > _manager.CardPlayPoint.position.y;
+        if (canPlay != _canPlay)
+        {
+            _rectTransform.DOScale(canPlay ? _playScale : _dragScale, 0.1f);
+        }
+        _canPlay = canPlay;
+
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (_played) return;
         _isDragging = false;
 
-        if (!_wasDragged)
+        if (_canPlay)
         {
-            _isSelected = !_isSelected;
-            _showWhenNotSelected.SetActive(!_isSelected);
-            _manager.OnUpdateSelected();
-            if (!_isSelected) RefreshVisuals();
+            _rectTransform.DOScale(_isSelected ? _selectedScale : 0f, 0.2f);
+            _rectTransform.DOAnchorPos(_rectTransform.anchoredPosition + Vector2.down * 500, 2f);
+            _manager.PlayCard(this);
+            _played = true;
         }
-        _rectTransform.DOScale(_isSelected ? _selectedScale : 1f, 0.2f);
+        else
+        {
+            if (!_wasDragged)
+            {
+                _isSelected = !_isSelected;
+                _showWhenNotSelected.SetActive(!_isSelected);
+                _manager.OnUpdateSelected();
+                if (!_isSelected) RefreshVisuals();
+            }
+            _rectTransform.DOScale(_isSelected ? _selectedScale : 1f, 0.2f);
+        }
 
         _manager.UpdateCardLayout();
     }
 
     public void UpdateTransform(Vector2 targetPos, Quaternion targetRot, float duration, Ease ease)
     {
+        if (_played) return;
         _moveTween?.Kill();
         _rotTween?.Kill();
 
@@ -163,6 +191,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     public void UpdateRotationOnly(Quaternion targetRot, float duration)
     {
+        if (_played) return;
         _rotTween?.Kill();
         _rotTween = _rectTransform.DOLocalRotateQuaternion(targetRot, duration);
     }

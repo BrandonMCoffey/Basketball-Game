@@ -191,10 +191,14 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
-    public void PreviewSequence(List<ActionCard> cards)
+    public void PreviewSequence(List<ActionCard> cards, int playedIndex)
     {
         if (_simulating) return;
-        TimelineActions = cards.Select(card => card.Action).ToList();
+        TimelineActions = new List<GameAction>(playedIndex);
+        for (int i = 0; i <= playedIndex; i++)
+        {
+            TimelineActions.Add(cards[i].Action);
+        }
         RefreshTimeline?.Invoke();
 
         float cost = 0;
@@ -311,7 +315,7 @@ public class PlayerManager : MonoBehaviour
 
     public bool RunSimulation()
     {
-        if (_simulating || !IsSequenceValid()) return false;
+        if (_simulating/* || !IsSequenceValid()*/) return false;
         _simulating = true;
         foreach (var preview in _actionVisualPreviews)
         {
