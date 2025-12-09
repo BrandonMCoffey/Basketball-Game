@@ -20,6 +20,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     [SerializeField] private Sprite _defaultPassIcon;
     [SerializeField] private Sprite _defaultShotIcon;
     [SerializeField] private GameObject _showWhenNotSelected;
+    [SerializeField] private GameObject _showWhenDiscarding;
 
     [Header("Drag")]
     [SerializeField] private float _dragScale = 1.25f;
@@ -89,6 +90,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
             aspect.aspectRatio = _playerImage.sprite != null ? (float)_playerImage.sprite.rect.width / _playerImage.sprite.rect.height : 1f;
         }
         _showWhenNotSelected.SetActive(false);
+        _showWhenDiscarding.SetActive(false);
     }
 
     public void RefreshVisuals(float adjustCost = 0, float adjustHype = 0)
@@ -154,6 +156,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
                 _rectTransform.DOScale(dragToPlay ? _playScale : _dragScale, 0.1f);
             }
             _dragToPlay = dragToPlay;
+            _showWhenDiscarding.SetActive(RectTransformUtility.RectangleContainsScreenPoint(_manager.DiscardBox, eventData.position));
         }
         else
         {
@@ -175,6 +178,14 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         }
         else
         {
+           
+            //if (Vector2.Distance(_manager.DiscardBox.anchoredPosition, _rectTransform.anchoredPosition) < 50)
+            if (RectTransformUtility.RectangleContainsScreenPoint(_manager.DiscardBox, eventData.position))
+            {
+                _manager.DiscardCard(this);
+                _showWhenDiscarding.SetActive(true);
+                return;
+            }
             /*
             if (!_wasDragged)
             {

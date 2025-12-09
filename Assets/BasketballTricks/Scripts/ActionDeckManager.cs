@@ -12,6 +12,7 @@ public class ActionDeckManager : MonoBehaviour
     [SerializeField] private int _handSize = 5;
     [SerializeField] private RectTransform _cardContainer;
     [SerializeField] private RectTransform _cardPlayPoint;
+    [SerializeField] private RectTransform _discardBox;
     [SerializeField] private float _dragReorderThreshold = 50f;
 
     [Header("Card Layout")]
@@ -22,6 +23,7 @@ public class ActionDeckManager : MonoBehaviour
     [SerializeField] private float _layoutDuration = 0.3f;
     [SerializeField] private Ease _layoutEase = Ease.OutBack;
 
+    public RectTransform DiscardBox => _discardBox;
     public RectTransform CardPlayPoint => _cardPlayPoint;
 
     private List<ActionCard> _cards;
@@ -89,26 +91,13 @@ public class ActionDeckManager : MonoBehaviour
         //PlayerManager.Instance.PreviewSequence(_cards.Where(card => card.IsSelected).ToList());
     }
 
-    public void DiscardSelectedCards()
+    public void DiscardCard(ActionCard card) => StartCoroutine(DiscardCardRoutine(card));
+    private IEnumerator DiscardCardRoutine(ActionCard card)
     {
-        StartCoroutine(DiscardRoutine());
-    }
-
-    private IEnumerator DiscardRoutine()
-    {
-        foreach (var card in _cards)
-        {
-            if (card.IsSelected) card.RectTransform.DOAnchorPos(card.RectTransform.anchoredPosition + Vector2.down * 1080f, _layoutDuration).SetEase(Ease.InBack);
-        }
+        card.RectTransform.DOAnchorPos(card.RectTransform.anchoredPosition + Vector2.down * 1080f, _layoutDuration).SetEase(Ease.InBack);
         yield return new WaitForSeconds(_layoutDuration + 0.1f);
-        for (int i = _cards.Count - 1; i >= 0; i--)
-        {
-            if (_cards[i].IsSelected)
-            {
-                _cards[i].Init(_actionDeck[0], this);
-                _actionDeck.RemoveAt(0);
-            }
-        }
+        card.Init(_actionDeck[0], this);
+        _actionDeck.RemoveAt(0);
         UpdateCardLayout(null);
     }
 
