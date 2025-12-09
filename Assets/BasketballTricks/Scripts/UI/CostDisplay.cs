@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CostDisplay : MonoBehaviour
 {
@@ -9,18 +8,27 @@ public class CostDisplay : MonoBehaviour
     [SerializeField] private LongButtonController _disablePlayButton;
     [SerializeField] private Color _unusedColor = Color.blue;
     [SerializeField] private Color _spentColor = Color.green;
-    [SerializeField] private Color _overSpentColor = Color.red;
-    [SerializeField] private Color _overMaxColor = Color.white;
-    [SerializeField] private List<Image> _costList = new List<Image>();
+    //[SerializeField] private Color _overSpentColor = Color.red;
+    //[SerializeField] private Color _overMaxColor = Color.white;
+    [SerializeField] private List<StaminaElemController> _costList = new();
 
     private void OnValidate()
     {
-        UpdateCostDisplay(3, 5);
+        //UpdateCostDisplay(3, 5); sorry i know onvalidate is dope, but I had to do it through start....
     }
 
     private void Awake()
     {
         PlayerManager.UpdateEnergy += UpdateCostDisplay;
+    }
+
+    private void Start() 
+    {
+        foreach (var costElem in _costList)
+        {
+            costElem.SetColors(_unusedColor, _spentColor);
+        }
+        UpdateCostDisplay(0, 5);    
     }
 
     public void UpdateCostDisplay(float cost, float max) => UpdateCostDisplay(Mathf.RoundToInt(cost), Mathf.RoundToInt(max));
@@ -36,17 +44,8 @@ public class CostDisplay : MonoBehaviour
             max = Mathf.Min(max, _costList.Count);
         }
         int i = 0;
-        for (; i < cost; i++)
-        {
-            _costList[i].color = i < max ? _spentColor : _overSpentColor;
-        }
-        for (; i < max; i++)
-        {
-            _costList[i].color = _unusedColor;
-        }
-        for (; i < _costList.Count; i++)
-        {
-            _costList[i].color = _overMaxColor;
-        }
+        for (; i < cost; i++) { _costList[i].Spend(); }
+        for (; i < max; i++) { _costList[i].Unuse(); }
+        for (; i < _costList.Count; i++) { _costList[i].Hide(); }
     }
 }
