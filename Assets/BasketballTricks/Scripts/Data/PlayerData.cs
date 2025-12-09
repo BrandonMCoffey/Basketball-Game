@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "BasketballTricks/PlayerData")]
@@ -13,6 +14,10 @@ public class PlayerData : ScriptableObject
     [SerializeField, HideIf(nameof(_customPlayerArt))] private RandomPlayerArtData _randomHairData;
     [SerializeField, ShowIf(nameof(_customPlayerArt))] private PlayerArtData _artData;
 
+    [Space(25)]
+    [SerializeField] private List<string> _cardBackImportantData;
+    [SerializeField] private List<CardBackColumnData> _cardBackData;
+
     public string PlayerName => _playerName;
     public string PlayerNumber => _playerNumber;
     public Sprite PlayerSprite => _playerSprite;
@@ -20,6 +25,8 @@ public class PlayerData : ScriptableObject
     public PlayerArtData ArtData => _customPlayerArt ? _artData : _randomHairData.GetData();
     public PlayerPosition NaturalPosition => _naturalPosition;
     public bool IsNaturalPosition(PlayerPosition position) => _naturalPosition.HasFlag(position);
+    public List<string> CardBackImportantData => _cardBackImportantData;
+    public List<CardBackColumnData> CardBackData => _cardBackData;
 
     private void OnValidate()
     {
@@ -59,6 +66,34 @@ public class PlayerData : ScriptableObject
             _ => "NA"
         };
     }
+
+    [Button]
+    private void SetDefaultCardBackData()
+    {
+        _cardBackImportantData = new List<string>
+        {
+            "BORN: ",
+            "HEIGHT: ",
+            "WEIGHT: ",
+            "JERSEY #: " + _playerNumber,
+            "DRAFTED: ",
+        };
+        _cardBackData = new List<CardBackColumnData>
+        {
+            new CardBackColumnData("YEAR", "25-26", "TOTAL"),
+            new CardBackColumnData("TEAM"),
+            new CardBackColumnData("G"),
+            new CardBackColumnData("FG%"),
+            new CardBackColumnData("FT%"),
+            new CardBackColumnData("3PM"),
+            new CardBackColumnData("RPG"),
+            new CardBackColumnData("APG"),
+            new CardBackColumnData("STL"),
+            new CardBackColumnData("BLK"),
+            new CardBackColumnData("PTS"),
+            new CardBackColumnData("PPG"),
+        };
+    }
 }
 
 [System.Serializable]
@@ -82,4 +117,19 @@ public enum PlayerPosition
     SF = 1 << 2,
     PF = 1 << 3,
     C = 1 << 4,
+}
+
+[System.Serializable]
+public struct CardBackColumnData
+{
+    public string Title;
+    public string Row1;
+    public string Row2;
+
+    public CardBackColumnData(string title, string row1 = "", string row2 = "")
+    {
+        Title = title;
+        Row1 = row1;
+        Row2 = row2;
+    }
 }

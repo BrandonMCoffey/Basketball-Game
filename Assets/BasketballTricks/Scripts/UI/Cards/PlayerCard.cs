@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 
 public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -45,6 +46,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     private Transform _parent;
     private Transform _holdParent;
     private bool _canPlaceOnCourt;
+    private Vector3 _anchoredFocusPosition;
 
     private bool CanDrag => _canDrag && !_focusView && !_flipping;
 
@@ -72,19 +74,20 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         }
     }
 
-    public void Init(Transform parent, Transform holdParent, bool canPlaceOnCourt)
+    public void Init(Transform parent, Transform holdParent, bool canPlaceOnCourt, Vector3 anchoredFocusPosition)
     {
-        _initialPosition = _rectTransform.position;
+        _initialPosition = _rectTransform.anchoredPosition;
         _initialRotation = _rectTransform.localRotation;
         _initialScale = _rectTransform.localScale;
         _parent = parent;
         _holdParent = holdParent;
         _canPlaceOnCourt = canPlaceOnCourt;
+        _anchoredFocusPosition = anchoredFocusPosition;
     }
 
     public void RefreshTransform()
     {
-        _rectTransform.position = _initialPosition;
+        _rectTransform.anchoredPosition = _initialPosition;
         _rectTransform.localRotation = _initialRotation;
         _rectTransform.localScale = _initialScale;
     }
@@ -169,7 +172,6 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         transform.SetAsLastSibling();
         var rectTransform = _focusBackground.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = Vector3.zero;
-        rectTransform.position = new Vector3(-150, 0, 0);
         rectTransform.sizeDelta = new Vector2(Screen.width * 2, Screen.height * 2);
         _focusBackground.blocksRaycasts = true;
         _focusBackground.interactable = false;
@@ -189,7 +191,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         }
 
         _focusBackground.DOFade(show ? 1 : 0, _holdAnimationDuration).SetEase(Ease.OutQuart);
-        _rectTransform.DOMove(show ? transform.root.position : _initialPosition, _holdAnimationDuration).SetEase(Ease.OutQuart);
+        _rectTransform.DOAnchorPos(show ? _anchoredFocusPosition : _initialPosition, _holdAnimationDuration).SetEase(Ease.OutQuart);
         _rectTransform.DOScale(show ? _initialScale * _holdScale : _initialScale, _holdAnimationDuration).SetEase(Ease.OutQuart);
         yield return new WaitForSeconds(_holdAnimationDuration);
 
@@ -198,7 +200,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
 
         if (show)
         {
-            _flipTransform.DOAnchorPosY(-30, _holdAnimationDuration).SetEase(Ease.OutQuart);
+            _flipTransform.DOAnchorPosY(-25, _holdAnimationDuration).SetEase(Ease.OutQuart);
         }
         else
         {
@@ -265,19 +267,19 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     {
         _isDragging = false;
         _raycastImage.raycastTarget = false;
-        Vector3 currentPosition = _rectTransform.position;
+        Vector3 currentPosition = _rectTransform.anchoredPosition;
         Quaternion currentRotation = _rectTransform.localRotation;
 
         for (float t = 0; t < 1f; t += Time.deltaTime * _returnSpeed)
         {
             float delta = MathFunctions.EaseInOutQuart(t);
-            _rectTransform.position = Vector3.Lerp(currentPosition, _initialPosition, delta);
+            _rectTransform.anchoredPosition = Vector3.Lerp(currentPosition, _initialPosition, delta);
             _rectTransform.localRotation = Quaternion.Lerp(currentRotation, _initialRotation, delta);
             _rectTransform.localScale = Vector3.Lerp(_initialScale * _popScale, _initialScale, delta);
             yield return null;
         }
 
-        _rectTransform.position = _initialPosition;
+        _rectTransform.anchoredPosition = _initialPosition;
         _rectTransform.localRotation = _initialRotation;
         _rectTransform.localScale = _initialScale;
         if (_parent != null) transform.SetParent(_parent, true);

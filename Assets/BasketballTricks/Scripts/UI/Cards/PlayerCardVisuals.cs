@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,9 +13,13 @@ public class PlayerCardVisuals : MonoBehaviour
     [SerializeField] private TMP_Text _playerName;
     [SerializeField] private TMP_Text _playerName2;
     [SerializeField] private Image _playerImage;
+    [SerializeField] private Image _playerImage2;
     [SerializeField] private Sprite _defaultPlayerImage;
     [SerializeField] private Sprite _defaultTeamImage;
     [SerializeField] private List<PlayerActionVisuals> _actionVisuals;
+    [SerializeField] private TMP_Text _cardBackPositions;
+    [SerializeField] private List<TMP_Text> _cardBackImportantText;
+    [SerializeField] private Transform _cardBackDataTree;
 
     [Header("Flip References")]
     [SerializeField] private Transform _cardVisuals;
@@ -43,6 +48,7 @@ public class PlayerCardVisuals : MonoBehaviour
     {
         _card = data;
         UpdateVisuals();
+        UpdateCardBackDataVisuals();
     }
 
     private void UpdateVisuals()
@@ -50,6 +56,7 @@ public class PlayerCardVisuals : MonoBehaviour
         if (_playerName != null) _playerName.text = _card != null ? _card.PlayerData.PlayerName : "Player";
         if (_playerName2 != null) _playerName2.text = _card != null ? _card.PlayerData.PlayerName : "Player";
         if (_playerImage != null) _playerImage.sprite = _card != null ? _card.PlayerData.PlayerSprite : _defaultPlayerImage;
+        if (_playerImage2 != null) _playerImage2.sprite = _card != null ? _card.PlayerData.PlayerSprite : _defaultPlayerImage;
 
         for (int i = 0; i < _actionVisuals.Count; i++)
         {
@@ -88,4 +95,45 @@ public class PlayerCardVisuals : MonoBehaviour
     }
 
     protected virtual void RefreshInteractables() { }
+
+    [Button]
+    public void UpdateCardBackDataVisuals()
+    {
+        _cardBackPositions.text = _card.PlayerData.NaturalPosition.ToString();
+
+        var lines = _card.PlayerData.CardBackImportantData;
+        int count = Mathf.Min(_cardBackImportantText.Count, lines.Count);
+        for (int i = 0; i < count; i++)
+        {
+            _cardBackImportantText[i].text = lines[i];
+        }
+
+        var data = _card.PlayerData.CardBackData;
+        for (int i = 0; i < _cardBackDataTree.childCount; i++)
+        {
+            CardBackColumnData dataColumn = data[i];
+            var column = _cardBackDataTree.GetChild(i);
+            for (int j = 0; j < column.childCount; j++)
+            {
+                var row = column.GetChild(j);
+                var text = row.GetComponent<TMP_Text>();
+                if (text == null) continue;
+                switch (j)
+                {
+                    case 0:
+                        text.text = dataColumn.Title;
+                        text.color = Color.white;
+                        break;
+                    case 1:
+                        text.text = string.IsNullOrEmpty(dataColumn.Row1) ? " " : dataColumn.Row1;
+                        text.color = Color.black;
+                        break;
+                    case 2:
+                        text.text = string.IsNullOrEmpty(dataColumn.Row2) ? " " : dataColumn.Row2;
+                        text.color = Color.black;
+                        break;
+                }
+            }
+        }
+    }
 }

@@ -18,6 +18,7 @@ public class HandCatalog : MonoBehaviour
     [SerializeField] private Button _nextButton;
     [SerializeField] private int _startIndex;
     [SerializeField] RectTransform _glareEffect;
+    [SerializeField] private RectTransform _focusPoint;
 
     private List<PlayerCard> _cards;
     private bool _transitioning;
@@ -64,7 +65,7 @@ public class HandCatalog : MonoBehaviour
             rectTransform.anchorMin = rectTransform.anchorMax = rectTransform.pivot = Vector3.one * 0.5f;
             rectTransform.anchoredPosition = new Vector2(x, y + 20); // offset y for better centering - Sai
             rectTransform.sizeDelta = _cardSize;
-            card.Init(_cardParent, _holdParent, _dragOntoCourt);
+            card.Init(_cardParent, _holdParent, _dragOntoCourt, _focusPoint.anchoredPosition);
             card.transform.localScale = Vector3.zero;
             _cards.Add(card);
         }

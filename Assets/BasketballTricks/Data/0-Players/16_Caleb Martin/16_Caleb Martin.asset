@@ -27,3 +27,46 @@ MonoBehaviour:
     FacialHairPrefab: {fileID: 919132149155446097, guid: 6fe0c9ba373aaaf40bb5112c63fdfd6e,
       type: 3}
     AccessoryPrefab: {fileID: 0}
+  _cardBackImportantData:
+  - 'BORN: '
+  - 'HEIGHT: '
+  - 'WEIGHT: '
+  - 'JERSEY #: 16'
+  - 'DRAFTED: '
+  _cardBackData:
+  - Title: YEAR
+    Row1: 25-26
+    Row2: TOTAL
+  - Title: TEAM
+    Row1: 
+    Row2: 
+  - Title: G
+    Row1: 
+    Row2: 
+  - Title: FG%
+    Row1: 
+    Row2: 
+  - Title: FT%
+    Row1: 
+    Row2: 
+  - Title: 3PM
+    Row1: 
+    Row2: 
+  - Title: RPG
+    Row1: 
+    Row2: 
+  - Title: APG
+    Row1: 
+    Row2: 
+  - Title: STL
+    Row1: 
+    Row2: 
+  - Title: BLK
+    Row1: 
+    Row2: 
+  - Title: PTS
+    Row1: 
+    Row2: 
+  - Title: PPG
+    Row1: 
+    Row2: 
