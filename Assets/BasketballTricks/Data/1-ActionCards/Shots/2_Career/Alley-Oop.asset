@@ -1,0 +1,193 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 041c9dffaf652874eb5e4e1ef3755211, type: 3}
+  m_Name: Alley-Oop
+  m_EditorClassIdentifier: 
+  _data:
+    Name: Alley-Oop
+    _cardText: '@NextEffect'
+    _previewText: On next shot this sequence by Center multiply Hype gain by 2
+    _cardSummary: For 1 cost, gain +25 Hype. On next shot this sequence by Center
+      multiply Hype gain by 2.
+    Type: 3
+    AssociatedRarity: 2
+    AllowedPositions: 28
+    ActionLevel: 1
+    _cardData:
+      _cost:
+        isLevelable: 0
+        levels:
+        - 1
+        - 0
+        - 0
+      _hypeGain:
+        isLevelable: 1
+        levels:
+        - 25
+        - 30
+        - 40
+      _multiplyHype:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      _energyGain:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      _drawCards:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+      _retriggerCard:
+        isLevelable: 0
+        levels:
+        - 0
+        - 0
+        - 0
+    HasEffectIfSequence: 0
+    EffectIfSequence:
+      Requirements: 0
+      OfType: 0
+      Effects:
+        _cost:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _hypeGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _multiplyHype:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _energyGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _drawCards:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _retriggerCard:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+    _effectIfSequencePreviewText: 
+    HasEffectIfPrevious: 0
+    EffectIfPrevious:
+      RequiredType: 0
+      RequiredPosition: 31
+      Effects:
+        _cost:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _hypeGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _multiplyHype:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _energyGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _drawCards:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _retriggerCard:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+    _effectIfPreviousPreviewText: 
+    HasNextEffect: 1
+    NextEffect:
+      AppliesTo: 1
+      RequiredType: 3
+      RequiredPosition: 16
+      Effects:
+        _cost:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _hypeGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _multiplyHype:
+          isLevelable: 1
+          levels:
+          - 2
+          - 0
+          - 0
+        _energyGain:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+        _drawCards:
+          isLevelable: 0
+          levels:
+          - 0
+          - 2
+          - 2
+        _retriggerCard:
+          isLevelable: 0
+          levels:
+          - 0
+          - 0
+          - 0
+      Level: 0
+    _nextEffectPreviewText: On next shot this sequence by Center multiply Hype gain
+      by 2
+    Icon: {fileID: 0}
+    Animation: 200
+    Duration: 3
