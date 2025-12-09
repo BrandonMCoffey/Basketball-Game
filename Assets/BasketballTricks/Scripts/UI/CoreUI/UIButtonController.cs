@@ -150,7 +150,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
         for (int i = 0; i < _iconContainer.childCount; i++)
         {
             RectTransform iconRect = _iconContainer.GetChild(i).GetComponent<RectTransform>();
-            iconRect.DOAnchorPosY(_onScreenAnchoredPos.y + 200 + Random.Range(0, 100), 0.2f).SetEase(_easeType).SetDelay(0.075f + i * 0.03f);
+            iconRect.DOAnchorPosY(_onScreenAnchoredPos.y + 100, 0.2f).SetEase(_easeType).SetDelay(0.075f + i * 0.03f);
         }
         
         _checkForMousePos = true;
