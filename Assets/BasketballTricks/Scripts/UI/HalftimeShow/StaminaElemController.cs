@@ -17,6 +17,7 @@ public class StaminaElemController : MonoBehaviour
     [SerializeField] private Image _spriteRenderer;
     [SerializeField] private RectTransform _imageRectTransform;
 
+    private bool _jumped = false;
     
 
     public void SetColors(Color unusedColor, Color spentColor)
@@ -33,10 +34,7 @@ public class StaminaElemController : MonoBehaviour
             case StaminaElemState.Spent:
                 _spriteRenderer.color = _spentColor;
                 _spriteRenderer.enabled = true;
-                _imageRectTransform.DOAnchorPosY(-10, 0.1f).SetEase(Ease.OutCirc).OnComplete(() =>
-                {
-                    _imageRectTransform.DOAnchorPosY(0, 0.2f).SetDelay(0.15f).SetEase(Ease.OutBack);
-                });
+                Jump();
                 break;
             case StaminaElemState.Unused:
                 _spriteRenderer.color = _unusedColor;
@@ -50,15 +48,28 @@ public class StaminaElemController : MonoBehaviour
         }
     }
 
+    private void Jump()
+    {
+        if (_jumped) return;
+        _imageRectTransform.DOScale(Vector3.one * 1.2f, 0.1f).SetEase(Ease.OutQuad);
+        _imageRectTransform.DOAnchorPosY(20, 0.1f).SetEase(Ease.OutQuad).OnComplete(() =>
+        {
+            _imageRectTransform.DOAnchorPosY(0, 0.2f).SetDelay(0.15f).SetEase(Ease.OutBack);
+            _imageRectTransform.DOScale(Vector3.one, 0.2f).SetDelay(0.15f).SetEase(Ease.OutBack);
+        });
+    }
+
     public void Spend()
     {
         CurrentState = StaminaElemState.Spent;
+        _jumped = true;
         UpdateVisuals();
     }
 
     public void Unuse()
     {
         CurrentState = StaminaElemState.Unused;
+        _jumped = false;
         UpdateVisuals();
     }
 
