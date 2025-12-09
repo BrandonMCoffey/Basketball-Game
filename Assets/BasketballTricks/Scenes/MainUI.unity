@@ -7782,6 +7782,11 @@ PrefabInstance:
       propertyPath: _onButtonPressed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1897914496740747949, guid: ae84d61afa270974d98cf615d5eae28a,
+        type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1.41
+      objectReference: {fileID: 0}
     - target: {fileID: 3168103611338420984, guid: ae84d61afa270974d98cf615d5eae28a,
         type: 3}
       propertyPath: m_Pivot.y
@@ -7856,6 +7861,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4082235568795700201, guid: ae84d61afa270974d98cf615d5eae28a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4082235568795700201, guid: ae84d61afa270974d98cf615d5eae28a,
+        type: 3}
+      propertyPath: m_ShowMaskGraphic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4356058741716374403, guid: ae84d61afa270974d98cf615d5eae28a,
         type: 3}
@@ -7936,6 +7951,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132168985460636139, guid: ae84d61afa270974d98cf615d5eae28a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -115
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132168985460636139, guid: ae84d61afa270974d98cf615d5eae28a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 115
       objectReference: {fileID: 0}
     - target: {fileID: 5838009371532239709, guid: ae84d61afa270974d98cf615d5eae28a,
         type: 3}
