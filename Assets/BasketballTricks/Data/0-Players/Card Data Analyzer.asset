@@ -39,10 +39,10 @@ MonoBehaviour:
     Details: Career card with 6 actions.
     Actions:
     - 2x | 3-Pointer (Rookie)
-    - 1x | Trick (None)
-    - 1x | Trick (None)
-    - 1x | Trick (None)
-    - 1x | Trick (None)
+    - 1x | Trick (Rookie)
+    - 1x | Trick (Rookie)
+    - 1x | Trick (Rookie)
+    - 1x | Trick (Rookie)
     ShowActionsUnderCards: 0
   - Card: {fileID: 11400000, guid: 475927cd4e6372448a26820a146fa386, type: 2}
     Details: Career card with 6 actions.
@@ -57,9 +57,9 @@ MonoBehaviour:
   - Card: {fileID: 11400000, guid: 98eb2e11f85a0de44b5f95ca7da49876, type: 2}
     Details: Career card with 4 actions.
     Actions:
-    - 1x | Trick (None)
+    - 1x | Trick (Rookie)
     - 2x | Bounce Pass (Rookie)
-    - 1x | Trick (None)
+    - 1x | Trick (Rookie)
     ShowActionsUnderCards: 0
   - Card: {fileID: 11400000, guid: 680b61da0331cf445bbc30274da9fce7, type: 2}
     Details: Career card with 7 actions.
@@ -114,7 +114,7 @@ MonoBehaviour:
     - 1x | Mid-Range Jumper (Rookie)
     - 1x | Fadeaway (AllStar)
     ShowActionsUnderCards: 0
-  _showCardsUnderActions: 0
+  _showCardsUnderActions: 1
   _actionsToAnalyze:
   - {fileID: 11400000, guid: ee61ed6a3a581ab4aa30b33d92ff56cd, type: 2}
   - {fileID: 11400000, guid: 3f847b2b7720ca649a2dde4ba0447c13, type: 2}
@@ -157,7 +157,7 @@ MonoBehaviour:
     CardsUsingThis:
     - 2x | Anthony Davis | Mavericks Player (Career)
     - 1x | Kyrie Irving | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 3f847b2b7720ca649a2dde4ba0447c13, type: 2}
     Details: Rookie-level action found in 4 cards (6 copies).
     CardsUsingThis:
@@ -165,98 +165,98 @@ MonoBehaviour:
     - 1x | P.J. Washington | Mavericks Player (Career)
     - 2x | Klay Thompson | Mavericks Player (Career)
     - 2x | Cooper Flagg | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 3a82f927766e6f747be32fd1265cff5a, type: 2}
     Details: Rookie-level action found in 0 cards (0 copies).
     CardsUsingThis: []
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: f569d221cef72a54197d115338d60dce, type: 2}
     Details: Rookie-level action found in 1 cards (1 copies).
     CardsUsingThis:
     - 1x | Dereck Lively II | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 6b59435feab3f3f49b0fcfe7a04c0e2f, type: 2}
     Details: Career-level action found in 1 cards (1 copies).
     CardsUsingThis:
     - 1x | Kyrie Irving | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: f031c44526e3d4542ae5c20923cf3810, type: 2}
     Details: Career-level action found in 1 cards (1 copies).
     CardsUsingThis:
     - 1x | Cooper Flagg | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: d67e106ffcf21ca499d805bd81f7ab98, type: 2}
     Details: AllStar-level action found in 0 cards (0 copies).
     CardsUsingThis: []
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 9bcefe1b25703394cb6ef5a62524b008, type: 2}
     Details: Rookie-level action found in 3 cards (4 copies).
     CardsUsingThis:
     - 2x | Jaden Hardy | Mavericks Player (Career)
     - 1x | Kyrie Irving | Mavericks Player (Career)
     - 1x | Klay Thompson | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: ee1f0f88b018cd942ac90a994f7d167f, type: 2}
     Details: Rookie-level action found in 3 cards (3 copies).
     CardsUsingThis:
     - 1x | P.J. Washington | Mavericks Player (Career)
     - 1x | Klay Thompson | Mavericks Player (Career)
     - 1x | Cooper Flagg | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: c7f173672c1d20949a0c36eec9f0713a, type: 2}
     Details: Career-level action found in 2 cards (2 copies).
     CardsUsingThis:
     - 1x | Dereck Lively II | Mavericks Player (Career)
     - 1x | P.J. Washington | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 0e1db431e09e2434ebd7b34e168f217f, type: 2}
     Details: Career-level action found in 1 cards (1 copies).
     CardsUsingThis:
     - 1x | Klay Thompson | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: a8a8723a63e070b4782a07ebad6d1166, type: 2}
     Details: Career-level action found in 0 cards (0 copies).
     CardsUsingThis: []
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 1be49f7b306fe9e4e845d29fc5c36e62, type: 2}
     Details: Career-level action found in 1 cards (1 copies).
     CardsUsingThis:
     - 1x | Klay Thompson | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 1456054134d14e54483a6999885c742f, type: 2}
     Details: Career-level action found in 0 cards (0 copies).
     CardsUsingThis: []
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: c0f078017aed2504abb31b61dff75de1, type: 2}
     Details: Career-level action found in 1 cards (1 copies).
     CardsUsingThis:
     - 1x | Dereck Lively II | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: efc5b31ae325ba541bb15ca97c80ea24, type: 2}
     Details: Career-level action found in 1 cards (1 copies).
     CardsUsingThis:
     - 1x | Dereck Lively II | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 49d1fa4f8abaa5545a7eedfcd6d9ceaa, type: 2}
     Details: AllStar-level action found in 1 cards (1 copies).
     CardsUsingThis:
     - 1x | Dereck Lively II | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 11a5872f547b2e046882e0731216e320, type: 2}
     Details: AllStar-level action found in 2 cards (2 copies).
     CardsUsingThis:
     - 1x | P.J. Washington | Mavericks Player (Career)
     - 1x | Cooper Flagg | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 89f8cf0b242f818498a6a8e5295ed394, type: 2}
     Details: AllStar-level action found in 0 cards (0 copies).
     CardsUsingThis: []
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 7914fcb3a0186c7438bb9e50c36c9882, type: 2}
     Details: Rookie-level action found in 1 cards (1 copies).
     CardsUsingThis:
     - 1x | Kyrie Irving | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: eff3b2fd85f6db543a551ab8a6cf5a35, type: 2}
     Details: Rookie-level action found in 4 cards (5 copies).
     CardsUsingThis:
@@ -264,64 +264,64 @@ MonoBehaviour:
     - 1x | Kyrie Irving | Mavericks Player (Career)
     - 1x | P.J. Washington | Mavericks Player (Career)
     - 2x | Cooper Flagg | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 218363b1e30f3b8488f2c1e4ae2a721b, type: 2}
     Details: Rookie-level action found in 1 cards (1 copies).
     CardsUsingThis:
     - 1x | Cooper Flagg | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 96925483d1f5f5a47a0c339a7f80f9f0, type: 2}
     Details: Career-level action found in 1 cards (1 copies).
     CardsUsingThis:
     - 1x | Kyrie Irving | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: f7ad7111cc0536c428af9fac12d34bd6, type: 2}
     Details: Career-level action found in 1 cards (1 copies).
     CardsUsingThis:
     - 1x | Klay Thompson | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 51b98c94c1374db4a9fe527e2de77a8c, type: 2}
     Details: Career-level action found in 0 cards (0 copies).
     CardsUsingThis: []
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 24b19027628ab5e47abf08222baf0800, type: 2}
     Details: AllStar-level action found in 0 cards (0 copies).
     CardsUsingThis: []
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 2b840157986b5234183501da6eee9501, type: 2}
     Details: AllStar-level action found in 1 cards (1 copies).
     CardsUsingThis:
     - 1x | P.J. Washington | Mavericks Player (Career)
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 03b5f98549046d64197ef32d44dd92a7, type: 2}
     Details: Signature-level action found in 0 cards (0 copies).
     CardsUsingThis: []
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 5d39690cbac68ae429f7be98ff3cb51d, type: 2}
     Details: Signature-level action found in 0 cards (0 copies).
     CardsUsingThis: []
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: aed1647bb4e2b2849bf8bb44f9576d80, type: 2}
     Details: Signature-level action found in 0 cards (0 copies).
     CardsUsingThis: []
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 3390d1beb5bb4d448864cb3cfc42d744, type: 2}
     Details: Signature-level action found in 0 cards (0 copies).
     CardsUsingThis: []
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 9c87f319dff1caa469c2b97c62e59ab4, type: 2}
     Details: Signature-level action found in 0 cards (0 copies).
     CardsUsingThis: []
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 38bad0b03c747f64d9b7f87673bf9e6c, type: 2}
     Details: Signature-level action found in 0 cards (0 copies).
     CardsUsingThis: []
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: 0c66697ec3afc7a42ab5759fa9feff9e, type: 2}
     Details: Signature-level action found in 0 cards (0 copies).
     CardsUsingThis: []
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1
   - Action: {fileID: 11400000, guid: b57dc8f275f0de9429f4259d24d2fbaa, type: 2}
     Details: Signature-level action found in 0 cards (0 copies).
     CardsUsingThis: []
-    ShowCardsUnderActions: 0
+    ShowCardsUnderActions: 1

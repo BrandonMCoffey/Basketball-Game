@@ -15,12 +15,11 @@ MonoBehaviour:
   _data:
     Name: Layup
     _cardText: '@NextEffect'
-    _previewText: On next shot this sequence by Center multiply Hype gain by 2
-    _cardSummary: For 1 cost, gain +25 Hype. On next shot this sequence by Center
-      multiply Hype gain by 2.
+    _previewText: On next pass this sequence draw 2 cards
+    _cardSummary: For 1 cost, gain +25 Hype. On next pass this sequence draw 2 cards.
     Type: 3
     AssociatedRarity: 2
-    AllowedPositions: 31
+    AllowedPositions: 28
     ActionLevel: 1
     _cardData:
       _cost:
@@ -146,8 +145,8 @@ MonoBehaviour:
     HasNextEffect: 1
     NextEffect:
       AppliesTo: 1
-      RequiredType: 3
-      RequiredPosition: 16
+      RequiredType: 2
+      RequiredPosition: 0
       Effects:
         _cost:
           isLevelable: 0
@@ -162,9 +161,9 @@ MonoBehaviour:
           - 0
           - 0
         _multiplyHype:
-          isLevelable: 1
+          isLevelable: 0
           levels:
-          - 2
+          - 0
           - 2
           - 3
         _energyGain:
@@ -174,19 +173,19 @@ MonoBehaviour:
           - 0
           - 0
         _drawCards:
-          isLevelable: 0
+          isLevelable: 1
           levels:
-          - 0
-          - 0
-          - 0
+          - 2
+          - 2
+          - 2
         _retriggerCard:
           isLevelable: 0
           levels:
           - 0
           - 0
           - 0
-    _nextEffectPreviewText: On next shot this sequence by Center multiply Hype gain
-      by 2
+      Level: 0
+    _nextEffectPreviewText: On next pass this sequence draw 2 cards
     Icon: {fileID: 0}
     Animation: 200
     Duration: 3

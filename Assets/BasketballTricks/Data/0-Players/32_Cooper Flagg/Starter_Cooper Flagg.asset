@@ -20,7 +20,7 @@ MonoBehaviour:
     _count:
       isLevelable: 0
       levels:
-      - 2
+      - 1
       - 1
       - 1
     _imageOverride: {fileID: 0}
@@ -196,6 +196,7 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: 
       Icon: {fileID: 0}
       Animation: 10
@@ -380,10 +381,124 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: On next pass played gain +10 Hype
       Icon: {fileID: 0}
       Animation: 10
       Duration: 2
+  - _action: {fileID: 11400000, guid: 9bcefe1b25703394cb6ef5a62524b008, type: 2}
+    _count:
+      isLevelable: 0
+      levels:
+      - 1
+      - 0
+      - 0
+    _imageOverride: {fileID: 0}
+    _dataPreview:
+      Name: 
+      _cardText: 
+      _previewText: 
+      _cardSummary: 
+      Type: 0
+      AssociatedRarity: 0
+      AllowedPositions: 0
+      ActionLevel: 0
+      _cardData:
+        _cost:
+          isLevelable: 0
+          levels: []
+        _hypeGain:
+          isLevelable: 0
+          levels: []
+        _multiplyHype:
+          isLevelable: 0
+          levels: []
+        _energyGain:
+          isLevelable: 0
+          levels: []
+        _drawCards:
+          isLevelable: 0
+          levels: []
+        _retriggerCard:
+          isLevelable: 0
+          levels: []
+      HasEffectIfSequence: 0
+      EffectIfSequence:
+        Requirements: 0
+        OfType: 0
+        Effects:
+          _cost:
+            isLevelable: 0
+            levels: []
+          _hypeGain:
+            isLevelable: 0
+            levels: []
+          _multiplyHype:
+            isLevelable: 0
+            levels: []
+          _energyGain:
+            isLevelable: 0
+            levels: []
+          _drawCards:
+            isLevelable: 0
+            levels: []
+          _retriggerCard:
+            isLevelable: 0
+            levels: []
+      _effectIfSequencePreviewText: 
+      HasEffectIfPrevious: 0
+      EffectIfPrevious:
+        RequiredType: 0
+        RequiredPosition: 0
+        Effects:
+          _cost:
+            isLevelable: 0
+            levels: []
+          _hypeGain:
+            isLevelable: 0
+            levels: []
+          _multiplyHype:
+            isLevelable: 0
+            levels: []
+          _energyGain:
+            isLevelable: 0
+            levels: []
+          _drawCards:
+            isLevelable: 0
+            levels: []
+          _retriggerCard:
+            isLevelable: 0
+            levels: []
+      _effectIfPreviousPreviewText: 
+      HasNextEffect: 0
+      NextEffect:
+        AppliesTo: 0
+        RequiredType: 0
+        RequiredPosition: 0
+        Effects:
+          _cost:
+            isLevelable: 0
+            levels: []
+          _hypeGain:
+            isLevelable: 0
+            levels: []
+          _multiplyHype:
+            isLevelable: 0
+            levels: []
+          _energyGain:
+            isLevelable: 0
+            levels: []
+          _drawCards:
+            isLevelable: 0
+            levels: []
+          _retriggerCard:
+            isLevelable: 0
+            levels: []
+        Level: 0
+      _nextEffectPreviewText: 
+      Icon: {fileID: 0}
+      Animation: 1
+      Duration: 0
   - _action: {fileID: 11400000, guid: eff3b2fd85f6db543a551ab8a6cf5a35, type: 2}
     _count:
       isLevelable: 0
@@ -564,6 +679,7 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: 
       Icon: {fileID: 0}
       Animation: 100
@@ -749,6 +865,7 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: 
       Icon: {fileID: 0}
       Animation: 100
@@ -934,6 +1051,7 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: 
       Icon: {fileID: 0}
       Animation: 200
@@ -1119,7 +1237,121 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: 
       Icon: {fileID: 0}
       Animation: 200
       Duration: 2
+  - _action: {fileID: 11400000, guid: efc5b31ae325ba541bb15ca97c80ea24, type: 2}
+    _count:
+      isLevelable: 0
+      levels:
+      - 1
+      - 0
+      - 0
+    _imageOverride: {fileID: 0}
+    _dataPreview:
+      Name: 
+      _cardText: 
+      _previewText: 
+      _cardSummary: 
+      Type: 0
+      AssociatedRarity: 0
+      AllowedPositions: 0
+      ActionLevel: 0
+      _cardData:
+        _cost:
+          isLevelable: 0
+          levels: []
+        _hypeGain:
+          isLevelable: 0
+          levels: []
+        _multiplyHype:
+          isLevelable: 0
+          levels: []
+        _energyGain:
+          isLevelable: 0
+          levels: []
+        _drawCards:
+          isLevelable: 0
+          levels: []
+        _retriggerCard:
+          isLevelable: 0
+          levels: []
+      HasEffectIfSequence: 0
+      EffectIfSequence:
+        Requirements: 0
+        OfType: 0
+        Effects:
+          _cost:
+            isLevelable: 0
+            levels: []
+          _hypeGain:
+            isLevelable: 0
+            levels: []
+          _multiplyHype:
+            isLevelable: 0
+            levels: []
+          _energyGain:
+            isLevelable: 0
+            levels: []
+          _drawCards:
+            isLevelable: 0
+            levels: []
+          _retriggerCard:
+            isLevelable: 0
+            levels: []
+      _effectIfSequencePreviewText: 
+      HasEffectIfPrevious: 0
+      EffectIfPrevious:
+        RequiredType: 0
+        RequiredPosition: 0
+        Effects:
+          _cost:
+            isLevelable: 0
+            levels: []
+          _hypeGain:
+            isLevelable: 0
+            levels: []
+          _multiplyHype:
+            isLevelable: 0
+            levels: []
+          _energyGain:
+            isLevelable: 0
+            levels: []
+          _drawCards:
+            isLevelable: 0
+            levels: []
+          _retriggerCard:
+            isLevelable: 0
+            levels: []
+      _effectIfPreviousPreviewText: 
+      HasNextEffect: 0
+      NextEffect:
+        AppliesTo: 0
+        RequiredType: 0
+        RequiredPosition: 0
+        Effects:
+          _cost:
+            isLevelable: 0
+            levels: []
+          _hypeGain:
+            isLevelable: 0
+            levels: []
+          _multiplyHype:
+            isLevelable: 0
+            levels: []
+          _energyGain:
+            isLevelable: 0
+            levels: []
+          _drawCards:
+            isLevelable: 0
+            levels: []
+          _retriggerCard:
+            isLevelable: 0
+            levels: []
+        Level: 0
+      _nextEffectPreviewText: 
+      Icon: {fileID: 0}
+      Animation: 1
+      Duration: 0

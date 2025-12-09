@@ -16,7 +16,7 @@ MonoBehaviour:
     Name: Spider Dribble
     _cardText: 
     _previewText: 
-    _cardSummary: For 1 cost, gain +50 Hype.
+    _cardSummary: For 1 cost, gain +25 Hype.
     Type: 1
     AssociatedRarity: 1
     AllowedPositions: 31
@@ -31,9 +31,9 @@ MonoBehaviour:
       _hypeGain:
         isLevelable: 1
         levels:
-        - 50
-        - 60
-        - 70
+        - 25
+        - 35
+        - 45
       _multiplyHype:
         isLevelable: 0
         levels:
@@ -184,6 +184,7 @@ MonoBehaviour:
           - 0
           - 0
           - 0
+      Level: 0
     _nextEffectPreviewText: 
     Icon: {fileID: 0}
     Animation: 100
