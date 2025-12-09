@@ -43,13 +43,15 @@ public class HypeScoreDisplay : MonoBehaviour
             _hypeText.transform.localScale = Vector3.one;
             _hypeText.transform.localRotation = Quaternion.identity;
 
-            _rectTransform.DOAnchorPosY(20, 0.1f).SetEase(Ease.OutQuad);
-            _hypeText.transform.DORotate(Vector3.one * Random.Range(-15f, 15f), 0.1f).SetEase(Ease.OutQuad);
+            _rectTransform.DOAnchorPosY(5, 0.1f).SetEase(Ease.OutQuad);
+            _rectTransform.DOScale(Vector3.one * 1.2f, 0.1f).SetEase(Ease.OutQuad);
+            _hypeText.transform.DORotate(Vector3.one * Random.Range(-5f, 5f), 0.1f).SetEase(Ease.OutQuad);
             _hypeText.transform.DOScale(Vector3.one * 1.2f, 0.1f).SetEase(Ease.OutQuad).OnComplete(() =>
             {
-                _rectTransform.DOAnchorPosY(_currentAnchorPosY, 0.2f).SetEase(Ease.OutBack).SetDelay(0.15f);
-                _hypeText.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack).SetDelay(0.15f);
-                _hypeText.transform.DORotate(Vector3.zero, 0.2f).SetEase(Ease.OutBack).SetDelay(0.15f);
+                _rectTransform.DOAnchorPosY(_currentAnchorPosY, 0.2f).SetEase(Ease.OutBack);
+                _rectTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+                _hypeText.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+                _hypeText.transform.DORotate(Vector3.zero, 0.2f).SetEase(Ease.OutBack);
             });
         }
     }
