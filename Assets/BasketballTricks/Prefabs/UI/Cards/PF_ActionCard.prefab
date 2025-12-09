@@ -501,8 +501,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 045b27c5d927d38419c46cc8245242a2, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 045b27c5d927d38419c46cc8245242a2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -929,8 +929,9 @@ MonoBehaviour:
   _defaultPassIcon: {fileID: 21300000, guid: 044c66c19a21e2246a5757ec767b2183, type: 3}
   _defaultShotIcon: {fileID: 21300000, guid: 177fc569255bea54db9fc49bc03ec965, type: 3}
   _showWhenNotSelected: {fileID: 1858061594112269788}
-  _dragScale: 1.2
+  _dragScale: 1.1
   _selectedScale: 1.15
+  _playScale: 1.25
   _dragFollowSpeed: 20
 --- !u!225 &3790042102934864974
 CanvasGroup:
@@ -1011,8 +1012,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 40
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 045b27c5d927d38419c46cc8245242a2, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 045b27c5d927d38419c46cc8245242a2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
