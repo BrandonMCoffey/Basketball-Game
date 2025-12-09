@@ -240,5 +240,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _easeType: 27
+  _moveTextOnPress: 1
   _moveTextUpOnPress: 0
+  _invokeOnAnimComplete: 0
   _buttonText: {fileID: 6517700058179870778}
