@@ -264,7 +264,7 @@ public class PlayerManager : MonoBehaviour
                 if (nextEffect.RequiredType == action.Type && nextEffect.RequiredPosition.HasFlag(player.Position))
                 {
                     var effects = nextEffect.GetEffects();
-                    Debug.Log($"Adjust {action.Name} by effectNextStack: {effects.Cost} | {effects.HypeGain}");
+                    //Debug.Log($"Adjust {action.Name} by effectNextStack: {effects.Cost} | {effects.HypeGain}");
                     adjustCost += effects.Cost;
                     adjustHype += effects.HypeGain;
                     if (played && k < tempCount) tempEffectNextStack.RemoveAt(k);
@@ -322,6 +322,7 @@ public class PlayerManager : MonoBehaviour
             else
             {
                 // TODO: Highlight cards
+                //Debug.Log($"For {action.Name}: {sequenceCost} + {adjustCost} out of {_maxEnergy}");
                 bool locked = _maxEnergy < sequenceCost + adjustCost;
                 cards[i - TimelineActions.Count].SetLocked(locked);
                 if (!locked)
@@ -406,7 +407,7 @@ public class PlayerManager : MonoBehaviour
             ApplyActionEffects(playerWithBall, action, i);
             if (action.Type == ActionType.Pass)
             {
-                var passToPlayer = i < TimelineActions.Count ? TimelineActions[i + 1].Player : playerWithBall;
+                var passToPlayer = (i + 1) < TimelineActions.Count ? TimelineActions[i + 1].Player : playerWithBall;
                 yield return StartCoroutine(PassRoutine(playerWithBall, passToPlayer));
                 playerWithBall = passToPlayer;
             }

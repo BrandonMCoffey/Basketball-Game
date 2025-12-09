@@ -146,13 +146,19 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         _isDragging = true;
         _wasDragged = true;
 
-        bool dragToPlay = transform.position.y > _manager.CardPlayPoint.position.y;
-        if (dragToPlay != _dragToPlay)
+        if (!_locked)
         {
-            _rectTransform.DOScale(dragToPlay ? _playScale : _dragScale, 0.1f);
+            bool dragToPlay = transform.position.y > _manager.CardPlayPoint.position.y;
+            if (dragToPlay != _dragToPlay)
+            {
+                _rectTransform.DOScale(dragToPlay ? _playScale : _dragScale, 0.1f);
+            }
+            _dragToPlay = dragToPlay;
         }
-        _dragToPlay = dragToPlay;
-
+        else
+        {
+            _dragToPlay = false;
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
