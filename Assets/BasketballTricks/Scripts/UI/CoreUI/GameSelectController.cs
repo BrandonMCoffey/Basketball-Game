@@ -3,6 +3,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Video;
 
 enum GameMode
 {
@@ -29,6 +30,8 @@ public class GameSelectController : MonoBehaviour
     [SerializeField] RectTransform _exampleVideo;
     [SerializeField] RawImage _halfTimeVideoImage;
     [SerializeField] RawImage _zenVideoImage;
+    [SerializeField] VideoPlayer _halfTimeVideoPlayer;
+    [SerializeField] VideoPlayer _zenVideoPlayer;
 
     Vector2 _leftSidePanelOnScreenPos;
     Vector2 _leftSidePanelOnScreenPos2;
@@ -88,6 +91,8 @@ public class GameSelectController : MonoBehaviour
 
     public void AnimateOnScreen()
     {
+        _halfTimeVideoPlayer.enabled = true;
+        _zenVideoPlayer.enabled = true;
         _leftSidePanel.DOAnchorPos(_leftSidePanelOnScreenPos, 0.3f).SetEase(_easeType);
         _titlePanel.DOAnchorPos(_titlePanelOnScreenPos, 0.3f).SetEase(Ease.OutQuart).SetDelay(0.12f);
         _halfTimeButton.DOAnchorPos(_halfTimeButtonOnScreenPos, 0.3f).SetEase(_easeType).SetDelay(0.25f);
@@ -103,6 +108,8 @@ public class GameSelectController : MonoBehaviour
         _zenButton.DOAnchorPos(new Vector2(-Screen.width * 2, _zenButtonOnScreenPos.y), 0.3f).SetEase(_easeType).SetDelay(0.35f);
         _backButton.DOAnchorPos(new Vector2(-Screen.width * 2, _backButtonOnScreenPos.y), 0.3f).SetEase(_easeType).SetDelay(0.45f).OnComplete(() =>
         {
+            _halfTimeVideoPlayer.enabled = false;
+            _zenVideoPlayer.enabled = false;
             callback?.Invoke();
         });
 

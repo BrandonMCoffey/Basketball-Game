@@ -51,29 +51,30 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
     // Animates button and its elements onto the screen
     public void AnimateOnScreen()
     {
-        _rectTransform.DOAnchorPos(_onScreenAnchoredPos, 0.5f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
+        _rectTransform.DOAnchorPos(_onScreenAnchoredPos, 0.25f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
 
-        _buttonTextContainer.DOAnchorPos(_onScreenButtonTextContainerPos, 0.5f).SetDelay(_delayBeforeOnScreen + 0.2f).SetEase(_easeType);
-        for (int i = 0; i < _iconContainer.childCount; i++)
-        {
-            //if (_icons == null || _icons.Count == 0) return;
-            RectTransform iconRect = _iconContainer.GetChild(i).GetComponent<RectTransform>();
-            iconRect.DOAnchorPos(_iconPositions[i], 0.5f).SetDelay(_delayBeforeOnScreen + 0.2f + i * 0.05f).SetEase(_easeType);
-        }
+        _buttonTextContainer.DOAnchorPos(_onScreenButtonTextContainerPos, 0.25f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
+        _buttonIcon.rectTransform.DOAnchorPos(Vector2.zero, 0.25f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
+        // for (int i = 0; i < _iconContainer.childCount; i++)
+        // {
+        //     //if (_icons == null || _icons.Count == 0) return;
+        //     RectTransform iconRect = _iconContainer.GetChild(i).GetComponent<RectTransform>();
+        //     iconRect.DOAnchorPos(_iconPositions[i], 0.25f).SetDelay(_delayBeforeOnScreen + 0.2f + i * 0.05f).SetEase(_easeType);
+        // }
     }
 
     public void AnimateOffScreen()
     {
-        _rectTransform.DOAnchorPos(new Vector2(_onScreenAnchoredPos.x, -Screen.height), 1.5f).SetEase(_easeType).SetDelay(_delayBeforeOnScreen);
+        _rectTransform.DOAnchorPos(new Vector2(_onScreenAnchoredPos.x, -Screen.height * 2), 0.25f).SetEase(_easeType).SetDelay(_delayBeforeOnScreen);
 
-        _buttonTextContainer.DOAnchorPos(new Vector2(_onScreenButtonTextContainerPos.x, -Screen.height), 1.5f).SetDelay(_delayBeforeOnScreen + 0.2f).SetEase(_easeType);
-
-        for (int i = 0; i < _iconContainer.childCount; i++)
-        {
-            //if (_icons == null || _icons.Count == 0) return;
-            RectTransform iconRect = _iconContainer.GetChild(i).GetComponent<RectTransform>();
-            iconRect.DOAnchorPos(new Vector2(_iconPositions[i].x, -Screen.height), 1.5f).SetDelay(_delayBeforeOnScreen + 0.2f + i * 0.05f).SetEase(_easeType);
-        }
+        _buttonTextContainer.DOAnchorPos(new Vector2(_onScreenButtonTextContainerPos.x, -Screen.height * 2), 0.25f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
+        _buttonIcon.rectTransform.DOAnchorPos(new Vector2(0, -Screen.height * 3), 0.25f).SetDelay(_delayBeforeOnScreen + 0.2f).SetEase(_easeType);
+        // for (int i = 0; i < _iconContainer.childCount; i++)
+        // {
+        //     //if (_icons == null || _icons.Count == 0) return;
+        //     RectTransform iconRect = _iconContainer.GetChild(i).GetComponent<RectTransform>();
+        //     iconRect.DOAnchorPos(new Vector2(_iconPositions[i].x, -Screen.height), 0.25f).SetDelay(_delayBeforeOnScreen + 0.2f + i * 0.05f).SetEase(_easeType);
+        // }
 
     }
 
