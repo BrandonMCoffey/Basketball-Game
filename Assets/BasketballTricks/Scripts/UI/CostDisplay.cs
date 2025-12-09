@@ -26,7 +26,7 @@ public class CostDisplay : MonoBehaviour
     {
         foreach (var costElem in _costList)
         {
-            costElem.SetColors(_unusedColor, _spentColor);
+            costElem.SetRefs(_unusedColor, _spentColor, this);
         }
         UpdateCostDisplay(0, 5);    
     }
@@ -44,7 +44,8 @@ public class CostDisplay : MonoBehaviour
             max = Mathf.Min(max, _costList.Count);
         }
         int i = 0;
-        for (; i < cost; i++) { _costList[i].Spend(); }
+        int jumpIndex = 0;
+        for (; i < cost; i++) { _costList[i].Spend(jumpIndex * 0.1f); jumpIndex++; }
         for (; i < max; i++) { _costList[i].Unuse(); }
         for (; i < _costList.Count; i++) { _costList[i].Hide(); }
     }
