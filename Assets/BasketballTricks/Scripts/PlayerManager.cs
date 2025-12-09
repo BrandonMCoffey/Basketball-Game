@@ -57,6 +57,9 @@ public class PlayerManager : MonoBehaviour
     public bool Simulating => _simulating;
     public Player GetPlayer(int index) => index < _players.Count ? _players[index] : null;
 
+    private float _currentActionDuration;
+    public float CurrentActionDuration => _currentActionDuration;
+
     private void OnValidate()
     {
         if (_players.Count == 0)
@@ -331,11 +334,8 @@ public class PlayerManager : MonoBehaviour
                 // TODO: Highlight cards
                 //Debug.Log($"For {action.Name}: {sequenceCost} + {player.CardData.GetAction(actionIndex).Effects.Cost} + {adjustCost} out of {_maxEnergy}");
                 bool locked = _maxEnergy < sequenceCost + player.CardData.GetAction(actionIndex).Effects.Cost + adjustCost;
+                cards[i - TimelineActions.Count].RefreshVisuals(adjustCost, adjustHype);
                 cards[i - TimelineActions.Count].SetLocked(locked);
-                if (!locked)
-                {
-                    cards[i - TimelineActions.Count].RefreshVisuals(adjustCost, adjustHype);
-                }
             }
         }
         for (; j < _actionVisualPreviews.Count; j++)
@@ -411,6 +411,7 @@ public class PlayerManager : MonoBehaviour
             }
 
             var action = playerWithBall.CardData.GetAction(TimelineActions[i].ActionIndex);
+            _currentActionDuration = action.Duration;
             ApplyActionEffects(playerWithBall, action, i);
             if (action.Type == ActionType.Pass)
             {
