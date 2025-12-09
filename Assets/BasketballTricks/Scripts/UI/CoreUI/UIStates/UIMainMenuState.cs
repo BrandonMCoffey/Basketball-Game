@@ -7,6 +7,7 @@ public class UIMainMenuState : UIStateBase
     public override void OnEnter()
     {
         _canvasController.MainMenuController.gameObject.SetActive(true);
+        _canvasController.MainMenuController.Enable();
     }
 
     public override void OnExit()

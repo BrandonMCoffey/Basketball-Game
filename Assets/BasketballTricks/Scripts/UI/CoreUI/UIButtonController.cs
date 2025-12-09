@@ -30,6 +30,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
     List<Vector2> _iconPositions = new List<Vector2>();
     Vector2 _onScreenButtonTextContainerPos;
     bool _checkForMousePos = false;
+    bool _positionsInitialized = false;
 
     private void OnValidate()
     {
@@ -40,10 +41,10 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
         }
     }
 
-    void Start() 
+    void OnEnable() 
     {
-        CreateImages();
         Initialize();
+        CreateImages();
         AnimateOnScreen();
     }
 
@@ -73,11 +74,14 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
             RectTransform iconRect = _iconContainer.GetChild(i).GetComponent<RectTransform>();
             iconRect.DOAnchorPos(new Vector2(_iconPositions[i].x, -Screen.height), 1.5f).SetDelay(_delayBeforeOnScreen + 0.2f + i * 0.05f).SetEase(_easeType);
         }
+
     }
 
     // Sets initial positions of button and its elements
     void Initialize()
     {
+        if (_positionsInitialized) return;
+        _positionsInitialized = true;
         if (_icons == null || _icons.Count == 0)
         {
             _buttonIcon.rectTransform.localPosition = Vector2.zero;
@@ -111,7 +115,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
         //     _buttonIcon.gameObject.SetActive(false);
         //     return;
         // }
-        // _buttonIcon.sprite = _icons[0];
+        _buttonIcon.sprite = _icons[0];
         //_buttonIcon.rectTransform.localRotation = Quaternion.Euler(0, 0, Random.Range(-6f, 6f));
 
         for (int i = 1; i < _icons.Count; i++)

@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System.Collections;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -19,9 +20,16 @@ public class MainMenuController : MonoBehaviour
 
     public void Enable()
     {
-        _playButton.AnimateOnScreen();
-        _tradeButton.AnimateOnScreen();
-        _leaderButton.AnimateOnScreen();
+        _titlePanel.DOAnchorPos(_titlePanelOnScreenPos, 0.5f).SetEase(Ease.OutQuart).SetDelay(0.2f);
+        StartCoroutine(AnimateOnScreenRoutine());
+    }
+
+    IEnumerator AnimateOnScreenRoutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+        _playButton.gameObject.SetActive(true);
+        _tradeButton.gameObject.SetActive(true);
+        _leaderButton.gameObject.SetActive(true);
     }
 
     public void AnimateOffScreen()
@@ -30,5 +38,14 @@ public class MainMenuController : MonoBehaviour
         _playButton.AnimateOffScreen();
         _tradeButton.AnimateOffScreen();
         _leaderButton.AnimateOffScreen();
+
+        Invoke("HideButtons", 1.5f);
+    }
+
+    void HideButtons()
+    {
+        _playButton.gameObject.SetActive(false);
+        _tradeButton.gameObject.SetActive(false);
+        _leaderButton.gameObject.SetActive(false);
     }
 }

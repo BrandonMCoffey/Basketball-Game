@@ -24,6 +24,7 @@ public class GameSelectController : MonoBehaviour
     [SerializeField] RectTransform _titlePanel;
     [SerializeField] RectTransform _halfTimeButton;
     [SerializeField] RectTransform _zenButton;
+    [SerializeField] RectTransform _backButton;
     [SerializeField] RectTransform _beginButton;
     [SerializeField] RectTransform _exampleVideo;
     [SerializeField] RawImage _halfTimeVideoImage;
@@ -36,13 +37,15 @@ public class GameSelectController : MonoBehaviour
     Vector2 _titlePanelOnScreenPos;
     Vector2 _halfTimeButtonOnScreenPos;
     Vector2 _zenButtonOnScreenPos;
+    Vector2 _backButtonOnScreenPos;
     Vector2 _beginButtonOnScreenPos;
     Vector2 _exampleVideoOnScreenPos;
 
     bool _isDescriptionPanelOnScreen = false;
+    bool _positionsInitialized = false;
     GameMode _currentGameMode;
 
-    void Start()
+    void OnEnable()
     {
         Initialize();
         AnimateOnScreen();
@@ -50,6 +53,8 @@ public class GameSelectController : MonoBehaviour
 
     void Initialize()
     {
+        if (_positionsInitialized) return;
+        _positionsInitialized = true;
         _leftSidePanelOnScreenPos = _leftSidePanel.anchoredPosition;
         _leftSidePanel.anchoredPosition = new Vector2(-Screen.width * 2, _leftSidePanelOnScreenPos.y);
 
@@ -68,6 +73,9 @@ public class GameSelectController : MonoBehaviour
         _zenButtonOnScreenPos = _zenButton.anchoredPosition;
         _zenButton.anchoredPosition = new Vector2(-Screen.width * 2, _zenButtonOnScreenPos.y);
 
+        _backButtonOnScreenPos = _backButton.anchoredPosition;
+        _backButton.anchoredPosition = new Vector2(-Screen.width * 2, _backButtonOnScreenPos.y);
+
         _beginButtonOnScreenPos = _beginButton.anchoredPosition;
         _beginButton.anchoredPosition = new Vector2(Screen.width * 2, _beginButtonOnScreenPos.y);
 
@@ -84,6 +92,7 @@ public class GameSelectController : MonoBehaviour
         _titlePanel.DOAnchorPos(_titlePanelOnScreenPos, 0.3f).SetEase(Ease.OutQuart).SetDelay(0.12f);
         _halfTimeButton.DOAnchorPos(_halfTimeButtonOnScreenPos, 0.3f).SetEase(_easeType).SetDelay(0.25f);
         _zenButton.DOAnchorPos(_zenButtonOnScreenPos, 0.3f).SetEase(_easeType).SetDelay(0.35f);
+        _backButton.DOAnchorPos(_backButtonOnScreenPos, 0.3f).SetEase(_easeType).SetDelay(0.45f);
     }
 
     public void AnimateOffScreen(Action callback = null)
@@ -91,13 +100,14 @@ public class GameSelectController : MonoBehaviour
         _leftSidePanel.DOAnchorPos(new Vector2(-Screen.width * 2, _leftSidePanelOnScreenPos.y), 0.3f).SetEase(_easeType);
         _titlePanel.DOAnchorPos(new Vector2(-Screen.width * 2, _titlePanelOnScreenPos.y), 0.3f).SetEase(Ease.OutQuart).SetDelay(0.12f);
         _halfTimeButton.DOAnchorPos(new Vector2(-Screen.width * 2, _halfTimeButtonOnScreenPos.y), 0.3f).SetEase(_easeType).SetDelay(0.25f);
-        _zenButton.DOAnchorPos(new Vector2(-Screen.width * 2, _zenButtonOnScreenPos.y), 0.3f).SetEase(_easeType).SetDelay(0.35f).OnComplete(() =>
+        _zenButton.DOAnchorPos(new Vector2(-Screen.width * 2, _zenButtonOnScreenPos.y), 0.3f).SetEase(_easeType).SetDelay(0.35f);
+        _backButton.DOAnchorPos(new Vector2(-Screen.width * 2, _backButtonOnScreenPos.y), 0.3f).SetEase(_easeType).SetDelay(0.45f).OnComplete(() =>
         {
             callback?.Invoke();
         });
 
-        _descriptionPanel.DOAnchorPos(new Vector2(Screen.width * 2, _descriptionPanelOnScreenPos.y), 0.3f).SetEase(_easeType);
-        _descriptionText.rectTransform.DOAnchorPos(new Vector2(Screen.width * 2, _descriptionTextOnScreenPos.y), 0.3f).SetEase(_easeType).SetDelay(0.1f);
+        _descriptionPanel.DOAnchorPos(new Vector2(Screen.width * 3, _descriptionPanelOnScreenPos.y), 0.3f).SetEase(_easeType);
+        _descriptionText.rectTransform.DOAnchorPos(new Vector2(Screen.width * 3, _descriptionTextOnScreenPos.y), 0.3f).SetEase(_easeType).SetDelay(0.1f);
         _exampleVideo.DOAnchorPos(new Vector2(Screen.width * 2.5f, _exampleVideoOnScreenPos.y), 0.3f).SetEase(_easeType).SetDelay(0.2f);
         _beginButton.DOAnchorPos(new Vector2(Screen.width * 2, _beginButtonOnScreenPos.y), 0.3f).SetEase(_easeType).SetDelay(0.3f);
         _isDescriptionPanelOnScreen = false;
