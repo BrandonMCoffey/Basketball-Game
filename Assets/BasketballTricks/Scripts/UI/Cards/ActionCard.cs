@@ -21,6 +21,8 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     [SerializeField] private Sprite _defaultShotIcon;
     [SerializeField] private GameObject _showWhenNotSelected;
     [SerializeField] private GameObject _showWhenDiscarding;
+    [SerializeField] private Image _bg;
+    [SerializeField] private ImageDataMatcher _matcher;
 
     [Header("Drag")]
     [SerializeField] private float _dragScale = 1.25f;
@@ -81,13 +83,20 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         _locked = false;
         _dragToPlay = false;
         _played = false;
-        _playerImage.sprite = gameAction.Player.CardData.PlayerData.PlayerSprite;
         _rectTransform.DOScale(1f, 0.2f);
-        var aspect = _playerImage.GetComponent<AspectRatioFitter>();
-        if (aspect != null)
+        if (_playerImage != null)
         {
-            _playerImage.SetNativeSize();
-            aspect.aspectRatio = _playerImage.sprite != null ? (float)_playerImage.sprite.rect.width / _playerImage.sprite.rect.height : 1f;
+            _playerImage.sprite = gameAction.Player.CardData.PlayerData.PlayerSprite;
+            var aspect = _playerImage.GetComponent<AspectRatioFitter>();
+            if (aspect != null)
+            {
+                _playerImage.SetNativeSize();
+                aspect.aspectRatio = _playerImage.sprite != null ? (float)_playerImage.sprite.rect.width / _playerImage.sprite.rect.height : 1f;
+            }
+        }
+        if (_matcher != null)
+        {
+            if (_bg != null) _bg.sprite = _matcher.GetPositionBackground(gameAction.Player.Position);
         }
         _showWhenNotSelected.SetActive(false);
         _showWhenDiscarding.SetActive(false);

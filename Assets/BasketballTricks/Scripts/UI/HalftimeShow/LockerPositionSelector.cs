@@ -12,15 +12,14 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
 
     [SerializeField] private PlayerPosition _position;
     [SerializeField] private TMP_Text _positionText;
-    [SerializeField] private TMP_Text _positionText2;
-    [SerializeField] private CanvasGroup _selectPlayerPanel;
-    [SerializeField] private CanvasGroup _playerInfoPanel;
     [SerializeField] private TMP_Text _playerNameText;
     [SerializeField] private Image _playerImage;
-    [SerializeField] private Transform _selectPlayer;
+    [SerializeField] private GameObject _playerSelect;
     [SerializeField] private GameObject _playerInfo;
     [SerializeField] private GameObject _naturalPosition;
     [SerializeField] private GameObject _actionPanel;
+    [SerializeField] private Image _bg;
+    [SerializeField] private ImageDataMatcher _matcher;
     [SerializeField] private List<TMP_Text> _actionList;
     [SerializeField] private RectTransform _addButtonImage;
 
@@ -45,7 +44,6 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
     private void OnValidate()
     {
         if (_positionText != null) _positionText.text = PlayerData.PositionToString(_position);
-        if (_positionText2 != null) _positionText2.text = PlayerData.PositionToString(_position);
     }
 
     private void Awake() 
@@ -58,6 +56,10 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
         _originalPosition = RectTransform.anchoredPosition;
         _controllerIndex = index;
         _controller = controller;
+        if (_matcher != null)
+        {
+            if (_bg != null) _bg.sprite = _matcher.GetPositionBackground(_position);
+        }
         Color.RGBToHSV(color, out float h, out float s, out float v);
         s *= _saturationAdjust;
         v *= _valueAdjust;
@@ -75,20 +77,20 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
         if (_activeGameCard == null || _activeGameCard == null)
         {
             _playerInfo.SetActive(false);
+            _playerSelect.SetActive(true);
 
             if (_addPlayerAnimRoutine != null) StopCoroutine(_addPlayerAnimRoutine);
             _addPlayerAnimRoutine = StartCoroutine(AddPlayerAnimationRoutine());
             
             return;
         }
+        _playerSelect.SetActive(false);
+        if (_addPlayerAnimRoutine != null)
         {
-            if (_addPlayerAnimRoutine != null)
-            {
-                StopCoroutine(_addPlayerAnimRoutine);
-                _addPlayerAnimRoutine = null;
-            }
-            _addButtonImage.DOScale(1f, 0.2f).SetEase(Ease.OutQuad);
+            StopCoroutine(_addPlayerAnimRoutine);
+            _addPlayerAnimRoutine = null;
         }
+        _addButtonImage.DOScale(1f, 0.2f).SetEase(Ease.OutQuad);
         if (_playerNameText != null) _playerNameText.text = _activeGameCard != null ? _activeGameCard.PlayerData.PlayerName : "Player Name";
         if (_playerImage != null)
         {
