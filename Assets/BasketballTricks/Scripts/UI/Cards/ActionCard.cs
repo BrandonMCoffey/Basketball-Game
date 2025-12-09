@@ -34,7 +34,8 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     private Canvas _canvas;
     private bool _isDragging;
     private bool _wasDragged;
-    private bool _canPlay;
+    private bool _locked;
+    private bool _dragToPlay;
     private bool _played;
     private Tween _moveTween;
     private Tween _rotTween;
@@ -76,7 +77,8 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         _isDragging = false;
         _wasDragged = false;
         _isSelected = false;
-        _canPlay = false;
+        _locked = false;
+        _dragToPlay = false;
         _played = false;
         _playerImage.sprite = gameAction.Player.CardData.PlayerData.PlayerSprite;
         _rectTransform.DOScale(1f, 0.2f);
@@ -86,7 +88,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
             _playerImage.SetNativeSize();
             aspect.aspectRatio = _playerImage.sprite != null ? (float)_playerImage.sprite.rect.width / _playerImage.sprite.rect.height : 1f;
         }
-        _showWhenNotSelected.SetActive(true);
+        _showWhenNotSelected.SetActive(false);
     }
 
     public void RefreshVisuals(float adjustCost = 0, float adjustHype = 0)
@@ -121,6 +123,12 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         if (_colorImage != null) _colorImage.color = _action.Player.PositionColor;
     }
 
+    public void LockCard()
+    {
+        _locked = true;
+        _showWhenNotSelected.SetActive(true);
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (_played) return;
@@ -138,12 +146,12 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         _isDragging = true;
         _wasDragged = true;
 
-        bool canPlay = transform.position.y > _manager.CardPlayPoint.position.y;
-        if (canPlay != _canPlay)
+        bool dragToPlay = transform.position.y > _manager.CardPlayPoint.position.y;
+        if (dragToPlay != _dragToPlay)
         {
-            _rectTransform.DOScale(canPlay ? _playScale : _dragScale, 0.1f);
+            _rectTransform.DOScale(dragToPlay ? _playScale : _dragScale, 0.1f);
         }
-        _canPlay = canPlay;
+        _dragToPlay = dragToPlay;
 
     }
 
@@ -152,7 +160,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         if (_played) return;
         _isDragging = false;
 
-        if (_canPlay)
+        if (_dragToPlay)
         {
             _rectTransform.DOScale(_isSelected ? _selectedScale : 0f, 0.2f);
             _rectTransform.DOAnchorPos(_rectTransform.anchoredPosition + Vector2.down * 500, 2f);
@@ -161,6 +169,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         }
         else
         {
+            /*
             if (!_wasDragged)
             {
                 _isSelected = !_isSelected;
@@ -168,6 +177,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
                 _manager.OnUpdateSelected();
                 if (!_isSelected) RefreshVisuals();
             }
+            */
             _rectTransform.DOScale(_isSelected ? _selectedScale : 1f, 0.2f);
         }
 

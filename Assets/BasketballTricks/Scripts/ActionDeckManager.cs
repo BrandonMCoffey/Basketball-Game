@@ -1,7 +1,8 @@
 using DG.Tweening;
 using SaiUtils.Extensions;
-using System.Collections.Generic;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -24,9 +25,10 @@ public class ActionDeckManager : MonoBehaviour
     public RectTransform CardPlayPoint => _cardPlayPoint;
 
     private List<ActionCard> _cards;
+    private List<ActionCard> _usedCards;
+    private List<GameAction> _playedActions;
     private List<GameAction> _actionDeck;
     private bool _disabled;
-    private int _playedIndex = -1;
 
     private void OnEnable()
     {
@@ -50,6 +52,8 @@ public class ActionDeckManager : MonoBehaviour
             }
         }
         _actionDeck.Shuffle();
+        _playedActions = new List<GameAction>();
+        _usedCards = new List<ActionCard>();
 
         for (int i = _cardContainer.childCount - 1; i >= 0; i--)
         {
@@ -72,20 +76,11 @@ public class ActionDeckManager : MonoBehaviour
 
     public void PlayCard(ActionCard card)
     {
-        if (!PlayerManager.Instance.CanPlay(card))
-        {
-            // TODO: Effects
-            return;
-        }
-
-        _playedIndex++;
-        int index = _cards.IndexOf(card);
-        if (index != _playedIndex)
-        {
-            _cards.RemoveAt(index);
-            _cards.Insert(_playedIndex, card);
-        }
-        PlayerManager.Instance.PreviewSequence(_cards, _playedIndex);
+        _playedActions.Add(card.Action);
+        _cards.Remove(card);
+        _usedCards.Add(card);
+        PlayerManager.Instance.PreviewSequence(_playedActions, _cards);
+        UpdateCardLayout(null);
     }
 
     public void OnUpdateSelected()
@@ -119,7 +114,7 @@ public class ActionDeckManager : MonoBehaviour
 
     public void StartSequence()
     {
-        if (_disabled || _playedIndex < 0) return;
+        if (_disabled) return;
         if (PlayerManager.Instance.RunSimulation())
         {
             _disabled = true;
@@ -135,22 +130,14 @@ public class ActionDeckManager : MonoBehaviour
         if (_disabled && !PlayerManager.Instance.Simulating)
         {
             _disabled = false;
-            _playedIndex = -1;
-            foreach (var card in _cards)
+            foreach (var card in _usedCards)
             {
-                if (card.IsSelected)
-                {
-                    if (_actionDeck.Count > 0)
-                    {
-                        card.Init(_actionDeck[0], this);
-                        _actionDeck.RemoveAt(0);
-                    }
-                    else
-                    {
-                        card.gameObject.SetActive(false);
-                    }
-                }
+                card.Init(_actionDeck[0], this);
+                _cards.Add(card);
+                _actionDeck.RemoveAt(0);
             }
+            _usedCards.Clear();
+            _playedActions.Clear();
             UpdateCardLayout(null);
         }
     }
@@ -158,12 +145,12 @@ public class ActionDeckManager : MonoBehaviour
     public void UpdateCardLayout(ActionCard draggingCard = null)
     {
         if (_disabled) return;
-        int count = _cards.Count - _playedIndex - 1;
+        int count = _cards.Count;
         float delta = count > 1 ? 1f / (count - 1) : 0f;
 
         for (int i = 0; i < count; i++)
         {
-            ActionCard card = _cards[i + _playedIndex + 1];
+            ActionCard card = _cards[i];
 
             float vert = _verticalSpread * 0.5f;
             float vertDelta = Mathf.Abs(2f * delta * i - 1f);
@@ -182,10 +169,10 @@ public class ActionDeckManager : MonoBehaviour
 
     public void OnCardDragReorder(ActionCard draggedCard)
     {
-        int count = _cards.Count - _playedIndex - 1;
+        int count = _cards.Count;
         if (_disabled || count <= 1) return;
 
-        int draggedIndex = _cards.IndexOf(draggedCard) - _playedIndex - 1;
+        int draggedIndex = _cards.IndexOf(draggedCard);
         int newIndex = draggedIndex;
 
         float delta = 1f / (count - 1);
@@ -202,8 +189,8 @@ public class ActionDeckManager : MonoBehaviour
 
         if (newIndex != draggedIndex)
         {
-            _cards.RemoveAt(draggedIndex + _playedIndex + 1);
-            _cards.Insert(newIndex + _playedIndex + 1, draggedCard);
+            _cards.RemoveAt(draggedIndex);
+            _cards.Insert(newIndex, draggedCard);
             UpdateCardLayout(draggedCard);
             if (_cards.Any(c => c.IsSelected)) OnUpdateSelected();
         }

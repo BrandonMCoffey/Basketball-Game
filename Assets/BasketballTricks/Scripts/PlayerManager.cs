@@ -90,6 +90,7 @@ public class PlayerManager : MonoBehaviour
             preview.gameObject.SetActive(false);
             _actionVisualPreviews.Add(preview);
         }
+        _energyRemaining = _maxEnergy;
     }
 
     public Vector3 GetPlayerPosition(int index)
@@ -192,62 +193,65 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
-    public bool CanPlay(ActionCard card)
-    {
-        return card.Action.Player.CardData.GetAction(card.Action.ActionIndex).Effects.Cost <= _energyRemaining;
-    }
-
-    public void PreviewSequence(List<ActionCard> cards, int playedIndex)
+    public void PreviewSequence(List<GameAction> playedActions, List<ActionCard> cards)
     {
         if (_simulating) return;
-        TimelineActions = new List<GameAction>(playedIndex);
-        for (int i = 0; i <= playedIndex; i++)
-        {
-            TimelineActions.Add(cards[i].Action);
-        }
+        TimelineActions = new List<GameAction>(playedActions);
         RefreshTimeline?.Invoke();
 
-        float cost = 0;
+        float sequenceCost = 0;
         int j = 0;
+        Player prevPlayer = null;
         Player player = null;
         var tempEffectNextStack = new List<EffectNext>();
         List<int> skipActualStackIndexes = new List<int>();
-        for (int i = 0; i < TimelineActions.Count; i++)
+        int count = TimelineActions.Count + cards.Count;
+        for (int i = 0; i < count; i++)
         {
+            bool played = i < TimelineActions.Count;
+
             // Extra Pass Check
             float adjustCost = 0;
             float adjustHype = 0;
-            if (_actionVisualPreviews.Count <= j) _actionVisualPreviews.Add(Instantiate(_actionVisualPreview, transform));
-            if (player != null && player != TimelineActions[i].Player)
-            {
-                bool passCostsExtra = i < TimelineActions.Count - 1 ? TimelineActions[i].Player.CardData.GetAction(TimelineActions[i].ActionIndex).Type != ActionType.Pass : true;
+            if (played && _actionVisualPreviews.Count <= j) _actionVisualPreviews.Add(Instantiate(_actionVisualPreview, transform));
 
-                _actionVisualPreviews[j++].ShowPass(player.transform.position, TimelineActions[i].Player.transform.position, Color.black, passCostsExtra);
-                if (_actionVisualPreviews.Count <= j) _actionVisualPreviews.Add(Instantiate(_actionVisualPreview, transform));
+            player = played ? TimelineActions[i].Player : cards[i - TimelineActions.Count].Action.Player;
+            int index = played ? TimelineActions[i].ActionIndex : cards[i - TimelineActions.Count].Action.ActionIndex;
+
+            if (prevPlayer != null && prevPlayer != player)
+            {
+                bool passCostsExtra = i < count - 1 ? player.CardData.GetAction(index).Type != ActionType.Pass : true;
+
+                if (played)
+                {
+                    _actionVisualPreviews[j++].ShowPass(prevPlayer.transform.position, player.transform.position, Color.black, passCostsExtra);
+                    if (_actionVisualPreviews.Count <= j) _actionVisualPreviews.Add(Instantiate(_actionVisualPreview, transform));
+                }
                 
                 if (passCostsExtra) adjustCost++;
             }
 
-            player = TimelineActions[i].Player;
-            int index = TimelineActions[i].ActionIndex;
             var action = player.CardData.GetAction(index);
-            cost += player.CardData.GetAction(index).Effects.Cost;
-            switch (action.Type)
+            if (played)
             {
-                case ActionType.Trick:
-                    _actionVisualPreviews[j++].ShowTrick(player.transform.position);
-                    break;
-                case ActionType.Pass:
-                    if (i < TimelineActions.Count - 1)
-                    {
-                        _actionVisualPreviews[j++].ShowPass(player.transform.position, TimelineActions[i + 1].Player.transform.position, player.PositionColor, false);
-                        player = TimelineActions[i + 1].Player;
-                    }
-                    break;
-                case ActionType.Shot:
-                    _actionVisualPreviews[j++].ShowShot(player.transform.position + Vector3.up * 1f, _goal.NetTarget.position + Vector3.up * 0.1f, player.PositionColor);
-                    player = Players[2]; // Center picks up
-                    break;
+                sequenceCost += player.CardData.GetAction(index).Effects.Cost;
+                switch (action.Type)
+                {
+                    case ActionType.Trick:
+                        _actionVisualPreviews[j++].ShowTrick(player.transform.position);
+                        break;
+                    case ActionType.Pass:
+                        if (i < TimelineActions.Count - 1)
+                        {
+                            _actionVisualPreviews[j++].ShowPass(player.transform.position, TimelineActions[i + 1].Player.transform.position, player.PositionColor, false);
+                            player = TimelineActions[i + 1].Player;
+                        }
+                        break;
+                    case ActionType.Shot:
+                        _actionVisualPreviews[j++].ShowShot(player.transform.position + Vector3.up * 1f, _goal.NetTarget.position + Vector3.up * 0.1f, player.PositionColor);
+                        player = Players[2]; // Center picks up
+                        break;
+                }
             }
 
             int tempCount = tempEffectNextStack.Count;
@@ -284,7 +288,7 @@ public class PlayerManager : MonoBehaviour
 
             if (action.HasEffectIfSequence)
             {
-                int count = action.EffectIfSequence.Requirements switch
+                int seqIfCount = action.EffectIfSequence.Requirements switch
                 {
                     SequenceRequirements.First => i == 0 ? 1 : 0,
                     SequenceRequirements.Last => i == TimelineActions.Count - 1 ? 1 : 0,
@@ -292,32 +296,41 @@ public class PlayerManager : MonoBehaviour
                     SequenceRequirements.ForEachOfType => TimelineActions.Count(o => o.Player.CardData.GetAction(o.ActionIndex).Type == action.EffectIfSequence.OfType),
                     _ => 0
                 };
-                if (count > 0)
+                if (seqIfCount > 0)
                 {
-                    Debug.Log($"Bonus: Effect if sequence is applied{(count > 1 ? count + " times!" : "!")}");
+                    Debug.Log($"Bonus: Effect if sequence is applied{(seqIfCount > 1 ? seqIfCount + " times!" : "!")}");
                     var effectIfSequence = action.EffectIfSequence.Effects.GetEffects(action.ActionLevel);
-                    for (int k = 0; k < count; k++)
+                    for (int k = 0; k < seqIfCount; k++)
                     {
                         adjustCost += effectIfSequence.Cost;
                         adjustHype += effectIfSequence.HypeGain;
                     }
                 }
             }
-            if (action.HasNextEffect)
+            if (played && action.HasNextEffect)
             {
                 tempEffectNextStack.Add(action.NextEffect);
             }
 
-            cards[i].RefreshVisuals(adjustCost, adjustHype);
-            cost += adjustCost;
+            if (played)
+            {
+                sequenceCost += adjustCost;
+            }
+            else
+            {
+                // TODO: Highlight cards
+                cards[i - TimelineActions.Count].RefreshVisuals(adjustCost, adjustHype);
+            }
+
+            if (played) prevPlayer = player;
         }
         for (; j < _actionVisualPreviews.Count; j++)
         {
             _actionVisualPreviews[j].gameObject.SetActive(false);
         }
 
-        _energyRemaining = _maxEnergy - cost;
-        UpdateEnergy?.Invoke(cost, _maxEnergy);
+        _energyRemaining = _maxEnergy - sequenceCost;
+        UpdateEnergy?.Invoke(sequenceCost, _maxEnergy);
     }
 
     public bool RunSimulation()
@@ -588,6 +601,7 @@ public class PlayerManager : MonoBehaviour
         TimelineActions.Clear();
         RefreshTimeline?.Invoke();
         // TODO: Update costs
+        _energyRemaining = _maxEnergy;
         UpdateEnergy?.Invoke(0, _maxEnergy);
         _trickshotCamera.SetNormalCamera();
         foreach (var player in _players)
