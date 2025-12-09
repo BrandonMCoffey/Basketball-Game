@@ -123,10 +123,10 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         if (_colorImage != null) _colorImage.color = _action.Player.PositionColor;
     }
 
-    public void LockCard()
+    public void SetLocked(bool locked)
     {
-        _locked = true;
-        _showWhenNotSelected.SetActive(true);
+        _locked = locked;
+        _showWhenNotSelected.SetActive(locked);
     }
 
     public void OnPointerDown(PointerEventData eventData)

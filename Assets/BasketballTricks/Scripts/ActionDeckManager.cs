@@ -138,6 +138,7 @@ public class ActionDeckManager : MonoBehaviour
             }
             _usedCards.Clear();
             _playedActions.Clear();
+            PlayerManager.Instance.PreviewSequence(_playedActions, _cards);
             UpdateCardLayout(null);
         }
     }
