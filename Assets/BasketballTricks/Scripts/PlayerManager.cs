@@ -256,9 +256,11 @@ public class PlayerManager : MonoBehaviour
 
             int tempCount = tempEffectNextStack.Count;
             int stackCount = EffectNextStack.Count;
+            var removeTempIndexes = new List<int>();
             for (int k = 0; k < tempCount + stackCount; k++)
             {
-                if (k >= tempCount && skipActualStackIndexes.Contains(k - tempCount)) continue; 
+                if (k >= tempCount && skipActualStackIndexes.Contains(k - tempCount)) continue;
+                // TODO: UIHHHH FIOX PLSZ
                 EffectNext nextEffect = k < tempCount ? tempEffectNextStack[k] : EffectNextStack[k - tempCount];
                 if (nextEffect.AppliesTo == NextEffectAppliesTo.NextCardDrawn) continue;
                 if (nextEffect.RequiredType == action.Type && nextEffect.RequiredPosition.HasFlag(player.Position))
@@ -267,16 +269,21 @@ public class PlayerManager : MonoBehaviour
                     //Debug.Log($"Adjust {action.Name} by effectNextStack: {effects.Cost} | {effects.HypeGain}");
                     adjustCost += effects.Cost;
                     adjustHype += effects.HypeGain;
-                    if (played && k < tempCount) tempEffectNextStack.RemoveAt(k);
+                    if (played && k < tempCount) removeTempIndexes.Add(k);
                     else if (played) skipActualStackIndexes.Add(k - tempCount);
                 }
                 else if (nextEffect.AppliesTo == NextEffectAppliesTo.NextCardPlayed)
                 {
-                    if (played && k < tempCount) tempEffectNextStack.RemoveAt(k);
+                    if (played && k < tempCount) removeTempIndexes.Add(k);
                 }
             }
+            removeTempIndexes.Sort();
+            for (int index = removeTempIndexes.Count - 1; index >= 0; index--)
+            {
+                tempEffectNextStack.RemoveAt(removeTempIndexes[index]);
+            }
 
-            if (action.HasEffectIfPrevious && i > 0)
+            if (action.HasEffectIfPrevious && i > 0 && prevPlayer != null)
             {
                 var previousAction = prevPlayer.CardData.GetAction(prevActionIndex);
                 if (action.UseEffectIfPrevious(previousAction.Type, prevPlayer.Position, out var effectIfPrevious))
