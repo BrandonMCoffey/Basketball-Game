@@ -10,6 +10,7 @@ public class ActionDeckManager : MonoBehaviour
     [SerializeField] private ActionCard _cardPrefab;
     [SerializeField] private int _handSize = 5;
     [SerializeField] private RectTransform _cardContainer;
+    [SerializeField] private RectTransform _cardPlayPoint;
     [SerializeField] private float _dragReorderThreshold = 50f;
 
     [Header("Card Layout")]
@@ -20,9 +21,12 @@ public class ActionDeckManager : MonoBehaviour
     [SerializeField] private float _layoutDuration = 0.3f;
     [SerializeField] private Ease _layoutEase = Ease.OutBack;
 
+    public RectTransform CardPlayPoint => _cardPlayPoint;
+
     private List<ActionCard> _cards;
     private List<GameAction> _actionDeck;
     private bool _disabled;
+    private int _playedIndex = -1;
 
     private void OnEnable()
     {
@@ -66,10 +70,28 @@ public class ActionDeckManager : MonoBehaviour
         UpdateCardLayout(null);
     }
 
+    public void PlayCard(ActionCard card)
+    {
+        if (!PlayerManager.Instance.CanPlay(card))
+        {
+            // TODO: Effects
+            return;
+        }
+
+        _playedIndex++;
+        int index = _cards.IndexOf(card);
+        if (index != _playedIndex)
+        {
+            _cards.RemoveAt(index);
+            _cards.Insert(_playedIndex, card);
+        }
+        PlayerManager.Instance.PreviewSequence(_cards, _playedIndex);
+    }
+
     public void OnUpdateSelected()
     {
         if (_disabled) return;
-        PlayerManager.Instance.PreviewSequence(_cards.Where(card => card.IsSelected).ToList());
+        //PlayerManager.Instance.PreviewSequence(_cards.Where(card => card.IsSelected).ToList());
     }
 
     public void DiscardSelectedCards()
@@ -97,7 +119,7 @@ public class ActionDeckManager : MonoBehaviour
 
     public void StartSequence()
     {
-        if (_disabled) return;
+        if (_disabled || _playedIndex < 0) return;
         if (PlayerManager.Instance.RunSimulation())
         {
             _disabled = true;
@@ -113,6 +135,7 @@ public class ActionDeckManager : MonoBehaviour
         if (_disabled && !PlayerManager.Instance.Simulating)
         {
             _disabled = false;
+            _playedIndex = -1;
             foreach (var card in _cards)
             {
                 if (card.IsSelected)
@@ -135,12 +158,12 @@ public class ActionDeckManager : MonoBehaviour
     public void UpdateCardLayout(ActionCard draggingCard = null)
     {
         if (_disabled) return;
-        int count = _cards.Count;
+        int count = _cards.Count - _playedIndex - 1;
         float delta = count > 1 ? 1f / (count - 1) : 0f;
 
         for (int i = 0; i < count; i++)
         {
-            ActionCard card = _cards[i];
+            ActionCard card = _cards[i + _playedIndex + 1];
 
             float vert = _verticalSpread * 0.5f;
             float vertDelta = Mathf.Abs(2f * delta * i - 1f);
@@ -159,10 +182,10 @@ public class ActionDeckManager : MonoBehaviour
 
     public void OnCardDragReorder(ActionCard draggedCard)
     {
-        int count = _cards.Count;
+        int count = _cards.Count - _playedIndex - 1;
         if (_disabled || count <= 1) return;
 
-        int draggedIndex = _cards.IndexOf(draggedCard);
+        int draggedIndex = _cards.IndexOf(draggedCard) - _playedIndex - 1;
         int newIndex = draggedIndex;
 
         float delta = 1f / (count - 1);
@@ -179,8 +202,8 @@ public class ActionDeckManager : MonoBehaviour
 
         if (newIndex != draggedIndex)
         {
-            _cards.RemoveAt(draggedIndex);
-            _cards.Insert(newIndex, draggedCard);
+            _cards.RemoveAt(draggedIndex + _playedIndex + 1);
+            _cards.Insert(newIndex + _playedIndex + 1, draggedCard);
             UpdateCardLayout(draggedCard);
             if (_cards.Any(c => c.IsSelected)) OnUpdateSelected();
         }

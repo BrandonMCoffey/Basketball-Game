@@ -51,6 +51,7 @@ public class PlayerManager : MonoBehaviour
 
     private bool _simulating;
     private Player _placingPlayer;
+    private float _energyRemaining;
 
     public List<Player> Players => _players;
     public bool Simulating => _simulating;
@@ -191,10 +192,19 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
-    public void PreviewSequence(List<ActionCard> cards)
+    public bool CanPlay(ActionCard card)
+    {
+        return card.Action.Player.CardData.GetAction(card.Action.ActionIndex).Effects.Cost <= _energyRemaining;
+    }
+
+    public void PreviewSequence(List<ActionCard> cards, int playedIndex)
     {
         if (_simulating) return;
-        TimelineActions = cards.Select(card => card.Action).ToList();
+        TimelineActions = new List<GameAction>(playedIndex);
+        for (int i = 0; i <= playedIndex; i++)
+        {
+            TimelineActions.Add(cards[i].Action);
+        }
         RefreshTimeline?.Invoke();
 
         float cost = 0;
@@ -306,12 +316,13 @@ public class PlayerManager : MonoBehaviour
             _actionVisualPreviews[j].gameObject.SetActive(false);
         }
 
+        _energyRemaining = _maxEnergy - cost;
         UpdateEnergy?.Invoke(cost, _maxEnergy);
     }
 
     public bool RunSimulation()
     {
-        if (_simulating || !IsSequenceValid()) return false;
+        if (_simulating/* || !IsSequenceValid()*/) return false;
         _simulating = true;
         foreach (var preview in _actionVisualPreviews)
         {
