@@ -57,13 +57,27 @@ public class HypeScoreDisplay : MonoBehaviour
     {
         int startScore = _currentHype;
         float elapsed = 0f;
-
         
-        _rectTransform.DOAnchorPosY(5, 0.1f).SetEase(Ease.OutQuad).SetDelay(_animationDuration).OnComplete(() =>
+        int scoreDifference = targetScore - startScore;
+        float minDiff = 10f;
+        float maxDiff = 50f;
+        float minScale = 1.1f;
+        float maxScale = 1.75f;
+        float minMove = 7f;
+        float maxMove = 15f;
+
+        float t = Mathf.InverseLerp(minDiff, maxDiff, scoreDifference);
+        float targetScale = Mathf.Lerp(minScale, maxScale, t);
+
+        float m = Mathf.InverseLerp(minDiff, maxDiff, scoreDifference);
+        float targetMoveY = Mathf.Lerp(minMove, maxMove, m);
+
+        _rectTransform.DOAnchorPosY(_currentAnchorPosY + targetMoveY, 0.1f).SetEase(Ease.OutQuad).SetDelay(_animationDuration).OnComplete(() =>
         {
-            _rectTransform.DOAnchorPosY(_currentAnchorPosY, 0.2f).SetEase(Ease.OutBack);
+            _rectTransform.DOAnchorPosY(_currentAnchorPosY, 0.2f).SetEase(Ease.OutBack).SetDelay(0.15f);
         });
-        _hypeText.transform.DOScale(1.5f, 0.1f).SetEase(Ease.OutQuad).SetDelay(_animationDuration).OnComplete(() =>
+
+        _hypeText.transform.DOScale(targetScale, 0.1f).SetEase(Ease.OutQuad).SetDelay(_animationDuration).OnComplete(() =>
         {
             _hypeText.transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).SetDelay(0.15f);
         });
@@ -71,11 +85,11 @@ public class HypeScoreDisplay : MonoBehaviour
         while (elapsed < _animationDuration)
         {
             elapsed += Time.deltaTime;
-            float t = elapsed / _animationDuration;
+            float t1 = elapsed / _animationDuration;
 
-            t = 1f - Mathf.Pow(1f - t, 2);
+            t1 = 1f - Mathf.Pow(1f - t1, 2);
 
-            float currentFloatScore = Mathf.Lerp(startScore, targetScore, t);
+            float currentFloatScore = Mathf.Lerp(startScore, targetScore, t1);
             _currentHype = Mathf.RoundToInt(currentFloatScore);
             if (_hypeText != null) _hypeText.text = _hypePrefix + _currentHype.ToString();
             yield return null;
