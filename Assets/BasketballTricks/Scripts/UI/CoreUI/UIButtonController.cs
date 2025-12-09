@@ -141,7 +141,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
     public void OnPointerDown(PointerEventData eventData)
     {
         _rectTransform.DOScale(0.8f, 0.1f).SetEase(_easeType);
-        _buttonTextContainer.DOAnchorPosY(_buttonTextContainer.anchoredPosition.y - 180, 0.1f).SetEase(_easeType);
+        //_buttonTextContainer.DOAnchorPosY(_buttonTextContainer.anchoredPosition.y - 180, 0.1f).SetEase(_easeType);
 
         for (int i = 0; i < _iconContainer.childCount; i++)
         {
@@ -162,7 +162,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
     void TapEnd()
     {
         _rectTransform.DOScale(0.7f, 0.1f).SetEase(_easeType);
-        _buttonTextContainer.DOAnchorPos(_onScreenButtonTextContainerPos, 0.1f).SetEase(_easeType);
+        //_buttonTextContainer.DOAnchorPos(_onScreenButtonTextContainerPos, 0.1f).SetEase(_easeType);
 
         for (int i = 0; i < _iconContainer.childCount; i++)
         {
