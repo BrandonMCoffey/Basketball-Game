@@ -9,6 +9,9 @@ public class ImageDataMatcher : SerializedScriptableObject
     [SerializeField] private Dictionary<PlayerPosition, Sprite> _positionBackgrounds = new Dictionary<PlayerPosition, Sprite>();
     [SerializeField] private Sprite _defaultRarityGlow;
     [SerializeField] private Dictionary<CardRarity, Sprite> _rarityGlows = new Dictionary<CardRarity, Sprite>();
+    [SerializeField] private Dictionary<ActionType, Sprite> _actionTypes = new Dictionary<ActionType, Sprite>();
+    [SerializeField] private Sprite _defaultCostIcon;
+    [SerializeField] private List<Sprite> _costIconsAtIndexCost = new List<Sprite>();
 
     public Sprite GetPositionBackground(PlayerPosition position)
     {
@@ -20,6 +23,9 @@ public class ImageDataMatcher : SerializedScriptableObject
         if (!_rarityGlows.ContainsKey(rarity)) return _defaultRarityGlow;
         return _rarityGlows[rarity] != null ? _rarityGlows[rarity] : _defaultRarityGlow;
     }
+    public Sprite GetActionType(ActionType actionType) => _actionTypes.ContainsKey(actionType) ? _actionTypes[actionType] : null;
+    public Sprite GetCostIcon(int cost) => !UseCostText(cost) ? _costIconsAtIndexCost[Mathf.Max(0, cost)] : _defaultCostIcon;
+    public bool UseCostText(int cost) => cost >= _costIconsAtIndexCost.Count;
 
     [Button]
     private void CreateDictionaries()
@@ -36,5 +42,10 @@ public class ImageDataMatcher : SerializedScriptableObject
         if (!_rarityGlows.ContainsKey(CardRarity.Career)) _rarityGlows.Add(CardRarity.Career, null);
         if (!_rarityGlows.ContainsKey(CardRarity.AllStar)) _rarityGlows.Add(CardRarity.AllStar, null);
         if (!_rarityGlows.ContainsKey(CardRarity.Signature)) _rarityGlows.Add(CardRarity.Signature, null);
+
+        _actionTypes ??= new Dictionary<ActionType, Sprite>();
+        if (!_actionTypes.ContainsKey(ActionType.Trick)) _actionTypes.Add(ActionType.Trick, null);
+        if (!_actionTypes.ContainsKey(ActionType.Pass)) _actionTypes.Add(ActionType.Pass, null);
+        if (!_actionTypes.ContainsKey(ActionType.Shot)) _actionTypes.Add(ActionType.Shot, null);
     }
 }

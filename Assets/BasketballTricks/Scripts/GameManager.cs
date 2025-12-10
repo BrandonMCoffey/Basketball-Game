@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
             _sceneTransition.alpha = 1 - MathFunctions.EaseInOutQuart(t);
             yield return null;
         }
+        _sceneTransition.alpha = 0;
         InTransition = false;
     }
 }

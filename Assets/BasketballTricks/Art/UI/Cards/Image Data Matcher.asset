@@ -24,6 +24,9 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 9ffdc4a380f4c8e449c780f7d380ebc4, type: 3}
     - {fileID: 21300000, guid: 659767db9db538243a92bf1a6ca8510a, type: 3}
     - {fileID: 21300000, guid: 392419fc56eef7248b7dbe983850bf1b, type: 3}
+    - {fileID: 21300000, guid: 3098a2ccfcf888e47b427fe3c9be8c91, type: 3}
+    - {fileID: 21300000, guid: 044c66c19a21e2246a5757ec767b2183, type: 3}
+    - {fileID: 21300000, guid: 177fc569255bea54db9fc49bc03ec965, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -189,5 +192,74 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: _actionTypes
+      Entry: 7
+      Data: 4|System.Collections.Generic.Dictionary`2[[ActionType, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 5|System.Collections.Generic.EnumEqualityComparer`1[[ActionType, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 10
+      Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 9
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 10
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   _defaultBackground: {fileID: 21300000, guid: ec5e5a16053f8b546966eed2a4dc9cd0, type: 3}
   _defaultRarityGlow: {fileID: 21300000, guid: 659767db9db538243a92bf1a6ca8510a, type: 3}
+  _defaultCostIcon: {fileID: 21300000, guid: e204e7404a5733840b036e532864eabc, type: 3}
+  _costIconsAtIndexCost:
+  - {fileID: 21300000, guid: 0d07b8cd7d7fda245a58849ce38ae5f1, type: 3}
+  - {fileID: 21300000, guid: e204e7404a5733840b036e532864eabc, type: 3}
+  - {fileID: 21300000, guid: e709f2e927417d146baa350a1348e5aa, type: 3}
+  - {fileID: 21300000, guid: 3335aef3bb9305447850183cddfd9cd7, type: 3}
+  - {fileID: 21300000, guid: 0387bb36e421a2a42bbcc0f3dd3796d0, type: 3}

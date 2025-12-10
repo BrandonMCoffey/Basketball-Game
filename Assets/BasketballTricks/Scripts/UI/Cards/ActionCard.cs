@@ -13,12 +13,10 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     [SerializeField] private TMP_Text _actionName;
     [SerializeField] private TMP_Text _actionDescription;
     [SerializeField] private TMP_Text _actionType;
+    [SerializeField] private Image _actionCostIcon;
     [SerializeField] private TMP_Text _actionCost;
     [SerializeField] private TMP_Text _actionHype;
     [SerializeField] private Image _actionIcon;
-    [SerializeField] private Sprite _defaultTrickIcon;
-    [SerializeField] private Sprite _defaultPassIcon;
-    [SerializeField] private Sprite _defaultShotIcon;
     [SerializeField] private GameObject _showWhenNotSelected;
     [SerializeField] private GameObject _showWhenDiscarding;
     [SerializeField] private Image _bg;
@@ -116,9 +114,14 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         if (_actionName != null) _actionName.text = data.Name;
         if (_actionDescription != null) _actionDescription.text = data.GetDisplayText();
         if (_actionType != null) _actionType.text = data.Type.ToString();
+        int cost = Mathf.RoundToInt(effects.Cost + adjustCost);
+        if (_actionCostIcon != null)
+        {
+            _actionCostIcon.sprite = _matcher.GetCostIcon(cost);
+        }
         if (_actionCost != null)
         {
-            _actionCost.text = (effects.Cost + adjustCost).ToString("0");
+            _actionCost.text = _matcher.UseCostText(cost) ? cost.ToString() : "";
             _actionCost.color = adjustCost == 0 ? Color.white : (adjustCost < 0 ? Color.green : Color.red);
         }
         if (_actionHype != null)
@@ -129,13 +132,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         if (_actionIcon != null)
         {
             if (data.Icon != null) _actionIcon.sprite = data.Icon;
-            else _actionIcon.sprite = data.Type switch
-            {
-                ActionType.Trick => _defaultTrickIcon,
-                ActionType.Pass => _defaultPassIcon,
-                ActionType.Shot => _defaultShotIcon,
-                _ => null
-            };
+            else _actionIcon.sprite = _matcher.GetActionType(data.Type);
         }
         if (_colorImage != null) _colorImage.color = _action.Player.PositionColor;
     }

@@ -25,8 +25,10 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
 
     [Header("Colors")]
     [SerializeField] private List<Image> _coloredImages;
+    [SerializeField] private List<Image> _darkColoredImages;
     [SerializeField, Range(0, 1)] private float _saturationAdjust = 0.8f;
     [SerializeField, Range(0, 1)] private float _valueAdjust = 0.8f;
+    [SerializeField, Range(0, 1)] private float _darkenAdjust = 0.4f;
     [SerializeField, Range(0, 1)] private float _alpha = 0.8f;
 
     private GameCard _activeGameCard;
@@ -66,6 +68,12 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
         var c = Color.HSVToRGB(h, s, v);
         c.a = _alpha;
         foreach (var image in _coloredImages)
+        {
+            image.color = c;
+        }
+        c = Color.HSVToRGB(h, s, v * _darkenAdjust);
+        c.a = _alpha;
+        foreach (var image in _darkColoredImages)
         {
             image.color = c;
         }
