@@ -28,6 +28,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     [SerializeField] private float _dragScale = 1.25f;
     [SerializeField] private float _selectedScale = 1.2f;
     [SerializeField] private float _playScale = 1.25f;
+    [SerializeField] private float _playedDragScale = 0.4f;
     [SerializeField] private float _dragFollowSpeed = 20f;
 
     public GameAction Action => _action;
@@ -52,6 +53,10 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         _rectTransform = GetComponent<RectTransform>();
         _canvas = GetComponentInParent<Canvas>();
     }
+    private void Start()
+    {
+        if (_manager == null) _manager = FindObjectOfType<ActionDeckManager>();
+    }
 
     private void Update()
     {
@@ -68,7 +73,8 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
                 localPoint,
                 Time.deltaTime * _dragFollowSpeed
             );
-            _manager.OnCardDragReorder(this);
+            if (_played) _manager.OnCardDragReorderPlayed(this);
+            else _manager.OnCardDragReorder(this);
         }
     }
 
@@ -142,10 +148,9 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (_played) return;
         _wasDragged = false;
         _rectTransform.SetAsLastSibling();
-        _rectTransform.DOScale(_dragScale, 0.2f);
+        _rectTransform.DOScale(_played ? _playedDragScale : _dragScale, 0.2f);
         _rectTransform.DOLocalRotate(Vector3.zero, 0.2f);
 
         _moveTween?.Kill();
@@ -153,19 +158,18 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (_played) return;
         _isDragging = true;
         _wasDragged = true;
 
         if (!_locked)
         {
-            bool dragToPlay = transform.position.y > _manager.CardPlayPoint.position.y;
+            bool dragToPlay = transform.position.y > (_played ? _manager.CardRemovedPlayedPoint : _manager.CardPlayPoint).position.y;
             if (dragToPlay != _dragToPlay)
             {
-                _rectTransform.DOScale(dragToPlay ? _playScale : _dragScale, 0.1f);
+                _rectTransform.DOScale(dragToPlay ? (_played ? _playedDragScale : _playScale) : _dragScale, 0.1f);
             }
             _dragToPlay = dragToPlay;
-            _showWhenDiscarding.SetActive(RectTransformUtility.RectangleContainsScreenPoint(_manager.DiscardBox, eventData.position));
+            if (!_played) _showWhenDiscarding.SetActive(RectTransformUtility.RectangleContainsScreenPoint(_manager.DiscardBox, eventData.position));
         }
         else
         {
@@ -175,19 +179,21 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (_played) return;
         _isDragging = false;
 
-        if (_dragToPlay)
+        if (!_played && _dragToPlay)
         {
-            _rectTransform.DOScale(_isSelected ? _selectedScale : 0f, 0.2f);
-            _rectTransform.DOAnchorPos(_rectTransform.anchoredPosition + Vector2.down * 500, 2f);
             _manager.PlayCard(this);
             _played = true;
+            return;
         }
-        else
+        else if (_played && !_dragToPlay)
         {
-           
+            _manager.RemoveCardFromPlay(this);
+            _played = false;
+        }
+        else if (!_played)
+        {
             //if (Vector2.Distance(_manager.DiscardBox.anchoredPosition, _rectTransform.anchoredPosition) < 50)
             if (RectTransformUtility.RectangleContainsScreenPoint(_manager.DiscardBox, eventData.position))
             {
@@ -206,13 +212,17 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
             }
             _rectTransform.DOScale(_isSelected ? _selectedScale : 1f, 0.2f);
         }
+        if (_wasDragged)
+        {
+            if (_played) _manager.OnCardDragReorderPlayed(this, true);
+            else _manager.OnCardDragReorder(this, true);
+        }
 
         _manager.UpdateCardLayout();
     }
 
     public void UpdateTransform(Vector2 targetPos, Quaternion targetRot, float duration, Ease ease)
     {
-        if (_played) return;
         _moveTween?.Kill();
         _rotTween?.Kill();
 
@@ -227,7 +237,6 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     public void UpdateRotationOnly(Quaternion targetRot, float duration)
     {
-        if (_played) return;
         _rotTween?.Kill();
         _rotTween = _rectTransform.DOLocalRotateQuaternion(targetRot, duration);
     }

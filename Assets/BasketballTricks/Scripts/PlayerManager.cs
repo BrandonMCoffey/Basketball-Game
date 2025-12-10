@@ -52,6 +52,7 @@ public class PlayerManager : MonoBehaviour
     private bool _simulating;
     private Player _placingPlayer;
     private float _energyRemaining;
+    private Player _previewHoldingBall;
 
     public List<Player> Players => _players;
     public bool Simulating => _simulating;
@@ -94,6 +95,14 @@ public class PlayerManager : MonoBehaviour
             _actionVisualPreviews.Add(preview);
         }
         _energyRemaining = _maxEnergy;
+    }
+
+    private void Update()
+    {
+        if (!_simulating && _previewHoldingBall != null)
+        {
+            _basketball.transform.position = _previewHoldingBall.BasketballPosition;
+        }
     }
 
     public Vector3 GetPlayerPosition(int index)
@@ -196,10 +205,10 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
-    public void PreviewSequence(List<GameAction> playedActions, List<ActionCard> cards)
+    public void PreviewSequence(List<ActionCard> playedCards, List<ActionCard> cards)
     {
         if (_simulating) return;
-        TimelineActions = new List<GameAction>(playedActions);
+        TimelineActions = playedCards.Select(card => card.Action).ToList();
         RefreshTimeline?.Invoke();
 
         float sequenceCost = 0;
@@ -242,6 +251,12 @@ public class PlayerManager : MonoBehaviour
             if (played)
             {
                 sequenceCost += player.CardData.GetAction(actionIndex).Effects.Cost;
+                if (i == TimelineActions.Count - 1)
+                {
+                    if (player != _previewHoldingBall && _previewHoldingBall != null) _previewHoldingBall.SetAnimation(PlayerAnimation.Idle, 0.1f);
+                    _previewHoldingBall = player;
+                    player.SetAnimation(PlayerAnimation.IdleHold, 0.1f);
+                }
                 switch (action.Type)
                 {
                     case ActionType.Trick:
@@ -328,6 +343,7 @@ public class PlayerManager : MonoBehaviour
                 sequenceCost += adjustCost;
                 prevPlayer = player;
                 prevActionIndex = actionIndex;
+                playedCards[i].RefreshVisuals(adjustCost, adjustHype);
             }
             else
             {
@@ -350,6 +366,7 @@ public class PlayerManager : MonoBehaviour
     public bool RunSimulation()
     {
         if (_simulating/* || !IsSequenceValid()*/) return false;
+        _previewHoldingBall = null;
         _simulating = true;
         foreach (var preview in _actionVisualPreviews)
         {

@@ -5,9 +5,11 @@ using UnityEngine;
 public class TopBarUIManager : MonoBehaviour
 {
     [SerializeField] private TopBarActionUI _barActionPrefab;
+    [SerializeField] private ActionCard _actionCardPrefab;
     [SerializeField] private RectTransform _barsContainer;
     [SerializeField] private List<TopBarActionUI> _bars;
-    RectTransform _rectTransform;
+
+    private RectTransform _rectTransform;
 
     private void Start()
     {

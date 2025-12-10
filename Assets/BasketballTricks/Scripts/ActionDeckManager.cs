@@ -1,6 +1,5 @@
 using DG.Tweening;
 using SaiUtils.Extensions;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +11,17 @@ public class ActionDeckManager : MonoBehaviour
     [SerializeField] private int _handSize = 5;
     [SerializeField] private RectTransform _cardContainer;
     [SerializeField] private RectTransform _cardPlayPoint;
+    [SerializeField] private RectTransform _cardRemovedPlayedPoint;
     [SerializeField] private RectTransform _discardBox;
-    [SerializeField] private float _dragReorderThreshold = 50f;
+    [SerializeField] private float _dragReorderThreshold = 0.3f;
+
+    [Header("Play Preview")]
+    [SerializeField] private RectTransform _playPreviewStart;
+    [SerializeField] private float _playPreviewScale = 0.2f;
 
     [Header("Card Layout")]
-    [SerializeField] private float _horizontalSpread = 700f;
+    [SerializeField] private RectTransform _cardSpread;
+    [SerializeField] private float _maxCardSpacing = 20f;
     [SerializeField] private float _verticalSpread = 50f;
     [SerializeField] private float _maxRotationAngle = 30f;
     [SerializeField] private float _selectedHeightOffset = 100f;
@@ -25,12 +30,13 @@ public class ActionDeckManager : MonoBehaviour
 
     public RectTransform DiscardBox => _discardBox;
     public RectTransform CardPlayPoint => _cardPlayPoint;
+    public RectTransform CardRemovedPlayedPoint => _cardRemovedPlayedPoint;
 
     private List<ActionCard> _cards;
-    private List<ActionCard> _usedCards;
-    private List<GameAction> _playedActions;
+    private List<ActionCard> _playedCards;
     private List<GameAction> _actionDeck;
     private bool _disabled;
+    private bool _lockReorder;
 
     private void OnEnable()
     {
@@ -54,8 +60,7 @@ public class ActionDeckManager : MonoBehaviour
             }
         }
         _actionDeck.Shuffle();
-        _playedActions = new List<GameAction>();
-        _usedCards = new List<ActionCard>();
+        _playedCards = new List<ActionCard>();
 
         for (int i = _cardContainer.childCount - 1; i >= 0; i--)
         {
@@ -64,24 +69,29 @@ public class ActionDeckManager : MonoBehaviour
 
         int count = Mathf.Min(_handSize, _actionDeck.Count);
         _cards = new List<ActionCard>(count);
-        float delta = count > 1 ? 1f / (count - 1) : 0f;
         for (int i = 0; i < count; i++)
         {
-            float x = _cardContainer.localPosition.x + Mathf.Lerp(-_horizontalSpread, _horizontalSpread, delta * i);
-            var actionCard = Instantiate(_cardPrefab, new Vector2(x, -Screen.height * 0.5f), Quaternion.identity, _cardContainer);
+            var actionCard = Instantiate(_cardPrefab, _cardContainer);
             actionCard.Init(_actionDeck[0], this);
             _actionDeck.RemoveAt(0);
             _cards.Add(actionCard);
         }
-        UpdateCardLayout(null);
+        UpdateCardLayout(null, true);
     }
 
     public void PlayCard(ActionCard card)
     {
-        _playedActions.Add(card.Action);
         _cards.Remove(card);
-        _usedCards.Add(card);
-        PlayerManager.Instance.PreviewSequence(_playedActions, _cards);
+        _playedCards.Add(card);
+        PlayerManager.Instance.PreviewSequence(_playedCards, _cards);
+        UpdateCardLayout(null);
+    }
+
+    public void RemoveCardFromPlay(ActionCard card)
+    {
+        _playedCards.Remove(card);
+        _cards.Add(card);
+        PlayerManager.Instance.PreviewSequence(_playedCards, _cards);
         UpdateCardLayout(null);
     }
 
@@ -96,10 +106,13 @@ public class ActionDeckManager : MonoBehaviour
     {
         card.RectTransform.DOAnchorPos(card.RectTransform.anchoredPosition + Vector2.down * 1080f, _layoutDuration).SetEase(Ease.InBack);
         yield return new WaitForSeconds(_layoutDuration + 0.1f);
-        card.Init(_actionDeck[0], this);
-        _actionDeck.RemoveAt(0);
-        PlayerManager.Instance.PreviewSequence(_playedActions, _cards);
-        UpdateCardLayout(null);
+        if (_actionDeck.Count > 0)
+        {
+            card.Init(_actionDeck[0], this);
+            _actionDeck.RemoveAt(0);
+            PlayerManager.Instance.PreviewSequence(_playedCards, _cards);
+            UpdateCardLayout(null);
+        }
     }
 
     public void StartSequence()
@@ -112,6 +125,13 @@ public class ActionDeckManager : MonoBehaviour
             {
                 card.RectTransform.DOAnchorPos(card.RectTransform.anchoredPosition + Vector2.down * 1080f, 1f).SetEase(Ease.InBack);
             }
+            foreach (var card in _playedCards)
+            {
+                var t = card.RectTransform;
+                t.DOAnchorPos(t.anchoredPosition + Vector2.up * 500, 1f).SetEase(Ease.InBack).OnComplete(() => {
+                    t.anchoredPosition = new Vector2(0f, -1080f);
+                });
+            }
         }
     }
 
@@ -120,46 +140,75 @@ public class ActionDeckManager : MonoBehaviour
         if (_disabled && !PlayerManager.Instance.Simulating)
         {
             _disabled = false;
-            foreach (var card in _usedCards)
+            int count = Mathf.Min(_playedCards.Count, _actionDeck.Count);
+            for (int i = _playedCards.Count - 1; i >= 0; i--)
             {
-                card.Init(_actionDeck[0], this);
-                _cards.Add(card);
-                _actionDeck.RemoveAt(0);
+                if (_actionDeck.Count > 0)
+                {
+                    ActionCard card = _playedCards[i];
+                    _cards.Add(card);
+                    _playedCards.RemoveAt(i);
+                    card.Init(_actionDeck[0], this);
+                    _actionDeck.RemoveAt(0);
+                }
+                else
+                {
+                    Destroy(_playedCards[i].gameObject);
+                }
             }
-            _usedCards.Clear();
-            _playedActions.Clear();
-            PlayerManager.Instance.PreviewSequence(_playedActions, _cards);
+            _playedCards.Clear();
+            PlayerManager.Instance.PreviewSequence(_playedCards, _cards);
             UpdateCardLayout(null);
         }
     }
 
-    public void UpdateCardLayout(ActionCard draggingCard = null)
+    public void UpdateCardLayout(ActionCard draggingCard = null, bool immediate = false)
     {
         if (_disabled) return;
         int count = _cards.Count;
-        float delta = count > 1 ? 1f / (count - 1) : 0f;
-
-        for (int i = 0; i < count; i++)
+        if (count > 0)
         {
-            ActionCard card = _cards[i];
+            float delta = count > 1 ? 1f / (count - 1) : 0f;
 
-            float vert = _verticalSpread * 0.5f;
-            float vertDelta = Mathf.Abs(2f * delta * i - 1f);
-            vertDelta *= vertDelta;
-            Vector2 pos = new Vector2(Mathf.Lerp(-_horizontalSpread, _horizontalSpread, delta * i), Mathf.Lerp(vert, -vert, vertDelta));
-            if (card.IsSelected && card != draggingCard) pos.y += _selectedHeightOffset;
-
-            Quaternion rot = Quaternion.Euler(0f, 0f, Mathf.Lerp(_maxRotationAngle, -_maxRotationAngle, delta * i));
-
-            if (card != draggingCard)
+            Rect cardRect = _cards[0].RectTransform.rect;
+            Vector2 center = _cardSpread.anchoredPosition;
+            float horzSpread = Mathf.Min(_cardSpread.rect.width, count * (cardRect.width + _maxCardSpacing)) * 0.5f;
+            float vertSpread = cardRect.height * _verticalSpread * 0.5f;
+            for (int i = 0; i < count; i++)
             {
-                card.UpdateTransform(pos, rot, _layoutDuration, _layoutEase);
+                ActionCard card = _cards[i];
+                float vertDelta = Mathf.Abs(2f * delta * i - 1f);
+                vertDelta *= vertDelta;
+                Vector2 pos = center + new Vector2(Mathf.Lerp(-horzSpread, horzSpread, delta * i), Mathf.Lerp(vertSpread, -vertSpread, vertDelta));
+                if (card.IsSelected && card != draggingCard) pos.y += _selectedHeightOffset;
+
+                Quaternion rot = Quaternion.Euler(0f, 0f, Mathf.Lerp(_maxRotationAngle, -_maxRotationAngle, delta * i));
+
+                if (card != draggingCard)
+                {
+                    card.UpdateTransform(pos, rot, immediate ? 0 : _layoutDuration, _layoutEase);
+                }
+            }
+        }
+        count = _playedCards.Count;
+        if (count > 0)
+        {
+            float cardWidth = _playedCards[0].RectTransform.rect.width;
+            for (int i = 0; i < count; i++)
+            {
+                var pos = _playPreviewStart.anchoredPosition + (cardWidth * _playPreviewScale + 20f) * i * Vector2.right;
+                if (_playedCards[i] != draggingCard)
+                {
+                    _playedCards[i].RectTransform.DOAnchorPos(pos, immediate ? 0 : 0.2f);
+                    _playedCards[i].RectTransform.DOScale(_playPreviewScale, immediate ? 0 : 0.2f);
+                }
             }
         }
     }
 
-    public void OnCardDragReorder(ActionCard draggedCard)
+    public void OnCardDragReorder(ActionCard draggedCard, bool forceIfLocked = false)
     {
+        if (_lockReorder && !forceIfLocked) return;
         int count = _cards.Count;
         if (_disabled || count <= 1) return;
 
@@ -167,23 +216,78 @@ public class ActionDeckManager : MonoBehaviour
         int newIndex = draggedIndex;
 
         float delta = 1f / (count - 1);
+
+        Rect cardRect = _cards[0].RectTransform.rect;
+        Vector2 center = _cardSpread.anchoredPosition;
+        float horzSpread = Mathf.Min(_cardSpread.rect.width, count * (cardRect.width + _maxCardSpacing)) * 0.5f;
+        float vertSpread = cardRect.height * _verticalSpread * 0.5f;
+
+        float draggedX = draggedCard.RectTransform.anchoredPosition.x;
         for (int i = 0; i < count; i++)
         {
             if (i == draggedIndex) continue;
 
-            float x = Mathf.Lerp(-_horizontalSpread, _horizontalSpread, delta * i);
-            float threshold = Mathf.Min(_dragReorderThreshold, _horizontalSpread * delta - 10f);
-            
-            if (draggedCard.transform.localPosition.x > x - threshold && draggedIndex < i) newIndex = i;
-            else if (draggedCard.transform.localPosition.x < x + threshold && draggedIndex > i) newIndex = i;
+            float x = center.x + Mathf.Lerp(-horzSpread, horzSpread, delta * i);
+            float threshold = Mathf.Min(_dragReorderThreshold * cardRect.width, horzSpread * delta - 10f);
+
+            //Debug.Log($"{draggedIndex}: {draggedCard.RectTransform.anchoredPosition.x} vs {i}: {x}, {threshold}");
+            if (draggedX > x - threshold && newIndex < i) newIndex = i;
+            else if (draggedX < x + threshold && newIndex > i) newIndex = i;
         }
 
         if (newIndex != draggedIndex)
         {
             _cards.RemoveAt(draggedIndex);
             _cards.Insert(newIndex, draggedCard);
-            UpdateCardLayout(draggedCard);
-            if (_cards.Any(c => c.IsSelected)) OnUpdateSelected();
+            if (!forceIfLocked)
+            {
+                UpdateCardLayout(draggedCard);
+                if (_cards.Any(c => c.IsSelected)) OnUpdateSelected();
+                StartCoroutine(LockReorderTemp());
+            }
         }
+    }
+
+    public void OnCardDragReorderPlayed(ActionCard draggedCard, bool forceIfLocked = false)
+    {
+        if (_lockReorder && !forceIfLocked) return;
+        int count = _playedCards.Count;
+        if (_disabled || count <= 1) return;
+
+        int draggedIndex = _playedCards.IndexOf(draggedCard);
+        int newIndex = draggedIndex;
+
+        float cardWidth = _playedCards[0].RectTransform.rect.width;
+        float draggedX = draggedCard.RectTransform.anchoredPosition.x;
+        for (int i = 0; i < count; i++)
+        {
+            if (i == draggedIndex) continue;
+
+            float x = _playPreviewStart.anchoredPosition.x + (cardWidth * _playPreviewScale + 20f) * i;
+            float threshold = _dragReorderThreshold * cardWidth * 0.5f;
+
+            //Debug.Log($"{draggedIndex}: {draggedCard.RectTransform.anchoredPosition.x} vs {i}: {x}, {threshold}");
+            if (draggedX > x - threshold && newIndex < i) newIndex = i;
+            else if (draggedX < x + threshold && newIndex > i) newIndex = i;
+        }
+
+        if (newIndex != draggedIndex)
+        {
+            _playedCards.RemoveAt(draggedIndex);
+            _playedCards.Insert(newIndex, draggedCard);
+            PlayerManager.Instance.PreviewSequence(_playedCards, _cards);
+            if (!forceIfLocked)
+            {
+                UpdateCardLayout(draggedCard);
+                StartCoroutine(LockReorderTemp());
+            }
+        }
+    }
+
+    private IEnumerator LockReorderTemp()
+    {
+        _lockReorder = true;
+        yield return new WaitForSeconds(0.1f);
+        _lockReorder = false;
     }
 }

@@ -17,7 +17,8 @@ public class StaminaElemController : MonoBehaviour
     [SerializeField] private Image _spriteRenderer;
     [SerializeField] private RectTransform _imageRectTransform;
 
-    private CostDisplay _costDisplay;
+    private RectTransform _costDisplay;
+    private Vector3 _costDisplayOriginalPos;
     private bool _jumped = false;
     
 
@@ -25,7 +26,8 @@ public class StaminaElemController : MonoBehaviour
     {
         _unusedColor = unusedColor;
         _spentColor = spentColor;
-        _costDisplay = costDisplay;
+        _costDisplay = costDisplay.GetComponent<RectTransform>();
+        _costDisplayOriginalPos = _costDisplay.anchoredPosition;
         UpdateVisuals();
     }
 
@@ -59,10 +61,9 @@ public class StaminaElemController : MonoBehaviour
             _imageRectTransform.DOAnchorPosY(0, 0.2f).SetDelay(0.15f).SetEase(Ease.OutBack);
             _imageRectTransform.DOScale(Vector3.one, 0.2f).SetDelay(0.15f).SetEase(Ease.OutBack);
 
-            var stamBarRect = _costDisplay.GetComponent<RectTransform>();
-            stamBarRect.DOAnchorPosY(stamBarRect.anchoredPosition.y + 10, 0.1f).SetEase(Ease.OutQuad).OnComplete(() =>
+            _costDisplay.DOAnchorPosY(_costDisplayOriginalPos.y + 10, 0.1f).SetEase(Ease.OutQuad).OnComplete(() =>
             {
-                stamBarRect.DOAnchorPosY(stamBarRect.anchoredPosition.y - 10, 0.2f).SetEase(Ease.OutBack);
+                _costDisplay.DOAnchorPosY(_costDisplayOriginalPos.y - 10, 0.2f).SetEase(Ease.OutBack);
             });
 
         });
