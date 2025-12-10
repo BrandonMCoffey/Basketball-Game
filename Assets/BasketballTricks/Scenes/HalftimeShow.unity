@@ -4275,7 +4275,10 @@ MonoBehaviour:
   _catalog: {fileID: 3318022568213214731}
   _lockerEaseEnter: 15
   _lockerEaseLeave: 11
-  _lockerDelay: 0.125
+  _betweenLockerDelay: 0.1
+  _lockerAnimTime: 0.3
+  _buttonAnimTime: 0.2
+  _catalogAnimTime: 0.4
   _deckManager: {fileID: 6949764343152343267}
   _cardSelectedOffsetY: 0.1
 --- !u!1001 &1052307914
@@ -14351,9 +14354,11 @@ MonoBehaviour:
   _maxDisplayCards: 12
   _prevButton: {fileID: 823122424740574658}
   _nextButton: {fileID: 315384085933505766}
-  _startIndex: 0
   _glareEffect: {fileID: 1246623662101108698}
   _focusPoint: {fileID: 802270788}
+  _showOnStart: 0
+  _betweenCardTime: 0.04
+  _animTime: 0.2
 --- !u!1 &7500710386219360326
 GameObject:
   m_ObjectHideFlags: 0

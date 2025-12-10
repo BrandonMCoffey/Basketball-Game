@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
-using Sirenix.OdinInspector;
 
 public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -11,6 +10,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     [SerializeField] private Image _raycastImage;
     [SerializeField] private GameObject _disabledCover;
     [SerializeField] private bool _flipOnClick;
+    [SerializeField] private GameObject _glow;
 
     [Header("Drag")]
     [SerializeField] private bool _canDrag;
@@ -90,6 +90,11 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         _rectTransform.anchoredPosition = _initialPosition;
         _rectTransform.localRotation = _initialRotation;
         _rectTransform.localScale = _initialScale;
+    }
+
+    public void SetGlow(bool glow)
+    {
+        if (_glow != null) _glow.SetActive(glow);
     }
 
     public void SetInteractable(bool interactable)

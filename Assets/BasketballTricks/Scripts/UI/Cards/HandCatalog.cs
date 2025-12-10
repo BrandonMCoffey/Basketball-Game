@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,10 +17,15 @@ public class HandCatalog : MonoBehaviour
     [SerializeField] private int _maxDisplayCards = 6;
     [SerializeField] private Button _prevButton;
     [SerializeField] private Button _nextButton;
-    [SerializeField] private int _startIndex;
     [SerializeField] RectTransform _glareEffect;
     [SerializeField] private RectTransform _focusPoint;
+    [SerializeField] private bool _showOnStart = true;
+    [SerializeField] private float _betweenCardTime = 0.05f;
+    [SerializeField] private float _animTime = 0.3f;
 
+    private PlayerPosition _positionFilter = PlayerPosition.None;
+    private int _startIndex;
+    private List<GameCard> _allCards;
     private List<PlayerCard> _cards;
     private bool _transitioning;
     private Coroutine _pageEffectsRoutine;
@@ -34,8 +40,10 @@ public class HandCatalog : MonoBehaviour
         GameManager.UpdatePlayerLoadout -= RefreshCards;
     }
 
-    private void Awake()
+    private void Start()
     {
+        _allCards = GameManager.Instance.OwnedPlayers;
+        _startIndex = 0;
         CreateCards();
         if (_prevButton != null) _prevButton.onClick.AddListener(PreviousPage);
         if (_nextButton != null) _nextButton.onClick.AddListener(NextPage);
@@ -60,7 +68,7 @@ public class HandCatalog : MonoBehaviour
             int column = i % _columns;
             int row = i / _columns;
             float x = (column - 0.5f * _columns + 0.5f) * (_cardSize.x + _spacing);
-            float y = (row - 0.5f * _maxDisplayCards / _columns + 0.5f) * (_cardSize.y + _spacing);
+            float y = (-row + 0.5f * _maxDisplayCards / _columns - 0.5f) * (_cardSize.y + _spacing);
             //Debug.Log($"{i}: {row}, {column}, {column - 0.5f * _columns + 0.5f}, {row - 0.5f * count / _columns + 0.5f}");
             rectTransform.anchorMin = rectTransform.anchorMax = rectTransform.pivot = Vector3.one * 0.5f;
             rectTransform.anchoredPosition = new Vector2(x, y + 20); // offset y for better centering - Sai
@@ -69,8 +77,7 @@ public class HandCatalog : MonoBehaviour
             card.transform.localScale = Vector3.zero;
             _cards.Add(card);
         }
-        UpdateInteractibility(true);
-        UpdateCardData();
+        if (_showOnStart) UpdateCardData();
     }
 
     private void RefreshCards()
@@ -82,14 +89,29 @@ public class HandCatalog : MonoBehaviour
         }
     }
 
+    public void ShowCardsFiltered(PlayerPosition positionFilter = PlayerPosition.None)
+    {
+        _startIndex = 0;
+        _positionFilter = positionFilter;
+        _allCards = GameManager.Instance.OwnedPlayers;
+        // Sort by filter (filtered cards first)
+        if (_positionFilter != PlayerPosition.None)
+        {
+            _allCards = _allCards.OrderBy(card => !card.PlayerData.IsNaturalPosition(_positionFilter)).ToList();
+        }
+        // Sort used cards to the end
+        var loadout = GameManager.Instance.GetPositionLoadout();
+        _allCards = _allCards.OrderBy(card => loadout.Contains(card)).ToList();
+        UpdateCardData();
+    }
     private void UpdateCardData()
     {
-        var players = GameManager.Instance.OwnedPlayers;
-        var count = Mathf.Min(players.Count - _startIndex, _maxDisplayCards);
+        var count = Mathf.Min(_allCards.Count - _startIndex, _maxDisplayCards);
         for (int i = 0; i < _cards.Count; i++)
         {
             int cardIndex = _startIndex + i;
-            _cards[i].SetData(i < count ? players[cardIndex] : null);
+            _cards[i].SetData(i < count ? _allCards[cardIndex] : null);
+            _cards[i].SetGlow(_positionFilter != PlayerPosition.None && _allCards[cardIndex].PlayerData.IsNaturalPosition(_positionFilter));
         }
         StartCoroutine(ShowCardsRoutine(count));
     }
@@ -103,11 +125,6 @@ public class HandCatalog : MonoBehaviour
         UpdateInteractibility(true);
     }
 
-    public void ShowCards()
-    {
-        UpdateCardData();
-    }
-
     private IEnumerator ShowCardsRoutine(int cardsToShow)
     {
         if (_transitioning) yield return null;
@@ -115,8 +132,8 @@ public class HandCatalog : MonoBehaviour
         while (GameManager.InTransition) yield return null;
         for (int i = 0; i < _cards.Count; i++)
         {
-            _cards[i].transform.DOScale(i < cardsToShow ? Vector3.one : Vector3.zero, 0.3f).SetEase(Ease.OutBack);
-            yield return new WaitForSeconds(0.05f);
+            _cards[i].transform.DOScale(i < cardsToShow ? Vector3.one : Vector3.zero, _animTime).SetEase(Ease.OutBack);
+            yield return new WaitForSeconds(_betweenCardTime);
         }
         UpdateInteractibility();
         _transitioning = false;
@@ -163,10 +180,10 @@ public class HandCatalog : MonoBehaviour
         UpdateInteractibility(true);
         for (int i = 0; i < _cards.Count; i++)
         {
-            _cards[i].transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.OutBack);
-            yield return new WaitForSeconds(0.05f);
+            _cards[i].transform.DOScale(Vector3.zero, _animTime).SetEase(Ease.OutBack);
+            yield return new WaitForSeconds(_betweenCardTime);
         }
-        yield return new WaitForSeconds(0.3f); // Finish DoTween
+        yield return new WaitForSeconds(_animTime); // Finish DoTween
         foreach (var card in _cards)
         {
             card.RefreshTransform();
@@ -187,7 +204,7 @@ public class HandCatalog : MonoBehaviour
         while (true)
         {
             _glareEffect.anchoredPosition = new Vector2(0, -Screen.height - 1024);
-            _glareEffect.DOAnchorPos(new Vector2(0, Screen.height + 1024), 3f).SetEase(Ease.Linear);
+            _glareEffect.DOAnchorPos(new Vector2(0, Screen.height + 1024), _animTime).SetEase(Ease.Linear);
             yield return new WaitForSeconds(5f);
         }
     }

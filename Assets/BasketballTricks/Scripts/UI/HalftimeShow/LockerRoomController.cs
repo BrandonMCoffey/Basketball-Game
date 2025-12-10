@@ -14,7 +14,10 @@ public class LockerRoomController : MonoBehaviour
     [SerializeField] private RectTransform _catalog;
     [SerializeField] private Ease _lockerEaseEnter = Ease.InQuart;
     [SerializeField] private Ease _lockerEaseLeave = Ease.InQuart;
-    [SerializeField] private float _lockerDelay = 0.05f;
+    [SerializeField] private float _betweenLockerDelay = 0.1f;
+    [SerializeField] private float _lockerAnimTime = 0.25f;
+    [SerializeField] private float _buttonAnimTime = 0.25f;
+    [SerializeField] private float _catalogAnimTime = 0.5f;
     [SerializeField] private ActionDeckManager _deckManager; 
     [SerializeField, Range(0, 0.5f)] private float _cardSelectedOffsetY = 0.1f;
 
@@ -70,11 +73,11 @@ public class LockerRoomController : MonoBehaviour
         foreach (var locker in _lockerPositions)
         {
             var pos = locker.OriginalPosition + (locker.Card != null ? CardVertical * _cardSelectedOffsetY : Vector3.zero);
-            locker.RectTransform.DOAnchorPos(pos, 0.5f).SetEase(_lockerEaseEnter);
+            locker.RectTransform.DOAnchorPos(pos, _lockerAnimTime).SetEase(_lockerEaseEnter);
         }
         bool buttonInteractable = _lockerPositions.All(selector => selector.Card != null);
         _letsGoButton.Interactable = buttonInteractable;
-        if (buttonInteractable) _letsGoButtonT.DOAnchorPos(_letsGoOriginalPosition, 0.5f).SetEase(Ease.InOutCubic);
+        if (buttonInteractable) _letsGoButtonT.DOAnchorPos(_letsGoOriginalPosition, _buttonAnimTime).SetEase(Ease.InOutCubic);
     }
 
 
@@ -86,12 +89,12 @@ public class LockerRoomController : MonoBehaviour
             _lockerPositions[i].RectTransform.anchoredPosition = _lockerPositions[i].OriginalPosition - CardVertical * 3;
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(_lockerAnimTime);
         foreach (LockerPositionSelector locker in _lockerPositions)
         {
             var pos = locker.OriginalPosition + (locker.Card != null ? CardVertical * _cardSelectedOffsetY : Vector3.zero);
-            locker.RectTransform.DOAnchorPos(pos, 0.25f).SetEase(_lockerEaseEnter);
-            yield return new WaitForSeconds(_lockerDelay);
+            locker.RectTransform.DOAnchorPos(pos, _lockerAnimTime).SetEase(_lockerEaseEnter);
+            yield return new WaitForSeconds(_betweenLockerDelay);
         }
         _moving = false;
     }
@@ -106,27 +109,27 @@ public class LockerRoomController : MonoBehaviour
         _moving = true;
         if (_selectedIndex == index || index == -1)
         {
-            _catalog.DOAnchorPos(_catalogOriginalPosition + Vector3.right * 2000, 1f).SetEase(Ease.InOutCubic);
-            yield return new WaitForSeconds(0.5f);
+            _catalog.DOAnchorPos(_catalogOriginalPosition + Vector3.right * 2000, _catalogAnimTime).SetEase(Ease.InOutCubic);
+            yield return new WaitForSeconds(_catalogAnimTime * 0.5f);
             if (_selectedIndex >= 0)
             {
                 var locker = _lockerPositions[_selectedIndex];
                 var pos = locker.OriginalPosition + (locker.Card != null ? CardVertical * _cardSelectedOffsetY : Vector3.zero);
-                locker.RectTransform.DOAnchorPos(pos, 0.5f).SetEase(Ease.InOutCubic);
-                yield return new WaitForSeconds(_lockerDelay);
+                locker.RectTransform.DOAnchorPos(pos, _lockerAnimTime).SetEase(Ease.InOutCubic);
+                yield return new WaitForSeconds(_betweenLockerDelay);
             }
             for (int i = 0; i < _lockerPositions.Count; i++)
             {
                 if (i == index) continue;
                 var locker = _lockerPositions[i];
                 var pos = locker.OriginalPosition + (locker.Card != null ? CardVertical * _cardSelectedOffsetY : Vector3.zero);
-                locker.RectTransform.DOAnchorPos(pos, 0.5f).SetEase(_lockerEaseEnter);
-                yield return new WaitForSeconds(_lockerDelay);
+                locker.RectTransform.DOAnchorPos(pos, _lockerAnimTime).SetEase(_lockerEaseEnter);
+                yield return new WaitForSeconds(_betweenLockerDelay);
             }
             yield return new WaitForSeconds(0.1f);
             bool buttonInteractable = _lockerPositions.All(selector => selector.Card != null);
             _letsGoButton.Interactable = buttonInteractable;
-            if (buttonInteractable) _letsGoButtonT.DOAnchorPos(_letsGoOriginalPosition, 0.5f).SetEase(Ease.InOutCubic);
+            if (buttonInteractable) _letsGoButtonT.DOAnchorPos(_letsGoOriginalPosition, _buttonAnimTime).SetEase(Ease.InOutCubic);
             _selectedIndex = -1;
             _moving = false;
             yield break;
@@ -135,24 +138,23 @@ public class LockerRoomController : MonoBehaviour
         {
             if (i == index)
             {
-                _lockerPositions[i].RectTransform.DOAnchorPos(_selectedPosition.anchoredPosition, 0.5f).SetEase(Ease.InOutCubic);
+                _lockerPositions[i].RectTransform.DOAnchorPos(_selectedPosition.anchoredPosition, _lockerAnimTime).SetEase(Ease.InOutCubic);
             }
             else
             {
                 var pos = _lockerPositions[i].OriginalPosition - CardVertical * 3;
-                _lockerPositions[i].RectTransform.DOAnchorPos(pos, 0.5f).SetEase(_lockerEaseLeave);
-                yield return new WaitForSeconds(_lockerDelay);
+                _lockerPositions[i].RectTransform.DOAnchorPos(pos, _lockerAnimTime).SetEase(_lockerEaseLeave);
             }
+            yield return new WaitForSeconds(_betweenLockerDelay);
         }
-        _letsGoButtonT.DOAnchorPos(_letsGoOriginalPosition + Vector3.down * 400f, 0.5f).SetEase(Ease.InOutCubic);
-        yield return new WaitForSeconds(0.25f);
+        _letsGoButtonT.DOAnchorPos(_letsGoOriginalPosition + Vector3.down * 400f, _buttonAnimTime).SetEase(Ease.InOutCubic);
         _handCatalogRef.HideCards();
-        _catalog.DOAnchorPos(_catalogOriginalPosition, 0.35f).SetEase(Ease.InOutCubic).OnComplete(() =>
+        _selectedIndex = index;
+        _catalog.DOAnchorPos(_catalogOriginalPosition, _catalogAnimTime * 0.5f).SetEase(Ease.InOutCubic).OnComplete(() =>
         {
             //Debug.Log("Showing cards in catalog");
-            _handCatalogRef.ShowCards();
+            _handCatalogRef.ShowCardsFiltered(_lockerPositions[_selectedIndex].Position);
         });
-        _selectedIndex = index;
         _moving = false;
     }
 
