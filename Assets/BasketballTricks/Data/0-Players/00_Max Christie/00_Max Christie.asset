@@ -27,17 +27,17 @@ MonoBehaviour:
     FacialHairPrefab: {fileID: 0}
     AccessoryPrefab: {fileID: 0}
   _cardBackImportantData:
-  - 'BORN: '
-  - 'HEIGHT: '
-  - 'WEIGHT: '
+  - 'BORN: 2003'
+  - 'HEIGHT: 6''5"'
+  - 'WEIGHT: 190'
   - 'JERSEY #: 00'
-  - 'DRAFTED: '
+  - 'DRAFTED: 2022'
   _cardBackData:
   - Title: YEAR
     Row1: 25-26
     Row2: TOTAL
   - Title: TEAM
-    Row1: 
+    Row1: DAL
     Row2: 
   - Title: G
     Row1: 25

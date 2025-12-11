@@ -28,17 +28,17 @@ MonoBehaviour:
       type: 3}
     AccessoryPrefab: {fileID: 0}
   _cardBackImportantData:
-  - 'BORN: '
-  - 'HEIGHT: '
-  - 'WEIGHT: '
+  - 'BORN: 2002'
+  - 'HEIGHT: 6''3"'
+  - 'WEIGHT: 198'
   - 'JERSEY #: 1'
-  - 'DRAFTED: '
+  - 'DRAFTED: 2022'
   _cardBackData:
   - Title: YEAR
     Row1: 25-26
     Row2: TOTAL
   - Title: TEAM
-    Row1: 
+    Row1: DAL
     Row2: 
   - Title: G
     Row1: 20
