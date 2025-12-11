@@ -10,7 +10,7 @@ using CoffeyUtils.Sound;
 public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [Header("Button Settings")]
-    [SerializeField] string _text;
+    [SerializeField, TextArea] string _text;
     [SerializeField] float _clickScale = 1.1f;
     [SerializeField] float _delayBeforeInvoke = 0f;
     [SerializeField] UnityEvent _onButtonPressed;
@@ -44,6 +44,15 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
     {
         if (_buttonText == null) return;
         if (string.IsNullOrEmpty(_text) || _buttonText != null)
+        {
+            _buttonText.text = _text;
+        }
+    }
+
+    public void SetText(string newText)
+    {
+        _text = newText;
+        if (_buttonText != null)
         {
             _buttonText.text = _text;
         }

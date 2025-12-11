@@ -7,11 +7,13 @@ public class GameSaveData
 {
     private static string SaveFilePath => Path.Combine(Application.persistentDataPath, "SaveData.json");
 
+    public int Money;
+
     // Note: Every field listed below will be saved and loaded automatically via JsonUtility
     public List<GameCard> OwnedCards = new List<GameCard>();
 
 
-    public GameSaveData(List<PlayerCardData> startingCards)
+    public GameSaveData(int money, List<PlayerCardData> startingCards)
     {
         OwnedCards = new List<GameCard>(startingCards.Count);
         foreach (var cardData in startingCards)

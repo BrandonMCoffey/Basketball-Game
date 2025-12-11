@@ -2264,7 +2264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1dd3bbac9533b240a168326bd3576a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardPrefab: {fileID: 7844811598686170421, guid: a46d8a0ac1cccb647bd67ad45a80ba0d,
+  _cardPrefab: {fileID: 7844811598686170421, guid: 9b5226c6d1971824c876e3aa9ed40e8e,
     type: 3}
   _cardParent: {fileID: 7453281347340345170}
   _holdParent: {fileID: 4280790185467583093}

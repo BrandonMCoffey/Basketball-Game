@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static event System.Action UpdatePlayerLoadout = delegate { };
 
     [SerializeField] private bool _resetDataOnStart = false;
+    [SerializeField] private int _startingMoney = 3000;
     [SerializeField] private List<PlayerCardData> _startingCards;
     [SerializeField] private GameSaveData _saveData;
     [SerializeField] private CanvasGroup _sceneTransition;
@@ -35,9 +36,20 @@ public class GameManager : MonoBehaviour
         if (_resetDataOnStart || !GameSaveData.Load(ref _saveData))
         {
             if (!_resetDataOnStart) Debug.Log("No save data found. Initializing with starting cards.");
-            _saveData = new GameSaveData(_startingCards);
+            _saveData = new GameSaveData(_startingMoney, _startingCards);
             GameSaveData.Save(_saveData);
         }
+    }
+
+    public bool AttemptSpendMoney(int amount)
+    {
+        if (_saveData.Money >= amount)
+        {
+            _saveData.Money -= amount;
+            GameSaveData.Save(_saveData);
+            return true;
+        }
+        return false;
     }
 
     public void StartGame()
@@ -82,7 +94,22 @@ public class GameManager : MonoBehaviour
         UpdatePlayerLoadout?.Invoke();
     }
 
-    public GameCard GetCard(PlayerCardData cardData)
+    public void AddCardToOwned(PlayerCardData cardData)
+    {
+        var matchingCard = GetMatchingCard(cardData);
+        if (matchingCard == null)
+        {
+            _saveData.OwnedCards.Add(new GameCard(cardData));
+            GameSaveData.Save(_saveData);
+        }
+        else
+        {
+            Debug.LogWarning($"Card already owned. Not adding duplicate.");
+            matchingCard.AddXP(50); // Grant some XP for duplicate
+        }
+    }
+
+    public GameCard GetMatchingCard(PlayerCardData cardData)
     {
         return _saveData.OwnedCards.Find(card => card.CardDataSO == cardData);
     }

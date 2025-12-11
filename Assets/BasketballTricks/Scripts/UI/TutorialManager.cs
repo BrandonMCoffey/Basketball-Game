@@ -38,7 +38,7 @@ public class TutorialManager : MonoBehaviour
         switch (_hand)
         {
             case 0:
-                _startingGameCard = GameManager.Instance.GetCard(_startingPlayerCard);
+                _startingGameCard = GameManager.Instance.GetMatchingCard(_startingPlayerCard);
                 foreach (var player in _playerManager.Players)
                 {
                     if (player.Position == _startingPlayerPos)
@@ -58,7 +58,7 @@ public class TutorialManager : MonoBehaviour
                 deck.Add(new GameAction(_startingPlayer, _startingGameCard.GetActionIndex(_threePointer)));
                 break;
             case 2:
-                _secondGameCard = GameManager.Instance.GetCard(_secondPlayerCard);
+                _secondGameCard = GameManager.Instance.GetMatchingCard(_secondPlayerCard);
                 foreach (var player in _playerManager.Players)
                 {
                     if (player.Position == _secondPlayerPos)

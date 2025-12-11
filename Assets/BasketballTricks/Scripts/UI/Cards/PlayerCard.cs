@@ -22,6 +22,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     [SerializeField] private float _returnSpeed = 4f;
 
     [Header("Hold to Focus")]
+    [SerializeField] private bool _canHoldToFocus = true;
     [SerializeField] private float _holdDuration = 0.5f;
     [SerializeField] private float _holdScale = 3f;
     [SerializeField] private float _holdAnimationDuration = 0.5f;
@@ -173,7 +174,10 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         _holdCoroutine = null;
     }
 
-    public void ShowHold(bool show) => StartCoroutine(ShowHoldRoutine(show));
+    public void ShowHold(bool show)
+    {
+        if (_canHoldToFocus) StartCoroutine(ShowHoldRoutine(show));
+    }
     private IEnumerator ShowHoldRoutine(bool show)
     {
         if (_isFlipped) FlipCard();
