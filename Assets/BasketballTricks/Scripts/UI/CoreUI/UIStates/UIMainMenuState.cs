@@ -8,12 +8,15 @@ public class UIMainMenuState : UIStateBase
     {
         SoundManager.PlaySfx(SFXEventsEnum.UIMenuSwish);
         _canvasController.MainMenuController.gameObject.SetActive(true);
-        _canvasController.MainMenuController.Enable();
+        _canvasController.MainMenuController.AnimateOnScreen();
     }
 
     public override void OnExit()
     {
-        _canvasController.MainMenuController.AnimateOffScreen();
+        _canvasController.MainMenuController.AnimateOffScreen(() =>
+        {
+            _canvasController.MainMenuController.gameObject.SetActive(false);
+        });
     }
     
 }

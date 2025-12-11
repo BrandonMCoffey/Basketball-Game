@@ -48,13 +48,18 @@ public class GameSelectController : MonoBehaviour
     bool _positionsInitialized = false;
     GameMode _currentGameMode;
 
-    void OnEnable()
+    private void Start() 
     {
-        Initialize();
-        AnimateOnScreen();
+        AnimateOnScreen();   
     }
 
-    void Initialize()
+    public void AnimateOnScreen()
+    {
+        Initialize();
+        AnimOnScreen();
+    }
+
+    private void Initialize()
     {
         if (_positionsInitialized) return;
         _positionsInitialized = true;
@@ -89,7 +94,7 @@ public class GameSelectController : MonoBehaviour
         _zenVideoImage.enabled = false;
     }
 
-    public void AnimateOnScreen()
+    private void AnimOnScreen()
     {
         _halfTimeVideoPlayer.enabled = true;
         _zenVideoPlayer.enabled = true;
@@ -129,7 +134,7 @@ public class GameSelectController : MonoBehaviour
         _isDescriptionPanelOnScreen = true;
     }
 
-    void AnimateDescriptionBounce(Action functionality = null)
+    private void AnimateDescriptionBounce(Action functionality = null)
     {
         _exampleVideo.DOScale(new Vector3(1.1f, 1.1f, 1f), 0.2f).SetEase(_easeType);
         _descriptionPanel.DOAnchorPosY(_descriptionPanelOnScreenPos.y + 50f, 0.2f).SetEase(_easeType).OnComplete(() =>

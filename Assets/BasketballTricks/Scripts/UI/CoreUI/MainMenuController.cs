@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
+using System;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class MainMenuController : MonoBehaviour
         _titlePanel.DOAnchorPos(_titlePanelOnScreenPos, 0.5f).SetEase(Ease.OutQuart).SetDelay(0.2f);
     }
 
-    public void Enable()
+    public void AnimateOnScreen()
     {
         _titlePanel.DOAnchorPos(_titlePanelOnScreenPos, 0.5f).SetEase(Ease.OutQuart).SetDelay(0.2f);
         StartCoroutine(AnimateOnScreenRoutine());
@@ -27,25 +28,20 @@ public class MainMenuController : MonoBehaviour
     IEnumerator AnimateOnScreenRoutine()
     {
         yield return new WaitForSeconds(0.2f);
-        _playButton.gameObject.SetActive(true);
-        _tradeButton.gameObject.SetActive(true);
-        _leaderButton.gameObject.SetActive(true);
+        _playButton.AnimateOnScreen();
+        _tradeButton.AnimateOnScreen();
+        _leaderButton.AnimateOnScreen();
     }
 
-    public void AnimateOffScreen()
+    public void AnimateOffScreen(Action callback = null)
     {
-        _titlePanel.DOAnchorPos(new Vector2(_titlePanelOnScreenPos.x, Screen.height), 0.5f).SetEase(Ease.OutQuart);
+        _titlePanel.DOAnchorPos(new Vector2(_titlePanelOnScreenPos.x, Screen.height), 0.5f).SetEase(Ease.OutQuart).OnComplete(() =>
+        {
+            callback?.Invoke();
+        });
         _playButton.AnimateOffScreen();
         _tradeButton.AnimateOffScreen();
         _leaderButton.AnimateOffScreen();
-
-        Invoke("HideButtons", 1.5f);
     }
 
-    void HideButtons()
-    {
-        _playButton.gameObject.SetActive(false);
-        _tradeButton.gameObject.SetActive(false);
-        _leaderButton.gameObject.SetActive(false);
-    }
 }
