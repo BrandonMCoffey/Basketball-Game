@@ -63,6 +63,7 @@ public class TutorialManager : MonoBehaviour
                 {
                     if (player.Position == _secondPlayerPos)
                     {
+                        player.gameObject.SetActive(true);
                         _secondPlayer = player;
                         player.Place(_secondGameCard);
                     }
