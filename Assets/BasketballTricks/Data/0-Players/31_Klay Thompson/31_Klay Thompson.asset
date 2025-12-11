@@ -15,7 +15,7 @@ MonoBehaviour:
   _playerName: Klay Thompson
   _playerNumber: 31
   _playerSprite: {fileID: 21300000, guid: fe6e51badfc17e24c912847a0b06a6bc, type: 3}
-  _naturalPosition: 3
+  _naturalPosition: 2
   _customPlayerArt: 1
   _randomHairData: {fileID: 11400000, guid: a5e3ca0d403af1846b17523e081a66b7, type: 2}
   _artData:
