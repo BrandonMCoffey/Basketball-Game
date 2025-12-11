@@ -17,6 +17,9 @@ public class ImageDataMatcher : SerializedScriptableObject
     [SerializeField] private Dictionary<ActionType, Sprite> _actionTypes = new Dictionary<ActionType, Sprite>();
     [SerializeField] private Sprite _defaultCostIcon;
     [SerializeField] private List<Sprite> _costIconsAtIndexCost = new List<Sprite>();
+    [Space(20)]
+    [SerializeField] private Sprite _defaultActionCardMedal;
+    [SerializeField] private Dictionary<CardRarity, Sprite> _actionCardRarityMedal = new Dictionary<CardRarity, Sprite>();
 
     public Color GetPositionColor(PlayerPosition position)
     {
@@ -35,6 +38,11 @@ public class ImageDataMatcher : SerializedScriptableObject
     public Sprite GetActionType(ActionType actionType) => _actionTypes.ContainsKey(actionType) ? _actionTypes[actionType] : null;
     public Sprite GetCostIcon(int cost) => !UseCostText(cost) ? _costIconsAtIndexCost[Mathf.Max(0, cost)] : _defaultCostIcon;
     public bool UseCostText(int cost) => cost >= _costIconsAtIndexCost.Count;
+    public Sprite GetActionCardMedal(CardRarity rarity)
+    {
+        if (!_actionCardRarityMedal.ContainsKey(rarity)) return _defaultActionCardMedal;
+        return _actionCardRarityMedal[rarity] != null ? _actionCardRarityMedal[rarity] : _defaultActionCardMedal;
+    }
 
     [Button]
     private void CreateDictionaries()
@@ -63,5 +71,11 @@ public class ImageDataMatcher : SerializedScriptableObject
         if (!_actionTypes.ContainsKey(ActionType.Trick)) _actionTypes.Add(ActionType.Trick, null);
         if (!_actionTypes.ContainsKey(ActionType.Pass)) _actionTypes.Add(ActionType.Pass, null);
         if (!_actionTypes.ContainsKey(ActionType.Shot)) _actionTypes.Add(ActionType.Shot, null);
+
+        _actionCardRarityMedal ??= new Dictionary<CardRarity, Sprite>();
+        if (!_actionCardRarityMedal.ContainsKey(CardRarity.Rookie)) _actionCardRarityMedal.Add(CardRarity.Rookie, null);
+        if (!_actionCardRarityMedal.ContainsKey(CardRarity.Career)) _actionCardRarityMedal.Add(CardRarity.Career, null);
+        if (!_actionCardRarityMedal.ContainsKey(CardRarity.AllStar)) _actionCardRarityMedal.Add(CardRarity.AllStar, null);
+        if (!_actionCardRarityMedal.ContainsKey(CardRarity.Signature)) _actionCardRarityMedal.Add(CardRarity.Signature, null);
     }
 }

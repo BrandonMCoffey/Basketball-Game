@@ -15,7 +15,7 @@ MonoBehaviour:
   _data:
     Name: 3-Pointer
     _cardText: 
-    _previewText: 
+    _previewText: Gain 50 Hype.
     _cardSummary: For 2 cost, gain +50 Hype.
     Type: 3
     AssociatedRarity: 1
@@ -184,6 +184,7 @@ MonoBehaviour:
           - 0
           - 0
           - 0
+      Level: 0
     _nextEffectPreviewText: 
     Icon: {fileID: 0}
     Animation: 200
