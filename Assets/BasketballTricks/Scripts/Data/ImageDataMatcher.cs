@@ -6,6 +6,10 @@ using UnityEngine;
 public class ImageDataMatcher : SerializedScriptableObject
 {
     [SerializeField] private Dictionary<PlayerPosition, Color> _positionColors = new Dictionary<PlayerPosition, Color>();
+    [SerializeField] private Color _noPenaltyHalo = Color.blue;
+    [SerializeField] private Color _slowButConditionMetHalo = Color.Lerp(Color.black, Color.magenta, 0.4f);
+    [SerializeField] private Color _conditionMetHalo = Color.magenta;
+    [Space(20)]
     [SerializeField] private Sprite _defaultBackground;
     [SerializeField] private Dictionary<PlayerPosition, Sprite> _positionBackgrounds = new Dictionary<PlayerPosition, Sprite>();
     [SerializeField] private Sprite _defaultRarityGlow;
