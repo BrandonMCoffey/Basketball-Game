@@ -3489,8 +3489,8 @@ MonoBehaviour:
   _spiderDribble: {fileID: 11400000, guid: eff3b2fd85f6db543a551ab8a6cf5a35, type: 2}
   _threePointer: {fileID: 11400000, guid: 9bcefe1b25703394cb6ef5a62524b008, type: 2}
   _chestPass: {fileID: 11400000, guid: 3f847b2b7720ca649a2dde4ba0447c13, type: 2}
-  _alleyOop: {fileID: 0}
-  _dunk: {fileID: 0}
+  _alleyOop: {fileID: 11400000, guid: ec450e8c34c73e74c901e5367db338ee, type: 2}
+  _dunk: {fileID: 11400000, guid: 3390d1beb5bb4d448864cb3cfc42d744, type: 2}
   _secondPlayerCard: {fileID: 11400000, guid: 475927cd4e6372448a26820a146fa386, type: 2}
   _secondPlayerPos: 16
   _actionDeckManager: {fileID: 6949764343152343267}

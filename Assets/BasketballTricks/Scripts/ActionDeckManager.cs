@@ -84,6 +84,11 @@ public class ActionDeckManager : MonoBehaviour
     public void InitTutorial(List<GameAction> deck, bool init)
     {
         _actionDeck = new List<GameAction>(deck);
+        for (int i = _cards.Count - 1; i >= 0; i--)
+        {
+            Destroy(_cards[i].gameObject);
+        }
+        _cards.Clear();
         if (init)
         {
             for (int i = _cardContainer.childCount - 1; i >= 0; i--)
