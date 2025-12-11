@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f076b068ca141741b9d1666a0324ff5, type: 3}
-  m_Name: s_ButtonPress
+  m_Name: s_CardPutDown
   m_EditorClassIdentifier: 
   _clip:
     UseClip: 1
-    Clip: {fileID: 8300000, guid: 51c1f3bb06788ce4fa6a984b9c233a1c, type: 3}
+    Clip: {fileID: 8300000, guid: 12d7187824e3bb3459405839146bb49c, type: 3}
     Base: {fileID: 0}
   _mixerGroup: {fileID: 0}
   _volume: 0.853
-  _pitch: 0.98
+  _pitch: 1
+  _pitchRandomness: 0.01
   _stereoPan: 0
   _reverbZoneMix: 1
   _priority: 128

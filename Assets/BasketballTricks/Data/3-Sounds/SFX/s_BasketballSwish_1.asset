@@ -19,6 +19,7 @@ MonoBehaviour:
   _mixerGroup: {fileID: 0}
   _volume: 1
   _pitch: 1
+  _pitchRandomness: 0
   _stereoPan: 0
   _reverbZoneMix: 1
   _priority: 128
