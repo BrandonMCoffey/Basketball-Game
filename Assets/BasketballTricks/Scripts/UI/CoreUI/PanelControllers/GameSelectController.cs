@@ -15,7 +15,7 @@ public class GameSelectController : MonoBehaviour
     [Header("Animation Settings")]
     [SerializeField] Ease _easeType = Ease.OutBack;
     [SerializeField] float _transitionTimeOnScreen = 0.5f;
-    [SerializeField] float _transitionTimeOffScreen = 0.5f;
+    [SerializeField] float _transitionTimeOffScreen = 0.75f;
     [SerializeField] float _transitionTimeDesc = 0.4f;
     
     [Header("Description Texts")]
@@ -29,6 +29,7 @@ public class GameSelectController : MonoBehaviour
     [SerializeField] RectTransform _halfTimeButton;
     [SerializeField] RectTransform _zenButton;
     [SerializeField] RectTransform _backButton;
+    [SerializeField] RectTransform _tutorialButton;
     [SerializeField] RectTransform _beginButton;
     [SerializeField] RectTransform _exampleVideo;
     [SerializeField] RawImage _halfTimeVideoImage;
@@ -43,6 +44,7 @@ public class GameSelectController : MonoBehaviour
     Vector2 _halfTimeButtonOnScreenPos;
     Vector2 _zenButtonOnScreenPos;
     Vector2 _backButtonOnScreenPos;
+    Vector2 _tutorialButtonOnScreenPos;
     Vector2 _beginButtonOnScreenPos;
     Vector2 _exampleVideoOnScreenPos;
 
@@ -86,6 +88,9 @@ public class GameSelectController : MonoBehaviour
         _backButtonOnScreenPos = _backButton.anchoredPosition;
         _backButton.anchoredPosition = new Vector2(-Screen.width * 2, _backButtonOnScreenPos.y);
 
+        _tutorialButtonOnScreenPos = _tutorialButton.anchoredPosition;
+        _tutorialButton.anchoredPosition = new Vector2(Screen.width * 2f, _tutorialButtonOnScreenPos.y);
+
         _beginButtonOnScreenPos = _beginButton.anchoredPosition;
         _beginButton.anchoredPosition = new Vector2(Screen.width * 2, _beginButtonOnScreenPos.y);
 
@@ -102,18 +107,20 @@ public class GameSelectController : MonoBehaviour
         _zenVideoPlayer.enabled = true;
         _leftSidePanel.DOAnchorPos(_leftSidePanelOnScreenPos, _transitionTimeOnScreen).SetEase(_easeType);
         _titlePanel.DOAnchorPos(_titlePanelOnScreenPos, _transitionTimeOnScreen).SetEase(Ease.OutQuart).SetDelay(0.12f);
-        _halfTimeButton.DOAnchorPos(_halfTimeButtonOnScreenPos, _transitionTimeOnScreen).SetEase(_easeType).SetDelay(0.25f);
-        _zenButton.DOAnchorPos(_zenButtonOnScreenPos, _transitionTimeOnScreen).SetEase(_easeType).SetDelay(0.35f);
-        _backButton.DOAnchorPos(_backButtonOnScreenPos, _transitionTimeOnScreen).SetEase(_easeType).SetDelay(0.45f);
+        _tutorialButton.DOAnchorPos(_tutorialButtonOnScreenPos, _transitionTimeOnScreen).SetEase(_easeType).SetDelay(0.25f);
+        _halfTimeButton.DOAnchorPos(_halfTimeButtonOnScreenPos, _transitionTimeOnScreen).SetEase(_easeType).SetDelay(0.35f);
+        _zenButton.DOAnchorPos(_zenButtonOnScreenPos, _transitionTimeOnScreen).SetEase(_easeType).SetDelay(0.45f);
+        _backButton.DOAnchorPos(_backButtonOnScreenPos, _transitionTimeOnScreen).SetEase(_easeType).SetDelay(0.55f);
     }
 
     public void AnimateOffScreen(Action callback = null)
     {
-        _leftSidePanel.DOAnchorPos(new Vector2(-Screen.width * 2, _leftSidePanelOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType);
-        _titlePanel.DOAnchorPos(new Vector2(-Screen.width * 2, _titlePanelOnScreenPos.y), _transitionTimeOffScreen).SetEase(Ease.OutQuart).SetDelay(0.12f);
-        _halfTimeButton.DOAnchorPos(new Vector2(-Screen.width * 2, _halfTimeButtonOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.25f);
-        _zenButton.DOAnchorPos(new Vector2(-Screen.width * 2, _zenButtonOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.35f);
-        _backButton.DOAnchorPos(new Vector2(-Screen.width * 2, _backButtonOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.45f).OnComplete(() =>
+        _leftSidePanel.DOAnchorPos(new Vector2(-Screen.width, _leftSidePanelOnScreenPos.y), _transitionTimeOffScreen).SetEase(Ease.InOutCubic);
+        _titlePanel.DOAnchorPos(new Vector2(-500, _titlePanelOnScreenPos.y), _transitionTimeOffScreen).SetEase(Ease.OutQuart).SetDelay(0.12f);
+        _tutorialButton.DOAnchorPos(new Vector2(-Screen.width, _tutorialButtonOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.25f);
+        _halfTimeButton.DOAnchorPos(new Vector2(-Screen.width, _halfTimeButtonOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.35f);
+        _zenButton.DOAnchorPos(new Vector2(-Screen.width, _zenButtonOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.45f);
+        _backButton.DOAnchorPos(new Vector2(-Screen.width, _backButtonOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.55f).OnComplete(() =>
         {
             _halfTimeVideoPlayer.enabled = false;
             _zenVideoPlayer.enabled = false;
@@ -188,15 +195,36 @@ public class GameSelectController : MonoBehaviour
         _currentGameMode = GameMode.Zen;
     }
 
+    public void Tutorial()
+    {
+        AnimateOffScreen(() =>
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial");
+        });
+    }
+
     public void Begin()
     {
-        if (_currentGameMode == GameMode.HalfTime)
+        AnimateOffScreen(() =>
         {
-            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("HalftimeShow");
-        }
-        else if (_currentGameMode == GameMode.Zen)
+            LoadSelectedGameModeScene();
+        });
+        
+    }
+
+    private void LoadSelectedGameModeScene()
+    {
+        switch (_currentGameMode)
         {
-            Debug.Log("Zen Mode Selected - Scene Not Yet Implemented");
+            case GameMode.HalfTime:
+                UnityEngine.SceneManagement.SceneManager.LoadScene("HalfTimeScene");
+                break;
+            case GameMode.Zen:
+                UnityEngine.SceneManagement.SceneManager.LoadScene("ZenScene");
+                break;
+            default:
+                Debug.LogError("No game mode selected!");
+                break;
         }
     }
 }
