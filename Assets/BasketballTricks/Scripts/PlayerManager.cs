@@ -527,6 +527,10 @@ public class PlayerManager : MonoBehaviour
         }
 
         Hype += effects.HypeGain;
+        if (effects.MultiplyHype > 0)
+        {
+            Hype *= effects.MultiplyHype;
+        }
         // TODO: Apply other effects
 
         if (action.HasNextEffect)
@@ -540,7 +544,7 @@ public class PlayerManager : MonoBehaviour
 
         // Update visuals
         UpdateHype?.Invoke(Hype);
-        _crowdController.SetHype(Hype / 100f);
+        _crowdController.SetHype(Hype);
     }
 
     private IEnumerator PassRoutine(Player fromPlayer, Player toPlayer)
