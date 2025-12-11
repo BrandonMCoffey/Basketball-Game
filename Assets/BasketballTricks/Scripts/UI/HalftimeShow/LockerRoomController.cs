@@ -62,7 +62,7 @@ public class LockerRoomController : MonoBehaviour
             {
                 var player = players.FirstOrDefault(p => p.PlayerData.IsNaturalPosition(_lockerPositions[i].Position));
                 player ??= players[0];
-                _lockerPositions[i].AddCard(player);
+                _lockerPositions[i].AddCard(player, true);
                 players.Remove(player);
             }
         }

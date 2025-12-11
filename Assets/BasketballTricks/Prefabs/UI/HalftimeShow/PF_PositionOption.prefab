@@ -819,6 +819,7 @@ MonoBehaviour:
   - {fileID: 2682124067852546036}
   - {fileID: 4183663657465086959}
   - {fileID: 8795961115618331659}
+  _natPosClickEffectCol: {r: 0.9528302, g: 0.8502723, b: 0.4269758, a: 1}
   _coloredImages:
   - {fileID: 4036290512610424765}
   - {fileID: 3270873615270607122}
