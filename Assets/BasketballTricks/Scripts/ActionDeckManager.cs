@@ -148,7 +148,7 @@ public class ActionDeckManager : MonoBehaviour
                 if (_playedCards.Count > 0)
                 {
                     card = _playedCards[0];
-                    _playedCards.RemoveAt(i);
+                    _playedCards.RemoveAt(0);
                 }
                 else
                 {
