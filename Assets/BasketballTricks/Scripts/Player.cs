@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
     public void SetAnimation(PlayerAnimation anim) => SetAnimation(anim, _animationCrossfadeDuration);
     public void SetAnimation(PlayerAnimation anim, float fade)
     {
+        if (!gameObject.activeSelf) return;
         //Debug.Log($"Play Anim {anim.ToString()} for {fade} fade. {_fadeTimer} seconds since last fade.");
         _fadeTimer = 0;
         _animator.CrossFadeInFixedTime(anim.ToString(), fade);
