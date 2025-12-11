@@ -40,7 +40,7 @@ public class BasketballGoal : MonoBehaviour
     {
         foreach (var ps in _flamethrowers)
         {
-            ps.Emit(10);
+            ps.Play();
         }
     }
 }
