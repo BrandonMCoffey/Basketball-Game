@@ -51,6 +51,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     {
         _rectTransform = GetComponent<RectTransform>();
         _canvas = GetComponentInParent<Canvas>();
+        _haloImage.gameObject.SetActive(false);
     }
     private void Start()
     {
@@ -104,7 +105,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         {
             if (_bg != null) _bg.sprite = _matcher.GetPositionBackground(gameAction.Player.Position);
         }
-        if (_haloImage != null) _haloImage.color = _matcher.GetPositionColor(gameAction.Player.Position);
+        _haloImage.gameObject.SetActive(false);
     _showWhenNotSelected.SetActive(false);
         _showWhenDiscarding.SetActive(false);
     }

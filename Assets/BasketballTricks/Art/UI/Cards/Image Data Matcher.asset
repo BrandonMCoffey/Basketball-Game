@@ -415,6 +415,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  _noPenaltyHalo: {r: 0, g: 0.3521664, b: 1, a: 1}
+  _slowButConditionMetHalo: {r: 0.38993704, g: 0, b: 0.38993704, a: 1}
+  _conditionMetHalo: {r: 1, g: 0, b: 1, a: 1}
   _defaultBackground: {fileID: 21300000, guid: ec5e5a16053f8b546966eed2a4dc9cd0, type: 3}
   _defaultRarityGlow: {fileID: 21300000, guid: 659767db9db538243a92bf1a6ca8510a, type: 3}
   _defaultCostIcon: {fileID: 21300000, guid: e204e7404a5733840b036e532864eabc, type: 3}
