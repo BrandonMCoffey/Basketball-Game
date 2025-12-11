@@ -6,6 +6,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
+using CoffeyUtils.Sound;
 
 public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
@@ -111,7 +112,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
         _rectTransform.DOScale(0.8f, 0.1f).SetEase(_easeType);
         _buttonIcon.rectTransform.DOAnchorPos(new Vector2(0, -10f), 0.1f).SetEase(_easeType);
         _checkForMousePos = true;
-
+        SoundManager.PlaySfx(SFXEventsEnum.ButtonClickStart);
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -125,5 +126,6 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
         _rectTransform.DOScale(0.7f, 0.1f).SetEase(_easeType);
         _buttonIcon.rectTransform.DOAnchorPos(Vector2.zero, 0.1f).SetEase(_easeType);
         _checkForMousePos = false;
+        SoundManager.PlaySfx(SFXEventsEnum.ButtonClickRelease);
     }
 }
