@@ -118,6 +118,7 @@ public class PlayerCardVisuals : MonoBehaviour
         var data = _card.PlayerData.CardBackData;
         for (int i = 0; i < _cardBackDataTree.childCount; i++)
         {
+            if (data.Count <= i) break;
             CardBackColumnData dataColumn = data[i];
             var column = _cardBackDataTree.GetChild(i);
             for (int j = 0; j < column.childCount; j++)
