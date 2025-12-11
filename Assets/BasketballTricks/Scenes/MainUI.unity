@@ -245,6 +245,7 @@ MonoBehaviour:
   _vaultController: {fileID: 79738582201586403}
   _settingsController: {fileID: 8537576309959323821}
   _leaderboardController: {fileID: 7826167921077402798}
+  HaveDelayOnMainMenu: 1
 --- !u!224 &92970869 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1893545190837803512, guid: 738018d15bd02ae418ec945fb470649e,
@@ -4437,6 +4438,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 995090748345308238, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
         type: 3}
+      propertyPath: _easeType
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 995090748345308238, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+        type: 3}
       propertyPath: _disableImageOnEmptyList
       value: 1
       objectReference: {fileID: 0}
@@ -4691,6 +4697,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5597928360108138788, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
         type: 3}
+      propertyPath: _easeType
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 5597928360108138788, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+        type: 3}
       propertyPath: _disableImageOnEmptyList
       value: 1
       objectReference: {fileID: 0}
@@ -4878,6 +4889,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _text
       value: Stats
+      objectReference: {fileID: 0}
+    - target: {fileID: 7042170385194709315, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
+        type: 3}
+      propertyPath: _easeType
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 7042170385194709315, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
         type: 3}
