@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f076b068ca141741b9d1666a0324ff5, type: 3}
-  m_Name: New Sfx
+  m_Name: s_BasketballSwish_2
   m_EditorClassIdentifier: 
   _clip:
     UseClip: 1
-    Clip: {fileID: 0}
+    Clip: {fileID: 8300000, guid: 18b6581d799405041aca01f5e8d668e7, type: 3}
     Base: {fileID: 0}
   _mixerGroup: {fileID: 0}
   _volume: 1
