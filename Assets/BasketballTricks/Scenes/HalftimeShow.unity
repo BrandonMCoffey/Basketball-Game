@@ -14622,7 +14622,7 @@ MonoBehaviour:
   _cardParent: {fileID: 6617575546237723453}
   _holdParent: {fileID: 3318022568213214731}
   _dragOntoCourt: 1
-  _cardSize: {x: 200, y: 275}
+  _cardSize: {x: 200, y: 300}
   _spacing: 20
   _columns: 6
   _maxDisplayCards: 12

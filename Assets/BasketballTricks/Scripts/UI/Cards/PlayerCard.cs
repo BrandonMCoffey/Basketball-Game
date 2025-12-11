@@ -35,6 +35,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     private Quaternion _initialRotation;
     private Vector3 _initialPosition;
     private bool _isDragging;
+    private bool _wasDragged;
     private Vector3 _dragVelocity;
     private Vector3 _currentDragDelta;
     private Vector3 _currentDragPosition;
@@ -47,6 +48,8 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     private Transform _holdParent;
     private bool _canPlaceOnCourt;
     private Vector3 _anchoredFocusPosition;
+
+    public static PlayerCard CurrentInvisibleCard;
 
     private bool CanDrag => _canDrag && !_focusView && !_flipping;
 
@@ -146,6 +149,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     {
         if (_focusView) return;
         _holdCoroutine = StartCoroutine(HoldRoutine());
+        _wasDragged = false;
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -154,6 +158,11 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         {
             StopCoroutine(_holdCoroutine);
             _holdCoroutine = null;
+            if (!_wasDragged)
+            {
+                // TODO: Click to select
+                Debug.Log("Click");
+            }
         }
     }
 
@@ -219,6 +228,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     public void OnBeginDrag(PointerEventData eventData)
     {        
         if (!CanDrag || _isDragging) return;
+        _wasDragged = true;
         if (_holdCoroutine != null)
         {
             StopCoroutine(_holdCoroutine);
@@ -240,6 +250,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     public void OnDrag(PointerEventData eventData)
     {
         if (!CanDrag || !_isDragging) return;
+        _wasDragged = true;
         _currentDragPosition = (Vector3)eventData.position;
         _currentDragDelta = eventData.delta;
 
@@ -250,10 +261,24 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
     {
         if (!CanDrag || !_isDragging) return;
 
-        if (LockerPositionSelector.CurrentDropDestination != null)
+        var dropOnSelector = LockerPositionSelector.CurrentDropDestination;
+        if (dropOnSelector != null)
         {
-            LockerPositionSelector.CurrentDropDestination.AddCard(_card);
+            if (CurrentInvisibleCard != null)
+            {
+                CurrentInvisibleCard.AppearAtPosition();
+            }
+            CurrentInvisibleCard = this;
+            transform.DORotate(_initialRotation.eulerAngles, 0.15f);
+            transform.DOMove(dropOnSelector.transform.position, 0.2f).OnComplete(() =>
+            {
+                dropOnSelector.AddCard(_card);
+                transform.DOScale(0, 0);
+            });
             LockerPositionSelector.CurrentDropDestination = null;
+            _isDragging = false;
+            _canDrag = false;
+            return;
         }
 
         bool success = _canPlaceOnCourt && PlayerManager.Instance.AttemptPlacePlayer(_card, eventData.position);
@@ -267,6 +292,16 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         }
 
         StartCoroutine(ReturnToPosition());
+    }
+
+    private void AppearAtPosition()
+    {
+        _rectTransform.anchoredPosition = _initialPosition;
+        _rectTransform.localRotation = _initialRotation;
+        _rectTransform.DOScale(_initialScale, 0.2f).SetEase(Ease.OutBack);
+        if (_parent != null) transform.SetParent(_parent, true);
+        _canDrag = true;
+        RefreshInteractables();
     }
 
     private IEnumerator ReturnToPosition()

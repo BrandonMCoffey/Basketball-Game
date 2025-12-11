@@ -42,10 +42,11 @@ public class HandCatalog : MonoBehaviour
     {
         _allCards = GameManager.Instance.OwnedPlayers;
         _startIndex = 0;
-        CreateCards();
+        _cards = new List<PlayerCard>(_maxDisplayCards);
+        ResetCardPositions(true);
+        if (_showOnStart) UpdateCardData();
         if (_prevButton != null) _prevButton.onClick.AddListener(PreviousPage);
         if (_nextButton != null) _nextButton.onClick.AddListener(NextPage);
-
     }
 
     private void OnValidate()
@@ -55,13 +56,12 @@ public class HandCatalog : MonoBehaviour
 
     public void StartGame() => GameManager.Instance.StartGame();
 
-    private void CreateCards()
+    private void ResetCardPositions(bool init = false)
     {
-        _cards = new List<PlayerCard>(_maxDisplayCards);
         for (int i = 0; i < _maxDisplayCards; i++)
         {
-            PlayerCard card = Instantiate(_cardPrefab, _cardParent);
-            var rectTransform = card.GetComponent<RectTransform>();
+            if (i >= _cards.Count) _cards.Add(Instantiate(_cardPrefab, _cardParent));
+            var rectTransform = _cards[i].GetComponent<RectTransform>();
             int column = i % _columns;
             int row = i / _columns;
             float x = (column - 0.5f * _columns + 0.5f) * (_cardSize.x + _spacing);
@@ -70,11 +70,13 @@ public class HandCatalog : MonoBehaviour
             rectTransform.anchorMin = rectTransform.anchorMax = rectTransform.pivot = Vector3.one * 0.5f;
             rectTransform.anchoredPosition = new Vector2(x, y + 20); // offset y for better centering - Sai
             rectTransform.sizeDelta = _cardSize;
-            card.Init(_cardParent, _holdParent, _dragOntoCourt, _focusPoint.anchoredPosition);
-            card.transform.localScale = Vector3.zero;
-            _cards.Add(card);
+            if (init)
+            {
+                _cards[i].Init(_cardParent, _holdParent, _dragOntoCourt, _focusPoint.anchoredPosition);
+                rectTransform.localScale = Vector3.zero;
+            }
         }
-        if (_showOnStart) UpdateCardData();
+        PlayerCard.CurrentInvisibleCard = null;
     }
 
     private void RefreshCards()
@@ -99,6 +101,7 @@ public class HandCatalog : MonoBehaviour
         // Sort used cards to the end
         var loadout = GameManager.Instance.GetPositionLoadout();
         _allCards = _allCards.OrderBy(card => loadout.Contains(card)).ToList();
+        ResetCardPositions();
         UpdateCardData();
     }
     private void UpdateCardData()
@@ -189,6 +192,4 @@ public class HandCatalog : MonoBehaviour
         _transitioning = false;
         UpdateCardData();
     }
-
-    
 }
