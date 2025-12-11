@@ -23,6 +23,7 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
     [SerializeField] private List<TMP_Text> _actionList;
     [SerializeField] private RectTransform _addButtonImage;
     [SerializeField] private List<Image> _clickEffectImages;
+    [SerializeField] private Color _natPosClickEffectCol = Color.yellow;
 
     [Header("Colors")]
     [SerializeField] private List<Image> _coloredImages;
@@ -121,7 +122,16 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
                 aspect.aspectRatio = _playerImage.sprite != null ? (float)_playerImage.sprite.rect.width / _playerImage.sprite.rect.height : 1f;
             }
         }
-        if (_naturalPosition != null) _naturalPosition.SetActive(_activeGameCard != null && _activeGameCard.PlayerData.IsNaturalPosition(_position));
+        if (_naturalPosition != null)
+        {
+            var isNatPos = _activeGameCard != null && _activeGameCard.PlayerData.IsNaturalPosition(_position);
+            _naturalPosition.SetActive(isNatPos);
+            foreach (var img in _clickEffectImages)
+            {
+                img.color = isNatPos ? _natPosClickEffectCol : Color.white;
+            }
+        }
+        
         int i = 0;
         int count = Mathf.Min(_actionList.Count, _activeGameCard != null ? _activeGameCard.ActionCount : 0);
         for (; i < count; i++)
@@ -146,7 +156,7 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
         CurrentDropDestination = this;
     }
 
-    public void AddCard(GameCard card)
+    public void AddCard(GameCard card, bool randomlySelected = false)
     {
         _activeGameCard = card;
         GameManager.Instance.SetPositionCard(_position, card);
@@ -159,8 +169,18 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
 
         for (int i = 0; i < _clickEffectImages.Count; i++)
         {
-            var img = _clickEffectImages[i];
-            StartCoroutine(ClickEffectRoutine(img, i * 0.1f));
+            var isNatPos = _activeGameCard != null && _activeGameCard.PlayerData.IsNaturalPosition(_position);
+            if (randomlySelected)
+            {
+                if (isNatPos)
+                {
+                    StartCoroutine(ClickEffectRoutine(_clickEffectImages[i], i * 0.1f));
+                }
+            }
+            else
+            {
+                StartCoroutine(ClickEffectRoutine(_clickEffectImages[i], i * 0.1f));
+            }
         }
 
     }
