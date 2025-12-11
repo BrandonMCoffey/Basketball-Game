@@ -89,7 +89,7 @@ public class DribbleController : MonoBehaviour
 
     private void UpdateDribbleText()
     {
-        _dribblesText.text = $"{(_activePlayer != null ? $"{_activePlayer.PlayerData.PlayerName}\n" : "")}Dribbles: {_dribbles}";
+        _dribblesText.text = $"{(_activePlayer != null ? $"{_activePlayer.PlayerName}\n" : "")}Dribbles: {_dribbles}";
     }
 
     public void ReturnToCatalog()

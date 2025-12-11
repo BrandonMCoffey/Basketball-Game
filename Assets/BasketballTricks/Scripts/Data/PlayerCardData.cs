@@ -8,11 +8,18 @@ public class PlayerCardData : ScriptableObject
 {
     [SerializeField] private PlayerData _playerData;
     [SerializeField] private string _cardTitle;
+    [SerializeField] private Sprite _overrideSprite;
     [SerializeField] private CardRarity _rarity;
 
     [SerializeField] public List<CustomPlayerAction> _actions = new List<CustomPlayerAction>();
 
-    public PlayerData PlayerData => _playerData;
+    public PlayerData Player => _playerData;
+    public Sprite PlayerSprite => _overrideSprite != null ? _overrideSprite : _playerData.PlayerSprite;
+    public void SetPlayerArt(PlayerArt art)
+    {
+        if (_playerData.HasArtData)
+            art.SetPlayerArt(_playerData.ArtData);
+    }
     public string CardTitle => _cardTitle;
     public CardRarity Rarity => _rarity;
 

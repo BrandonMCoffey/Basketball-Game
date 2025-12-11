@@ -94,7 +94,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         _rectTransform.DOScale(1f, 0.2f);
         if (_playerImage != null)
         {
-            _playerImage.sprite = gameAction.Player.CardData.PlayerData.PlayerSprite;
+            _playerImage.sprite = gameAction.Player.CardData.PlayerSprite;
             var aspect = _playerImage.GetComponent<AspectRatioFitter>();
             if (aspect != null)
             {
@@ -115,7 +115,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     {
         var data = _action.Player.CardData.GetAction(_action.ActionIndex);
         var effects = data.Effects;
-        if (_playerNumber != null) _playerNumber.text = _action.Player.CardData.PlayerData.PlayerNumber;
+        if (_playerNumber != null) _playerNumber.text = _action.Player.CardData.PlayerNumber;
         if (_actionName != null) _actionName.text = data.Name;
         if (_actionDescription != null) _actionDescription.text = data.GetDisplayText();
         if (_actionType != null) _actionType.text = data.Type.ToString();

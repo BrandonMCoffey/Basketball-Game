@@ -109,10 +109,10 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
             _addPlayerAnimRoutine = null;
         }
         _addButtonImage.DOScale(1f, 0.2f).SetEase(Ease.OutQuad);
-        if (_playerNameText != null) _playerNameText.text = _activeGameCard != null ? _activeGameCard.PlayerData.PlayerName : "Player Name";
+        if (_playerNameText != null) _playerNameText.text = _activeGameCard != null ? _activeGameCard.PlayerName : "Player Name";
         if (_playerImage != null)
         {
-            _playerImage.sprite = _activeGameCard != null ? _activeGameCard.PlayerData.PlayerSprite : null;
+            _playerImage.sprite = _activeGameCard != null ? _activeGameCard.PlayerSprite : null;
             var aspect = _playerImage.GetComponent < AspectRatioFitter>();
             if (aspect != null)
             {

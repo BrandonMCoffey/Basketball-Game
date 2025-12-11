@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
     {
         _cardData = data;
         _cardData.PrepareForGameplay();
-        if (data.PlayerData.HasArtData) _playerArt.SetPlayerArt(data.PlayerData.ArtData);
+        data.SetPlayerArt(_playerArt);
         SetAnimation(PlayerAnimation.Idle);
     }
 

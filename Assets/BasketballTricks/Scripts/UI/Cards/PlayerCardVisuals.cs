@@ -60,10 +60,10 @@ public class PlayerCardVisuals : MonoBehaviour
 
     private void UpdateVisuals()
     {
-        if (_playerName != null) _playerName.text = _card != null ? _card.PlayerData.PlayerName : "Player";
-        if (_playerName2 != null) _playerName2.text = _card != null ? _card.PlayerData.PlayerName : "Player";
-        if (_playerImage != null) _playerImage.sprite = _card != null ? _card.PlayerData.PlayerSprite : _defaultPlayerImage;
-        if (_playerImage2 != null) _playerImage2.sprite = _card != null ? _card.PlayerData.PlayerSprite : _defaultPlayerImage;
+        if (_playerName != null) _playerName.text = _card != null ? _card.PlayerName : "Player";
+        if (_playerName2 != null) _playerName2.text = _card != null ? _card.PlayerName : "Player";
+        if (_playerImage != null) _playerImage.sprite = _card != null ? _card.PlayerSprite : _defaultPlayerImage;
+        if (_playerImage2 != null) _playerImage2.sprite = _card != null ? _card.PlayerSprite : _defaultPlayerImage;
 
         for (int i = 0; i < _actionVisuals.Count; i++)
         {

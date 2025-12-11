@@ -120,7 +120,7 @@ public class PlayerManager : MonoBehaviour
             {
                 _placingPlayer = player;
                 _placingPlayer.SetAnimation(PlayerAnimation.Dangle, 0f);
-                if (data.PlayerData.HasArtData) _placingPlayer.PlayerArt.SetPlayerArt(data.PlayerData.ArtData);
+                data.SetPlayerArt(_placingPlayer.PlayerArt);
                 return true;
             }
         }

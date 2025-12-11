@@ -64,14 +64,14 @@ public class GameManager : MonoBehaviour
 
     public void StartDribblePractice(int playerIndex)
     {
-        Debug.Log($"Starting dribble practice with {_saveData.OwnedCards[playerIndex].PlayerData.PlayerName}");
+        Debug.Log($"Starting dribble practice with {_saveData.OwnedCards[playerIndex].PlayerName}");
         _selectedCardIndex = playerIndex;
         TransitionToScene("DribbleGame");
     }
 
     public void StartShootingPractice(int playerIndex)
     {
-        Debug.Log($"Starting shooting practice with {_saveData.OwnedCards[playerIndex].PlayerData.PlayerName}");
+        Debug.Log($"Starting shooting practice with {_saveData.OwnedCards[playerIndex].PlayerName}");
         _selectedCardIndex = playerIndex;
         TransitionToScene("ShootingGame");
     }

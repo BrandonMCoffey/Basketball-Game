@@ -14,8 +14,12 @@ public class GameCard
         _level = 1;
     }
 
+    public PlayerData PlayerData => _cardData.Player;
     public PlayerCardData CardDataSO => _cardData;
-    public PlayerData PlayerData => _cardData.PlayerData;
+    public string PlayerName => _cardData.Player.PlayerName;
+    public Sprite PlayerSprite => _cardData.PlayerSprite;
+    public string PlayerNumber => _cardData.Player.PlayerNumber;
+    public void SetPlayerArt(PlayerArt art) => _cardData.SetPlayerArt(art);
     public int ActionCount => _cardData.ActionCount;
     public int GetActionCount(int index) => _cardData.GetActionCount(index);
     public ActionData GetAction(int index)

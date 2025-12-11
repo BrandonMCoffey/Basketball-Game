@@ -61,7 +61,7 @@ public class DataAnalyzer : ScriptableObject
             _cardsAnalysis.Add(new CardDataAnalysis
             {
                 Card = card,
-                Details = $"{card.Rarity} card with {count} actions. ({card.PlayerData.NaturalPosition})",
+                Details = $"{card.Rarity} card with {count} actions. ({card.Player.NaturalPosition})",
                 ShowActionsUnderCards = _showActionsUnderCards,
                 Actions = list,
             });
@@ -81,7 +81,7 @@ public class DataAnalyzer : ScriptableObject
                 {
                     if (cardAction.GetActionSO() == action)
                     {
-                        list.Add($"{cardAction.Count}x | {card.PlayerData.PlayerName} | {card.CardTitle} ({card.Rarity}, {card.PlayerData.NaturalPosition})");
+                        list.Add($"{cardAction.Count}x | {card.Player.PlayerName} | {card.CardTitle} ({card.Rarity}, {card.Player.NaturalPosition})");
                         cardCount++;
                         totalCount += cardAction.Count;
                     }
