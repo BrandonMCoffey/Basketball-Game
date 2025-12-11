@@ -14388,7 +14388,7 @@ MonoBehaviour:
   _cardPrefab: {fileID: 8941201179018514449, guid: cf17f8d5c95e0a942840fce265efad6e,
     type: 3}
   _cardsDrawnPerHand: 5
-  _maxHandSize: 9
+  _maxHandSize: 7
   _cardContainer: {fileID: 2031088294}
   _cardPlayPoint: {fileID: 1355969780}
   _cardRemovedPlayedPoint: {fileID: 1818009747}
