@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SoundLibrary
   m_EditorClassIdentifier: 
   _sfxEventClips:
-  - Event: 0
+  - Event: 3
     Clip: {fileID: 0}
   _musicTrackClips:
   - Track: 0
