@@ -14,6 +14,7 @@ public class GameCard
         _level = 1;
     }
 
+    public PlayerCardData CardDataSO => _cardData;
     public PlayerData PlayerData => _cardData.PlayerData;
     public int ActionCount => _cardData.ActionCount;
     public int GetActionCount(int index) => _cardData.GetActionCount(index);
@@ -23,6 +24,7 @@ public class GameCard
         data.ActionLevel = _level;
         return data;
     }
+    public int GetActionIndex(PlayerActionData actionData) => _cardData.GetActionIndex(actionData);
 
     public void PrepareForGameplay()
     {

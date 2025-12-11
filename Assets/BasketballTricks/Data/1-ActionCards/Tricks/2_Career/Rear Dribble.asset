@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041c9dffaf652874eb5e4e1ef3755211, type: 3}
-  m_Name: Behind-the-Back Dribble
+  m_Name: Rear Dribble
   m_EditorClassIdentifier: 
   _data:
-    Name: Behind-the-Back Dribble
+    Name: Rear Dribble
     _cardText: Next shot this game gains +10 Hype
     _previewText: Next shot this game gains +10 Hype
-    _cardSummary: For 1 cost, gain +20 Hype. On next shot this game gain +10 Hype.
+    _cardSummary: For 1 cost, gain +20 Hype On next shot this game gain +10 Hype
     Type: 1
     AssociatedRarity: 2
     AllowedPositions: 31
@@ -184,6 +184,7 @@ MonoBehaviour:
           - 0
           - 0
           - 0
+      Level: 0
     _nextEffectPreviewText: On next shot this game gain +10 Hype
     Icon: {fileID: 0}
     Animation: 100

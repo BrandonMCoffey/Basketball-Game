@@ -31,6 +31,17 @@ public class PlayerCardData : ScriptableObject
         }
         return _actions[index].Count;
     }
+    public int GetActionIndex(PlayerActionData actionData)
+    {
+        for (int i = 0; i < _actions.Count; i++)
+        {
+            if (_actions[i].GetActionSO() == actionData)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
     public ActionData GetAction(int index)
     {
         if (index >= _actions.Count || index < 0)

@@ -10,31 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041c9dffaf652874eb5e4e1ef3755211, type: 3}
-  m_Name: Catch-and-Shoot 3
+  m_Name: Deep Triple
   m_EditorClassIdentifier: 
   _data:
-    Name: Catch-and-Shoot
-    _cardText: If receiver, +40 Bonus Hype.
-    _previewText: If receiver, +40 Bonus Hype.
-    _cardSummary: For 1 cost, gain +20 Hype. If last card played was pass, gain +40
-      Hype.
+    Name: Deep 3
+    _cardText: 
+    _previewText: 
+    _cardSummary: For 3 cost, gain +75 Hype.
     Type: 3
     AssociatedRarity: 2
-    AllowedPositions: 2
+    AllowedPositions: 3
     ActionLevel: 1
     _cardData:
       _cost:
         isLevelable: 0
         levels:
-        - 1
+        - 3
         - 0
         - 0
       _hypeGain:
         isLevelable: 1
         levels:
-        - 20
-        - 25
-        - 30
+        - 75
+        - 100
+        - 125
       _multiplyHype:
         isLevelable: 0
         levels:
@@ -101,9 +100,9 @@ MonoBehaviour:
           - 0
           - 0
     _effectIfSequencePreviewText: 
-    HasEffectIfPrevious: 1
+    HasEffectIfPrevious: 0
     EffectIfPrevious:
-      RequiredType: 2
+      RequiredType: 0
       RequiredPosition: 31
       Effects:
         _cost:
@@ -115,7 +114,7 @@ MonoBehaviour:
         _hypeGain:
           isLevelable: 0
           levels:
-          - 40
+          - 0
           - 0
           - 0
         _multiplyHype:
@@ -142,7 +141,7 @@ MonoBehaviour:
           - 0
           - 0
           - 0
-    _effectIfPreviousPreviewText: If last card played was pass, gain +40 Hype
+    _effectIfPreviousPreviewText: 
     HasNextEffect: 0
     NextEffect:
       AppliesTo: 0
@@ -185,7 +184,6 @@ MonoBehaviour:
           - 0
           - 0
           - 0
-      Level: 0
     _nextEffectPreviewText: 
     Icon: {fileID: 0}
     Animation: 200
