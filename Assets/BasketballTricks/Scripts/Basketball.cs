@@ -1,3 +1,4 @@
+using CoffeyUtils.Sound;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -25,7 +26,7 @@ public class Basketball : MonoBehaviour
 
     private void OnBounce()
     {
-        //SFXManager.PlaySfx(SFXEventEnum.BasketballBounce);
+        SoundManager.PlaySfx(SFXEventsEnum.BasketballBounce);
         _eventOnBounce?.Invoke();
     }
 }
