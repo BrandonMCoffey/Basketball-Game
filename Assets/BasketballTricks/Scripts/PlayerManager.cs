@@ -53,6 +53,7 @@ public class PlayerManager : MonoBehaviour
     private Player _placingPlayer;
     private float _energyRemaining;
     private Player _previewHoldingBall;
+    private Player _playerWithPossession;
 
     public List<Player> Players => _players;
     public bool Simulating => _simulating;
@@ -214,7 +215,9 @@ public class PlayerManager : MonoBehaviour
         float sequenceCost = 0;
         int j = 0;
         int prevActionIndex = 0;
-        Player prevPlayer = null;
+        Player prevPlayer = _playerWithPossession;
+        _previewHoldingBall = _playerWithPossession;
+        if (_previewHoldingBall != null) _previewHoldingBall.SetAnimation(PlayerAnimation.IdleHold, 0.1f);
         Player player = null;
         var tempEffectNextStack = new List<EffectNext>();
         List<int> skipActualStackIndexes = new List<int>();
@@ -412,7 +415,7 @@ public class PlayerManager : MonoBehaviour
     private IEnumerator TrickshotRoutine()
     {
         _crowdController.SetPlaying(true);
-        Player playerWithBall = TimelineActions[0].Player;
+        Player playerWithBall = _playerWithPossession != null ? _playerWithPossession : TimelineActions[0].Player;
         _trickshotCamera.SetTrickCamera(playerWithBall.CameraTarget);
         yield return StartCoroutine(HoldBallRoutine(playerWithBall, 1f, PlayerAnimation.IdleHold));
         for (int i = 0; i < TimelineActions.Count; i++)
@@ -456,6 +459,7 @@ public class PlayerManager : MonoBehaviour
                 yield return StartCoroutine(HoldBallRoutine(playerWithBall, action.Duration, action.Animation));
             }
         }
+        _playerWithPossession = playerWithBall;
         OnSequenceCompleted();
     }
 
@@ -645,8 +649,9 @@ public class PlayerManager : MonoBehaviour
         foreach (var player in _players)
         {
             player.FacePosition(player.transform.position + new Vector3(0, 0, 1f), 1f);
-            player.SetAnimation(PlayerAnimation.Idle);
+            player.SetAnimation(PlayerAnimation.Idle, 0.1f);
         }
+        if (_playerWithPossession != null) _playerWithPossession.SetAnimation(PlayerAnimation.IdleHold, 0.1f);
         for (int i = EffectNextStack.Count - 1; i >= 0; i--)
         {
             switch (EffectNextStack[i].AppliesTo)

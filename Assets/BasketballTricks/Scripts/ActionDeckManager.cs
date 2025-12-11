@@ -237,6 +237,7 @@ public class ActionDeckManager : MonoBehaviour
         if (_disabled || count <= 1) return;
 
         int draggedIndex = _cards.IndexOf(draggedCard);
+        //Debug.Log($"Dragged index: {draggedIndex}");
         int newIndex = draggedIndex;
 
         float delta = 1f / (count - 1);
@@ -259,7 +260,7 @@ public class ActionDeckManager : MonoBehaviour
             else if (draggedX < x + threshold && newIndex > i) newIndex = i;
         }
 
-        if (newIndex != draggedIndex)
+        if (newIndex != draggedIndex && draggedIndex >= 0 && draggedIndex < _cards.Count)
         {
             _cards.RemoveAt(draggedIndex);
             _cards.Insert(newIndex, draggedCard);
