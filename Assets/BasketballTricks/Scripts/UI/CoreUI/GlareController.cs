@@ -1,6 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using UnityEditor.EditorTools;
 
 public class GlareController : MonoBehaviour
 {
