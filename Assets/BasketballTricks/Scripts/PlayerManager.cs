@@ -443,9 +443,9 @@ public class PlayerManager : MonoBehaviour
             {
                 yield return StartCoroutine(ShotRoutine(playerWithBall));
 
+                playerWithBall = _players[2]; // Give ball to center
                 if (_allowMultipleShots && i < TimelineActions.Count - 1)
                 {
-                    playerWithBall = _players[2]; // Give ball to center
                     _trickshotCamera.SetTrickFocus(playerWithBall.CameraTarget);
                 }
                 else
