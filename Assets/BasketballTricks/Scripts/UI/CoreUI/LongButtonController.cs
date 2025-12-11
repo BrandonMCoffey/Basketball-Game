@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
 using System.Collections;
+using CoffeyUtils.Sound;
 
 public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -74,6 +75,7 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
                 if (_buttonText != null)
                 {
                     _buttonText.rectTransform.DOAnchorPos(_originalTextPos, 0.2f).SetEase(_clickEndEase);
+                    SoundManager.PlaySfx(SFXEventsEnum.ButtonClickRelease);
                 }
             }
         }
@@ -89,6 +91,7 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
             _buttonText.rectTransform.DOAnchorPos(_originalTextPos + Vector2.up * _moveTextAmount, 0.1f).SetEase(_clickStartEase);
         }
         
+        SoundManager.PlaySfx(SFXEventsEnum.ButtonClickStart);
         _checkForMousePos = true;
     }
 
@@ -103,6 +106,7 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
         }
         
         if (_checkForMousePos) StartCoroutine(InvokeActionRoutine(0.2f));
+        SoundManager.PlaySfx(SFXEventsEnum.ButtonClickRelease);
         _checkForMousePos = false;
     }
 
