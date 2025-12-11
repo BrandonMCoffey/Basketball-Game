@@ -8,7 +8,8 @@ using UnityEngine;
 public class ActionDeckManager : MonoBehaviour
 {
     [SerializeField] private ActionCard _cardPrefab;
-    [SerializeField] private int _handSize = 5;
+    [SerializeField] private int _cardsDrawnPerHand = 5;
+    [SerializeField] private int _maxHandSize = 9;
     [SerializeField] private RectTransform _cardContainer;
     [SerializeField] private RectTransform _cardPlayPoint;
     [SerializeField] private RectTransform _cardRemovedPlayedPoint;
@@ -67,14 +68,14 @@ public class ActionDeckManager : MonoBehaviour
             Destroy(_cardContainer.GetChild(i).gameObject);
         }
 
-        int count = Mathf.Min(_handSize, _actionDeck.Count);
+        int count = Mathf.Min(_cardsDrawnPerHand, _actionDeck.Count);
         _cards = new List<ActionCard>(count);
         for (int i = 0; i < count; i++)
         {
-            var actionCard = Instantiate(_cardPrefab, _cardContainer);
-            actionCard.Init(_actionDeck[0], this);
+            var card = Instantiate(_cardPrefab, _cardContainer);
+            card.Init(_actionDeck[0], this);
             _actionDeck.RemoveAt(0);
-            _cards.Add(actionCard);
+            _cards.Add(card);
         }
         UpdateCardLayout(null, true);
     }
@@ -140,21 +141,26 @@ public class ActionDeckManager : MonoBehaviour
         if (_disabled && !PlayerManager.Instance.Simulating)
         {
             _disabled = false;
-            int count = Mathf.Min(_playedCards.Count, _actionDeck.Count);
-            for (int i = _playedCards.Count - 1; i >= 0; i--)
+            int drawCount = Mathf.Min(Mathf.Min(_cardsDrawnPerHand, _maxHandSize - _playedCards.Count), _actionDeck.Count);
+            for (int i = 0; i < drawCount; i++)
             {
-                if (_actionDeck.Count > 0)
+                ActionCard card;
+                if (_playedCards.Count > 0)
                 {
-                    ActionCard card = _playedCards[i];
-                    _cards.Add(card);
+                    card = _playedCards[0];
                     _playedCards.RemoveAt(i);
-                    card.Init(_actionDeck[0], this);
-                    _actionDeck.RemoveAt(0);
                 }
                 else
                 {
-                    Destroy(_playedCards[i].gameObject);
+                    card = Instantiate(_cardPrefab, _cardContainer);
                 }
+                card.Init(_actionDeck[0], this);
+                _actionDeck.RemoveAt(0);
+                _cards.Add(card);
+            }
+            for (int i = _playedCards.Count - 1; i >= 0; i--)
+            {
+                Destroy(_playedCards[i].gameObject);
             }
             _playedCards.Clear();
             PlayerManager.Instance.PreviewSequence(_playedCards, _cards);

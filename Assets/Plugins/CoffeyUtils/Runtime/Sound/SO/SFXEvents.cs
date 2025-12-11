@@ -2,6 +2,9 @@ public enum SFXEventsEnum
 {
     ButtonClickStart,
     ButtonClickRelease,
+    UIMenuSwish,
+    CardPickUp,
+    CardPutDown,
     BasketballBounce,
     BasketballSwish,
     BasketballRimHit,

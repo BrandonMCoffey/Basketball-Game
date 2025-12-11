@@ -14,6 +14,7 @@ namespace CoffeyUtils.Sound
         [Header("Volume Settings")]
         [SerializeField, Range(0f, 1f)] private float _volume = Sfx2dProp.DefaultVolume;
         [SerializeField, Range(.25f, 3f)] private float _pitch = Sfx2dProp.DefaultPitch;
+        [SerializeField, Range(0f, 1f)] private float _pitchRandomness = Sfx2dProp.DefaultPitchRandomness;
 
         [Header("Extra Settings")]
         [SerializeField, Range(-1f, 1f)] private float _stereoPan = Sfx2dProp.DefaultStereoPan;
@@ -48,7 +49,8 @@ namespace CoffeyUtils.Sound
             if (_clip.Null() || _clip.TestSame(this)) return new Sfx2dProp(true);
 
             // Create Current Source Properties
-            var myProperties = new Sfx2dProp(_mixerGroup, _volume, _pitch, _stereoPan, _reverbZoneMix, _priority, _bypassEffects, _bypassListenerEffects, _bypassReverbZones);
+            var pitch = _pitch * (1 + Random.Range(-_pitchRandomness, _pitchRandomness));
+            var myProperties = new Sfx2dProp(_mixerGroup, _volume, pitch, _stereoPan, _reverbZoneMix, _priority, _bypassEffects, _bypassListenerEffects, _bypassReverbZones);
             
             // Add Spatial Properties (If Applicable)
             if (_spatial)
@@ -85,6 +87,7 @@ namespace CoffeyUtils.Sound
         {
             _volume = source.volume;
             _pitch = source.pitch;
+            _pitchRandomness = 0f;
             _reverbZoneMix = source.reverbZoneMix;
             _priority = source.priority;
             _bypassEffects = source.bypassEffects;
