@@ -20,7 +20,7 @@ MonoBehaviour:
     _count:
       isLevelable: 0
       levels:
-      - 2
+      - 1
       - 1
       - 1
     _imageOverride: {fileID: 0}
@@ -196,6 +196,7 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: 
       Icon: {fileID: 0}
       Animation: 10
@@ -381,6 +382,7 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: On next trick this game reduce cost by 1
       Icon: {fileID: 0}
       Animation: 100
@@ -565,6 +567,7 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: 
       Icon: {fileID: 0}
       Animation: 200
@@ -750,6 +753,7 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: 
       Icon: {fileID: 0}
       Animation: 200
@@ -935,6 +939,7 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: 
       Icon: {fileID: 0}
       Animation: 200
@@ -1119,6 +1124,7 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: 
       Icon: {fileID: 0}
       Animation: 200

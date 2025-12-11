@@ -16,7 +16,7 @@ MonoBehaviour:
     Name: Fake-Out
     _cardText: If next card is a pass, that pass draws 1 card
     _previewText: If next card is a pass, that pass draws 1 card
-    _cardSummary: For 1 cost, gain +15 Hype. On next pass played draw 1 cards.
+    _cardSummary: For 1 cost, gain +15 Hype On next pass played draw 1 cards
     Type: 1
     AssociatedRarity: 2
     AllowedPositions: 1
@@ -184,6 +184,7 @@ MonoBehaviour:
           - 0
           - 0
           - 0
+      Level: 0
     _nextEffectPreviewText: On next pass played draw 1 cards
     Icon: {fileID: 0}
     Animation: 100

@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Alley-Oop Finish
   m_EditorClassIdentifier: 
   _data:
-    Name: Alley-Oop Finish
+    Name: Alley-Oop Sinker
     _cardText: '@EffectIfPrevious'
     _previewText: If last card played was pass, reduce cost by 1
-    _cardSummary: For 2 cost, gain +50 Hype. If last card played was pass, reduce
-      cost by 1.
+    _cardSummary: For 2 cost, gain +50 Hype If last card played was pass, reduce
+      cost by 1
     Type: 3
     AssociatedRarity: 2
-    AllowedPositions: 20
+    AllowedPositions: 3
     ActionLevel: 1
     _cardData:
       _cost:
@@ -185,6 +185,7 @@ MonoBehaviour:
           - 0
           - 0
           - 0
+      Level: 0
     _nextEffectPreviewText: 
     Icon: {fileID: 0}
     Animation: 200
