@@ -8,6 +8,7 @@ public class UIGameSelectState : UIStateBase
     {
         SoundManager.PlaySfx(SFXEventsEnum.UIMenuSwish);
         _canvasController.GameSelectController.gameObject.SetActive(true);
+        _canvasController.GameSelectController.AnimateOnScreen();
     }
 
     public override void OnExit()

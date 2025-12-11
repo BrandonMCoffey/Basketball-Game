@@ -30,6 +30,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
     Vector2 _onScreenButtonTextContainerPos;
     bool _checkForMousePos = false;
     bool _positionsInitialized = false;
+    bool _imagesCreated = false;
 
     private void OnValidate()
     {
@@ -40,15 +41,20 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
         }
     }
 
-    void OnEnable() 
+    private void Start()
     {
-        Initialize();
-        CreateImages();
         AnimateOnScreen();
     }
 
+    public void AnimateOnScreen() 
+    {
+        Initialize();
+        CreateImages();
+        AnimOn();
+    }
+
     // Animates button and its elements onto the screen
-    public void AnimateOnScreen()
+    private void AnimOn()
     {
         _rectTransform.DOAnchorPos(_onScreenAnchoredPos, 0.25f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
 
@@ -65,7 +71,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
     }
 
     // Sets initial positions of button and its elements
-    void Initialize()
+    private void Initialize()
     {
         if (_positionsInitialized) return;
         _positionsInitialized = true;
@@ -87,13 +93,15 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
     }
 
     // Creates icon images and positions them with slight offsets
-    void CreateImages()
+    private void CreateImages()
     {
+        if (_imagesCreated) return;
         if (_icons == null || _icons.Count == 0) return;
         _buttonIcon.sprite = _icons[0];
+        _imagesCreated = true;
     }
 
-    void Update()
+    private void Update()
     {
         if (_checkForMousePos)
         {
@@ -121,7 +129,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
         TapEnd();
     }
 
-    void TapEnd()
+    private void TapEnd()
     {
         _rectTransform.DOScale(0.7f, 0.1f).SetEase(_easeType);
         _buttonIcon.rectTransform.DOAnchorPos(Vector2.zero, 0.1f).SetEase(_easeType);
