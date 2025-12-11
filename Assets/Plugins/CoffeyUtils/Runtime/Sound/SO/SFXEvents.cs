@@ -8,7 +8,9 @@ public enum SFXEventsEnum
     BasketballBounce,
     BasketballSwish,
     BasketballRimHit,
-    BasketballPass
+    BasketballPass,
+    Flamethrower,
+    CameraFlash
 }
 
 public enum MusicTracksEnum
