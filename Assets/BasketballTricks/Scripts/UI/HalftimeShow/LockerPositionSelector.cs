@@ -22,6 +22,7 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
     [SerializeField] private ImageDataMatcher _matcher;
     [SerializeField] private List<TMP_Text> _actionList;
     [SerializeField] private RectTransform _addButtonImage;
+    [SerializeField] private List<Image> _clickEffectImages;
 
     [Header("Colors")]
     [SerializeField] private List<Image> _coloredImages;
@@ -42,15 +43,25 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
     Coroutine _addPlayerAnimRoutine;
     RectTransform _rectTransform;
     public RectTransform RectTransform => _rectTransform;
+    float _initialClickEffectScale;
 
     private void OnValidate()
     {
         if (_positionText != null) _positionText.text = PlayerData.PositionToString(_position);
     }
 
-    private void Awake() 
+    private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
+    }
+    
+    private void Start()
+    {
+        _initialClickEffectScale = _clickEffectImages.Count > 0 ? _clickEffectImages[0].rectTransform.localScale.x : 1f;
+        foreach (var img in _clickEffectImages)
+        {
+            img.enabled = false;
+        }
     }
 
     public void Init(int index, LockerRoomController controller)
@@ -142,6 +153,26 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
         _rectTransform.DOScale(0.9f, 0.05f).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             _rectTransform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).SetDelay(0.1f);
+        });
+
+        for (int i = 0; i < _clickEffectImages.Count; i++)
+        {
+            var img = _clickEffectImages[i];
+            StartCoroutine(ClickEffectRoutine(img, i * 0.1f));
+        }
+
+    }
+
+    IEnumerator ClickEffectRoutine(Image img, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        img.enabled = true;
+        img.color = new Color(img.color.r, img.color.g, img.color.b, 1f);
+        img.rectTransform.DOScale(1.5f, 0.5f).SetEase(Ease.OutQuad);
+        img.DOFade(0f, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
+        {
+            img.enabled = false;
+            img.rectTransform.localScale = Vector3.one * _initialClickEffectScale;
         });
     }
 

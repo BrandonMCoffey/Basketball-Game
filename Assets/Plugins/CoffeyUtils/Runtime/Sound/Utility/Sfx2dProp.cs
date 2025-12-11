@@ -13,6 +13,7 @@ namespace CoffeyUtils.Sound
         public const bool DefaultBypassEffects = false;
         public const bool DefaultBypassListenerEffects = false;
         public const bool DefaultBypassReverbZones = false;
+        public const float DefaultPitchRandomness = 0f;
         
         public bool Null;
         public AudioClip Clip;

@@ -14,7 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sfxEventClips:
   - Event: 3
-    Clip: {fileID: 0}
+    Clip: {fileID: 11400000, guid: deba7232ef8f783498fd426427ceeb8a, type: 2}
+  - Event: 0
+    Clip: {fileID: 11400000, guid: 6ee179228329891489f78b4675958eb9, type: 2}
+  - Event: 1
+    Clip: {fileID: 11400000, guid: 956ceffea69a1c34aac209e69dc76025, type: 2}
+  - Event: 5
+    Clip: {fileID: 11400000, guid: a6209771592460343bedc9ae8ba0f951, type: 2}
   _musicTrackClips:
   - Track: 0
     Clip: {fileID: 0}
