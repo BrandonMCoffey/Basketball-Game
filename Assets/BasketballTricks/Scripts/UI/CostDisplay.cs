@@ -11,6 +11,8 @@ public class CostDisplay : MonoBehaviour
     //[SerializeField] private Color _overMaxColor = Color.white;
     [SerializeField] private List<StaminaElemController> _costList = new();
 
+    [SerializeField] bool _removeTopToBottom = false;
+
     private void OnValidate()
     {
         //UpdateCostDisplay(3, 5); sorry i know onvalidate is dope, but I had to do it through start....
@@ -41,10 +43,34 @@ public class CostDisplay : MonoBehaviour
             cost = Mathf.Min(cost, _costList.Count);
             max = Mathf.Min(max, _costList.Count);
         }
-        int i = 0;
-        int jumpIndex = 0;
-        for (; i < cost; i++) { _costList[i].Spend(jumpIndex * 0.1f); jumpIndex++; }
-        for (; i < max; i++) { _costList[i].Unuse(); }
-        for (; i < _costList.Count; i++) { _costList[i].Hide(); }
+
+        if (_removeTopToBottom)
+        {
+            int spent = 0;
+            for (int i = _costList.Count - 1; i >= 0; i--)
+            {
+                if (i >= max)
+                {
+                    _costList[i].Hide();
+                }
+                else if (spent < cost)
+                {
+                    _costList[i].Spend((spent) * 0.1f);
+                    spent++;
+                }
+                else
+                {
+                    _costList[i].Unuse();
+                }
+            }
+        }
+        else
+        {
+            int i = 0;
+            int jumpIndex = 0;
+            for (; i < cost; i++) { _costList[i].Spend(jumpIndex * 0.1f); jumpIndex++; }
+            for (; i < max; i++) { _costList[i].Unuse(); }
+            for (; i < _costList.Count; i++) { _costList[i].Hide(); }
+        }
     }
 }

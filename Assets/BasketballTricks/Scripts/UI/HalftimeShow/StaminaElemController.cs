@@ -20,6 +20,7 @@ public class StaminaElemController : MonoBehaviour
     private RectTransform _costDisplay;
     private Vector3 _costDisplayOriginalPos;
     private bool _jumped = false;
+
     
 
     public void SetRefs(Color unusedColor, Color spentColor, CostDisplay costDisplay)
@@ -54,6 +55,7 @@ public class StaminaElemController : MonoBehaviour
     private void Jump(float delay = 0f)
     {
         if (_jumped) return;
+
         _imageRectTransform.DOScale(Vector3.one * 1.5f, 0.1f).SetEase(Ease.OutQuad).SetDelay(delay);
         _imageRectTransform.DOAnchorPosY(20, 0.1f).SetEase(Ease.OutQuad).SetDelay(delay).OnComplete(() =>
         {
@@ -67,6 +69,7 @@ public class StaminaElemController : MonoBehaviour
             });
 
         });
+
         _jumped = true;
     }
 

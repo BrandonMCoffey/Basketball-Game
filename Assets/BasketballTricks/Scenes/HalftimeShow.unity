@@ -10912,7 +10912,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _costText: {fileID: 527765026}
   _unusedColor: {r: 1, g: 1, b: 1, a: 1}
-  _spentColor: {r: 0, g: 1, b: 0, a: 1}
+  _spentColor: {r: 1, g: 1, b: 1, a: 0.2627451}
   _costList:
   - {fileID: 2099044789839422370}
   - {fileID: 981963328}
@@ -10923,6 +10923,7 @@ MonoBehaviour:
   - {fileID: 625177353}
   - {fileID: 1666190392}
   - {fileID: 1271653730}
+  _removeTopToBottom: 1
 --- !u!1001 &1847906288
 PrefabInstance:
   m_ObjectHideFlags: 0
