@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -101,7 +102,11 @@ public class HandCatalog : MonoBehaviour
         // Sort used cards to the end
         var loadout = GameManager.Instance.GetPositionLoadout();
         _allCards = _allCards.OrderBy(card => loadout.Contains(card)).ToList();
-        ResetCardPositions();
+        //ResetCardPositions();
+        foreach (var card in _cards)
+        {
+            card.AppearAtPosition();
+        }
         UpdateCardData();
     }
     private void UpdateCardData()
@@ -110,8 +115,11 @@ public class HandCatalog : MonoBehaviour
         for (int i = 0; i < _cards.Count; i++)
         {
             int cardIndex = _startIndex + i;
-            _cards[i].SetData(i < count ? _allCards[cardIndex] : null);
-            _cards[i].SetGlow(_positionFilter != PlayerPosition.None && _allCards[cardIndex].PlayerData.IsNaturalPosition(_positionFilter));
+            bool positionBonus = _positionFilter != PlayerPosition.None && _allCards[cardIndex].PlayerData.IsNaturalPosition(_positionFilter);
+            if (i < count) _cards[i].SetData(_allCards[cardIndex], _positionFilter, positionBonus);
+            else _cards[i].SetData(null);
+
+            _cards[i].SetGlow(positionBonus);
         }
         StartCoroutine(ShowCardsRoutine(count));
     }

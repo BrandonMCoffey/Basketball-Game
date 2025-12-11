@@ -619,6 +619,8 @@ public class PlayerManager : MonoBehaviour
         }
         _basketball.transform.position = endPos;
 
+        _goal.PlayFlamethrowers();
+        _goal.SwishNet();
         player.SetAnimation(PlayerAnimation.Idle); // Victory dance?
 
         // Fall through net

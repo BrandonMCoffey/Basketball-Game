@@ -294,7 +294,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         StartCoroutine(ReturnToPosition());
     }
 
-    private void AppearAtPosition()
+    public void AppearAtPosition()
     {
         _rectTransform.anchoredPosition = _initialPosition;
         _rectTransform.localRotation = _initialRotation;
