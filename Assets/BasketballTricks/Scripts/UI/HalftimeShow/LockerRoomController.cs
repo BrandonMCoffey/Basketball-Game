@@ -70,7 +70,7 @@ public class LockerRoomController : MonoBehaviour
         {
             for (int i = 0; i < count; i++)
             {
-                _lockerPositions[i].AddCard(players[i]);
+                _lockerPositions[i].AddCard(players[i], true);
             }
         }
         foreach (var locker in _lockerPositions)
