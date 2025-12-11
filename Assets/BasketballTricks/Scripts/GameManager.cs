@@ -58,14 +58,26 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        TransitionToScene("TrickPlays");
+        TransitionToScene("HalftimeShow");
     }
 
     public void LoadCatalog()
     {
-        TransitionToScene("CardCatalog");
+        TransitionToScene("MainUI");
     }
 
+    public void StartDribblePractice(GameCard card)
+    {
+        if (_saveData.OwnedCards.Contains(card))
+        {
+            _selectedCardIndex = _saveData.OwnedCards.IndexOf(card);
+            TransitionToScene("DribbleGame");
+        }
+        else
+        {
+            Debug.LogError($"Card {card.PlayerName} not found in owned cards. Cannot start dribble practice.");
+        }
+    }
     public void StartDribblePractice(int playerIndex)
     {
         Debug.Log($"Starting dribble practice with {_saveData.OwnedCards[playerIndex].PlayerName}");

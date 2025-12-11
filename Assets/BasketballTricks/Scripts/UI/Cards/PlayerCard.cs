@@ -80,6 +80,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
 
     public void Init(Transform parent, Transform holdParent, bool canPlaceOnCourt, Vector3 anchoredFocusPosition)
     {
+        if (_rectTransform == null) _rectTransform = GetComponent<RectTransform>();
         _initialPosition = _rectTransform.anchoredPosition;
         _initialRotation = _rectTransform.localRotation;
         _initialScale = _rectTransform.localScale;
@@ -87,6 +88,9 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         _holdParent = holdParent;
         _canPlaceOnCourt = canPlaceOnCourt;
         _anchoredFocusPosition = anchoredFocusPosition;
+        _flipTransform.DOAnchorPosY(30, 0);
+        _actionDetailTransform.DOLocalMoveX(0, 0);
+        _actionDetailTransform.DOScaleX(0, 0);
     }
 
     public void RefreshTransform()
@@ -330,5 +334,10 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         if (_parent != null) transform.SetParent(_parent, true);
 
         RefreshInteractables();
+    }
+
+    public void TrainWithCard()
+    {
+        GameManager.Instance.StartDribblePractice(_card);
     }
 }
