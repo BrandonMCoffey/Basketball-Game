@@ -116,8 +116,9 @@ GameObject:
   - component: {fileID: 7006340472281763361}
   - component: {fileID: 7583029248132672537}
   - component: {fileID: 1005041961255443151}
+  - component: {fileID: 5663536879126744759}
   m_Layer: 5
-  m_Name: PNL_Store
+  m_Name: PNL_Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,6 +209,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &5663536879126744759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187923341906655311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c97657a2e489b146855eacaff750855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3738499371604058973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1829,9 +1842,7 @@ PrefabInstance:
     - target: {fileID: 6517700058179870778, guid: ff5be3d90b6d01d41b09ca1c9e491fe4,
         type: 3}
       propertyPath: m_text
-      value: '<size=50>Legendary</size>
-
-        $300'
+      value: Randomize
       objectReference: {fileID: 0}
     - target: {fileID: 6517700058179870778, guid: ff5be3d90b6d01d41b09ca1c9e491fe4,
         type: 3}
@@ -2046,9 +2057,7 @@ PrefabInstance:
     - target: {fileID: 6517700058179870778, guid: ff5be3d90b6d01d41b09ca1c9e491fe4,
         type: 3}
       propertyPath: m_text
-      value: '<size=55>Daily</size>
-
-        $300'
+      value: Randomize
       objectReference: {fileID: 0}
     - target: {fileID: 6517700058179870778, guid: ff5be3d90b6d01d41b09ca1c9e491fe4,
         type: 3}
