@@ -19,6 +19,8 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
     [SerializeField] bool _moveTextOnPress = true;
     [SerializeField, ShowIf("_moveTextOnPress")] bool _moveTextUpOnPress = true;
     [SerializeField] bool _invokeOnAnimComplete = false;
+    [SerializeField] SFXEventsEnum _clickStartSfx = SFXEventsEnum.ButtonClickStart;
+    [SerializeField] SFXEventsEnum _clickReleaseSfx = SFXEventsEnum.ButtonClickRelease;
 
     [Header("References")]
     [SerializeField] TextMeshProUGUI _buttonText;
@@ -75,7 +77,7 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
                 if (_buttonText != null)
                 {
                     _buttonText.rectTransform.DOAnchorPos(_originalTextPos, 0.2f).SetEase(_clickEndEase);
-                    SoundManager.PlaySfx(SFXEventsEnum.ButtonClickRelease);
+                    SoundManager.PlaySfx(_clickReleaseSfx);
                 }
             }
         }
@@ -91,7 +93,7 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
             _buttonText.rectTransform.DOAnchorPos(_originalTextPos + Vector2.up * _moveTextAmount, 0.1f).SetEase(_clickStartEase);
         }
         
-        SoundManager.PlaySfx(SFXEventsEnum.ButtonClickStart);
+        SoundManager.PlaySfx(_clickStartSfx);
         _checkForMousePos = true;
     }
 
@@ -106,7 +108,7 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
         }
         
         if (_checkForMousePos) StartCoroutine(InvokeActionRoutine(0.2f));
-        SoundManager.PlaySfx(SFXEventsEnum.ButtonClickRelease);
+        SoundManager.PlaySfx(_clickReleaseSfx);
         _checkForMousePos = false;
     }
 
