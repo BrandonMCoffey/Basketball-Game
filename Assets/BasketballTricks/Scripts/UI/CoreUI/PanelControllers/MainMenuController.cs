@@ -7,8 +7,9 @@ using Sirenix.OdinInspector;
 public class MainMenuController : MonoBehaviour
 {
     [SerializeField] UIButtonController _playButton;
-    [SerializeField] UIButtonController _tradeButton;
+    [SerializeField] UIButtonController _shopButton;
     [SerializeField] UIButtonController _leaderButton;
+    [SerializeField] UIButtonController _vaultButton;
     [SerializeField] RectTransform _titlePanel;
 
     [SerializeField, ReadOnly] Vector2 _titlePanelOnScreenPos;
@@ -41,8 +42,9 @@ public class MainMenuController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         _playButton.AnimateOnScreen();
-        _tradeButton.AnimateOnScreen();
+        _shopButton.AnimateOnScreen();
         _leaderButton.AnimateOnScreen();
+        _vaultButton.AnimateOnScreen();
     }
 
     public void AnimateOffScreen(Action callback = null)
@@ -52,8 +54,9 @@ public class MainMenuController : MonoBehaviour
             callback?.Invoke();
         });
         _playButton.AnimateOffScreen();
-        _tradeButton.AnimateOffScreen();
+        _shopButton.AnimateOffScreen();
         _leaderButton.AnimateOffScreen();
+        _vaultButton.AnimateOffScreen();
     }
 
 }

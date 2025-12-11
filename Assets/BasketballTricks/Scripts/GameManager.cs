@@ -82,6 +82,11 @@ public class GameManager : MonoBehaviour
         UpdatePlayerLoadout?.Invoke();
     }
 
+    public GameCard GetCard(PlayerCardData cardData)
+    {
+        return _saveData.OwnedCards.Find(card => card.CardDataSO == cardData);
+    }
+
     private void TransitionToScene(string newScene)
     {
         if (!InTransition)
