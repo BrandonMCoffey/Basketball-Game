@@ -184,8 +184,8 @@ MonoBehaviour:
           - 0
           - 0
           - 0
-      Level: 0
+      Level: 1
     _nextEffectPreviewText: 
     Icon: {fileID: 0}
-    Animation: 100
+    Animation: 101
     Duration: 2
