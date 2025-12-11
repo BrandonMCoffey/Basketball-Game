@@ -14130,7 +14130,7 @@ PrefabInstance:
     - target: {fileID: 1049421160612211864, guid: a89c90c39088c814ca98764129f5159b,
         type: 3}
       propertyPath: _resetDataOnStart
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4066303313053599617, guid: a89c90c39088c814ca98764129f5159b,
         type: 3}
