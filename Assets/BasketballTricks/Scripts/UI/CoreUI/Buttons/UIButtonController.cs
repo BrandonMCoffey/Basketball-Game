@@ -27,6 +27,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
 
     RectTransform _rectTransform;
     Vector2 _onScreenAnchoredPos;
+    Vector2 _onScreenButtonIconPos;
     Vector2 _onScreenButtonTextContainerPos;
     bool _checkForMousePos = false;
     bool _positionsInitialized = false;
@@ -56,15 +57,15 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
     // Animates button and its elements onto the screen
     private void AnimOn()
     {
-        _rectTransform.DOAnchorPos(_onScreenAnchoredPos, 0.25f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
+        _rectTransform.DOAnchorPos(_onScreenAnchoredPos, 0.5f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
 
-        _buttonTextContainer.DOAnchorPos(_onScreenButtonTextContainerPos, 0.25f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
-        _buttonIcon.rectTransform.DOAnchorPos(Vector2.zero, 0.25f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
+        _buttonTextContainer.DOAnchorPos(_onScreenButtonTextContainerPos, 0.5f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
+        _buttonIcon.rectTransform.DOAnchorPos(_onScreenButtonIconPos, 0.5f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
     }
 
     public void AnimateOffScreen()
     {
-        _rectTransform.DOAnchorPos(new Vector2(_onScreenAnchoredPos.x, -Screen.height * 2), 0.25f).SetEase(_easeType).SetDelay(_delayBeforeOnScreen);
+        _rectTransform.DOAnchorPos(new Vector2(_onScreenAnchoredPos.x, -Screen.height), 0.5f).SetEase(_easeType).SetDelay(_delayBeforeOnScreen);
 
         _buttonTextContainer.DOAnchorPos(new Vector2(_onScreenButtonTextContainerPos.x, -Screen.height * 2), 0.25f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
         _buttonIcon.rectTransform.DOAnchorPos(new Vector2(0, -Screen.height * 3), 0.25f).SetDelay(_delayBeforeOnScreen + 0.2f).SetEase(_easeType);
@@ -75,11 +76,8 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
     {
         if (_positionsInitialized) return;
         _positionsInitialized = true;
-        if (_icons == null || _icons.Count == 0)
-        {
-            _buttonIcon.rectTransform.localPosition = Vector2.zero;
-        }
-
+                
+        _onScreenButtonIconPos = _buttonIcon.rectTransform.anchoredPosition;
         _rectTransform = GetComponent<RectTransform>();
         _onScreenAnchoredPos = _rectTransform.anchoredPosition;
         _rectTransform.anchoredPosition = _startOffScreen ? new Vector2(_onScreenAnchoredPos.x, -Screen.height * 2) : _onScreenAnchoredPos;
@@ -118,7 +116,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
     public void OnPointerDown(PointerEventData eventData)
     {
         _rectTransform.DOScale(0.8f, 0.1f).SetEase(_easeType);
-        _buttonIcon.rectTransform.DOAnchorPos(new Vector2(0, -10f), 0.1f).SetEase(_easeType);
+        _buttonIcon.rectTransform.DOAnchorPos(new Vector2(0, 100f), 0.1f).SetEase(_easeType);
         _checkForMousePos = true;
         SoundManager.PlaySfx(SFXEventsEnum.ButtonClickStart);
     }
@@ -132,7 +130,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
     private void TapEnd()
     {
         _rectTransform.DOScale(0.7f, 0.1f).SetEase(_easeType);
-        _buttonIcon.rectTransform.DOAnchorPos(Vector2.zero, 0.1f).SetEase(_easeType);
+        _buttonIcon.rectTransform.DOAnchorPos(_onScreenButtonIconPos, 0.1f).SetEase(_easeType);
         _checkForMousePos = false;
         SoundManager.PlaySfx(SFXEventsEnum.ButtonClickRelease);
     }

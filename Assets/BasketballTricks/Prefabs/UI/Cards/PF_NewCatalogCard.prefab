@@ -4011,6 +4011,7 @@ MonoBehaviour:
   _playerName2: {fileID: 3001334054605660684}
   _playerImage: {fileID: 5516835267004612270}
   _playerImage2: {fileID: 9159932880355811949}
+  _bgImage: {fileID: 3229990385604908092}
   _defaultPlayerImage: {fileID: 21300000, guid: 4b217572d0279994f9e511dd730647b4,
     type: 3}
   _defaultTeamImage: {fileID: 21300000, guid: 42085d59db13a5843bbaea8bc416f2ff, type: 3}
@@ -4023,6 +4024,7 @@ MonoBehaviour:
   - {fileID: 8422692100725396589}
   - {fileID: 3031244422604352211}
   _cardBackDataTree: {fileID: 3880070810241827879}
+  _matcher: {fileID: 11400000, guid: aa44192148093db4586d68d2613f9d92, type: 2}
   _cardVisuals: {fileID: 189021195711392291}
   _frontGroup: {fileID: 6499220571210781563}
   _backGroup: {fileID: 8313526826100118870}

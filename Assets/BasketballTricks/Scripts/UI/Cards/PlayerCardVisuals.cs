@@ -14,12 +14,14 @@ public class PlayerCardVisuals : MonoBehaviour
     [SerializeField] private TMP_Text _playerName2;
     [SerializeField] private Image _playerImage;
     [SerializeField] private Image _playerImage2;
+    [SerializeField] private Image _bgImage;
     [SerializeField] private Sprite _defaultPlayerImage;
     [SerializeField] private Sprite _defaultTeamImage;
     [SerializeField] private List<PlayerActionVisuals> _actionVisuals;
     [SerializeField] private TMP_Text _cardBackPositions;
     [SerializeField] private List<TMP_Text> _cardBackImportantText;
     [SerializeField] private Transform _cardBackDataTree;
+    [SerializeField] private ImageDataMatcher _matcher;
 
     [Header("Flip References")]
     [SerializeField] private Transform _cardVisuals;
@@ -44,9 +46,14 @@ public class PlayerCardVisuals : MonoBehaviour
         if (_card != null) UpdateVisuals();
     }
 
-    public void SetData(GameCard data)
+    public void SetData(GameCard data, PlayerPosition position = PlayerPosition.None, bool positionBonus = false)
     {
         _card = data;
+        if (_bgImage != null && _matcher != null)
+        {
+            _bgImage.sprite = _matcher.GetPositionBackground(position);
+            _bgImage.color = positionBonus ? Color.white : Color.gray;
+        }
         UpdateVisuals();
         UpdateCardBackDataVisuals();
     }
