@@ -664,6 +664,7 @@ public class PlayerManager : MonoBehaviour
     }
 }
 
+[System.Serializable]
 public struct GameAction
 {
     public Player Player;
