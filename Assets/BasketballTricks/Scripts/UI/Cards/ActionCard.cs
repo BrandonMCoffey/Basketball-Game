@@ -17,6 +17,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     [SerializeField] private TMP_Text _actionCost;
     [SerializeField] private TMP_Text _actionHype;
     [SerializeField] private Image _actionIcon;
+    [SerializeField] private Image _actionRarityMedal;
     [SerializeField] private GameObject _showWhenNotSelected;
     [SerializeField] private GameObject _showWhenDiscarding;
     [SerializeField] private Image _bg;
@@ -139,6 +140,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
             else _actionIcon.sprite = _matcher.GetActionType(data.Type);
         }
         if (_colorImage != null) _colorImage.color = _matcher.GetPositionColor(_action.Player.Position);
+        if (_actionRarityMedal != null) _actionRarityMedal.sprite = _matcher.GetActionCardMedal(data.AssociatedRarity);
     }
 
     public void SetLocked(bool locked)
