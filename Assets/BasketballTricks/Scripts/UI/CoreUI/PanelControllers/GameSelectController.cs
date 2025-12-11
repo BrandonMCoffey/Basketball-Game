@@ -217,7 +217,7 @@ public class GameSelectController : MonoBehaviour
         switch (_currentGameMode)
         {
             case GameMode.HalfTime:
-                UnityEngine.SceneManagement.SceneManager.LoadScene("HalfTimeScene");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("HalftimeShow");
                 break;
             case GameMode.Zen:
                 UnityEngine.SceneManagement.SceneManager.LoadScene("ZenScene");
