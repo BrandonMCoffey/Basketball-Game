@@ -19,7 +19,6 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
     [Header("References")]
     [SerializeField] RectTransform _buttonTextContainer;
     [SerializeField] TextMeshProUGUI _buttonText;
-    [SerializeField] RectTransform _iconContainer;
     [SerializeField] Image _buttonIcon;
 
     [Header("Functionality")]
@@ -27,7 +26,6 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
 
     RectTransform _rectTransform;
     Vector2 _onScreenAnchoredPos;
-    List<Vector2> _iconPositions = new List<Vector2>();
     Vector2 _onScreenButtonTextContainerPos;
     bool _checkForMousePos = false;
     bool _positionsInitialized = false;
@@ -55,12 +53,6 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
 
         _buttonTextContainer.DOAnchorPos(_onScreenButtonTextContainerPos, 0.25f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
         _buttonIcon.rectTransform.DOAnchorPos(Vector2.zero, 0.25f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
-        // for (int i = 0; i < _iconContainer.childCount; i++)
-        // {
-        //     //if (_icons == null || _icons.Count == 0) return;
-        //     RectTransform iconRect = _iconContainer.GetChild(i).GetComponent<RectTransform>();
-        //     iconRect.DOAnchorPos(_iconPositions[i], 0.25f).SetDelay(_delayBeforeOnScreen + 0.2f + i * 0.05f).SetEase(_easeType);
-        // }
     }
 
     public void AnimateOffScreen()
@@ -69,13 +61,6 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
 
         _buttonTextContainer.DOAnchorPos(new Vector2(_onScreenButtonTextContainerPos.x, -Screen.height * 2), 0.25f).SetDelay(_delayBeforeOnScreen).SetEase(_easeType);
         _buttonIcon.rectTransform.DOAnchorPos(new Vector2(0, -Screen.height * 3), 0.25f).SetDelay(_delayBeforeOnScreen + 0.2f).SetEase(_easeType);
-        // for (int i = 0; i < _iconContainer.childCount; i++)
-        // {
-        //     //if (_icons == null || _icons.Count == 0) return;
-        //     RectTransform iconRect = _iconContainer.GetChild(i).GetComponent<RectTransform>();
-        //     iconRect.DOAnchorPos(new Vector2(_iconPositions[i].x, -Screen.height), 0.25f).SetDelay(_delayBeforeOnScreen + 0.2f + i * 0.05f).SetEase(_easeType);
-        // }
-
     }
 
     // Sets initial positions of button and its elements
@@ -98,35 +83,13 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
             new Vector2(_onScreenButtonTextContainerPos.x, -Screen.height * 2) : 
             _onScreenButtonTextContainerPos;
 
-        for (int i = 0; i < _iconContainer.childCount; i++)
-        {
-            //if (_icons == null || _icons.Count == 0) return;
-            RectTransform iconRect = _iconContainer.GetChild(i).GetComponent<RectTransform>();
-            _iconPositions.Add(iconRect.anchoredPosition);
-            iconRect.anchoredPosition += _startOffScreen ? new Vector2(Random.Range(-100, 100), -Random.Range(100, 300)) : Vector2.zero;
-        }
-
     }
 
     // Creates icon images and positions them with slight offsets
     void CreateImages()
     {
-        // if (_icons == null || _icons.Count == 0)
-        // {
-        //     _buttonIcon.gameObject.SetActive(false);
-        //     return;
-        // }
+        if (_icons == null || _icons.Count == 0) return;
         _buttonIcon.sprite = _icons[0];
-        //_buttonIcon.rectTransform.localRotation = Quaternion.Euler(0, 0, Random.Range(-6f, 6f));
-
-        for (int i = 1; i < _icons.Count; i++)
-        {
-            Image iconInstance = Instantiate(_buttonIcon, _iconContainer);
-            iconInstance.sprite = _icons[i];
-            iconInstance.rectTransform.anchoredPosition += new Vector2(i * 5, 0);
-            iconInstance.rectTransform.localRotation = Quaternion.Euler(0, 0, Random.Range(-6f, 6f));
-
-        }
     }
 
     void Update()
@@ -146,14 +109,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
     public void OnPointerDown(PointerEventData eventData)
     {
         _rectTransform.DOScale(0.8f, 0.1f).SetEase(_easeType);
-        //_buttonTextContainer.DOAnchorPosY(_buttonTextContainer.anchoredPosition.y - 180, 0.1f).SetEase(_easeType);
-
-        for (int i = 0; i < _iconContainer.childCount; i++)
-        {
-            RectTransform iconRect = _iconContainer.GetChild(i).GetComponent<RectTransform>();
-            iconRect.DOAnchorPosY(_onScreenAnchoredPos.y + 100, 0.2f).SetEase(_easeType).SetDelay(0.075f + i * 0.03f);
-        }
-        
+        _buttonIcon.rectTransform.DOAnchorPos(new Vector2(0, -10f), 0.1f).SetEase(_easeType);
         _checkForMousePos = true;
 
     }
@@ -167,14 +123,7 @@ public class UIButtonController : MonoBehaviour, IPointerUpHandler, IPointerDown
     void TapEnd()
     {
         _rectTransform.DOScale(0.7f, 0.1f).SetEase(_easeType);
-        //_buttonTextContainer.DOAnchorPos(_onScreenButtonTextContainerPos, 0.1f).SetEase(_easeType);
-
-        for (int i = 0; i < _iconContainer.childCount; i++)
-        {
-            RectTransform iconRect = _iconContainer.GetChild(i).GetComponent<RectTransform>();
-            iconRect.DOAnchorPos(_iconPositions[i], 0.2f).SetEase(_easeType).SetDelay(0.075f + i * 0.03f);
-        }
-
+        _buttonIcon.rectTransform.DOAnchorPos(Vector2.zero, 0.1f).SetEase(_easeType);
         _checkForMousePos = false;
     }
 }
