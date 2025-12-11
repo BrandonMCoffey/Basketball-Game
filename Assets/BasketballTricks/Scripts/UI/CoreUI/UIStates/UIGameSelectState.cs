@@ -1,4 +1,4 @@
-using DG.Tweening;
+using CoffeyUtils.Sound;
 
 public class UIGameSelectState : UIStateBase
 {
@@ -6,6 +6,7 @@ public class UIGameSelectState : UIStateBase
 
     public override void OnEnter()
     {
+        SoundManager.PlaySfx(SFXEventsEnum.UIMenuSwish);
         _canvasController.GameSelectController.gameObject.SetActive(true);
     }
 
