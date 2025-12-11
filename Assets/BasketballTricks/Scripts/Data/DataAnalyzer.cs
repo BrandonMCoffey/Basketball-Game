@@ -9,6 +9,7 @@ public class DataAnalyzer : ScriptableObject
     [SerializeField] private List<CardDataAnalysis> _cardsAnalysis = new List<CardDataAnalysis>();
 
     [Space(20)]
+    [SerializeField] private bool _showActionEffects;
     [SerializeField] private bool _showCardsUnderActions;
     [SerializeField] private ActionType _typeFilter;
     [SerializeField] private List<PlayerActionData> _actionsToAnalyze = new List<PlayerActionData>();
@@ -19,9 +20,9 @@ public class DataAnalyzer : ScriptableObject
     {
         public PlayerCardData Card;
         [ReadOnly, HideLabel] public string Details;
+        [HideInInspector] public bool ShowActionsUnderCards;
         [ReadOnly, ShowIf(nameof(ShowActionsUnderCards)), ListDrawerSettings(ShowFoldout = false)]
         public List<string> Actions;
-        [HideInInspector] public bool ShowActionsUnderCards;
     }
 
     [System.Serializable]
@@ -29,9 +30,11 @@ public class DataAnalyzer : ScriptableObject
     {
         public PlayerActionData Action;
         [ReadOnly, HideLabel] public string Details;
+        [HideInInspector] public bool ShowEffects;
+        [ReadOnly, HideLabel, ShowIf(nameof(ShowEffects))] public string Effects;
+        [HideInInspector] public bool ShowCardsUnderActions;
         [ReadOnly, ShowIf(nameof(ShowCardsUnderActions)), ListDrawerSettings(ShowFoldout = true)]
         public List<string> CardsUsingThis;
-        [HideInInspector] public bool ShowCardsUnderActions;
     }
 
 #if UNITY_EDITOR
@@ -59,8 +62,8 @@ public class DataAnalyzer : ScriptableObject
             {
                 Card = card,
                 Details = $"{card.Rarity} card with {count} actions. ({card.PlayerData.NaturalPosition})",
+                ShowActionsUnderCards = _showActionsUnderCards,
                 Actions = list,
-                ShowActionsUnderCards = _showActionsUnderCards
             });
         }
 
@@ -88,8 +91,10 @@ public class DataAnalyzer : ScriptableObject
             {
                 Action = action,
                 Details = $"{action.Data.AssociatedRarity}-level action found in {cardCount} cards ({totalCount} copies).",
+                ShowEffects = _showActionEffects,
+                Effects = $"Effects: {action.Data.GetSummaryText()}",
+                ShowCardsUnderActions = _showCardsUnderActions,
                 CardsUsingThis = list,
-                ShowCardsUnderActions = _showCardsUnderActions
             });
         }
     }

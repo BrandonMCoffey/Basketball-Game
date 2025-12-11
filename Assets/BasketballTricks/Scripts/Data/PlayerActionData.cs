@@ -140,13 +140,10 @@ public struct ActionData
         if (HasEffectIfPrevious) _effectIfPreviousPreviewText = EffectIfPrevious.GetDisplayText(ActionLevel);
         if (HasEffectIfSequence) _effectIfSequencePreviewText = EffectIfSequence.GetDisplayText(ActionLevel);
         _previewText = GetDisplayText();
-        _cardSummary = FormatDisplayText("For @Cost cost, @Effect.");
-        _cardSummary += HasNextEffect ? $" {_nextEffectPreviewText}." : "";
-        _cardSummary += HasEffectIfPrevious ? $" {_effectIfPreviousPreviewText}." : "";
-        _cardSummary += HasEffectIfSequence ? $" {_effectIfSequencePreviewText}." : "";
+        _cardSummary = GetSummaryText();
     }
 
-    public string GetDisplayText() => FormatDisplayText(_cardText);
+    public string GetDisplayText() => FormatDisplayText(string.IsNullOrWhiteSpace(_cardText) ? "Gain @Hype Hype." : _cardText);
     private string FormatDisplayText(string text)
     {
         var effects = Effects;
@@ -160,6 +157,15 @@ public struct ActionData
         text = text.Replace("@EffectIfPrevious", EffectIfPrevious.GetDisplayText(ActionLevel));
         text = text.Replace("@NextEffect", NextEffect.GetDisplayText(ActionLevel));
         text = text.Replace("@Effect", _cardData.GetDisplayText(ActionLevel, false));
+        return text;
+    }
+
+    public string GetSummaryText()
+    {
+        string text = FormatDisplayText("For @Cost cost, @Effect.");
+        text += HasNextEffect ? $" {_nextEffectPreviewText}." : "";
+        text += HasEffectIfPrevious ? $" {_effectIfPreviousPreviewText}." : "";
+        text += HasEffectIfSequence ? $" {_effectIfSequencePreviewText}." : "";
         return text;
     }
 }
