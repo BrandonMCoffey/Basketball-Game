@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041c9dffaf652874eb5e4e1ef3755211, type: 3}
-  m_Name: Corner 3
+  m_Name: Shammgod
   m_EditorClassIdentifier: 
   _data:
-    Name: Corner 3
-    _cardText: On play, Draw 2 cards.
-    _previewText: On play, Draw 2 cards.
-    _cardSummary: For 2 cost, gain +20 Hype and draw 2 cards.
-    Type: 3
-    AssociatedRarity: 2
-    AllowedPositions: 3
+    Name: Shammgod
+    _cardText: 
+    _previewText: Gain 50 Hype
+    _cardSummary: For 2 cost, gain +50 Hype
+    Type: 1
+    AssociatedRarity: 1
+    AllowedPositions: 13
     ActionLevel: 1
     _cardData:
       _cost:
@@ -31,9 +31,9 @@ MonoBehaviour:
       _hypeGain:
         isLevelable: 1
         levels:
-        - 20
-        - 25
-        - 30
+        - 50
+        - 60
+        - 70
       _multiplyHype:
         isLevelable: 0
         levels:
@@ -49,7 +49,7 @@ MonoBehaviour:
       _drawCards:
         isLevelable: 0
         levels:
-        - 2
+        - 0
         - 0
         - 0
       _retriggerCard:
@@ -184,7 +184,8 @@ MonoBehaviour:
           - 0
           - 0
           - 0
+      Level: 0
     _nextEffectPreviewText: 
     Icon: {fileID: 0}
-    Animation: 200
-    Duration: 3
+    Animation: 100
+    Duration: 2
