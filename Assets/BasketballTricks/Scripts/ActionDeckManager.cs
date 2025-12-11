@@ -57,7 +57,10 @@ public class ActionDeckManager : MonoBehaviour
         {
             for (int i = 0; i < player.CardData.ActionCount; i++)
             {
-                _actionDeck.Add(new GameAction(player, i));
+                if (player.CardData.GetAction(i).AllowedPositions.HasFlag(player.Position))
+                {
+                    _actionDeck.Add(new GameAction(player, i));
+                }
             }
         }
         _actionDeck.Shuffle();
