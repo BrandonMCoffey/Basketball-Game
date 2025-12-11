@@ -41,32 +41,29 @@ MonoBehaviour:
     Row1: 
     Row2: 
   - Title: G
-    Row1: 
-    Row2: 
+    Row1: 20
+    Row2: 198
   - Title: FG%
-    Row1: 
-    Row2: 
+    Row1: .4
+    Row2: .423
   - Title: FT%
-    Row1: 
-    Row2: 
+    Row1: .818
+    Row2: .768
   - Title: 3PM
-    Row1: 
-    Row2: 
-  - Title: RPG
-    Row1: 
-    Row2: 
-  - Title: APG
-    Row1: 
-    Row2: 
+    Row1: 1.3
+    Row2: 1.2
+  - Title: TRB
+    Row1: 1.2
+    Row2: 1.7
+  - Title: AST
+    Row1: 0.5
+    Row2: 1.3
   - Title: STL
-    Row1: 
-    Row2: 
+    Row1: 0.2
+    Row2: 0.4
   - Title: BLK
-    Row1: 
-    Row2: 
+    Row1: 0.1
+    Row2: 0.1
   - Title: PTS
-    Row1: 
-    Row2: 
-  - Title: PPG
-    Row1: 
-    Row2: 
+    Row1: 6.0
+    Row2: 7.9

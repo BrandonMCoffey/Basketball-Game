@@ -16,11 +16,11 @@ MonoBehaviour:
     Name: Alley-Oop
     _cardText: '@NextEffect'
     _previewText: On next shot this sequence by Center multiply Hype gain by 2
-    _cardSummary: For 1 cost, gain +25 Hype. On next shot this sequence by Center
-      multiply Hype gain by 2.
+    _cardSummary: For 1 cost, gain +25 Hype On next shot this sequence by Center
+      multiply Hype gain by 2
     Type: 3
     AssociatedRarity: 2
-    AllowedPositions: 28
+    AllowedPositions: 31
     ActionLevel: 1
     _cardData:
       _cost:

@@ -28,97 +28,128 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 43038797ecff65d49ab9371ca67f6c95, type: 2}
   _cardsAnalysis:
   - Card: {fileID: 11400000, guid: 4fe05365112cfb647a4aa707416bfb82, type: 2}
-    Details: Career card with 0 actions. (PG, SG)
+    Details: Career card with 6 actions. (PG, SG)
     ShowActionsUnderCards: 0
-    Actions: []
+    Actions:
+    - 1x | Chest Pass (Rookie)
+    - 1x | Bounce Pass (Rookie)
+    - 1x | Spider Dribble (Rookie)
+    - 1x | Fake-Out (Career)
+    - 1x | Spot-Up Shot (Career)
+    - 1x | Corner 3 (Career)
   - Card: {fileID: 11400000, guid: a41dde36e849df543bda0f92d6a98345, type: 2}
-    Details: Career card with 0 actions. (SG)
+    Details: Career card with 6 actions. (SG)
     ShowActionsUnderCards: 0
-    Actions: []
+    Actions:
+    - 1x | Chest Pass (Rookie)
+    - 1x | Spider Dribble (Rookie)
+    - 1x | Mid-Range Jumper (Rookie)
+    - 1x | Spot-Up Shot (Career)
+    - 1x | Corner 3 (Career)
+    - 1x | Fadeaway (AllStar)
   - Card: {fileID: 11400000, guid: 04c01f6db6dda6347a3d7b2972889874, type: 2}
     Details: Career card with 6 actions. (SG)
     ShowActionsUnderCards: 0
     Actions:
-    - 2x | 3-Pointer (Rookie)
-    - 1x | Trick (Rookie)
-    - 1x | Trick (Rookie)
-    - 1x | Trick (Rookie)
-    - 1x | Trick (Rookie)
+    - 1x | Chest Pass (Rookie)
+    - 1x | Spider Dribble (Rookie)
+    - 1x | 3-Pointer (Rookie)
+    - 1x | Deep 3 (Career)
+    - 1x | Spot-Up Shot (Career)
+    - 1x | Step-Back Jumper (AllStar)
   - Card: {fileID: 11400000, guid: 475927cd4e6372448a26820a146fa386, type: 2}
-    Details: Career card with 7 actions. (C)
+    Details: Career card with 6 actions. (C)
     ShowActionsUnderCards: 0
     Actions:
     - 1x | Touch Pass (Rookie)
-    - 2x | Chest Pass (Rookie)
+    - 1x | Bounce Pass (Rookie)
+    - 1x | Chest Pass (Rookie)
+    - 1x | Spider Dribble (Rookie)
+    - 1x | Layup (Career)
+    - 1x | Dunk (AllStar)
+  - Card: {fileID: 11400000, guid: 98eb2e11f85a0de44b5f95ca7da49876, type: 2}
+    Details: Career card with 6 actions. (PF, C)
+    ShowActionsUnderCards: 0
+    Actions:
+    - 1x | Overhead Pass (Rookie)
+    - 1x | Bounce Pass (Rookie)
     - 1x | Spider Dribble (Rookie)
     - 1x | Layup (Career)
     - 1x | Hook Shot (Career)
     - 1x | Dunk (AllStar)
-  - Card: {fileID: 11400000, guid: 98eb2e11f85a0de44b5f95ca7da49876, type: 2}
-    Details: Career card with 4 actions. (PG, SF)
-    ShowActionsUnderCards: 0
-    Actions:
-    - 1x | Trick (Rookie)
-    - 2x | Bounce Pass (Rookie)
-    - 1x | Trick (Rookie)
   - Card: {fileID: 11400000, guid: 680b61da0331cf445bbc30274da9fce7, type: 2}
-    Details: Career card with 7 actions. (PG, SG)
+    Details: Career card with 6 actions. (PG, SG)
     ShowActionsUnderCards: 0
     Actions:
     - 1x | Chest Pass (Rookie)
     - 1x | Bounce Pass (Rookie)
     - 1x | Behing-the-Back Pass (Career)
-    - 1x | Spider Dribble (Rookie)
-    - 1x | Behind-the-Back Dribble (Career)
-    - 1x | Shamgod (Rookie)
+    - 1x | Shammgod (Rookie)
+    - 1x | Rear Dribble (Career)
     - 1x | 3-Pointer (Rookie)
   - Card: {fileID: 11400000, guid: c53e22ec554df704a81377828108329e, type: 2}
-    Details: Career card with 0 actions. (SF)
+    Details: Career card with 6 actions. (SF)
     ShowActionsUnderCards: 0
-    Actions: []
+    Actions:
+    - 1x | Chest Pass (Rookie)
+    - 1x | Spider Dribble (Rookie)
+    - 1x | Fake Pump (Career)
+    - 1x | Mid-Range Jumper (Rookie)
+    - 1x | Alley-Oop (Career)
+    - 1x | Fadeaway (AllStar)
   - Card: {fileID: 11400000, guid: 6acb81d80035d6343a1bb20290ea3556, type: 2}
-    Details: Career card with 0 actions. (SF)
+    Details: Career card with 6 actions. (SF)
     ShowActionsUnderCards: 0
-    Actions: []
+    Actions:
+    - 1x | Chest Pass (Rookie)
+    - 1x | Spider Dribble (Rookie)
+    - 1x | Spin Move (Rookie)
+    - 1x | Mid-Range Jumper (Rookie)
+    - 1x | Floater (Career)
+    - 1x | Fadeaway (AllStar)
   - Card: {fileID: 11400000, guid: 15050ced5998c69479aa303e964868ff, type: 2}
-    Details: Career card with 0 actions. (PF, C)
+    Details: Career card with 6 actions. (PF, C)
     ShowActionsUnderCards: 0
-    Actions: []
+    Actions:
+    - 1x | Touch Pass (Rookie)
+    - 1x | Spider Dribble (Rookie)
+    - 1x | Layup (Career)
+    - 1x | Alley-Oop (Career)
+    - 1x | Hook Shot (Career)
+    - 1x | Dunk (AllStar)
   - Card: {fileID: 11400000, guid: 94ce15d06b4c00f43bf37ddf73e05b5f, type: 2}
     Details: Career card with 5 actions. (SF, PF)
     ShowActionsUnderCards: 0
     Actions:
     - 1x | Chest Pass (Rookie)
     - 1x | Spider Dribble (Rookie)
-    - 1x | Sky-High Pump Fake (AllStar)
+    - 1x | Astral Pump Fake (AllStar)
     - 1x | Mid-Range Jumper (Rookie)
     - 1x | Fadeaway (AllStar)
     - 0x | Trick (Rookie)
   - Card: {fileID: 11400000, guid: ef4b72e02cb4913469d3d3b2b4aa75e3, type: 2}
-    Details: Career card with 7 actions. (SG)
-    ShowActionsUnderCards: 0
-    Actions:
-    - 2x | Chest Pass (Rookie)
-    - 1x | Fake Pump (Career)
-    - 1x | 3-Pointer (Rookie)
-    - 1x | Mid-Range Jumper (Rookie)
-    - 1x | Catch-and-Shoot 3 (Career)
-    - 1x | Deep 3 (Career)
-  - Card: {fileID: 11400000, guid: 43038797ecff65d49ab9371ca67f6c95, type: 2}
-    Details: Career card with 9 actions. (SG, SF)
+    Details: Career card with 6 actions. (SG, SF)
     ShowActionsUnderCards: 0
     Actions:
     - 1x | Chest Pass (Rookie)
-    - 1x | Skip Pass (Career)
+    - 1x | Fake Pump (Career)
     - 1x | 3-Pointer (Rookie)
-    - 2x | Spider Dribble (Rookie)
+    - 1x | Mid-Range Jumper (Rookie)
+    - 1x | Spot-Up Shot (Career)
+    - 1x | Deep 3 (Career)
+  - Card: {fileID: 11400000, guid: 43038797ecff65d49ab9371ca67f6c95, type: 2}
+    Details: Career card with 6 actions. (SG, SF)
+    ShowActionsUnderCards: 0
+    Actions:
+    - 1x | Chest Pass (Rookie)
+    - 1x | 3-Pointer (Rookie)
+    - 1x | Spider Dribble (Rookie)
     - 1x | Spin Move (Rookie)
     - 1x | Mid-Range Jumper (Rookie)
-    - 1x | Fadeaway (AllStar)
     - 1x | Alley-Oop (Career)
   _showActionEffects: 0
   _showCardsUnderActions: 0
-  _typeFilter: 1
+  _typeFilter: 3
   _actionsToAnalyze:
   - {fileID: 11400000, guid: ee61ed6a3a581ab4aa30b33d92ff56cd, type: 2}
   - {fileID: 11400000, guid: 3f847b2b7720ca649a2dde4ba0447c13, type: 2}
@@ -130,23 +161,24 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9bcefe1b25703394cb6ef5a62524b008, type: 2}
   - {fileID: 11400000, guid: ee1f0f88b018cd942ac90a994f7d167f, type: 2}
   - {fileID: 11400000, guid: c7f173672c1d20949a0c36eec9f0713a, type: 2}
-  - {fileID: 11400000, guid: 0e1db431e09e2434ebd7b34e168f217f, type: 2}
+  - {fileID: 11400000, guid: ec450e8c34c73e74c901e5367db338ee, type: 2}
   - {fileID: 11400000, guid: a8a8723a63e070b4782a07ebad6d1166, type: 2}
   - {fileID: 11400000, guid: 1be49f7b306fe9e4e845d29fc5c36e62, type: 2}
   - {fileID: 11400000, guid: 1456054134d14e54483a6999885c742f, type: 2}
   - {fileID: 11400000, guid: c0f078017aed2504abb31b61dff75de1, type: 2}
   - {fileID: 11400000, guid: efc5b31ae325ba541bb15ca97c80ea24, type: 2}
-  - {fileID: 11400000, guid: 49d1fa4f8abaa5545a7eedfcd6d9ceaa, type: 2}
+  - {fileID: 11400000, guid: 0e1db431e09e2434ebd7b34e168f217f, type: 2}
   - {fileID: 11400000, guid: 11a5872f547b2e046882e0731216e320, type: 2}
+  - {fileID: 11400000, guid: 49d1fa4f8abaa5545a7eedfcd6d9ceaa, type: 2}
   - {fileID: 11400000, guid: 89f8cf0b242f818498a6a8e5295ed394, type: 2}
   - {fileID: 11400000, guid: 7914fcb3a0186c7438bb9e50c36c9882, type: 2}
   - {fileID: 11400000, guid: eff3b2fd85f6db543a551ab8a6cf5a35, type: 2}
   - {fileID: 11400000, guid: 218363b1e30f3b8488f2c1e4ae2a721b, type: 2}
-  - {fileID: 11400000, guid: 96925483d1f5f5a47a0c339a7f80f9f0, type: 2}
   - {fileID: 11400000, guid: f7ad7111cc0536c428af9fac12d34bd6, type: 2}
   - {fileID: 11400000, guid: 51b98c94c1374db4a9fe527e2de77a8c, type: 2}
-  - {fileID: 11400000, guid: 24b19027628ab5e47abf08222baf0800, type: 2}
+  - {fileID: 11400000, guid: 96925483d1f5f5a47a0c339a7f80f9f0, type: 2}
   - {fileID: 11400000, guid: 2b840157986b5234183501da6eee9501, type: 2}
+  - {fileID: 11400000, guid: 24b19027628ab5e47abf08222baf0800, type: 2}
   - {fileID: 11400000, guid: 03b5f98549046d64197ef32d44dd92a7, type: 2}
   - {fileID: 11400000, guid: 5d39690cbac68ae429f7be98ff3cb51d, type: 2}
   - {fileID: 11400000, guid: aed1647bb4e2b2849bf8bb44f9576d80, type: 2}
@@ -156,77 +188,149 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0c66697ec3afc7a42ab5759fa9feff9e, type: 2}
   - {fileID: 11400000, guid: b57dc8f275f0de9429f4259d24d2fbaa, type: 2}
   _actionsAnalysis:
-  - Action: {fileID: 11400000, guid: 7914fcb3a0186c7438bb9e50c36c9882, type: 2}
-    Details: Rookie-level action found in 1 cards (1 copies).
+  - Action: {fileID: 11400000, guid: 9bcefe1b25703394cb6ef5a62524b008, type: 2}
+    Details: Rookie-level action found in 4 cards (4 copies).
     ShowEffects: 0
-    Effects: 'Effects: For 2 cost, gain +50 Hype.'
+    Effects: 'Effects: For 2 cost, gain +50 Hype'
     ShowCardsUnderActions: 0
     CardsUsingThis:
+    - 1x | Jaden Hardy | Mavericks Player (Career, SG)
     - 1x | Kyrie Irving | Mavericks Player (Career, PG, SG)
-  - Action: {fileID: 11400000, guid: eff3b2fd85f6db543a551ab8a6cf5a35, type: 2}
-    Details: Rookie-level action found in 4 cards (5 copies).
+    - 1x | Klay Thompson | Mavericks Player (Career, SG, SF)
+    - 1x | Cooper Flagg | Mavericks Player (Career, SG, SF)
+  - Action: {fileID: 11400000, guid: ee1f0f88b018cd942ac90a994f7d167f, type: 2}
+    Details: Rookie-level action found in 6 cards (6 copies).
     ShowEffects: 0
-    Effects: 'Effects: For 1 cost, gain +25 Hype.'
+    Effects: 'Effects: For 1 cost, gain +25 Hype If last card in sequence, gain +1
+      Energy'
+    ShowCardsUnderActions: 0
+    CardsUsingThis:
+    - 1x | Max Christie | Mavericks Player (Career, SG)
+    - 1x | Naji Marshall | Mavericks Player (Career, SF)
+    - 1x | Caleb Martin | Mavericks Player (Career, SF)
+    - 1x | P.J. Washington | Mavericks Player (Career, SF, PF)
+    - 1x | Klay Thompson | Mavericks Player (Career, SG, SF)
+    - 1x | Cooper Flagg | Mavericks Player (Career, SG, SF)
+  - Action: {fileID: 11400000, guid: c7f173672c1d20949a0c36eec9f0713a, type: 2}
+    Details: Career-level action found in 0 cards (0 copies).
+    ShowEffects: 0
+    Effects: 'Effects: For 2 cost, gain +50 Hype If last card played was pass, reduce
+      cost by 1'
+    ShowCardsUnderActions: 0
+    CardsUsingThis: []
+  - Action: {fileID: 11400000, guid: ec450e8c34c73e74c901e5367db338ee, type: 2}
+    Details: Career-level action found in 3 cards (3 copies).
+    ShowEffects: 0
+    Effects: 'Effects: For 1 cost, gain +25 Hype On next shot this sequence by Center
+      multiply Hype gain by 2'
+    ShowCardsUnderActions: 0
+    CardsUsingThis:
+    - 1x | Naji Marshall | Mavericks Player (Career, SF)
+    - 1x | Daniel Gafford | Mavericks Player (Career, PF, C)
+    - 1x | Cooper Flagg | Mavericks Player (Career, SG, SF)
+  - Action: {fileID: 11400000, guid: a8a8723a63e070b4782a07ebad6d1166, type: 2}
+    Details: Career-level action found in 2 cards (2 copies).
+    ShowEffects: 0
+    Effects: 'Effects: For 2 cost, gain +20 Hype and draw 2 cards'
+    ShowCardsUnderActions: 0
+    CardsUsingThis:
+    - 1x | Dante Exum | Mavericks Player (Career, PG, SG)
+    - 1x | Max Christie | Mavericks Player (Career, SG)
+  - Action: {fileID: 11400000, guid: 1be49f7b306fe9e4e845d29fc5c36e62, type: 2}
+    Details: Career-level action found in 2 cards (2 copies).
+    ShowEffects: 0
+    Effects: 'Effects: For 3 cost, gain +75 Hype'
+    ShowCardsUnderActions: 0
+    CardsUsingThis:
+    - 1x | Jaden Hardy | Mavericks Player (Career, SG)
+    - 1x | Klay Thompson | Mavericks Player (Career, SG, SF)
+  - Action: {fileID: 11400000, guid: 1456054134d14e54483a6999885c742f, type: 2}
+    Details: Career-level action found in 1 cards (1 copies).
+    ShowEffects: 0
+    Effects: 'Effects: For 1 cost, gain +20 Hype If last card played was pass, gain
+      +40 Hype'
+    ShowCardsUnderActions: 0
+    CardsUsingThis:
+    - 1x | Caleb Martin | Mavericks Player (Career, SF)
+  - Action: {fileID: 11400000, guid: c0f078017aed2504abb31b61dff75de1, type: 2}
+    Details: Career-level action found in 2 cards (2 copies).
+    ShowEffects: 0
+    Effects: 'Effects: For 1 cost, gain +25 Hype If no tricks are played this sequence,
+      gain +1 Energy'
+    ShowCardsUnderActions: 0
+    CardsUsingThis:
+    - 1x | Anthony Davis | Mavericks Player (Career, PF, C)
+    - 1x | Daniel Gafford | Mavericks Player (Career, PF, C)
+  - Action: {fileID: 11400000, guid: efc5b31ae325ba541bb15ca97c80ea24, type: 2}
+    Details: Career-level action found in 3 cards (3 copies).
+    ShowEffects: 0
+    Effects: 'Effects: For 1 cost, gain +25 Hype On next pass this sequence draw
+      2 cards'
     ShowCardsUnderActions: 0
     CardsUsingThis:
     - 1x | Dereck Lively II | Mavericks Player (Career, C)
-    - 1x | Kyrie Irving | Mavericks Player (Career, PG, SG)
+    - 1x | Anthony Davis | Mavericks Player (Career, PF, C)
+    - 1x | Daniel Gafford | Mavericks Player (Career, PF, C)
+  - Action: {fileID: 11400000, guid: 0e1db431e09e2434ebd7b34e168f217f, type: 2}
+    Details: Career-level action found in 4 cards (4 copies).
+    ShowEffects: 0
+    Effects: 'Effects: For 1 cost, gain +20 Hype If last card played was pass, gain
+      +40 Hype'
+    ShowCardsUnderActions: 0
+    CardsUsingThis:
+    - 1x | Dante Exum | Mavericks Player (Career, PG, SG)
+    - 1x | Max Christie | Mavericks Player (Career, SG)
+    - 1x | Jaden Hardy | Mavericks Player (Career, SG)
+    - 1x | Klay Thompson | Mavericks Player (Career, SG, SF)
+  - Action: {fileID: 11400000, guid: 11a5872f547b2e046882e0731216e320, type: 2}
+    Details: AllStar-level action found in 4 cards (4 copies).
+    ShowEffects: 0
+    Effects: 'Effects: For 2 cost, gain +40 Hype For each trick in sequence, gain
+      +10 Hype'
+    ShowCardsUnderActions: 0
+    CardsUsingThis:
+    - 1x | Max Christie | Mavericks Player (Career, SG)
+    - 1x | Naji Marshall | Mavericks Player (Career, SF)
+    - 1x | Caleb Martin | Mavericks Player (Career, SF)
     - 1x | P.J. Washington | Mavericks Player (Career, SF, PF)
-    - 2x | Cooper Flagg | Mavericks Player (Career, SG, SF)
-  - Action: {fileID: 11400000, guid: 218363b1e30f3b8488f2c1e4ae2a721b, type: 2}
-    Details: Rookie-level action found in 1 cards (1 copies).
+  - Action: {fileID: 11400000, guid: 49d1fa4f8abaa5545a7eedfcd6d9ceaa, type: 2}
+    Details: AllStar-level action found in 3 cards (3 copies).
     ShowEffects: 0
-    Effects: 'Effects: For 2 cost, gain +15 Hype. If first trick in sequence, gain
-      +1 Energy.'
+    Effects: 'Effects: For 2 cost, gain +100 Hype'
     ShowCardsUnderActions: 0
     CardsUsingThis:
-    - 1x | Cooper Flagg | Mavericks Player (Career, SG, SF)
-  - Action: {fileID: 11400000, guid: 96925483d1f5f5a47a0c339a7f80f9f0, type: 2}
-    Details: Career-level action found in 1 cards (1 copies).
-    ShowEffects: 0
-    Effects: 'Effects: For 1 cost, gain +20 Hype. On next shot this game gain +10
-      Hype.'
-    ShowCardsUnderActions: 0
-    CardsUsingThis:
-    - 1x | Kyrie Irving | Mavericks Player (Career, PG, SG)
-  - Action: {fileID: 11400000, guid: f7ad7111cc0536c428af9fac12d34bd6, type: 2}
-    Details: Career-level action found in 1 cards (1 copies).
-    ShowEffects: 0
-    Effects: 'Effects: For 1 cost, gain +20 Hype. On next trick this game reduce
-      cost by 1.'
-    ShowCardsUnderActions: 0
-    CardsUsingThis:
-    - 1x | Klay Thompson | Mavericks Player (Career, SG)
-  - Action: {fileID: 11400000, guid: 51b98c94c1374db4a9fe527e2de77a8c, type: 2}
-    Details: Career-level action found in 0 cards (0 copies).
-    ShowEffects: 0
-    Effects: 'Effects: For 1 cost, gain +15 Hype. On next pass played draw 1 cards.'
-    ShowCardsUnderActions: 0
-    CardsUsingThis: []
-  - Action: {fileID: 11400000, guid: 24b19027628ab5e47abf08222baf0800, type: 2}
-    Details: AllStar-level action found in 0 cards (0 copies).
-    ShowEffects: 0
-    Effects: 'Effects: For 2 cost, gain +45 Hype. On next shot this sequence gain
-      +3 Energy.'
-    ShowCardsUnderActions: 0
-    CardsUsingThis: []
-  - Action: {fileID: 11400000, guid: 2b840157986b5234183501da6eee9501, type: 2}
+    - 1x | Dereck Lively II | Mavericks Player (Career, C)
+    - 1x | Anthony Davis | Mavericks Player (Career, PF, C)
+    - 1x | Daniel Gafford | Mavericks Player (Career, PF, C)
+  - Action: {fileID: 11400000, guid: 89f8cf0b242f818498a6a8e5295ed394, type: 2}
     Details: AllStar-level action found in 1 cards (1 copies).
     ShowEffects: 0
-    Effects: 'Effects: For 1 cost, gain +10 Hype. On next trick this sequence trigger
-      card an additional time.'
+    Effects: 'Effects: For 2 cost, gain +45 Hype On next trick drawn reduce cost
+      by 100'
     ShowCardsUnderActions: 0
     CardsUsingThis:
-    - 1x | P.J. Washington | Mavericks Player (Career, SF, PF)
-  - Action: {fileID: 11400000, guid: 0c66697ec3afc7a42ab5759fa9feff9e, type: 2}
+    - 1x | Jaden Hardy | Mavericks Player (Career, SG)
+  - Action: {fileID: 11400000, guid: aed1647bb4e2b2849bf8bb44f9576d80, type: 2}
     Details: Signature-level action found in 0 cards (0 copies).
     ShowEffects: 0
-    Effects: 'Effects: For 3 cost, gain +5 Hype.'
+    Effects: 'Effects: For 4 cost, gain +5 Hype'
     ShowCardsUnderActions: 0
     CardsUsingThis: []
-  - Action: {fileID: 11400000, guid: b57dc8f275f0de9429f4259d24d2fbaa, type: 2}
+  - Action: {fileID: 11400000, guid: 3390d1beb5bb4d448864cb3cfc42d744, type: 2}
     Details: Signature-level action found in 0 cards (0 copies).
     ShowEffects: 0
-    Effects: 'Effects: For 3 cost, gain +5 Hype.'
+    Effects: 'Effects: For 4 cost, gain +5 Hype'
+    ShowCardsUnderActions: 0
+    CardsUsingThis: []
+  - Action: {fileID: 11400000, guid: 9c87f319dff1caa469c2b97c62e59ab4, type: 2}
+    Details: Signature-level action found in 0 cards (0 copies).
+    ShowEffects: 0
+    Effects: 'Effects: For 4 cost, gain +5 Hype'
+    ShowCardsUnderActions: 0
+    CardsUsingThis: []
+  - Action: {fileID: 11400000, guid: 38bad0b03c747f64d9b7f87673bf9e6c, type: 2}
+    Details: Signature-level action found in 0 cards (0 copies).
+    ShowEffects: 0
+    Effects: 'Effects: For 4 cost, gain +5 Hype'
     ShowCardsUnderActions: 0
     CardsUsingThis: []
