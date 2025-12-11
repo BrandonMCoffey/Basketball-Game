@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class CrowdController : MonoBehaviour
 {
@@ -21,12 +22,21 @@ public class CrowdController : MonoBehaviour
     [SerializeField] private float _hypePositionAmountY = 1.2f;
     [SerializeField] private Vector2 _hypeSpeedRange = new Vector2(4f, 15f);
     [SerializeField] private float _minHype = 1f;
-    [SerializeField] private float _maxHype = 20f;
+    [SerializeField] private float _limitHype = 100f;
+    [SerializeField] private float _maxHype = 200f;
+    [SerializeField] private float _maxHypeGain = 20f;
+    [SerializeField, Range(0, 1)] private float _hypeVsGainBlend = 0.3f;
     [SerializeField] private float _hypeExponent = 1.5f;
+    [SerializeField] private float _flashUpdateTime = 0.1f;
+    [SerializeField] private float _flashSmooth = 4f;
 
     private bool _playing;
     private float _hype;
+    private float _hypeGain;
+    private float _flashTimer;
+    private float _timeSinceAction;
 
+    private float _flashAmount;
     private float _currentSpeed;
     private float _currentPositionY;
     private Vector3 _currentRotation;
@@ -45,8 +55,17 @@ public class CrowdController : MonoBehaviour
 
     private List<CrowdPerson> _crowdPeople;
 
-    public void SetPlaying(bool playing) => _playing = playing;
-    public void SetHype(float hype) => _hype = hype;
+    public void SetPlaying(bool playing)
+    {
+        _playing = playing;
+        _hype = 0;
+    }
+    public void SetHype(float hype)
+    {
+        _hypeGain = hype - _hype;
+        _hype = hype;
+        _timeSinceAction = 0;
+    }
 
     private void Start()
     {
@@ -82,12 +101,20 @@ public class CrowdController : MonoBehaviour
     {
         if (_playing)
         {
-            float normalizedHype = Mathf.Clamp01(_hype / _maxHype);
-            float easedHype = Mathf.Pow(normalizedHype, _hypeExponent);
-            easedHype = Mathf.Max(easedHype, _minHype * normalizedHype);
+            _timeSinceAction += Time.deltaTime;
+            float normalizedTotalHype = Mathf.Clamp01(Mathf.Clamp(_minHype + _hype, _minHype, _limitHype) / _maxHype);
+            float normalizedHypeGain = Mathf.Clamp01(_hypeGain / _maxHypeGain);
+            float value = Mathf.Lerp(normalizedTotalHype, normalizedHypeGain, _hypeVsGainBlend);
+
+            float abs = Mathf.Abs(_timeSinceAction - 1f);
+            float wave = 0.1f * Mathf.Clamp01(1f - 0.5f * abs * abs);
+
+            float easedHype = Mathf.Pow(value + wave, _hypeExponent);
+
+            _flashAmount = Mathf.Lerp(_flashAmount, value, Time.deltaTime * _flashSmooth);
 
             float targetSpeed = Mathf.Lerp(_hypeSpeedRange.x, _hypeSpeedRange.y, easedHype);
-            float targetPosY = Mathf.Lerp(0, _hypePositionAmountY, easedHype);
+            float targetPosY = Mathf.Lerp(_positionAmountY, _hypePositionAmountY, easedHype);
             Vector3 targetRot = Vector3.Lerp(Vector3.zero, _hypeRotationAmount, easedHype);
             _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed, Time.deltaTime * _playingTransitionSpeed);
             _currentPositionY = Mathf.Lerp(_currentPositionY, targetPosY, Time.deltaTime * _playingTransitionSpeed);
@@ -95,11 +122,19 @@ public class CrowdController : MonoBehaviour
         }
         else
         {
-            _currentSpeed = Mathf.Lerp(_currentSpeed, (_speedRange.x + _speedRange.y) / 2f, Time.deltaTime * _defaultTransitionSpeed);
+            _flashAmount = Mathf.Lerp(_flashAmount, 0, Time.deltaTime * _flashSmooth);
+            _currentSpeed = Mathf.Lerp(_currentSpeed, (_speedRange.x + _speedRange.y), Time.deltaTime * _defaultTransitionSpeed);
             _currentPositionY = Mathf.Lerp(_currentPositionY, _positionAmountY, Time.deltaTime * _defaultTransitionSpeed);
             _currentRotation = Vector3.Lerp(_currentRotation, _rotationAmount, Time.deltaTime * _defaultTransitionSpeed);
         }
 
+        bool updateFlash = false;
+        _flashTimer -= Time.deltaTime;
+        if (_flashTimer <= 0)
+        {
+            _flashTimer = _flashUpdateTime;
+            updateFlash = true;
+        }
         foreach (var person in _crowdPeople)
         {
             float speed = _playing ? _currentSpeed : person.PosSpeed;
@@ -112,6 +147,8 @@ public class CrowdController : MonoBehaviour
             float yRot = (Mathf.PerlinNoise(person.TimeOffset, time * speed * 0.5f) * 2f - 1f) * _currentRotation.y;
             float zRot = (Mathf.PerlinNoise(time * speed * 0.6f, time * speed * 0.4f) * 2f - 1f) * _currentRotation.z;
             person.Transform.localRotation = person.Rotation * Quaternion.Euler(xRot, yRot, zRot);
+
+            if (updateFlash) person.CameraFlash.SetActive(_flashAmount > 0 ? Random.value > (1f - _flashAmount) : false);
         }
     }
 

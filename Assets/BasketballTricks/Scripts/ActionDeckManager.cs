@@ -29,6 +29,7 @@ public class ActionDeckManager : MonoBehaviour
     [SerializeField] private float _layoutDuration = 0.3f;
     [SerializeField] private Ease _layoutEase = Ease.OutBack;
 
+
     public RectTransform DiscardBox => _discardBox;
     public RectTransform CardPlayPoint => _cardPlayPoint;
     public RectTransform CardRemovedPlayedPoint => _cardRemovedPlayedPoint;
@@ -82,6 +83,7 @@ public class ActionDeckManager : MonoBehaviour
         }
         UpdateCardLayout(null, true);
     }
+
 
     public void PlayCard(ActionCard card)
     {
