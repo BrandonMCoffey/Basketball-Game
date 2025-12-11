@@ -8,9 +8,9 @@ public class Player : MonoBehaviour
     [SerializeField] private GameCard _cardData;
     [SerializeField] private float _animationCrossfadeDuration = 0.25f;
     [SerializeField] private PlayerPosition _position;
-    [SerializeField] private Color _positionColor = Color.cyan;
 
     [Header("References")]
+    [SerializeField] private ImageDataMatcher _matcher;
     [SerializeField] private Animator _animator;
     [SerializeField] private PlayerArt _playerArt;
     [SerializeField] private SpriteRenderer _positionIndicator;
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 
     public GameCard CardData => _cardData;
     public PlayerPosition Position => _position;
-    public Color PositionColor => _positionColor;
+    public Color PositionColor => _matcher.GetPositionColor(_position);
     public PlayerArt PlayerArt => _playerArt;
     public Transform CameraTarget => _cameraTarget;
     public Vector3 BasketballPosition => _basketballSocket.TransformPoint(_basketballOffset);
@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     private void OnValidate()
     {
         if (_positionIndicator == null) _positionIndicator = GetComponentInChildren<SpriteRenderer>();
-        if (_positionIndicator != null) _positionIndicator.color = _positionColor;
+        if (_positionIndicator != null) _positionIndicator.color = _matcher.GetPositionColor(_position);
     }
 
     private void Awake()
@@ -45,18 +45,17 @@ public class Player : MonoBehaviour
         _fadeTimer += Time.deltaTime;
     }
 
+    public void SetPositionIndicatorColor(Color color)
+    {
+        if (_positionIndicator != null) _positionIndicator.color = color;
+    }
+
     public void SetAnimation(PlayerAnimation anim) => SetAnimation(anim, _animationCrossfadeDuration);
     public void SetAnimation(PlayerAnimation anim, float fade)
     {
         //Debug.Log($"Play Anim {anim.ToString()} for {fade} fade. {_fadeTimer} seconds since last fade.");
         _fadeTimer = 0;
         _animator.CrossFadeInFixedTime(anim.ToString(), fade);
-    }
-
-    public void SetPositionColor(Color color)
-    {
-        _positionColor = color;
-        if (_positionIndicator != null) _positionIndicator.color = _positionColor;
     }
 
     public void ShowPositionIndicator(bool show)

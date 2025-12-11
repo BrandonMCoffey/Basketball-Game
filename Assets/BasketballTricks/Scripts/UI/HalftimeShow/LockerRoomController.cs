@@ -20,7 +20,7 @@ public class LockerRoomController : MonoBehaviour
     [SerializeField] private float _lockerAnimTime = 0.25f;
     [SerializeField] private float _buttonAnimTime = 0.25f;
     [SerializeField] private float _catalogAnimTime = 0.5f;
-    [SerializeField] private ActionDeckManager _deckManager; 
+    [SerializeField] private ActionDeckManager _deckManager;
     [SerializeField, Range(0, 0.5f)] private float _cardSelectedOffsetY = 0.1f;
 
     private Vector3 CardVertical => _rectTransform.rect.height * Vector3.up;
@@ -39,7 +39,7 @@ public class LockerRoomController : MonoBehaviour
         var players = PlayerManager.Instance.Players;
         for (int i = 0; i < _lockerPositions.Count; i++)
         {
-            _lockerPositions[i].Init(i, players[i].PositionColor, this);
+            _lockerPositions[i].Init(i, this);
         }
         _letsGoButton.Interactable = false;
         _letsGoOriginalPosition = _letsGoButtonT.anchoredPosition;
@@ -172,6 +172,7 @@ public class LockerRoomController : MonoBehaviour
 
         StartCoroutine(HideLockersRoutine(() => {
             gameObject.SetActive(false);
+            _deckManager.gameObject.SetActive(true);
         }));
     }
 

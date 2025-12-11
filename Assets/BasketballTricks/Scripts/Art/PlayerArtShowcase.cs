@@ -26,7 +26,7 @@ public class PlayerArtShowcase : MonoBehaviour
             {
                 _playerRefs[refIndex].gameObject.SetActive(true);
                 _playerRefs[refIndex].PlayerArt.SetPlayerArt(data.ArtData);
-                _playerRefs[refIndex].SetPositionColor(color);
+                _playerRefs[refIndex].SetPositionIndicatorColor(color);
                 _playerRefs[refIndex].SetActionText(data.PlayerName.Replace(" ", "\n"), -1);
                 refIndex++;
             }
@@ -38,7 +38,7 @@ public class PlayerArtShowcase : MonoBehaviour
         for (int i = refIndex; i < _playerRefs.Count; i++)
         {
             _playerRefs[i].gameObject.SetActive(false);
-            _playerRefs[refIndex].SetPositionColor(Color.red);
+            _playerRefs[refIndex].SetPositionIndicatorColor(Color.red);
         }
     }
 }

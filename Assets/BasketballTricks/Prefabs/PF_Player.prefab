@@ -272,7 +272,7 @@ MonoBehaviour:
     _level: 0
   _animationCrossfadeDuration: 0.1
   _position: 0
-  _positionColor: {r: 0, g: 1, b: 1, a: 1}
+  _matcher: {fileID: 11400000, guid: aa44192148093db4586d68d2613f9d92, type: 2}
   _animator: {fileID: 2742509778681835226}
   _playerArt: {fileID: 2839272202819358832}
   _positionIndicator: {fileID: 3948933407729916951}
@@ -376,7 +376,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2b1eac7e17a0a7a49a76f51f87fc85c9, type: 3}
-  m_Color: {r: 0, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

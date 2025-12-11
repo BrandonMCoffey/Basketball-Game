@@ -21,6 +21,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     [SerializeField] private GameObject _showWhenDiscarding;
     [SerializeField] private Image _bg;
     [SerializeField] private ImageDataMatcher _matcher;
+    [SerializeField] private RawImage _haloImage;
 
     [Header("Drag")]
     [SerializeField] private float _dragScale = 1.25f;
@@ -87,6 +88,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         _locked = false;
         _dragToPlay = false;
         _played = false;
+        _rectTransform = GetComponent<RectTransform>();
         _rectTransform.DOScale(1f, 0.2f);
         if (_playerImage != null)
         {
@@ -102,7 +104,8 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         {
             if (_bg != null) _bg.sprite = _matcher.GetPositionBackground(gameAction.Player.Position);
         }
-        _showWhenNotSelected.SetActive(false);
+        if (_haloImage != null) _haloImage.color = _matcher.GetPositionColor(gameAction.Player.Position);
+    _showWhenNotSelected.SetActive(false);
         _showWhenDiscarding.SetActive(false);
     }
 
@@ -134,7 +137,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
             if (data.Icon != null) _actionIcon.sprite = data.Icon;
             else _actionIcon.sprite = _matcher.GetActionType(data.Type);
         }
-        if (_colorImage != null) _colorImage.color = _action.Player.PositionColor;
+        if (_colorImage != null) _colorImage.color = _matcher.GetPositionColor(_action.Player.Position);
     }
 
     public void SetLocked(bool locked)

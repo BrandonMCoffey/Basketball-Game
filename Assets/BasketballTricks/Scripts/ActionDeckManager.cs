@@ -33,9 +33,9 @@ public class ActionDeckManager : MonoBehaviour
     public RectTransform CardPlayPoint => _cardPlayPoint;
     public RectTransform CardRemovedPlayedPoint => _cardRemovedPlayedPoint;
 
-    private List<ActionCard> _cards;
-    private List<ActionCard> _playedCards;
-    private List<GameAction> _actionDeck;
+    private List<ActionCard> _cards = new List<ActionCard>();
+    private List<ActionCard> _playedCards = new List<ActionCard>();
+    private List<GameAction> _actionDeck = new List<GameAction>();
     private bool _disabled;
     private bool _lockReorder;
 

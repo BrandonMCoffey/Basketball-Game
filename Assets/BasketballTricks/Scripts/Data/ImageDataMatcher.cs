@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class ImageDataMatcher : SerializedScriptableObject
 {
+    [SerializeField] private Dictionary<PlayerPosition, Color> _positionColors = new Dictionary<PlayerPosition, Color>();
     [SerializeField] private Sprite _defaultBackground;
     [SerializeField] private Dictionary<PlayerPosition, Sprite> _positionBackgrounds = new Dictionary<PlayerPosition, Sprite>();
     [SerializeField] private Sprite _defaultRarityGlow;
@@ -13,6 +14,10 @@ public class ImageDataMatcher : SerializedScriptableObject
     [SerializeField] private Sprite _defaultCostIcon;
     [SerializeField] private List<Sprite> _costIconsAtIndexCost = new List<Sprite>();
 
+    public Color GetPositionColor(PlayerPosition position)
+    {
+        return _positionColors.ContainsKey(position) ? _positionColors[position] : Color.white;
+    }
     public Sprite GetPositionBackground(PlayerPosition position)
     {
         if (!_positionBackgrounds.ContainsKey(position)) return _defaultBackground;
@@ -30,6 +35,13 @@ public class ImageDataMatcher : SerializedScriptableObject
     [Button]
     private void CreateDictionaries()
     {
+        _positionColors ??= new Dictionary<PlayerPosition, Color>();
+        if (!_positionColors.ContainsKey(PlayerPosition.PG)) _positionColors.Add(PlayerPosition.PG, Color.green);
+        if (!_positionColors.ContainsKey(PlayerPosition.PF)) _positionColors.Add(PlayerPosition.PF, Color.cyan);
+        if (!_positionColors.ContainsKey(PlayerPosition.C)) _positionColors.Add(PlayerPosition.C, Color.yellow);
+        if (!_positionColors.ContainsKey(PlayerPosition.SG)) _positionColors.Add(PlayerPosition.SG, Color.Lerp(Color.red, Color.yellow, 0.5f));
+        if (!_positionColors.ContainsKey(PlayerPosition.SF)) _positionColors.Add(PlayerPosition.SF, Color.red);
+
         _positionBackgrounds ??= new Dictionary<PlayerPosition, Sprite>();
         if (!_positionBackgrounds.ContainsKey(PlayerPosition.PG)) _positionBackgrounds.Add(PlayerPosition.PG, null);
         if (!_positionBackgrounds.ContainsKey(PlayerPosition.PF)) _positionBackgrounds.Add(PlayerPosition.PF, null);

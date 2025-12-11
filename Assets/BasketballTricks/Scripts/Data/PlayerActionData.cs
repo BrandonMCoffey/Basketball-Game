@@ -60,7 +60,6 @@ public struct ActionData
     public float Duration;
 
     public GetEffects Effects => _cardData.GetEffects(ActionLevel);
-    public string ActionSummary => _cardSummary;
     public bool UseEffectIfPrevious(ActionType type, PlayerPosition position, out GetEffects effects)
     {
         if (EffectIfPrevious.RequiredType == type && EffectIfPrevious.RequiredPosition.HasFlag(position))

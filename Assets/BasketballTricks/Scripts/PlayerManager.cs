@@ -471,7 +471,7 @@ public class PlayerManager : MonoBehaviour
 
     private void ApplyActionEffects(Player player, ActionData action, int timelineIndex)
     {
-        Debug.Log($"Play Action: {action.ActionSummary}");
+        Debug.Log($"Play Action: {action.GetSummaryText()}");
         var effects = action.Effects;
 
         for (int i = EffectNextStack.Count - 1; i >= 0; i--)

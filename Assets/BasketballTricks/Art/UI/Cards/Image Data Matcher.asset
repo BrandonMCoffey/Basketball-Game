@@ -32,13 +32,174 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: _positionBackgrounds
+    - Name: _positionColors
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[PlayerPosition, Assembly-CSharp],[UnityEngine.Sprite,
+      Data: 0|System.Collections.Generic.Dictionary`2[[PlayerPosition, Assembly-CSharp],[UnityEngine.Color,
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[PlayerPosition,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 8
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 16
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0.921568632
+    - Name: 
+      Entry: 4
+      Data: 0.0156862754
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0.460784316
+    - Name: 
+      Entry: 4
+      Data: 0.007843138
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _positionBackgrounds
+      Entry: 7
+      Data: 2|System.Collections.Generic.Dictionary`2[[PlayerPosition, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 3|System.Collections.Generic.EnumEqualityComparer`1[[PlayerPosition,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -120,11 +281,11 @@ MonoBehaviour:
       Data: 
     - Name: _rarityGlows
       Entry: 7
-      Data: 2|System.Collections.Generic.Dictionary`2[[CardRarity, Assembly-CSharp],[UnityEngine.Sprite,
+      Data: 4|System.Collections.Generic.Dictionary`2[[CardRarity, Assembly-CSharp],[UnityEngine.Sprite,
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 3|System.Collections.Generic.EnumEqualityComparer`1[[CardRarity, Assembly-CSharp]],
+      Data: 5|System.Collections.Generic.EnumEqualityComparer`1[[CardRarity, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -194,11 +355,11 @@ MonoBehaviour:
       Data: 
     - Name: _actionTypes
       Entry: 7
-      Data: 4|System.Collections.Generic.Dictionary`2[[ActionType, Assembly-CSharp],[UnityEngine.Sprite,
+      Data: 6|System.Collections.Generic.Dictionary`2[[ActionType, Assembly-CSharp],[UnityEngine.Sprite,
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 5|System.Collections.Generic.EnumEqualityComparer`1[[ActionType, Assembly-CSharp]],
+      Data: 7|System.Collections.Generic.EnumEqualityComparer`1[[ActionType, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12

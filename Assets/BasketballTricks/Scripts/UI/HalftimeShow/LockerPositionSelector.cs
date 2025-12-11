@@ -53,15 +53,13 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
         _rectTransform = GetComponent<RectTransform>();
     }
 
-    public void Init(int index, Color color, LockerRoomController controller)
+    public void Init(int index, LockerRoomController controller)
     {
         _originalPosition = RectTransform.anchoredPosition;
         _controllerIndex = index;
         _controller = controller;
-        if (_matcher != null)
-        {
-            if (_bg != null) _bg.sprite = _matcher.GetPositionBackground(_position);
-        }
+        if (_bg != null) _bg.sprite = _matcher.GetPositionBackground(_position);
+        var color = _matcher.GetPositionColor(_position);
         Color.RGBToHSV(color, out float h, out float s, out float v);
         s *= _saturationAdjust;
         v *= _valueAdjust;
