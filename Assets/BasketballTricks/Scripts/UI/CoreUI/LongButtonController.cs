@@ -11,6 +11,7 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
     [Header("Button Settings")]
     [SerializeField] string _text;
     [SerializeField] float _clickScale = 1.1f;
+    [SerializeField] float _delayBeforeInvoke = 0f;
     [SerializeField] UnityEvent _onButtonPressed;
     [SerializeField] Ease _clickStartEase = Ease.InOutCubic;
     [SerializeField] Ease _clickEndEase = Ease.OutBack;
@@ -48,8 +49,12 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
     private void Start() 
     {
         _moveTextAmount = _moveTextUpOnPress ? -100f : 100f;
+        
         if (_buttonText != null)
+        {
             _originalTextPos = _buttonText.rectTransform.anchoredPosition;
+        }
+        
         _rectTransform = GetComponent<RectTransform>();
 
         // Force no moving text
@@ -78,8 +83,12 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
     {
         if (!_interactable) return;
         _rectTransform.DOScale(_clickScale, 0.1f).SetEase(_clickStartEase);
+        
         if (_moveTextOnPress && _buttonText != null)
+        {
             _buttonText.rectTransform.DOAnchorPos(_originalTextPos + Vector2.up * _moveTextAmount, 0.1f).SetEase(_clickStartEase);
+        }
+        
         _checkForMousePos = true;
     }
 
@@ -87,18 +96,27 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
     {
         if (!_interactable) return;
         _rectTransform.DOScale(1f, 0.2f).SetEase(_clickEndEase);
+        
         if (_moveTextOnPress && _buttonText != null)
+        {
             _buttonText.rectTransform.DOAnchorPos(_originalTextPos, 0.2f).SetEase(_clickEndEase);
+        }
+        
         if (_checkForMousePos) StartCoroutine(InvokeActionRoutine(0.2f));
         _checkForMousePos = false;
     }
 
     IEnumerator InvokeActionRoutine(float delay = 0f)
     {
-        if (_invokeOnAnimComplete)
+        if (_invokeOnAnimComplete) 
         {
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(Mathf.Max(delay, _delayBeforeInvoke));
         }
+        else
+        {
+            yield return new WaitForSeconds(_delayBeforeInvoke);
+        }
+
         _onButtonPressed?.Invoke();
     }
 }

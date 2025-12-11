@@ -1,5 +1,6 @@
 using DG.Tweening;
 using SaiUtils.Extensions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,7 @@ public class LockerRoomController : MonoBehaviour
     {
         var players = GameManager.Instance.OwnedPlayers;
         players.Shuffle();
+        _catalog.DOAnchorPos(_catalogOriginalPosition + Vector3.right * 2000, 0.2f).SetEase(Ease.InOutCubic);
         int count = Mathf.Min(players.Count, _lockerPositions.Count);
         if (allNaturalPositions)
         {
@@ -167,7 +169,25 @@ public class LockerRoomController : MonoBehaviour
             players[i].Place(_lockerPositions[i].Card);
         }
         _deckManager.Init();
-        gameObject.SetActive(false);
+
+        StartCoroutine(HideLockersRoutine(() => {
+            gameObject.SetActive(false);
+        }));
+    }
+
+    IEnumerator HideLockersRoutine(Action onComplete = null)
+    {
+        _moving = true;
+        for (int i = 0; i < _lockerPositions.Count; i++)
+        {
+            var pos = _lockerPositions[i].OriginalPosition - CardVertical * 2;
+            _lockerPositions[i].RectTransform.DOAnchorPos(pos, _lockerAnimTime);
+            yield return new WaitForSeconds(_betweenLockerDelay);
+        }
+        _rectTransform.DOAnchorPos(new Vector2(_rectTransform.anchoredPosition.x, Screen.height * 2), _lockerAnimTime).SetEase(Ease.InBack);
+        yield return new WaitForSeconds(_lockerAnimTime);
+        _moving = false;
+        onComplete?.Invoke();
     }
 
     public void ReturnToMainMenu()

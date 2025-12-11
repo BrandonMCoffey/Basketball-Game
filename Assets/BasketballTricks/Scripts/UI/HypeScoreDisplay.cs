@@ -2,17 +2,21 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
+using Sirenix.OdinInspector;
 
 public class HypeScoreDisplay : MonoBehaviour
 {
     [SerializeField] private string _hypePrefix = "Hype: ";
     [SerializeField] private TMP_Text _hypeText;
+    [SerializeField] private bool _hypeTextAddAnim = true;
+    [SerializeField, ShowIf("_hypeTextAddAnim")] private TMP_Text _hypeAddEffectText;
 
     [SerializeField] float _animationDuration = 1f;
 
     private RectTransform _rectTransform;
     private float _currentAnchorPosY;
     int _currentHype;
+    float _hypeAddYStartPos;
 
     private void Awake() 
     {
@@ -29,6 +33,8 @@ public class HypeScoreDisplay : MonoBehaviour
     private void Start()
     {
         if (PlayerManager.Instance != null) UpdateHype(PlayerManager.Instance.Hype);
+        _hypeAddYStartPos = _hypeAddEffectText.rectTransform.anchoredPosition.y;
+        _hypeAddEffectText.enabled = false;
     }
 
     private void OnDisable()
@@ -71,6 +77,17 @@ public class HypeScoreDisplay : MonoBehaviour
 
         float m = Mathf.InverseLerp(minDiff, maxDiff, scoreDifference);
         float targetMoveY = Mathf.Lerp(minMove, maxMove, m);
+
+        if (_hypeTextAddAnim)
+        {
+            _hypeAddEffectText.enabled = true;
+            _hypeAddEffectText.text = "+" + scoreDifference.ToString();
+            _hypeAddEffectText.rectTransform.DOAnchorPosY(0, 0.5f).SetEase(Ease.OutQuad).SetDelay(0.2f).OnComplete(() =>
+            {
+                _hypeAddEffectText.enabled = false;
+                _hypeAddEffectText.rectTransform.anchoredPosition = new Vector2(_hypeAddEffectText.rectTransform.anchoredPosition.x, _hypeAddYStartPos);
+            });
+        }
 
         _rectTransform.DOAnchorPosY(_currentAnchorPosY + targetMoveY, 0.1f).SetEase(Ease.OutQuad).SetDelay(_animationDuration).OnComplete(() =>
         {
