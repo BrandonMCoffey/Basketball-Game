@@ -6,6 +6,11 @@ public class GameCard
     [SerializeField] private PlayerCardData _cardData;
     [SerializeField] private float _xp;
     [SerializeField] private int _level = 1;
+    [SerializeField] private int _matchesPlayed;
+    [SerializeField] private float _hypeScored;
+    [SerializeField] private int _tricksMade;
+    [SerializeField] private int _passesMade;
+    [SerializeField] private int _shotsMade;
 
     public GameCard(PlayerCardData data)
     {
@@ -34,6 +39,23 @@ public class GameCard
     {
         _cardData.PrepareForGameplay();
     }
+    public void IncrementMatchesPlayed() => _matchesPlayed++;
+    public void IncrementHypeScored(float amount) => _hypeScored += amount;
+    public void IncrementAction(ActionType type)
+    {
+        switch (type)
+        {
+            case ActionType.Trick:
+                _tricksMade++;
+                break;
+            case ActionType.Pass:
+                _passesMade++;
+                break;
+            case ActionType.Shot:
+                _shotsMade++;
+                break;
+        }
+    }
 
     public void AddXP(float amount)
     {
@@ -46,5 +68,18 @@ public class GameCard
             _level++;
             xpForNextLevel = (_level + 1) * 100f;
         }
+    }
+
+    public string GetStatValueByIndex(int index)
+    {
+        return index switch
+        {
+            0 => _matchesPlayed.ToString(),
+            1 => _hypeScored.ToString("F0"),
+            2 => _shotsMade.ToString(),
+            3 => _passesMade.ToString(),
+            4 => _tricksMade.ToString(),
+            _ => "",
+        };
     }
 }

@@ -73,6 +73,7 @@ public class Player : MonoBehaviour
     public void Place(GameCard data)
     {
         _cardData = data;
+        _cardData.IncrementMatchesPlayed();
         _cardData.PrepareForGameplay();
         data.SetPlayerArt(_playerArt);
         SetAnimation(PlayerAnimation.Idle);

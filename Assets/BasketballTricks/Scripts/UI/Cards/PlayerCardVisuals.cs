@@ -21,6 +21,7 @@ public class PlayerCardVisuals : MonoBehaviour
     [SerializeField] private TMP_Text _cardBackPositions;
     [SerializeField] private List<TMP_Text> _cardBackImportantText;
     [SerializeField] private Transform _cardBackDataTree;
+    [SerializeField] private List<TMP_Text> _cardBackStatsText;
     [SerializeField] private ImageDataMatcher _matcher;
 
     [Header("Flip References")]
@@ -118,11 +119,12 @@ public class PlayerCardVisuals : MonoBehaviour
         var data = _card.PlayerData.CardBackData;
         for (int i = 0; i < _cardBackDataTree.childCount; i++)
         {
-            if (data.Count <= i) break;
+            if (i >= data.Count) break;
             CardBackColumnData dataColumn = data[i];
             var column = _cardBackDataTree.GetChild(i);
             for (int j = 0; j < column.childCount; j++)
             {
+                if (j >= column.childCount) continue;
                 var row = column.GetChild(j);
                 var text = row.GetComponent<TMP_Text>();
                 if (text == null) continue;
@@ -142,6 +144,10 @@ public class PlayerCardVisuals : MonoBehaviour
                         break;
                 }
             }
+        }
+        for (int i = 0; i < _cardBackStatsText.Count; i++)
+        {
+            _cardBackStatsText[i].text = _card.GetStatValueByIndex(i);
         }
     }
 }

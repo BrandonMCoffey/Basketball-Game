@@ -530,9 +530,12 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
+        player.CardData.IncrementAction(action.Type);
         Hype += effects.HypeGain;
+        player.CardData.IncrementHypeScored(effects.HypeGain);
         if (effects.MultiplyHype > 0)
         {
+            player.CardData.IncrementHypeScored(Hype * effects.MultiplyHype - Hype);
             Hype *= effects.MultiplyHype;
         }
         // TODO: Apply other effects
