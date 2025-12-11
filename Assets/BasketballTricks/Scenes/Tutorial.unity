@@ -8552,7 +8552,7 @@ PrefabInstance:
     - target: {fileID: 3948933407729916951, guid: 08c2bed0e90d01245b257f71abdcb5b4,
         type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.72104454
       objectReference: {fileID: 0}
     - target: {fileID: 3948933407729916951, guid: 08c2bed0e90d01245b257f71abdcb5b4,
         type: 3}
@@ -14406,6 +14406,9 @@ MonoBehaviour:
   _selectedHeightOffset: 40
   _layoutDuration: 0.3
   _layoutEase: 27
+  _tutorialAction:
+    Player: {fileID: 1192281736}
+    ActionIndex: 5
 --- !u!114 &6949764343152343268
 MonoBehaviour:
   m_ObjectHideFlags: 0
