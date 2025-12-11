@@ -82,16 +82,15 @@ public class PlayerData : ScriptableObject
         {
             new CardBackColumnData("YEAR", "25-26", "TOTAL"),
             new CardBackColumnData("TEAM"),
-            new CardBackColumnData("G"),
-            new CardBackColumnData("FG%"),
-            new CardBackColumnData("FT%"),
-            new CardBackColumnData("3PM"),
-            new CardBackColumnData("RPG"),
-            new CardBackColumnData("APG"),
-            new CardBackColumnData("STL"),
-            new CardBackColumnData("BLK"),
-            new CardBackColumnData("PTS"),
-            new CardBackColumnData("PPG"),
+            new CardBackColumnData("G"), // Games Played
+            new CardBackColumnData("FG%"), // Field Goal %
+            new CardBackColumnData("FT%"), // Free Throw %
+            new CardBackColumnData("3PM"), // 3-Pointers Made
+            new CardBackColumnData("TRB"), // Total Rebounds
+            new CardBackColumnData("AST"), // Total Assists
+            new CardBackColumnData("STL"), // Total Steals
+            new CardBackColumnData("BLK"), // Total Blocks
+            new CardBackColumnData("PTS"), // Total Points
         };
     }
 }

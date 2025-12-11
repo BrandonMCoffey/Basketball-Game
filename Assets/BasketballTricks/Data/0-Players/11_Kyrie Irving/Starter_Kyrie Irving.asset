@@ -196,6 +196,7 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: 
       Icon: {fileID: 0}
       Animation: 10
@@ -381,6 +382,7 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: On next trick played reduce cost by 1
       Icon: {fileID: 0}
       Animation: 10
@@ -566,11 +568,12 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: On next trick this sequence gain +10 Hype
       Icon: {fileID: 0}
       Animation: 10
       Duration: 2
-  - _action: {fileID: 11400000, guid: eff3b2fd85f6db543a551ab8a6cf5a35, type: 2}
+  - _action: {fileID: 11400000, guid: 7914fcb3a0186c7438bb9e50c36c9882, type: 2}
     _count:
       isLevelable: 0
       levels:
@@ -750,6 +753,7 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: 
       Icon: {fileID: 0}
       Animation: 100
@@ -934,191 +938,8 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: On next shot this game gain +10 Hype
-      Icon: {fileID: 0}
-      Animation: 100
-      Duration: 2
-  - _action: {fileID: 11400000, guid: 7914fcb3a0186c7438bb9e50c36c9882, type: 2}
-    _count:
-      isLevelable: 0
-      levels:
-      - 1
-      - 1
-      - 1
-    _imageOverride: {fileID: 0}
-    _dataPreview:
-      Name: Shamgod
-      _cardText: 
-      _previewText: 
-      _cardSummary: For 2 cost, gain +50 Hype.
-      Type: 1
-      AssociatedRarity: 1
-      AllowedPositions: 13
-      ActionLevel: 1
-      _cardData:
-        _cost:
-          isLevelable: 0
-          levels:
-          - 2
-          - 0
-          - 0
-        _hypeGain:
-          isLevelable: 1
-          levels:
-          - 50
-          - 60
-          - 70
-        _multiplyHype:
-          isLevelable: 0
-          levels:
-          - 0
-          - 0
-          - 0
-        _energyGain:
-          isLevelable: 0
-          levels:
-          - 0
-          - 0
-          - 0
-        _drawCards:
-          isLevelable: 0
-          levels:
-          - 0
-          - 0
-          - 0
-        _retriggerCard:
-          isLevelable: 0
-          levels:
-          - 0
-          - 0
-          - 0
-      HasEffectIfSequence: 0
-      EffectIfSequence:
-        Requirements: 0
-        OfType: 0
-        Effects:
-          _cost:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-          _hypeGain:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-          _multiplyHype:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-          _energyGain:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-          _drawCards:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-          _retriggerCard:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-      _effectIfSequencePreviewText: 
-      HasEffectIfPrevious: 0
-      EffectIfPrevious:
-        RequiredType: 0
-        RequiredPosition: 31
-        Effects:
-          _cost:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-          _hypeGain:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-          _multiplyHype:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-          _energyGain:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-          _drawCards:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-          _retriggerCard:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-      _effectIfPreviousPreviewText: 
-      HasNextEffect: 0
-      NextEffect:
-        AppliesTo: 0
-        RequiredType: 1
-        RequiredPosition: 31
-        Effects:
-          _cost:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-          _hypeGain:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-          _multiplyHype:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-          _energyGain:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-          _drawCards:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-          _retriggerCard:
-            isLevelable: 0
-            levels:
-            - 0
-            - 0
-            - 0
-      _nextEffectPreviewText: 
       Icon: {fileID: 0}
       Animation: 100
       Duration: 2
@@ -1302,6 +1123,7 @@ MonoBehaviour:
             - 0
             - 0
             - 0
+        Level: 0
       _nextEffectPreviewText: 
       Icon: {fileID: 0}
       Animation: 200

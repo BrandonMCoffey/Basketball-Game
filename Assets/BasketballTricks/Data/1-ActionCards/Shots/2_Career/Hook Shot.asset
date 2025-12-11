@@ -16,11 +16,11 @@ MonoBehaviour:
     Name: Hook Shot
     _cardText: '@EffectIfSequence'
     _previewText: If no tricks are played this sequence, gain +1 Energy
-    _cardSummary: For 1 cost, gain +25 Hype. If no tricks are played this sequence,
-      gain +1 Energy.
+    _cardSummary: For 1 cost, gain +25 Hype If no tricks are played this sequence,
+      gain +1 Energy
     Type: 3
     AssociatedRarity: 2
-    AllowedPositions: 19
+    AllowedPositions: 28
     ActionLevel: 1
     _cardData:
       _cost:
@@ -186,6 +186,7 @@ MonoBehaviour:
           - 0
           - 0
           - 0
+      Level: 0
     _nextEffectPreviewText: 
     Icon: {fileID: 0}
     Animation: 200

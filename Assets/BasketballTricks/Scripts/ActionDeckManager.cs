@@ -29,7 +29,7 @@ public class ActionDeckManager : MonoBehaviour
     [SerializeField] private float _layoutDuration = 0.3f;
     [SerializeField] private Ease _layoutEase = Ease.OutBack;
 
-
+    public event System.Action BeforeDrawingNextHand = delegate { };
     public RectTransform DiscardBox => _discardBox;
     public RectTransform CardPlayPoint => _cardPlayPoint;
     public RectTransform CardRemovedPlayedPoint => _cardRemovedPlayedPoint;
@@ -53,37 +53,70 @@ public class ActionDeckManager : MonoBehaviour
     public void Init()
     {
         var players = PlayerManager.Instance.Players;
-        _actionDeck = new List<GameAction>();
         foreach (var player in players)
         {
             for (int i = 0; i < player.CardData.ActionCount; i++)
             {
                 if (player.CardData.GetAction(i).AllowedPositions.HasFlag(player.Position))
                 {
-                    _actionDeck.Add(new GameAction(player, i));
+                    int count = player.CardData.GetActionCount(i);
+                    for (int j = 0; j < count; j++)
+                    {
+                        _actionDeck.Add(new GameAction(player, i));
+                    }
                 }
             }
         }
         _actionDeck.Shuffle();
-        _playedCards = new List<ActionCard>();
 
         for (int i = _cardContainer.childCount - 1; i >= 0; i--)
         {
             Destroy(_cardContainer.GetChild(i).gameObject);
         }
-
-        int count = Mathf.Min(_cardsDrawnPerHand, _actionDeck.Count);
-        _cards = new List<ActionCard>(count);
-        for (int i = 0; i < count; i++)
-        {
-            var card = Instantiate(_cardPrefab, _cardContainer);
-            card.Init(_actionDeck[0], this);
-            _actionDeck.RemoveAt(0);
-            _cards.Add(card);
-        }
+        DrawHand();
         UpdateCardLayout(null, true);
     }
 
+    public void InitTutorial(List<GameAction> deck, bool init)
+    {
+        _actionDeck = new List<GameAction>(deck);
+        if (init)
+        {
+            for (int i = _cardContainer.childCount - 1; i >= 0; i--)
+            {
+                Destroy(_cardContainer.GetChild(i).gameObject);
+            }
+            DrawHand();
+            UpdateCardLayout(null, true);
+        }
+    }
+
+    private void DrawHand()
+    {
+        int drawCount = Mathf.Min(Mathf.Min(_cardsDrawnPerHand, _maxHandSize - _playedCards.Count), _actionDeck.Count);
+        for (int i = 0; i < drawCount; i++)
+        {
+            ActionCard card;
+            if (_playedCards.Count > 0)
+            {
+                card = _playedCards[0];
+                _playedCards.RemoveAt(0);
+            }
+            else
+            {
+                card = Instantiate(_cardPrefab, _cardContainer);
+            }
+            card.Init(_actionDeck[0], this);
+            _actionDeck.RemoveAt(0);
+            _cards.Add(card);
+            Debug.Log($"Drew card: {card.Action.Player.CardData.GetAction(card.Action.ActionIndex).Name}");
+        }
+        for (int i = _playedCards.Count - 1; i >= 0; i--)
+        {
+            Destroy(_playedCards[i].gameObject);
+        }
+        _playedCards.Clear();
+    }
 
     public void PlayCard(ActionCard card)
     {
@@ -146,28 +179,8 @@ public class ActionDeckManager : MonoBehaviour
         if (_disabled && !PlayerManager.Instance.Simulating)
         {
             _disabled = false;
-            int drawCount = Mathf.Min(Mathf.Min(_cardsDrawnPerHand, _maxHandSize - _playedCards.Count), _actionDeck.Count);
-            for (int i = 0; i < drawCount; i++)
-            {
-                ActionCard card;
-                if (_playedCards.Count > 0)
-                {
-                    card = _playedCards[0];
-                    _playedCards.RemoveAt(0);
-                }
-                else
-                {
-                    card = Instantiate(_cardPrefab, _cardContainer);
-                }
-                card.Init(_actionDeck[0], this);
-                _actionDeck.RemoveAt(0);
-                _cards.Add(card);
-            }
-            for (int i = _playedCards.Count - 1; i >= 0; i--)
-            {
-                Destroy(_playedCards[i].gameObject);
-            }
-            _playedCards.Clear();
+            BeforeDrawingNextHand?.Invoke();
+            DrawHand();
             PlayerManager.Instance.PreviewSequence(_playedCards, _cards);
             UpdateCardLayout(null);
         }
@@ -224,6 +237,7 @@ public class ActionDeckManager : MonoBehaviour
         if (_disabled || count <= 1) return;
 
         int draggedIndex = _cards.IndexOf(draggedCard);
+        //Debug.Log($"Dragged index: {draggedIndex}");
         int newIndex = draggedIndex;
 
         float delta = 1f / (count - 1);
@@ -246,7 +260,7 @@ public class ActionDeckManager : MonoBehaviour
             else if (draggedX < x + threshold && newIndex > i) newIndex = i;
         }
 
-        if (newIndex != draggedIndex)
+        if (newIndex != draggedIndex && draggedIndex >= 0 && draggedIndex < _cards.Count)
         {
             _cards.RemoveAt(draggedIndex);
             _cards.Insert(newIndex, draggedCard);

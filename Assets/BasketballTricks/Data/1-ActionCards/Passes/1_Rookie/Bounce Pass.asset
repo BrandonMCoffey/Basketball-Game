@@ -16,7 +16,7 @@ MonoBehaviour:
     Name: Bounce Pass
     _cardText: '@NextEffect'
     _previewText: On next trick played reduce cost by 1
-    _cardSummary: For 1 cost, gain +5 Hype. On next trick played reduce cost by 1.
+    _cardSummary: For 0 cost, gain +5 Hype On next trick played reduce cost by 1
     Type: 2
     AssociatedRarity: 1
     AllowedPositions: 31
@@ -25,7 +25,7 @@ MonoBehaviour:
       _cost:
         isLevelable: 0
         levels:
-        - 1
+        - 0
         - 0
         - 0
       _hypeGain:
@@ -184,6 +184,7 @@ MonoBehaviour:
           - 0
           - 0
           - 0
+      Level: 0
     _nextEffectPreviewText: On next trick played reduce cost by 1
     Icon: {fileID: 0}
     Animation: 10
