@@ -15,6 +15,7 @@ public class GameSaveData
 
     public GameSaveData(int money, List<PlayerCardData> startingCards)
     {
+        Money = money;
         OwnedCards = new List<GameCard>(startingCards.Count);
         foreach (var cardData in startingCards)
         {

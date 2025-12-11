@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resetDataOnStart: 1
+  _startingMoney: 3000
   _startingCards:
   - {fileID: 11400000, guid: 98eb2e11f85a0de44b5f95ca7da49876, type: 2}
   - {fileID: 11400000, guid: 6acb81d80035d6343a1bb20290ea3556, type: 2}
@@ -144,6 +145,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c53e22ec554df704a81377828108329e, type: 2}
   - {fileID: 11400000, guid: 94ce15d06b4c00f43bf37ddf73e05b5f, type: 2}
   _saveData:
+    Money: 0
     OwnedCards: []
   _sceneTransition: {fileID: 6607912198263155716}
 --- !u!1 &9087500760679763712

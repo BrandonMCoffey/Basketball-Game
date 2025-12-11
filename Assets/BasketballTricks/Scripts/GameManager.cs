@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     public List<GameCard> OwnedPlayers => new List<GameCard>(_saveData.OwnedCards); // Creates a copy of the list to prevent external modification
     public GameCard SelectedCard => (_selectedCardIndex >= 0 && _selectedCardIndex < _saveData.OwnedCards.Count) ? _saveData.OwnedCards[_selectedCardIndex] : null;
 
+    public static event System.Action OnMoneyChanged = delegate { };
+    public int CurrentMoney => _saveData.Money;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour
         {
             _saveData.Money -= amount;
             GameSaveData.Save(_saveData);
+            OnMoneyChanged?.Invoke();
             return true;
         }
         return false;
