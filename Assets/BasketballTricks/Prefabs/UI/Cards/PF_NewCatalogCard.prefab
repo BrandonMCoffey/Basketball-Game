@@ -4031,7 +4031,7 @@ MonoBehaviour:
   _flipOnClick: 0
   _glow: {fileID: 9044009183413066707}
   _canDrag: 1
-  _popScale: 1.1
+  _popScale: 1.5
   _dragMoveSpeed: 15
   _dragRotateSpeed: 5
   _maxDragRotation: 20

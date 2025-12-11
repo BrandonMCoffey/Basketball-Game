@@ -10,8 +10,10 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
 {
     [Header("Button Settings")]
     [SerializeField] string _text;
+    [SerializeField] float _clickScale = 1.1f;
     [SerializeField] UnityEvent _onButtonPressed;
-    [SerializeField] Ease _easeType = Ease.OutBack;
+    [SerializeField] Ease _clickStartEase = Ease.InOutCubic;
+    [SerializeField] Ease _clickEndEase = Ease.OutBack;
     [SerializeField] bool _moveTextOnPress = true;
     [SerializeField, ShowIf("_moveTextOnPress")] bool _moveTextUpOnPress = true;
     [SerializeField] bool _invokeOnAnimComplete = false;
@@ -46,7 +48,8 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
     private void Start() 
     {
         _moveTextAmount = _moveTextUpOnPress ? -100f : 100f;
-        _originalTextPos = _buttonText.rectTransform.anchoredPosition;
+        if (_buttonText != null)
+            _originalTextPos = _buttonText.rectTransform.anchoredPosition;
         _rectTransform = GetComponent<RectTransform>();
 
         // Force no moving text
@@ -58,12 +61,15 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
         if (_checkForMousePos)
         {
             Vector2 localPoint;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(_buttonText.rectTransform.parent as RectTransform, Input.mousePosition, null, out localPoint);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, Input.mousePosition, null, out localPoint);
             if (!_rectTransform.rect.Contains(localPoint))
             {
-                transform.DOScale(1f, 0.2f).SetEase(_easeType);
+                transform.DOScale(1f, 0.2f).SetEase(_clickEndEase);
                 _checkForMousePos = false;
-                _buttonText.rectTransform.DOAnchorPos(_originalTextPos, 0.2f).SetEase(_easeType);
+                if (_buttonText != null)
+                {
+                    _buttonText.rectTransform.DOAnchorPos(_originalTextPos, 0.2f).SetEase(_clickEndEase);
+                }
             }
         }
     }
@@ -71,18 +77,18 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
     public void OnPointerDown(PointerEventData eventData)
     {
         if (!_interactable) return;
-        _rectTransform.DOScale(1.25f, 0.2f).SetEase(_easeType);
-        if (_moveTextOnPress)
-            _buttonText.rectTransform.DOAnchorPos(_originalTextPos + Vector2.up * _moveTextAmount, 0.2f).SetEase(_easeType);
+        _rectTransform.DOScale(_clickScale, 0.1f).SetEase(_clickStartEase);
+        if (_moveTextOnPress && _buttonText != null)
+            _buttonText.rectTransform.DOAnchorPos(_originalTextPos + Vector2.up * _moveTextAmount, 0.1f).SetEase(_clickStartEase);
         _checkForMousePos = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         if (!_interactable) return;
-        _rectTransform.DOScale(1f, 0.2f).SetEase(_easeType);
-        if (_moveTextOnPress)
-            _buttonText.rectTransform.DOAnchorPos(_originalTextPos, 0.2f).SetEase(_easeType);
+        _rectTransform.DOScale(1f, 0.2f).SetEase(_clickEndEase);
+        if (_moveTextOnPress && _buttonText != null)
+            _buttonText.rectTransform.DOAnchorPos(_originalTextPos, 0.2f).SetEase(_clickEndEase);
         if (_checkForMousePos) StartCoroutine(InvokeActionRoutine(0.2f));
         _checkForMousePos = false;
     }

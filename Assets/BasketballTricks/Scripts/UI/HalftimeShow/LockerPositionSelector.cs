@@ -140,6 +140,11 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
         _activeGameCard = card;
         GameManager.Instance.SetPositionCard(_position, card);
         UpdateVisuals();
+
+        _rectTransform.DOScale(0.9f, 0.05f).SetEase(Ease.OutQuad).OnComplete(() =>
+        {
+            _rectTransform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).SetDelay(0.1f);
+        });
     }
 
     IEnumerator AddPlayerAnimationRoutine()

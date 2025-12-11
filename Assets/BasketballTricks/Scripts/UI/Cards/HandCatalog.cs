@@ -17,7 +17,6 @@ public class HandCatalog : MonoBehaviour
     [SerializeField] private int _maxDisplayCards = 6;
     [SerializeField] private Button _prevButton;
     [SerializeField] private Button _nextButton;
-    [SerializeField] RectTransform _glareEffect;
     [SerializeField] private RectTransform _focusPoint;
     [SerializeField] private bool _showOnStart = true;
     [SerializeField] private float _betweenCardTime = 0.05f;
@@ -28,7 +27,6 @@ public class HandCatalog : MonoBehaviour
     private List<GameCard> _allCards;
     private List<PlayerCard> _cards;
     private bool _transitioning;
-    private Coroutine _pageEffectsRoutine;
 
     private void OnEnable()
     {
@@ -48,7 +46,6 @@ public class HandCatalog : MonoBehaviour
         if (_prevButton != null) _prevButton.onClick.AddListener(PreviousPage);
         if (_nextButton != null) _nextButton.onClick.AddListener(NextPage);
 
-        ToggleAnimations(true);
     }
 
     private void OnValidate()
@@ -193,19 +190,5 @@ public class HandCatalog : MonoBehaviour
         UpdateCardData();
     }
 
-    public void ToggleAnimations(bool enabled)
-    {
-        if (_pageEffectsRoutine != null) StopCoroutine(_pageEffectsRoutine);
-        if (enabled) _pageEffectsRoutine = StartCoroutine(PageEffectsRoutine());
-    }
-
-    private IEnumerator PageEffectsRoutine()
-    {
-        while (true)
-        {
-            _glareEffect.anchoredPosition = new Vector2(0, -Screen.height - 1024);
-            _glareEffect.DOAnchorPos(new Vector2(0, Screen.height + 1024), _animTime).SetEase(Ease.Linear);
-            yield return new WaitForSeconds(5f);
-        }
-    }
+    
 }

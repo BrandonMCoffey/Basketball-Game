@@ -2779,6 +2779,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _glareTransform: {fileID: 1686624645}
+  _verticalOffset: 500
+  _duration: 5
+  _moveFromBottomToTop: 0
 --- !u!1001 &721764683
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4308,12 +4311,13 @@ MonoBehaviour:
   _letsGoButton: {fileID: 1542875931}
   _letsGoButtonT: {fileID: 1542875926}
   _catalog: {fileID: 3318022568213214731}
+  _catalogEaseIn: 9
   _lockerEaseEnter: 15
   _lockerEaseLeave: 11
   _betweenLockerDelay: 0.1
   _lockerAnimTime: 0.3
   _buttonAnimTime: 0.2
-  _catalogAnimTime: 0.4
+  _catalogAnimTime: 0.5
   _deckManager: {fileID: 6949764343152343267}
   _cardSelectedOffsetY: 0.1
 --- !u!1001 &1052307914
@@ -8921,6 +8925,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _glareTransform: {fileID: 792965274}
+  _verticalOffset: 500
+  _duration: 5
+  _moveFromBottomToTop: 0
 --- !u!114 &1542875931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12584,7 +12591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.11372549}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.16862746}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12808,14 +12815,14 @@ RectTransform:
   m_GameObject: {fileID: 1585712875691022988}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6617575546237723453}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 47, y: 84}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 3000, y: 2000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1418862672474173992
@@ -12910,7 +12917,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6515ab58c6b434948929480ce30dd317, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78cb8ed44d11805489dedd11875365e0, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13569,8 +13576,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 4988daeb34c2a5f438a97208c98c8055, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -14048,7 +14055,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ad321125a03e2004abc7a84447ae0709, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ee794c9d184e38d4cbf4321016172f9d, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14112,7 +14119,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b6be9dbe2733b46458298ecddaece1ac, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 740df3b3c06df464e9d7aa8e1d0a918a, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14132,16 +14139,16 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1246623662101108698}
   - {fileID: 802270788}
   m_Father: {fileID: 3318022568213214731}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -10, y: -10}
+  m_SizeDelta: {x: 1490, y: 890}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &6949764343152343266
 RectTransform:
@@ -14252,6 +14259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3318022568213214731}
   - component: {fileID: 7456986678347774395}
+  - component: {fileID: 7456986678347774396}
   m_Layer: 5
   m_Name: CardCatalog
   m_TagString: Untagged
@@ -14467,11 +14475,26 @@ MonoBehaviour:
   _maxDisplayCards: 12
   _prevButton: {fileID: 823122424740574658}
   _nextButton: {fileID: 315384085933505766}
-  _glareEffect: {fileID: 1246623662101108698}
   _focusPoint: {fileID: 802270788}
   _showOnStart: 0
   _betweenCardTime: 0.03
   _animTime: 0.2
+--- !u!114 &7456986678347774396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6967840079812055896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f06d6a4358f53a745bd7bdd2089f31e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _glareTransform: {fileID: 1246623662101108698}
+  _verticalOffset: 5000
+  _duration: 5
+  _moveFromBottomToTop: 0
 --- !u!1 &7500710386219360326
 GameObject:
   m_ObjectHideFlags: 0

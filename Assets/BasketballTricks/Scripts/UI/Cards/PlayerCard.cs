@@ -229,7 +229,8 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         _dragVelocity = Vector3.zero;
         _currentDragDelta = Vector3.zero;
 
-        _rectTransform.localScale = _initialScale * _popScale;
+        // _rectTransform.localScale = _initialScale * _popScale;
+        _rectTransform.DOScale(_popScale, 0.1f).SetEase(Ease.OutBack);
 
         bool canPlace = _canPlaceOnCourt && PlayerManager.Instance.NewPlayerToPlace(_card);
         if (_parent != null && _holdParent != null) transform.SetParent(canPlace ? _parent : _holdParent, true);

@@ -12,6 +12,7 @@ public class LockerRoomController : MonoBehaviour
     [SerializeField] private LongButtonController _letsGoButton;
     [SerializeField] private RectTransform _letsGoButtonT;
     [SerializeField] private RectTransform _catalog;
+    [SerializeField] private Ease _catalogEaseIn = Ease.OutCubic;
     [SerializeField] private Ease _lockerEaseEnter = Ease.InQuart;
     [SerializeField] private Ease _lockerEaseLeave = Ease.InQuart;
     [SerializeField] private float _betweenLockerDelay = 0.1f;
@@ -150,7 +151,7 @@ public class LockerRoomController : MonoBehaviour
         _letsGoButtonT.DOAnchorPos(_letsGoOriginalPosition + Vector3.down * 400f, _buttonAnimTime).SetEase(Ease.InOutCubic);
         _handCatalogRef.HideCards();
         _selectedIndex = index;
-        _catalog.DOAnchorPos(_catalogOriginalPosition, _catalogAnimTime * 0.5f).SetEase(Ease.InOutCubic).OnComplete(() =>
+        _catalog.DOAnchorPos(_catalogOriginalPosition, _catalogAnimTime * 0.5f).SetEase(_catalogEaseIn).OnComplete(() =>
         {
             //Debug.Log("Showing cards in catalog");
             _handCatalogRef.ShowCardsFiltered(_lockerPositions[_selectedIndex].Position);
