@@ -19,7 +19,7 @@ public class SoundLibrarySO : ScriptableObject
                 return sfxEventClip.Clip;
             }
         }
-        Debug.LogError($"[SoundLibrarySO] SFX Event '{sfxEvent}' not found in Sound Library '{name}'.");
+        Debug.LogWarning($"[SoundLibrarySO] SFX Event '{sfxEvent}' not found in Sound Library '{name}'.");
         return null;
     }
 
@@ -32,7 +32,7 @@ public class SoundLibrarySO : ScriptableObject
                 return musicTrackClip.Clip;
             }
         }
-        Debug.LogError($"[SoundLibrarySO] Music Track '{musicTrack}' not found in Sound Library '{name}'.");
+        Debug.LogWarning($"[SoundLibrarySO] Music Track '{musicTrack}' not found in Sound Library '{name}'.");
         return null;
     }
 

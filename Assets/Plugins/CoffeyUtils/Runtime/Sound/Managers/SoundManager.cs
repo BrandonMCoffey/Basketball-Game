@@ -99,7 +99,15 @@ namespace CoffeyUtils.Sound
 
 
         // Sai's Weird Code...
-        public static SfxPlayer PlaySfx(SFXEventsEnum sfxEvent) => PlaySfx(Instance.SoundLibrary.GetSFXClip(sfxEvent));
+        public static SfxPlayer PlaySfx(SFXEventsEnum sfxEvent)
+        {
+            if (Instance.SoundLibrary == null) return null;
+            
+            var sfxClip = Instance.SoundLibrary.GetSFXClip(sfxEvent);
+            if (sfxClip == null) return null;
+            
+            return sfxClip.PlayGetPlayer();
+        }
         public static MusicPlayer PlayMusicNow(MusicTracksEnum musicTrack) => PlayMusicNow(Instance.SoundLibrary.GetMusicTrack(musicTrack));
         public static MusicPlayer PlayMusicNow(MusicTracksEnum musicTrack, float delay) => PlayMusicNow(Instance.SoundLibrary.GetMusicTrack(musicTrack), delay);
     }

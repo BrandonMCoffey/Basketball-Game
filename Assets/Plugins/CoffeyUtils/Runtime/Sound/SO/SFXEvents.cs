@@ -2,6 +2,7 @@ public enum SFXEventsEnum
 {
     ButtonClickStart,
     ButtonClickRelease,
+    UIMenuSwish,
     BasketballBounce,
     BasketballSwish,
     BasketballRimHit,
