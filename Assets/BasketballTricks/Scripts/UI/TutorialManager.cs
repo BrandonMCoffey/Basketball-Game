@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -18,17 +21,25 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private ActionDeckManager _actionDeckManager;
     [SerializeField] private PlayerManager _playerManager;
 
+    [Header("UI References")]
+    [SerializeField] private Image _inputBlocker;
+    [SerializeField] private TutorialPanelController _startingPanel;
+
     private Player _startingPlayer;
     private GameCard _startingGameCard;
     private Player _secondPlayer;
     private GameCard _secondGameCard;
     private int _hand = -1;
 
+    bool _finished = false;
+
     public void Start()
     {
         _actionDeckManager.BeforeDrawingNextHand += NextHand;
         _hand = -1;
         NextHand();
+
+        if (_startingPanel != null) _startingPanel.gameObject.SetActive(true);
     }
 
     private void NextHand()
@@ -76,4 +87,18 @@ public class TutorialManager : MonoBehaviour
         Debug.Log($"Deck size: {deck.Count}");
         _actionDeckManager.InitTutorial(deck, _hand == 0);
     }
+
+    public void BlockInput(bool block)
+    {
+        _inputBlocker.DOFade(block ? 0.8f : 0f, 0.5f).OnComplete(() =>
+        {
+            _inputBlocker.raycastTarget = block;
+        });
+    }
+
+    public void TutorialFinished()
+    {
+        _finished = true;
+    }
+
 }

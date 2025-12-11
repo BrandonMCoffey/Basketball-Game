@@ -7,6 +7,7 @@ public class CostDisplay : MonoBehaviour
     [SerializeField] private TMP_Text _costText;
     [SerializeField] private Color _unusedColor = Color.blue;
     [SerializeField] private Color _spentColor = Color.green;
+    [SerializeField] private int _startingEnergy = 5;
     //[SerializeField] private Color _overSpentColor = Color.red;
     //[SerializeField] private Color _overMaxColor = Color.white;
     [SerializeField] private List<StaminaElemController> _costList = new();
@@ -29,7 +30,7 @@ public class CostDisplay : MonoBehaviour
         {
             costElem.SetRefs(_unusedColor, _spentColor, this);
         }
-        UpdateCostDisplay(0, 5);    
+        UpdateCostDisplay(0, _startingEnergy);    
     }
 
     public void UpdateCostDisplay(float cost, float max) => UpdateCostDisplay(Mathf.RoundToInt(cost), Mathf.RoundToInt(max));

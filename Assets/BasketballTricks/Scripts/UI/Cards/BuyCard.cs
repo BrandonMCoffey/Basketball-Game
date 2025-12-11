@@ -8,6 +8,8 @@ public class BuyCard : MonoBehaviour
     [SerializeField] private List<PlayerCardData> _potentialCards;
     [SerializeField] private PlayerCard _buyCard;
     [SerializeField] private LongButtonController _buyButton;
+    [SerializeField] private int _minCost = 3;
+    [SerializeField] private int _maxCost = 5;
 
     private int _cost;
 
@@ -20,7 +22,7 @@ public class BuyCard : MonoBehaviour
     {
         _buyCard.RefreshTransform();
         _buyCard.SetData(new GameCard(_potentialCards[Random.Range(0, _potentialCards.Count - 1)]));
-        _cost = Random.Range(3, 5) * 100;
+        _cost = Random.Range(_minCost, _maxCost) * 100;
         _buyButton.SetText($"Buy Card\n${_cost}");
         _buyButton.Interactable = true;
     }
