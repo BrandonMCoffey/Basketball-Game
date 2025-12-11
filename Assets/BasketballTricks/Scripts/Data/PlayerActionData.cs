@@ -142,7 +142,7 @@ public struct ActionData
         _cardSummary = GetSummaryText();
     }
 
-    public string GetDisplayText() => FormatDisplayText(string.IsNullOrWhiteSpace(_cardText) ? "Gain @Hype Hype." : _cardText);
+    public string GetDisplayText() => FormatDisplayText(string.IsNullOrWhiteSpace(_cardText) ? "Gain @Hype Hype" : _cardText);
     private string FormatDisplayText(string text)
     {
         var effects = Effects;
@@ -156,7 +156,7 @@ public struct ActionData
         text = text.Replace("@EffectIfPrevious", EffectIfPrevious.GetDisplayText(ActionLevel));
         text = text.Replace("@NextEffect", NextEffect.GetDisplayText(ActionLevel));
         text = text.Replace("@Effect", _cardData.GetDisplayText(ActionLevel, false));
-        return text;
+        return text.TrimEnd('.');
     }
 
     public string GetSummaryText()
@@ -165,7 +165,7 @@ public struct ActionData
         text += HasNextEffect ? $" {_nextEffectPreviewText}." : "";
         text += HasEffectIfPrevious ? $" {_effectIfPreviousPreviewText}." : "";
         text += HasEffectIfSequence ? $" {_effectIfSequencePreviewText}." : "";
-        return text;
+        return text.TrimEnd('.');
     }
 }
 
