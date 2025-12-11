@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using Sirenix.OdinInspector;
 using System.Collections;
 using CoffeyUtils.Sound;
+using System;
 
 public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -14,6 +15,7 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
     [SerializeField] float _clickScale = 1.1f;
     [SerializeField] float _delayBeforeInvoke = 0f;
     [SerializeField] UnityEvent _onButtonPressed;
+    public Action OnButtonPressed;
     [SerializeField] Ease _clickStartEase = Ease.InOutCubic;
     [SerializeField] Ease _clickEndEase = Ease.OutBack;
     [SerializeField] bool _moveTextOnPress = true;
@@ -133,5 +135,6 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
         }
 
         _onButtonPressed?.Invoke();
+        OnButtonPressed?.Invoke();
     }
 }

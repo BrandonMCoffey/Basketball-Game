@@ -30,6 +30,8 @@ public class ActionDeckManager : MonoBehaviour
     [SerializeField] private Ease _layoutEase = Ease.OutBack;
 
     public event System.Action BeforeDrawingNextHand = delegate { };
+    public static event System.Action<ActionCard> OnCardPlayed = delegate { };
+    public static event System.Action OnPlayPressed = delegate { };
     public RectTransform DiscardBox => _discardBox;
     public RectTransform CardPlayPoint => _cardPlayPoint;
     public RectTransform CardRemovedPlayedPoint => _cardRemovedPlayedPoint;
@@ -120,6 +122,7 @@ public class ActionDeckManager : MonoBehaviour
 
     public void PlayCard(ActionCard card)
     {
+        OnCardPlayed?.Invoke(card);
         _cards.Remove(card);
         _playedCards.Add(card);
         PlayerManager.Instance.PreviewSequence(_playedCards, _cards);
@@ -172,6 +175,8 @@ public class ActionDeckManager : MonoBehaviour
                 });
             }
         }
+
+        OnPlayPressed?.Invoke();
     }
 
     private void CheckSequenceCompleted()
