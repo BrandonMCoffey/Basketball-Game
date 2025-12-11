@@ -7,7 +7,8 @@ public enum TutorialChangeEvent
     None,
     CardPlayed,
     NextButtonPressed,
-    GamePlayed
+    GamePlayed,
+    AfterSequenceEnd
 }
 public class TutorialPanelController : MonoBehaviour
 {
@@ -47,6 +48,7 @@ public class TutorialPanelController : MonoBehaviour
     {
         ActionDeckManager.OnCardPlayed += CardPlayed;
         ActionDeckManager.OnPlayPressed += PlayPressed;
+        ActionDeckManager.OnSequenceEnd += SequenceEnd;
         _OnPanelOpened?.Invoke();
     }
 
@@ -54,6 +56,7 @@ public class TutorialPanelController : MonoBehaviour
     {
         ActionDeckManager.OnCardPlayed -= CardPlayed;
         ActionDeckManager.OnPlayPressed -= PlayPressed;
+        ActionDeckManager.OnSequenceEnd -= SequenceEnd;
         _OnPanelClosed?.Invoke();
         _nextButton.OnButtonPressed -= NextButtonPressed;
     }
@@ -77,6 +80,12 @@ public class TutorialPanelController : MonoBehaviour
     private void PlayPressed()
     {
         if (_changeEvent != TutorialChangeEvent.GamePlayed) return;
+        OnNext?.Invoke();
+    }
+
+    private void SequenceEnd()
+    {
+        if (_changeEvent != TutorialChangeEvent.AfterSequenceEnd) return;
         OnNext?.Invoke();
     }
 }

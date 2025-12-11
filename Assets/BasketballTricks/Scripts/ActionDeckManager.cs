@@ -28,10 +28,12 @@ public class ActionDeckManager : MonoBehaviour
     [SerializeField] private float _selectedHeightOffset = 100f;
     [SerializeField] private float _layoutDuration = 0.3f;
     [SerializeField] private Ease _layoutEase = Ease.OutBack;
+    [SerializeField] RectTransform _playButton;
 
     public event System.Action BeforeDrawingNextHand = delegate { };
     public static event System.Action<ActionCard> OnCardPlayed = delegate { };
     public static event System.Action OnPlayPressed = delegate { };
+    public static event System.Action OnSequenceEnd = delegate { };
     public RectTransform DiscardBox => _discardBox;
     public RectTransform CardPlayPoint => _cardPlayPoint;
     public RectTransform CardRemovedPlayedPoint => _cardRemovedPlayedPoint;
@@ -82,6 +84,11 @@ public class ActionDeckManager : MonoBehaviour
     public void InitTutorial(List<GameAction> deck, bool init)
     {
         _actionDeck = new List<GameAction>(deck);
+        for (int i = _cards.Count - 1; i >= 0; i--)
+        {
+            Destroy(_cards[i].gameObject);
+        }
+        _cards.Clear();
         if (init)
         {
             for (int i = _cardContainer.childCount - 1; i >= 0; i--)
@@ -177,6 +184,7 @@ public class ActionDeckManager : MonoBehaviour
         }
 
         OnPlayPressed?.Invoke();
+        _playButton.gameObject.SetActive(false);
     }
 
     private void CheckSequenceCompleted()
@@ -188,6 +196,8 @@ public class ActionDeckManager : MonoBehaviour
             DrawHand();
             PlayerManager.Instance.PreviewSequence(_playedCards, _cards);
             UpdateCardLayout(null);
+            OnSequenceEnd?.Invoke();
+            _playButton.gameObject.SetActive(true);
         }
     }
 

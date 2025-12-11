@@ -29,6 +29,10 @@ MonoBehaviour:
     Clip: {fileID: 11400000, guid: aee0a9473735ed541964960121b809c8, type: 2}
   - Event: 4
     Clip: {fileID: 11400000, guid: 7b79f1cae37802e4f8616ca4d027c7db, type: 2}
+  - Event: 9
+    Clip: {fileID: 11400000, guid: 2ffda300a6a0e3e4290a1cd673e063cf, type: 2}
+  - Event: 10
+    Clip: {fileID: 11400000, guid: aad0160c604dd304a84bbc4f9079a37e, type: 2}
   _musicTrackClips:
   - Track: 0
     Clip: {fileID: 0}
