@@ -105,7 +105,7 @@ public class HandCatalog : MonoBehaviour
         //ResetCardPositions();
         foreach (var card in _cards)
         {
-            card.AppearAtPosition();
+            card.AppearAtPosition(false);
         }
         UpdateCardData();
     }
@@ -138,12 +138,12 @@ public class HandCatalog : MonoBehaviour
         if (_transitioning) yield return null;
         _transitioning = true;
         while (GameManager.InTransition) yield return null;
+        UpdateInteractibility();
         for (int i = 0; i < _cards.Count; i++)
         {
             _cards[i].transform.DOScale(i < cardsToShow ? Vector3.one : Vector3.zero, _animTime).SetEase(Ease.OutBack);
             yield return new WaitForSeconds(_betweenCardTime);
         }
-        UpdateInteractibility();
         _transitioning = false;
     }
 

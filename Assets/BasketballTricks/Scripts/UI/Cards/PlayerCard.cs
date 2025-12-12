@@ -302,11 +302,11 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         StartCoroutine(ReturnToPosition());
     }
 
-    public void AppearAtPosition()
+    public void AppearAtPosition(bool scale = true)
     {
         _rectTransform.anchoredPosition = _initialPosition;
         _rectTransform.localRotation = _initialRotation;
-        _rectTransform.DOScale(_initialScale, 0.2f).SetEase(Ease.OutBack);
+        if (scale) _rectTransform.DOScale(_initialScale, 0.2f).SetEase(Ease.OutBack);
         if (_parent != null) transform.SetParent(_parent, true);
         _canDrag = true;
         RefreshInteractables();
