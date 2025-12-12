@@ -1,6 +1,7 @@
 using UnityEngine;
 using SaiUtils.StateMachine;
 using Sirenix.OdinInspector;
+using CoffeyUtils.Sound;
 
 public class UICanvasController : MonoBehaviour
 {
@@ -55,6 +56,8 @@ public class UICanvasController : MonoBehaviour
 
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+
+        SoundManager.PlayMusicNow(MusicTracksEnum.MainMenu);
     }
 
     public void ChangeToGameSelect(float delay = 0.5f) => StartCoroutine(_stateMachine.ChangeStateWithDelayCoroutine(GameSelectState, delay));

@@ -12,6 +12,7 @@ namespace CoffeyUtils.Sound
 	    [SerializeField, ReadOnly] private bool _active;
 	    [SerializeField, ReadOnly] private bool _playedNextQueued;
 
+        public MusicTrack ActiveTrack => _track;
         private Coroutine _fadeRoutine;
         private AudioSource _source;
         

@@ -64,6 +64,14 @@ namespace CoffeyUtils.Sound
         
         public MusicPlayer Play(MusicTrack track)
         {
+            if (track == null) return null;
+            foreach (var activePlayer in _activePlayers)
+            {
+                if (activePlayer.ActiveTrack == track)
+                {
+                    return activePlayer;
+                }
+            }
             StopAll();
             var player = GetPlayer();
             player.Play(track);

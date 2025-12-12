@@ -1,3 +1,4 @@
+using CoffeyUtils.Sound;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ public class BasketballGoal : MonoBehaviour
     [Button, HideInEditorMode]
     public void SwishNet()
     {
+        SoundManager.PlaySfx(SFXEventsEnum.BasketballSwish);
         StopAllCoroutines();
         StartCoroutine(SwishNetRoutine());
     }
@@ -38,6 +40,7 @@ public class BasketballGoal : MonoBehaviour
 
     public void PlayFlamethrowers()
     {
+        SoundManager.PlaySfx(SFXEventsEnum.Flamethrower);
         foreach (var ps in _flamethrowers)
         {
             ps.Play();

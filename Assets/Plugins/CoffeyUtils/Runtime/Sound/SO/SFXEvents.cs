@@ -16,7 +16,9 @@ public enum SFXEventsEnum
 public enum MusicTracksEnum
 {
     MainMenu,
+    Tutorial,
+    LockerRoom,
     Gameplay,
     Victory,
-    Defeat
+    Defeat,
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CoffeyUtils.Sound;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -52,6 +53,8 @@ public class TutorialManager : MonoBehaviour
         NextHand();
 
         if (_startingPanel != null) _startingPanel.gameObject.SetActive(true);
+
+        SoundManager.PlayMusicNow(MusicTracksEnum.Tutorial);
     }
 
     private void NextHand()

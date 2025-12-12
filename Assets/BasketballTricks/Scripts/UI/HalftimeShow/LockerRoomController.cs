@@ -1,3 +1,4 @@
+using CoffeyUtils.Sound;
 using DG.Tweening;
 using SaiUtils.Extensions;
 using System;
@@ -51,6 +52,7 @@ public class LockerRoomController : MonoBehaviour
         _catalogOriginalPosition = _catalog.anchoredPosition;
         _catalog.DOAnchorPos(_catalogOriginalPosition + Vector3.right * 2000, 0);
         StartCoroutine(StartShowLockersRoutine());
+        SoundManager.PlayMusicNow(MusicTracksEnum.LockerRoom);
     }
 
     public void SelectRandomPlayers(bool allNaturalPositions)
@@ -186,6 +188,7 @@ public class LockerRoomController : MonoBehaviour
             gameObject.SetActive(false);
             _deckManager.gameObject.SetActive(true);
         }));
+        SoundManager.PlayMusicNow(MusicTracksEnum.Gameplay);
     }
 
     IEnumerator HideLockersRoutine(Action onComplete = null)
