@@ -21,6 +21,16 @@ public class ImageDataMatcher : SerializedScriptableObject
     [SerializeField] private Sprite _defaultActionCardMedal;
     [SerializeField] private Dictionary<CardRarity, Sprite> _actionCardRarityMedal = new Dictionary<CardRarity, Sprite>();
 
+    public Color GetHaloColor(int type)
+    {
+        return type switch
+        {
+            1 => _noPenaltyHalo,
+            2 => _slowButConditionMetHalo,
+            3 => _conditionMetHalo,
+            _ => new Color(0, 0, 0, 0),
+        };
+    }
     public Color GetPositionColor(PlayerPosition position)
     {
         return _positionColors.ContainsKey(position) ? _positionColors[position] : Color.white;

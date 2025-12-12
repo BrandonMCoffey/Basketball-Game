@@ -225,6 +225,7 @@ public class PlayerManager : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             bool played = i < TimelineActions.Count;
+            bool conditionMet = false;
 
             // Extra Pass Check
             float adjustCost = 0;
@@ -235,9 +236,10 @@ public class PlayerManager : MonoBehaviour
             int actionIndex = played ? TimelineActions[i].ActionIndex : cards[i - TimelineActions.Count].Action.ActionIndex;
             var action = player.CardData.GetAction(actionIndex);
 
+            bool passCostsExtra = false;
             if (prevPlayer != null && prevPlayer != player)
             {
-                bool passCostsExtra = !(action.Type == ActionType.Pass || prevPlayer.CardData.GetAction(prevActionIndex).Type == ActionType.Pass);
+                passCostsExtra = !(action.Type == ActionType.Pass || prevPlayer.CardData.GetAction(prevActionIndex).Type == ActionType.Pass);
 
                 if (played)
                 {
@@ -290,6 +292,7 @@ public class PlayerManager : MonoBehaviour
                     //Debug.Log($"Adjust {action.Name} by effectNextStack: {effects.Cost} | {effects.HypeGain}");
                     adjustCost += effects.Cost;
                     adjustHype += effects.HypeGain;
+                    conditionMet = true;
                     if (played && k < tempCount) removeTempIndexes.Add(k);
                     else if (played) skipActualStackIndexes.Add(k - tempCount);
                 }
@@ -312,6 +315,7 @@ public class PlayerManager : MonoBehaviour
                     //Debug.Log($"Adjust {action.Name} by effectIfPrevious: {effectIfPrevious.Cost} | {effectIfPrevious.HypeGain}");
                     adjustCost += effectIfPrevious.Cost;
                     adjustHype += effectIfPrevious.HypeGain;
+                    conditionMet = true;
                 }
             }
 
@@ -319,8 +323,8 @@ public class PlayerManager : MonoBehaviour
             {
                 int seqIfCount = action.EffectIfSequence.Requirements switch
                 {
-                    SequenceRequirements.First => i == 0 ? 1 : 0,
-                    SequenceRequirements.Last => i == TimelineActions.Count - 1 ? 1 : 0,
+                    SequenceRequirements.First => played ? (i == 0 ? 1 : 0) : (TimelineActions.Count == 0 ? 1 : 0),
+                    SequenceRequirements.Last => played ? (i == TimelineActions.Count - 1 ? 1 : 0) : 1,
                     SequenceRequirements.NoTypePlayed => !TimelineActions.Any(o => o.Player.CardData.GetAction(o.ActionIndex).Type == action.EffectIfSequence.OfType) ? 1 : 0,
                     SequenceRequirements.ForEachOfType => TimelineActions.Count(o => o.Player.CardData.GetAction(o.ActionIndex).Type == action.EffectIfSequence.OfType),
                     _ => 0
@@ -333,6 +337,7 @@ public class PlayerManager : MonoBehaviour
                         //Debug.Log($"Adjust {action.Name} by effectIfSequence: {effectIfSequence.Cost} | {effectIfSequence.HypeGain}");
                         adjustCost += effectIfSequence.Cost;
                         adjustHype += effectIfSequence.HypeGain;
+                        conditionMet = true;
                     }
                 }
             }
@@ -346,14 +351,15 @@ public class PlayerManager : MonoBehaviour
                 sequenceCost += adjustCost;
                 prevPlayer = player;
                 prevActionIndex = actionIndex;
-                playedCards[i].RefreshVisuals(adjustCost, adjustHype);
+                playedCards[i].RefreshVisuals(adjustCost, adjustHype, 0);
             }
             else
             {
                 // TODO: Highlight cards
                 //Debug.Log($"For {action.Name}: {sequenceCost} + {player.CardData.GetAction(actionIndex).Effects.Cost} + {adjustCost} out of {_maxEnergy}");
                 bool locked = _maxEnergy < sequenceCost + player.CardData.GetAction(actionIndex).Effects.Cost + adjustCost;
-                cards[i - TimelineActions.Count].RefreshVisuals(adjustCost, adjustHype);
+                int haloType = (passCostsExtra ? 0 : 1) + (conditionMet ? 2 : 0);
+                cards[i - TimelineActions.Count].RefreshVisuals(adjustCost, adjustHype, haloType);
                 cards[i - TimelineActions.Count].SetLocked(locked);
             }
         }

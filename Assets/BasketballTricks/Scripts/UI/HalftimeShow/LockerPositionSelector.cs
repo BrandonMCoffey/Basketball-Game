@@ -180,7 +180,6 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
                 StartCoroutine(ClickEffectRoutine(_clickEffectImages[i], i * 0.1f));
             }
         }
-
     }
 
     IEnumerator ClickEffectRoutine(Image img, float delay)

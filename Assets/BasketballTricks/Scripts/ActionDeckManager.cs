@@ -125,6 +125,7 @@ public class ActionDeckManager : MonoBehaviour
             Destroy(_playedCards[i].gameObject);
         }
         _playedCards.Clear();
+        PlayerManager.Instance.PreviewSequence(_playedCards, _cards);
     }
 
     public void PlayCard(ActionCard card)
@@ -194,7 +195,6 @@ public class ActionDeckManager : MonoBehaviour
             _disabled = false;
             BeforeDrawingNextHand?.Invoke();
             DrawHand();
-            PlayerManager.Instance.PreviewSequence(_playedCards, _cards);
             UpdateCardLayout(null);
             OnSequenceEnd?.Invoke();
             _playButton.gameObject.SetActive(true);

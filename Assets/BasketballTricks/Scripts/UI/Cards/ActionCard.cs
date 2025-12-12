@@ -107,11 +107,11 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
             if (_bg != null) _bg.sprite = _matcher.GetPositionBackground(gameAction.Player.Position);
         }
         _haloImage.gameObject.SetActive(false);
-    _showWhenNotSelected.SetActive(false);
+        _showWhenNotSelected.SetActive(false);
         _showWhenDiscarding.SetActive(false);
     }
 
-    public void RefreshVisuals(float adjustCost = 0, float adjustHype = 0)
+    public void RefreshVisuals(float adjustCost = 0, float adjustHype = 0, int haloType = 0)
     {
         var data = _action.Player.CardData.GetAction(_action.ActionIndex);
         var effects = data.Effects;
@@ -141,6 +141,9 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         }
         if (_colorImage != null) _colorImage.color = _matcher.GetPositionColor(_action.Player.Position);
         if (_actionRarityMedal != null) _actionRarityMedal.sprite = _matcher.GetActionCardMedal(data.AssociatedRarity);
+
+        _haloImage.gameObject.SetActive(haloType > 0);
+        if (haloType > 0) _haloImage.color = _matcher.GetHaloColor(haloType);
     }
 
     public void SetLocked(bool locked)
