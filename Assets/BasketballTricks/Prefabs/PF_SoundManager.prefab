@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662632564ca4caf49b1bffe0d301dd88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scenePersistent: 0
+  _scenePersistent: 1
   _soundLibrary: {fileID: 11400000, guid: cae8c0fa7760f3f408b94558a0311cdc, type: 2}
   _musicPool: {fileID: 4924029353296219205}
   _sfxPool: {fileID: 8294091975239611158}

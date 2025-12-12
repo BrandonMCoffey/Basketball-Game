@@ -56,7 +56,10 @@ public class UICanvasController : MonoBehaviour
 
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
 
+    private void Start()
+    {
         SoundManager.PlayMusicNow(MusicTracksEnum.MainMenu);
     }
 
