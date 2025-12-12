@@ -13,6 +13,9 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private PlayerActionData _spiderDribble;
     [SerializeField] private PlayerActionData _threePointer;
     [SerializeField] private PlayerActionData _chestPass;
+    [SerializeField] private PlayerActionData _alleyOop;
+    [SerializeField] private PlayerActionData _dunk;
+    
 
     [SerializeField] private PlayerCardData _secondPlayerCard;
     [SerializeField] private PlayerPosition _secondPlayerPos;
@@ -24,6 +27,7 @@ public class TutorialManager : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private Image _inputBlocker;
     [SerializeField] private TutorialPanelController _startingPanel;
+    [SerializeField] CostDisplay _costDisplay;
 
     private Player _startingPlayer;
     private GameCard _startingGameCard;
@@ -32,6 +36,14 @@ public class TutorialManager : MonoBehaviour
     private int _hand = -1;
 
     bool _finished = false;
+
+    private void OnEnable() {
+        ActionDeckManager.OnSequenceEnd += SequenceEnd;
+    }
+
+    private void OnDisable() {
+        ActionDeckManager.OnSequenceEnd -= SequenceEnd;
+    }
 
     public void Start()
     {
@@ -83,6 +95,12 @@ public class TutorialManager : MonoBehaviour
                 deck.Add(new GameAction(_secondPlayer, _startingGameCard.GetActionIndex(_threePointer)));
                 deck.Add(new GameAction(_secondPlayer, _startingGameCard.GetActionIndex(_chestPass)));
                 break;
+            case 3:
+                deck.Add(new GameAction(_startingPlayer, _startingGameCard.GetActionIndex(_alleyOop)));
+                deck.Add(new GameAction(_startingPlayer, _startingGameCard.GetActionIndex(_spiderDribble)));
+                deck.Add(new GameAction(_secondPlayer, _startingGameCard.GetActionIndex(_chestPass)));
+                deck.Add(new GameAction(_secondPlayer, _startingGameCard.GetActionIndex(_dunk)));
+                break;
         }
         Debug.Log($"Deck size: {deck.Count}");
         _actionDeckManager.InitTutorial(deck, _hand == 0);
@@ -99,6 +117,24 @@ public class TutorialManager : MonoBehaviour
     public void TutorialFinished()
     {
         _finished = true;
+    }
+
+    private void SequenceEnd()
+    {
+        Invoke("Fin", 1f);
+    }
+
+    void Fin()
+    {
+        if (_finished)
+        {
+            SceneManager.LoadScene("MainUI");
+        }
+    }
+
+    public void IncreaseEnergy()
+    {
+        _costDisplay.UpdateCostDisplay(0, 3);
     }
 
 }

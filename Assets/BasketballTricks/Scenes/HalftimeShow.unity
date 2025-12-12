@@ -10937,6 +10937,7 @@ MonoBehaviour:
   _costText: {fileID: 527765026}
   _unusedColor: {r: 1, g: 1, b: 1, a: 1}
   _spentColor: {r: 1, g: 1, b: 1, a: 0.2627451}
+  _startingEnergy: 5
   _costList:
   - {fileID: 2099044789839422370}
   - {fileID: 981963328}
@@ -14406,6 +14407,7 @@ MonoBehaviour:
   _selectedHeightOffset: 40
   _layoutDuration: 0.3
   _layoutEase: 27
+  _playButton: {fileID: 691830302}
 --- !u!114 &6949764343152343268
 MonoBehaviour:
   m_ObjectHideFlags: 0
