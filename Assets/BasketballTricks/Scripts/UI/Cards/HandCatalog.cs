@@ -12,6 +12,7 @@ public class HandCatalog : MonoBehaviour
     [SerializeField] private Transform _holdParent;
     [SerializeField] private bool _dragOntoCourt;
     [SerializeField] private Vector2 _cardSize = new Vector2(200, 300);
+    [SerializeField] private Vector2 _parentOffset = Vector2.zero;
     [SerializeField] private float _spacing = 10;
     [SerializeField] private int _columns = 2;
     [SerializeField] private int _maxDisplayCards = 6;
@@ -68,7 +69,7 @@ public class HandCatalog : MonoBehaviour
             float y = (-row + 0.5f * _maxDisplayCards / _columns - 0.5f) * (_cardSize.y + _spacing);
             //Debug.Log($"{i}: {row}, {column}, {column - 0.5f * _columns + 0.5f}, {row - 0.5f * count / _columns + 0.5f}");
             rectTransform.anchorMin = rectTransform.anchorMax = rectTransform.pivot = Vector3.one * 0.5f;
-            rectTransform.anchoredPosition = new Vector2(x, y + 20); // offset y for better centering - Sai
+            rectTransform.anchoredPosition = _parentOffset + new Vector2(x, y);
             rectTransform.sizeDelta = _cardSize;
             if (init)
             {
