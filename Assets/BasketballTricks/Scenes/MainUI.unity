@@ -1109,6 +1109,52 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1047776964}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1302229391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1302229392}
+  - component: {fileID: 1302229393}
+  m_Layer: 0
+  m_Name: PlayMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1302229392
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302229391}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1302229393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302229391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ace003926c358d45976cb8af5642fd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _track: {fileID: 11400000, guid: b237e54209b7e744c842eb15bef79823, type: 2}
+  _playOnStart: 1
 --- !u!114 &1408752047 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 995090748345308238, guid: 3eb8c2d6c5c0ff1459d85b4df9c0d240,
@@ -18003,3 +18049,4 @@ SceneRoots:
   - {fileID: 164295272}
   - {fileID: 6009105775030942014}
   - {fileID: 264749180}
+  - {fileID: 1302229392}
