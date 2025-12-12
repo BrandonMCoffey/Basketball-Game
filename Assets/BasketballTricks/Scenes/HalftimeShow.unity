@@ -16327,7 +16327,7 @@ MonoBehaviour:
   _delay: 1
   _defaultColor: {r: 0.15, g: 0.15, b: 0.15, a: 1}
   _highlightColor: {r: 0.02, g: 0.02, b: 0.02, a: 1}
-  _disabledColor: {r: 0.15, g: 0.15, b: 0.15, a: 0.5}
+  _disabledColor: {r: 0.15, g: 0.15, b: 0.15, a: 0.2509804}
 --- !u!222 &7757478147282783468
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16695,7 +16695,7 @@ MonoBehaviour:
   _delay: 1
   _defaultColor: {r: 0.15, g: 0.15, b: 0.15, a: 1}
   _highlightColor: {r: 0.02, g: 0.02, b: 0.02, a: 1}
-  _disabledColor: {r: 0.15, g: 0.15, b: 0.15, a: 0.5}
+  _disabledColor: {r: 0.15, g: 0.15, b: 0.15, a: 0.2509804}
 --- !u!114 &8941833985505217739
 MonoBehaviour:
   m_ObjectHideFlags: 0

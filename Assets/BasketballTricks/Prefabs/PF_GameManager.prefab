@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a92139ea9d5914ba53b7659e1361b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resetDataOnStart: 1
+  _resetDataOnStart: 0
   _startingMoney: 3000
   _startingCards:
   - {fileID: 11400000, guid: 98eb2e11f85a0de44b5f95ca7da49876, type: 2}

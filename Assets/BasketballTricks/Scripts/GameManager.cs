@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,8 +41,13 @@ public class GameManager : MonoBehaviour
         {
             if (!_resetDataOnStart) Debug.Log("No save data found. Initializing with starting cards.");
             _saveData = new GameSaveData(_startingMoney, _startingCards);
-            GameSaveData.Save(_saveData);
+            SaveGame();
         }
+    }
+
+    public void SaveGame()
+    {
+        GameSaveData.Save(_saveData);
     }
 
     public bool AttemptSpendMoney(int amount)
@@ -84,8 +90,9 @@ public class GameManager : MonoBehaviour
         return _playerLoadout.Values.ToList();
     }
 
-    public void ResetGameLoadout()
+    public void OnQuitGame()
     {
+        SaveGame();
         _playerLoadout.Clear();
     }
 
@@ -108,7 +115,7 @@ public class GameManager : MonoBehaviour
         if (matchingCard == null)
         {
             _saveData.OwnedCards.Add(new GameCard(cardData));
-            GameSaveData.Save(_saveData);
+            SaveGame();
         }
         else
         {

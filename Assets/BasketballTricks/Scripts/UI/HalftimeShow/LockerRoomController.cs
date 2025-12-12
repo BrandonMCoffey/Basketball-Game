@@ -1,6 +1,7 @@
 using CoffeyUtils.Sound;
 using DG.Tweening;
 using SaiUtils.Extensions;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -208,7 +209,7 @@ public class LockerRoomController : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        GameManager.Instance.ResetGameLoadout();
+        GameManager.Instance.OnQuitGame();
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 }

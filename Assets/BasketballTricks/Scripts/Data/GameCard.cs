@@ -8,9 +8,9 @@ public class GameCard
     [SerializeField] private int _level = 1;
     [SerializeField] private int _matchesPlayed;
     [SerializeField] private float _hypeScored;
-    [SerializeField] private int _tricksMade;
-    [SerializeField] private int _passesMade;
     [SerializeField] private int _shotsMade;
+    [SerializeField] private int _passesMade;
+    [SerializeField] private int _tricksMade;
 
     public GameCard(PlayerCardData data)
     {
@@ -81,5 +81,10 @@ public class GameCard
             4 => _tricksMade.ToString(),
             _ => "",
         };
+    }
+
+    public string GetStatData()
+    {
+        return $"{_cardData.Player.PlayerNumber} ({_cardData.CardTitle}): level {_level} ({_xp} XP). {_matchesPlayed} matches, {_shotsMade} shots, {_passesMade} passes, {_tricksMade} tricks.";
     }
 }

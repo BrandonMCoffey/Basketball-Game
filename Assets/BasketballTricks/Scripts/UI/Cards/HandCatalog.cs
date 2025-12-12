@@ -118,8 +118,6 @@ public class HandCatalog : MonoBehaviour
             bool positionBonus = _positionFilter != PlayerPosition.None && _allCards[cardIndex].PlayerData.IsNaturalPosition(_positionFilter);
             if (i < count) _cards[i].SetData(_allCards[cardIndex], _positionFilter, positionBonus);
             else _cards[i].SetData(null);
-
-            _cards[i].SetGlow(positionBonus);
         }
         StartCoroutine(ShowCardsRoutine(count));
     }
