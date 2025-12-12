@@ -4405,7 +4405,7 @@ MonoBehaviour:
   _buttonAnimTime: 0.2
   _catalogAnimTime: 0.5
   _deckManager: {fileID: 6949764343152343267}
-  _cardSelectedOffsetY: 0.1
+  _cardSelectedOffsetY: 0.12
 --- !u!1001 &1052307914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9138,7 +9138,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 30}
+  m_AnchoredPosition: {x: 0, y: 20}
   m_SizeDelta: {x: 500, y: 150}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1542875928
