@@ -13,7 +13,6 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private PlayerActionData _chestPass;
     [SerializeField] private PlayerActionData _alleyOop;
     [SerializeField] private PlayerActionData _dunk;
-    
 
     [SerializeField] private PlayerCardData _secondPlayerCard;
     [SerializeField] private PlayerPosition _secondPlayerPos;
@@ -24,7 +23,10 @@ public class TutorialManager : MonoBehaviour
 
     [Header("UI References")]
     [SerializeField] private Image _inputBlocker;
-    [SerializeField] private TutorialPanelController _startingPanel;
+    [SerializeField] private GameObject _startingPanel;
+    [SerializeField] private GameObject _panelAtHand2;
+    [SerializeField] private GameObject _panelAtHand3;
+    [SerializeField] private GameObject _panelAtHand4;
     [SerializeField] CostDisplay _costDisplay;
 
     private Player _startingPlayer;
@@ -46,21 +48,20 @@ public class TutorialManager : MonoBehaviour
     public void Start()
     {
         _actionDeckManager.BeforeDrawingNextHand += NextHand;
-        _hand = -1;
-        NextHand();
+        _hand = 0;
 
-        if (_startingPanel != null) _startingPanel.gameObject.SetActive(true);
+        if (_startingPanel != null) _startingPanel.SetActive(true);
 
         SoundManager.PlayMusicNow(MusicTracksEnum.Tutorial);
     }
 
-    private void NextHand()
+    public void NextHand()
     {
         List<GameAction> deck = new List<GameAction>();
         _hand++;
         switch (_hand)
         {
-            case 0:
+            case 1:
                 _startingGameCard = GameManager.Instance.GetMatchingCard(_startingPlayerCard);
                 foreach (var player in _playerManager.Players)
                 {
@@ -76,11 +77,13 @@ public class TutorialManager : MonoBehaviour
                 }
                 deck.Add(new GameAction(_startingPlayer, _startingGameCard.GetActionIndex(_spiderDribble)));
                 break;
-            case 1:
+            case 2:
+                if (_panelAtHand2 != null) _panelAtHand2.SetActive(true);
                 deck.Add(new GameAction(_startingPlayer, _startingGameCard.GetActionIndex(_spiderDribble)));
                 deck.Add(new GameAction(_startingPlayer, _startingGameCard.GetActionIndex(_threePointer)));
                 break;
-            case 2:
+            case 3:
+                if (_panelAtHand3 != null) _panelAtHand3.SetActive(true);
                 _secondGameCard = GameManager.Instance.GetMatchingCard(_secondPlayerCard);
                 foreach (var player in _playerManager.Players)
                 {
@@ -91,19 +94,20 @@ public class TutorialManager : MonoBehaviour
                         player.Place(_secondGameCard);
                     }
                 }
+                deck.Add(new GameAction(_secondPlayer, _secondGameCard.GetActionIndex(_chestPass)));
                 deck.Add(new GameAction(_startingPlayer, _startingGameCard.GetActionIndex(_spiderDribble)));
-                deck.Add(new GameAction(_secondPlayer, _startingGameCard.GetActionIndex(_threePointer)));
-                deck.Add(new GameAction(_secondPlayer, _startingGameCard.GetActionIndex(_chestPass)));
+                deck.Add(new GameAction(_startingPlayer, _startingGameCard.GetActionIndex(_threePointer)));
                 break;
-            case 3:
+            case 4:
+                if (_panelAtHand4 != null) _panelAtHand4.SetActive(true);
                 deck.Add(new GameAction(_startingPlayer, _startingGameCard.GetActionIndex(_alleyOop)));
                 deck.Add(new GameAction(_startingPlayer, _startingGameCard.GetActionIndex(_spiderDribble)));
-                deck.Add(new GameAction(_secondPlayer, _startingGameCard.GetActionIndex(_chestPass)));
-                deck.Add(new GameAction(_secondPlayer, _startingGameCard.GetActionIndex(_dunk)));
+                deck.Add(new GameAction(_secondPlayer, _secondGameCard.GetActionIndex(_chestPass)));
+                deck.Add(new GameAction(_secondPlayer, _secondGameCard.GetActionIndex(_dunk)));
                 break;
         }
         Debug.Log($"Deck size: {deck.Count}");
-        _actionDeckManager.InitTutorial(deck, _hand == 0);
+        _actionDeckManager.InitTutorial(deck, _hand <= 1);
     }
 
     public void BlockInput(bool block)
@@ -136,5 +140,4 @@ public class TutorialManager : MonoBehaviour
     {
         _costDisplay.UpdateCostDisplay(0, 3);
     }
-
 }

@@ -47,6 +47,7 @@ public class PlayerCardData : ScriptableObject
                 return i;
             }
         }
+        Debug.LogWarning($"Player {_playerData.PlayerName} does not have action {actionData.Data.Name}");
         return -1;
     }
     public ActionData GetAction(int index)
