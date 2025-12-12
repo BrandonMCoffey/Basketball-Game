@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -7,30 +9,27 @@ public class CostDisplay : MonoBehaviour
     [SerializeField] private TMP_Text _costText;
     [SerializeField] private Color _unusedColor = Color.blue;
     [SerializeField] private Color _spentColor = Color.green;
-    [SerializeField] private int _startingEnergy = 5;
+    [SerializeField] private bool _overrideStartingEnergy = false;
+    [SerializeField, ShowIf("_overrideStartingEnergy")] private int _startingEnergy = 5;
     //[SerializeField] private Color _overSpentColor = Color.red;
     //[SerializeField] private Color _overMaxColor = Color.white;
     [SerializeField] private List<StaminaElemController> _costList = new();
 
     [SerializeField] bool _removeTopToBottom = false;
 
-    private void OnValidate()
-    {
-        //UpdateCostDisplay(3, 5); sorry i know onvalidate is dope, but I had to do it through start....
-    }
-
     private void Awake()
     {
         PlayerManager.UpdateEnergy += UpdateCostDisplay;
     }
 
-    private void Start() 
+    IEnumerator Start() 
     {
         foreach (var costElem in _costList)
         {
             costElem.SetRefs(_unusedColor, _spentColor, this);
         }
-        UpdateCostDisplay(0, _startingEnergy);    
+        yield return new WaitForSeconds(0.2f);
+        if (_overrideStartingEnergy) UpdateCostDisplay(0, _startingEnergy); 
     }
 
     public void UpdateCostDisplay(float cost, float max) => UpdateCostDisplay(Mathf.RoundToInt(cost), Mathf.RoundToInt(max));
