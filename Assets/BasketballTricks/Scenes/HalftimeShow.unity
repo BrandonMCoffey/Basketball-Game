@@ -13245,7 +13245,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 100, y: 25}
+  m_AnchoredPosition: {x: 120, y: 40}
   m_SizeDelta: {x: 120, y: 80}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!224 &791428481117703600
@@ -13651,7 +13651,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -100, y: 25}
+  m_AnchoredPosition: {x: -120, y: 40}
   m_SizeDelta: {x: 120, y: 80}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &2186476159992659327
@@ -14858,9 +14858,9 @@ MonoBehaviour:
   - {fileID: 229580213}
   _animationSpeed: 2
   _delay: 1
-  _defaultColor: {r: 0, g: 0, b: 0, a: 1}
-  _highlightColor: {r: 0.156, g: 0.156, b: 0.156, a: 1}
-  _disabledColor: {r: 0, g: 0, b: 0, a: 0.5}
+  _defaultColor: {r: 0.15, g: 0.15, b: 0.15, a: 1}
+  _highlightColor: {r: 0.02, g: 0.02, b: 0.02, a: 1}
+  _disabledColor: {r: 0.15, g: 0.15, b: 0.15, a: 0.5}
 --- !u!222 &7757478147282783468
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15108,9 +15108,9 @@ MonoBehaviour:
   - {fileID: 282635045}
   _animationSpeed: 2
   _delay: 1
-  _defaultColor: {r: 0, g: 0, b: 0, a: 1}
-  _highlightColor: {r: 0.156, g: 0.156, b: 0.156, a: 1}
-  _disabledColor: {r: 0, g: 0, b: 0, a: 0.5}
+  _defaultColor: {r: 0.15, g: 0.15, b: 0.15, a: 1}
+  _highlightColor: {r: 0.02, g: 0.02, b: 0.02, a: 1}
+  _disabledColor: {r: 0.15, g: 0.15, b: 0.15, a: 0.5}
 --- !u!224 &8986160300005462053
 RectTransform:
   m_ObjectHideFlags: 0
