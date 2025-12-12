@@ -36,6 +36,8 @@ public class LockerRoomController : MonoBehaviour
     private RectTransform _rectTransform;
     private HandCatalog _handCatalogRef;
 
+    public LockerPositionSelector GetCurrentSelected() => _selectedIndex >= 0 ? _lockerPositions[_selectedIndex] : null;
+
     private void Start()
     {
         _rectTransform = GetComponent<RectTransform>();

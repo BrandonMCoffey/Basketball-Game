@@ -160,7 +160,14 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
             if (!_wasDragged)
             {
                 // TODO: Click to select
-                Debug.Log("Click");
+                var controller = FindObjectOfType<LockerRoomController>();
+                if (controller != null)
+                {
+                    _rectTransform.DOScale(_popScale, 0.1f).SetEase(Ease.OutBack);
+                    if (_holdParent != null) transform.SetParent(_holdParent, true);
+                    transform.SetAsLastSibling();
+                    DropCardOnDestination(controller.GetCurrentSelected());
+                }
             }
         }
     }
@@ -266,20 +273,7 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         var dropOnSelector = LockerPositionSelector.CurrentDropDestination;
         if (dropOnSelector != null)
         {
-            if (CurrentInvisibleCard != null)
-            {
-                CurrentInvisibleCard.AppearAtPosition();
-            }
-            CurrentInvisibleCard = this;
-            transform.DORotate(_initialRotation.eulerAngles, 0.15f);
-            transform.DOMove(dropOnSelector.transform.position, 0.2f).OnComplete(() =>
-            {
-                dropOnSelector.AddCard(_card);
-                transform.DOScale(0, 0);
-            });
-            LockerPositionSelector.CurrentDropDestination = null;
-            _isDragging = false;
-            _canDrag = false;
+            DropCardOnDestination(dropOnSelector);
             return;
         }
 
@@ -294,6 +288,25 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
         }
 
         StartCoroutine(ReturnToPosition());
+    }
+
+    public void DropCardOnDestination(LockerPositionSelector destination)
+    {
+        if (destination == null) return;
+        if (CurrentInvisibleCard != null)
+        {
+            CurrentInvisibleCard.AppearAtPosition();
+        }
+        CurrentInvisibleCard = this;
+        transform.DORotate(_initialRotation.eulerAngles, 0.15f);
+        transform.DOMove(destination.transform.position, 0.2f).OnComplete(() =>
+        {
+            destination.AddCard(_card);
+            transform.DOScale(0, 0);
+        });
+        LockerPositionSelector.CurrentDropDestination = null;
+        _isDragging = false;
+        _canDrag = false;
     }
 
     public void AppearAtPosition(bool scale = true)
