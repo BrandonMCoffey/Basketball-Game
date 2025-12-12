@@ -94,7 +94,7 @@ public class DribbleController : MonoBehaviour
 
     public void ReturnToCatalog()
     {
-        if (GameManager.Instance != null) GameManager.Instance.LoadCatalog();
+        if (GameManager.Instance != null) GameManager.Instance.LoadMainMenu();
     }
 
     private void HandleTouch()

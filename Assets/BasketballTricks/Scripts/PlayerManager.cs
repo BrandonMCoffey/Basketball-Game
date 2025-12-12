@@ -73,11 +73,19 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        Hype = 0;
+        _actionVisualPreviews = new List<ActionVisualPreview>(5);
+        for (int i = 0; i < 5; i++)
+        {
+            var preview = Instantiate(_actionVisualPreview, transform);
+            preview.gameObject.SetActive(false);
+            _actionVisualPreviews.Add(preview);
+        }
+        _energyRemaining = _maxEnergy;
     }
 
     private void Start()
     {
-        Hype = 0;
         UpdateHype?.Invoke(Hype);
         UpdateEnergy?.Invoke(0, _maxEnergy);
         if (_randomPlayerArt.Count > 0)
@@ -88,14 +96,6 @@ public class PlayerManager : MonoBehaviour
             }
         }
         _trickshotCamera.SetNormalCamera();
-        _actionVisualPreviews = new List<ActionVisualPreview>(5);
-        for (int i = 0; i < 5; i++)
-        {
-            var preview = Instantiate(_actionVisualPreview, transform);
-            preview.gameObject.SetActive(false);
-            _actionVisualPreviews.Add(preview);
-        }
-        _energyRemaining = _maxEnergy;
     }
 
     private void Update()

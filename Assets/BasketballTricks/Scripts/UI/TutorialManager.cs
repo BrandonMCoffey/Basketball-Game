@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using CoffeyUtils.Sound;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
@@ -124,14 +121,14 @@ public class TutorialManager : MonoBehaviour
 
     private void SequenceEnd()
     {
-        Invoke("Fin", 1f);
+        Invoke(nameof(Fin), 1f);
     }
 
     void Fin()
     {
         if (_finished)
         {
-            SceneManager.LoadScene("MainUI");
+            GameManager.Instance.LoadMainMenu();
         }
     }
 

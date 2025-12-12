@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 enum GameMode
 {
@@ -115,17 +116,17 @@ public class GameSelectController : MonoBehaviour
 
     public void AnimateOffScreen(Action callback = null)
     {
-        _leftSidePanel.DOAnchorPos(new Vector2(-Screen.width, _leftSidePanelOnScreenPos.y), _transitionTimeOffScreen).SetEase(Ease.InOutCubic);
-        _titlePanel.DOAnchorPos(new Vector2(-500, _titlePanelOnScreenPos.y), _transitionTimeOffScreen).SetEase(Ease.OutQuart).SetDelay(0.12f);
-        _tutorialButton.DOAnchorPos(new Vector2(-Screen.width, _tutorialButtonOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.25f);
-        _halfTimeButton.DOAnchorPos(new Vector2(-Screen.width, _halfTimeButtonOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.35f);
-        _zenButton.DOAnchorPos(new Vector2(-Screen.width, _zenButtonOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.45f);
-        _backButton.DOAnchorPos(new Vector2(-Screen.width, _backButtonOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.55f).OnComplete(() =>
+        _leftSidePanel.DOAnchorPos(new Vector2(-Screen.width, _leftSidePanelOnScreenPos.y), _transitionTimeOffScreen).SetEase(Ease.InOutCubic).OnComplete(() =>
         {
             _halfTimeVideoPlayer.enabled = false;
             _zenVideoPlayer.enabled = false;
             callback?.Invoke();
         });
+        _titlePanel.DOAnchorPos(new Vector2(-500, _titlePanelOnScreenPos.y), _transitionTimeOffScreen).SetEase(Ease.OutQuart).SetDelay(0.12f);
+        _tutorialButton.DOAnchorPos(new Vector2(-Screen.width, _tutorialButtonOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.25f);
+        _halfTimeButton.DOAnchorPos(new Vector2(-Screen.width, _halfTimeButtonOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.35f);
+        _zenButton.DOAnchorPos(new Vector2(-Screen.width, _zenButtonOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.45f);
+        _backButton.DOAnchorPos(new Vector2(-Screen.width, _backButtonOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.55f);
 
         _descriptionPanel.DOAnchorPos(new Vector2(Screen.width * 3, _descriptionPanelOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType);
         _descriptionText.rectTransform.DOAnchorPos(new Vector2(Screen.width * 3, _descriptionTextOnScreenPos.y), _transitionTimeOffScreen).SetEase(_easeType).SetDelay(0.1f);
@@ -199,7 +200,7 @@ public class GameSelectController : MonoBehaviour
     {
         AnimateOffScreen(() =>
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial");
+            GameManager.Instance.LoadTutorialScene();
         });
     }
 
@@ -217,10 +218,10 @@ public class GameSelectController : MonoBehaviour
         switch (_currentGameMode)
         {
             case GameMode.HalfTime:
-                UnityEngine.SceneManagement.SceneManager.LoadScene("HalftimeShow");
+                GameManager.Instance.LoadGameScene();
                 break;
             case GameMode.Zen:
-                UnityEngine.SceneManagement.SceneManager.LoadScene("ZenScene");
+                GameManager.Instance.LoadSandboxScene();
                 break;
             default:
                 Debug.LogError("No game mode selected!");

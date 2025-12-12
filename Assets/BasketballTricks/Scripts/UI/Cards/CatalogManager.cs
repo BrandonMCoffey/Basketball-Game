@@ -18,7 +18,7 @@ public class CatalogManager : MonoBehaviour
         InitializeCards();
     }
 
-    public void StartGame() => GameManager.Instance.StartGame();
+    public void StartGame() => GameManager.Instance.LoadGameScene();
 
     private void InitializeCards()
     {

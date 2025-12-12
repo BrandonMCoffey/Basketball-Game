@@ -56,35 +56,22 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    public void StartGame()
+    public void LoadMainMenu() => TransitionToScene("MainUI");
+    public void LoadTutorialScene() => TransitionToScene("Tutorial");
+    public void LoadGameScene() => TransitionToScene("HalftimeShow");
+    public void LoadSandboxScene() => TransitionToScene("ZenScene");
+    public void LoadDribbleMinigameScene(PlayerCardData card)
     {
-        TransitionToScene("HalftimeShow");
-    }
-
-    public void LoadCatalog()
-    {
-        TransitionToScene("MainUI");
-    }
-
-    public void StartDribblePractice(GameCard card)
-    {
-        if (_saveData.OwnedCards.Contains(card))
+        if (_saveData.OwnedCards.Any(gameCard => gameCard.CardDataSO == card))
         {
-            _selectedCardIndex = _saveData.OwnedCards.IndexOf(card);
+            _selectedCardIndex = _saveData.OwnedCards.FindIndex(gameCard => gameCard.CardDataSO == card);
             TransitionToScene("DribbleGame");
         }
         else
         {
-            Debug.LogError($"Card {card.PlayerName} not found in owned cards. Cannot start dribble practice.");
+            Debug.LogError($"Card {card.Player.PlayerName} not found in owned cards. Cannot start dribble practice.");
         }
     }
-    public void StartDribblePractice(int playerIndex)
-    {
-        Debug.Log($"Starting dribble practice with {_saveData.OwnedCards[playerIndex].PlayerName}");
-        _selectedCardIndex = playerIndex;
-        TransitionToScene("DribbleGame");
-    }
-
     public void StartShootingPractice(int playerIndex)
     {
         Debug.Log($"Starting shooting practice with {_saveData.OwnedCards[playerIndex].PlayerName}");

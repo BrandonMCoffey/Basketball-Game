@@ -55,7 +55,7 @@ public class HandCatalog : MonoBehaviour
         if (_holdParent == null) _holdParent = transform;
     }
 
-    public void StartGame() => GameManager.Instance.StartGame();
+    public void StartGame() => GameManager.Instance.LoadGameScene();
 
     private void ResetCardPositions(bool init = false)
     {

@@ -338,6 +338,6 @@ public class PlayerCard : PlayerCardVisuals, IPointerClickHandler, IPointerDownH
 
     public void TrainWithCard()
     {
-        GameManager.Instance.StartDribblePractice(_card);
+        GameManager.Instance.LoadDribbleMinigameScene(_card.CardDataSO);
     }
 }

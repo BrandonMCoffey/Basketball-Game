@@ -80,8 +80,4 @@ public class UICanvasController : MonoBehaviour
             ChangeToMainMenu();
         }
     }
-
-
 }
-    
-
