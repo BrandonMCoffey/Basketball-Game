@@ -15,8 +15,8 @@ public class PlayerCardVisuals : MonoBehaviour
     [SerializeField] private Image _playerImage;
     [SerializeField] private Image _playerImage2;
     [SerializeField] private Image _bgImage;
-    [SerializeField] private Sprite _defaultPlayerImage;
-    [SerializeField] private Sprite _defaultTeamImage;
+    [SerializeField] protected Image _cardBorder;
+    [SerializeField] private Image _cardRarityImage;
     [SerializeField] private List<PlayerActionVisuals> _actionVisuals;
     [SerializeField] private TMP_Text _cardBackPositions;
     [SerializeField] private List<TMP_Text> _cardBackImportantText;
@@ -47,14 +47,15 @@ public class PlayerCardVisuals : MonoBehaviour
         if (_card != null) UpdateVisuals();
     }
 
-    public void SetData(GameCard data, PlayerPosition position = PlayerPosition.None, bool positionBonus = false)
+    public void SetData(GameCard data, PlayerPosition position = PlayerPosition.None, bool positionBonus = true)
     {
         _card = data;
         if (_bgImage != null && _matcher != null)
         {
             _bgImage.sprite = _matcher.GetPositionBackground(position);
-            _bgImage.color = positionBonus ? Color.white : Color.gray;
         }
+        if (_cardRarityImage != null) _cardRarityImage.sprite = _matcher.GetRarityGlow(data.CardDataSO.Rarity);
+        if (_cardBorder != null) _cardBorder.color = positionBonus ? Color.yellow : Color.white;
         UpdateVisuals();
         UpdateCardBackDataVisuals();
     }
@@ -63,8 +64,8 @@ public class PlayerCardVisuals : MonoBehaviour
     {
         if (_playerName != null) _playerName.text = _card != null ? _card.PlayerName : "Player";
         if (_playerName2 != null) _playerName2.text = _card != null ? _card.PlayerName : "Player";
-        if (_playerImage != null) _playerImage.sprite = _card != null ? _card.PlayerSprite : _defaultPlayerImage;
-        if (_playerImage2 != null) _playerImage2.sprite = _card != null ? _card.PlayerSprite : _defaultPlayerImage;
+        if (_playerImage != null) _playerImage.sprite = _card != null ? _card.PlayerSprite : null;
+        if (_playerImage2 != null) _playerImage2.sprite = _card != null ? _card.PlayerSprite : null;
 
         for (int i = 0; i < _actionVisuals.Count; i++)
         {

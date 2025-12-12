@@ -132,6 +132,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (_finished)
         {
+            GameManager.Instance.SaveGame();
             GameManager.Instance.LoadMainMenu();
         }
     }

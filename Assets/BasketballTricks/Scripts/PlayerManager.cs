@@ -679,6 +679,7 @@ public class PlayerManager : MonoBehaviour
         }
         UpdateEffectNextStack?.Invoke();
         _basketball.transform.position = new Vector3(0, -10f, 0);
+        GameManager.Instance.SaveGame();
     }
 }
 

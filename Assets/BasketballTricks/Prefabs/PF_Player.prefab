@@ -272,9 +272,9 @@ MonoBehaviour:
     _level: 0
     _matchesPlayed: 0
     _hypeScored: 0
-    _tricksMade: 0
-    _passesMade: 0
     _shotsMade: 0
+    _passesMade: 0
+    _tricksMade: 0
   _animationCrossfadeDuration: 0.1
   _position: 0
   _matcher: {fileID: 11400000, guid: aa44192148093db4586d68d2613f9d92, type: 2}

@@ -19,6 +19,7 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
     [SerializeField] private GameObject _naturalPosition;
     [SerializeField] private GameObject _actionPanel;
     [SerializeField] private Image _bg;
+    [SerializeField] private Image _borderRarity;
     [SerializeField] private ImageDataMatcher _matcher;
     [SerializeField] private List<TMP_Text> _actionList;
     [SerializeField] private RectTransform _addButtonImage;
@@ -129,7 +130,9 @@ public class LockerPositionSelector : MonoBehaviour, IDropHandler
                 img.color = isNatPos ? _natPosClickEffectCol : Color.white;
             }
         }
-        
+        if (_borderRarity != null) _borderRarity.sprite = _matcher.GetRarityGlow(_activeGameCard.CardDataSO.Rarity);
+
+
         int i = 0;
         int count = Mathf.Min(_actionList.Count, _activeGameCard != null ? _activeGameCard.ActionCount : 0);
         for (; i < count; i++)
