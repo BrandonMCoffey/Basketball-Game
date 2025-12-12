@@ -54,8 +54,13 @@ public class PlayerCardVisuals : MonoBehaviour
         {
             _bgImage.sprite = _matcher.GetPositionBackground(position);
         }
-        if (_cardRarityImage != null) _cardRarityImage.sprite = _matcher.GetRarityGlow(data.CardDataSO.Rarity);
-        if (_cardBorder != null) _cardBorder.color = positionBonus ? Color.yellow : Color.white;
+        if (_cardRarityImage != null)
+        {
+            bool check = _matcher != null && data != null && data.CardDataSO != null;
+            _cardRarityImage.gameObject.SetActive(check);
+            if (check) _cardRarityImage.sprite = _matcher.GetRarityGlow(data.CardDataSO.Rarity);
+        }
+        if (_cardBorder != null) _cardBorder.sprite = _matcher.GetBorder(positionBonus);
         UpdateVisuals();
         UpdateCardBackDataVisuals();
     }
@@ -108,6 +113,7 @@ public class PlayerCardVisuals : MonoBehaviour
     [Button]
     public void UpdateCardBackDataVisuals()
     {
+        if (_card == null) return;
         _cardBackPositions.text = _card.PlayerData.NaturalPosition.ToString();
 
         var lines = _card.PlayerData.CardBackImportantData;

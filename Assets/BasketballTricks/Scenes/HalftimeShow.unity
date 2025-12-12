@@ -1130,7 +1130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &175000652
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11637,10 +11637,6 @@ MonoBehaviour:
   _silverTransform: {fileID: 27994526}
   _goldTransform: {fileID: 849021314}
   _fillArea: {fileID: 638108665}
-  _goalPos: 0
-  _bronzePos: 0
-  _silverPos: 0
-  _goldPos: 0
 --- !u!1 &1818009746
 GameObject:
   m_ObjectHideFlags: 0
@@ -16344,6 +16340,66 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 175000652}
     m_Modifications:
+    - target: {fileID: 358854244008338675, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 358854244008338675, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 358854244008338675, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 473.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 358854244008338675, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 823236966665858234, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 823236966665858234, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 823236966665858234, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 53
+      objectReference: {fileID: 0}
+    - target: {fileID: 823236966665858234, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456511057811037078, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456511057811037078, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456511057811037078, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 319.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456511057811037078, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -40
+      objectReference: {fileID: 0}
     - target: {fileID: 4011471527669542351, guid: 7dcda39b7df37e948b51170116af34b3,
         type: 3}
       propertyPath: m_Pivot.x
@@ -16448,6 +16504,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: panel_EndScoreCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268915749908405000, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268915749908405000, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268915749908405000, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 174.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268915749908405000, guid: 7dcda39b7df37e948b51170116af34b3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
