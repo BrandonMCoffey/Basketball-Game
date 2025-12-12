@@ -113,9 +113,12 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     public void RefreshVisuals(float adjustCost = 0, float adjustHype = 0, int haloType = 0)
     {
-        var data = _action.Player.CardData.GetAction(_action.ActionIndex);
+        RefreshVisuals(_action.Player.CardData.GetAction(_action.ActionIndex), adjustCost, adjustHype, haloType);
+    }
+    public void RefreshVisuals(ActionData data, float adjustCost = 0, float adjustHype = 0, int haloType = 0)
+    {
         var effects = data.Effects;
-        if (_playerNumber != null) _playerNumber.text = _action.Player.CardData.PlayerNumber;
+        if (_playerNumber != null && _action.Player != null) _playerNumber.text = _action.Player.CardData.PlayerNumber;
         if (_actionName != null) _actionName.text = data.Name;
         if (_actionDescription != null) _actionDescription.text = data.GetDisplayText();
         if (_actionType != null) _actionType.text = data.Type.ToString();
@@ -139,7 +142,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
             if (data.Icon != null) _actionIcon.sprite = data.Icon;
             else _actionIcon.sprite = _matcher.GetActionType(data.Type);
         }
-        if (_colorImage != null) _colorImage.color = _matcher.GetPositionColor(_action.Player.Position);
+        if (_colorImage != null && _action.Player != null) _colorImage.color = _matcher.GetPositionColor(_action.Player.Position);
         if (_actionRarityMedal != null) _actionRarityMedal.sprite = _matcher.GetActionCardMedal(data.AssociatedRarity);
 
         _haloImage.gameObject.SetActive(haloType > 0);
