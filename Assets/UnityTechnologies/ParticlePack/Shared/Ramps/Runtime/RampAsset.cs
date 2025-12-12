@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 
 
-    [CreateAssetMenu]
-    public class RampAsset : ScriptableObject
 [CreateAssetMenu]
 public class RampAsset : ScriptableObject
 {
