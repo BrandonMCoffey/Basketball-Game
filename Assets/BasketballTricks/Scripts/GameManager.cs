@@ -97,6 +97,11 @@ public class GameManager : MonoBehaviour
         return _playerLoadout.Values.ToList();
     }
 
+    public void ResetGameLoadout()
+    {
+        _playerLoadout.Clear();
+    }
+
     public void SetPositionCard(PlayerPosition position, GameCard card)
     {
         if (_playerLoadout.ContainsKey(position))

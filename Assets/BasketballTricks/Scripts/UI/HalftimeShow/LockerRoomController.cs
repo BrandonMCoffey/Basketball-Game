@@ -193,6 +193,7 @@ public class LockerRoomController : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
+        GameManager.Instance.ResetGameLoadout();
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 }
