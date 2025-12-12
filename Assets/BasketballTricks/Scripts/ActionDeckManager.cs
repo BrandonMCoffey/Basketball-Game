@@ -30,6 +30,14 @@ public class ActionDeckManager : MonoBehaviour
     [SerializeField] private Ease _layoutEase = Ease.OutBack;
     [SerializeField] RectTransform _playButton;
 
+    [Header("Goal Values")]
+    [SerializeField] HypeScoreDisplay _hypeScoreDisplay;
+    [SerializeField, Range(0, 350)] private float _goalValue = 0.25f;
+    [SerializeField, Range(0, 350)] private float _bronzeValue = 0.25f;
+    [SerializeField, Range(0, 350)] private float _silverValue = 0.25f;
+    [SerializeField, Range(0, 350)] private float _goldValue = 0.25f;
+    public static float MaxScore {get; private set; } = 350f;
+
     public event System.Action BeforeDrawingNextHand = delegate { };
     public static event System.Action<ActionCard> OnCardPlayed = delegate { };
     public static event System.Action OnPlayPressed = delegate { };
@@ -94,6 +102,8 @@ public class ActionDeckManager : MonoBehaviour
         }
         DrawHand();
         UpdateCardLayout(null, true);
+
+        _hypeScoreDisplay.Init(_goalValue, _bronzeValue, _silverValue, _goldValue);
     }
 
     public void InitTutorial(List<GameAction> deck, bool init)

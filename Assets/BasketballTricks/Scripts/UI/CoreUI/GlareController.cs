@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System.Collections;
 
 public class GlareController : MonoBehaviour
 {
@@ -11,8 +12,9 @@ public class GlareController : MonoBehaviour
     [SerializeField] private float _verticalOffset = 500f;
     [SerializeField] private float _duration = 5f;
     [SerializeField] private bool _moveFromBottomToTop = false;
-
-    void Start() 
+    [SerializeField] private bool _randomizeStartDelay = false;
+ 
+    IEnumerator Start() 
     {
         float startY;
         float endY;
@@ -20,6 +22,7 @@ public class GlareController : MonoBehaviour
         if (_moveFromBottomToTop)
         {
             startY = -_verticalOffset;
+            Debug.Log("StartY: " + startY);
             endY = Screen.height + _verticalOffset;
         }
         else
@@ -28,7 +31,15 @@ public class GlareController : MonoBehaviour
             endY = -_verticalOffset;
         }
 
+        if (_randomizeStartDelay)
+        {
+            float randomDelay = Random.Range(0f, 3f);
+            yield return new WaitForSeconds(randomDelay);
+        }
+
         _glareTransform.anchoredPosition = new Vector2(_glareTransform.anchoredPosition.x, startY);
-        _glareTransform.DOAnchorPosY(endY, _duration).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);    
+        _glareTransform.DOAnchorPosY(endY, _duration).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);   
+
+        yield return null; 
     }
 }
