@@ -47,7 +47,7 @@ public class ActionDeckManager : MonoBehaviour
 
     private void Awake()
     {
-        _discardBox.gameObject.SetActive(false);
+        if (_discardBox != null) _discardBox.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -65,7 +65,7 @@ public class ActionDeckManager : MonoBehaviour
         if (_discardShown != ActionCard.DraggingAny)
         {
             _discardShown = ActionCard.DraggingAny;
-            _discardBox.gameObject.SetActive(_discardShown);
+            if (_discardBox != null) _discardBox.gameObject.SetActive(_discardShown);
         }
     }
 

@@ -207,7 +207,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         else if (!_played)
         {
             //if (Vector2.Distance(_manager.DiscardBox.anchoredPosition, _rectTransform.anchoredPosition) < 50)
-            if (RectTransformUtility.RectangleContainsScreenPoint(_manager.DiscardBox, eventData.position))
+            if (_manager.DiscardBox != null && RectTransformUtility.RectangleContainsScreenPoint(_manager.DiscardBox, eventData.position))
             {
                 _manager.DiscardCard(this);
                 _showWhenDiscarding.SetActive(true);
