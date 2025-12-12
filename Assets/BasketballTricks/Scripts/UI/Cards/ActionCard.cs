@@ -47,6 +47,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     public RectTransform RectTransform => _rectTransform;
     public bool IsSelected => _isSelected;
+    public static bool DraggingAny { get; private set; }
 
     private void Awake()
     {
@@ -169,6 +170,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     {
         _isDragging = true;
         _wasDragged = true;
+        DraggingAny = true;
 
         if (!_locked)
         {
@@ -189,6 +191,7 @@ public class ActionCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     public void OnPointerUp(PointerEventData eventData)
     {
         _isDragging = false;
+        DraggingAny = false;
 
         if (!_played && _dragToPlay)
         {

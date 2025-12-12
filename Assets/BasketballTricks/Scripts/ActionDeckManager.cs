@@ -43,6 +43,12 @@ public class ActionDeckManager : MonoBehaviour
     private List<GameAction> _actionDeck = new List<GameAction>();
     private bool _disabled;
     private bool _lockReorder;
+    private bool _discardShown;
+
+    private void Awake()
+    {
+        _discardBox.gameObject.SetActive(false);
+    }
 
     private void OnEnable()
     {
@@ -52,6 +58,15 @@ public class ActionDeckManager : MonoBehaviour
     private void OnDisable()
     {
         PlayerManager.RefreshTimeline -= CheckSequenceCompleted;
+    }
+
+    private void Update()
+    {
+        if (_discardShown != ActionCard.DraggingAny)
+        {
+            _discardShown = ActionCard.DraggingAny;
+            _discardBox.gameObject.SetActive(_discardShown);
+        }
     }
 
     public void Init()
