@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         StartCoroutine(TransitionToSceneRoutine("", true));
         
-        if (_resetDataOnStart || !GameSaveData.Load(ref _saveData))
+        if (_resetDataOnStart || !GameSaveData.Load(ref _saveData) || OwnedPlayers.Count == 0)
         {
             if (!_resetDataOnStart) Debug.Log("No save data found. Initializing with starting cards.");
             _saveData = new GameSaveData(_startingMoney, _startingCards);
