@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Corner Trey
   m_EditorClassIdentifier: 
   _data:
-    Name: Corner 3
+    Name: Corner Trey
     _cardText: On play, Draw 2 cards.
-    _previewText: On play, Draw 2 cards.
-    _cardSummary: For 2 cost, gain +20 Hype and draw 2 cards.
+    _previewText: On play, Draw 2 cards
+    _cardSummary: For 2 cost, gain +20 Hype and draw 2 cards
     Type: 3
     AssociatedRarity: 2
     AllowedPositions: 3
@@ -184,6 +184,7 @@ MonoBehaviour:
           - 0
           - 0
           - 0
+      Level: 0
     _nextEffectPreviewText: 
     Icon: {fileID: 0}
     Animation: 200

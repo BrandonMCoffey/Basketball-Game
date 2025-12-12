@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Deep Triple
   m_EditorClassIdentifier: 
   _data:
-    Name: Deep 3
+    Name: Deep Triple
     _cardText: 
-    _previewText: 
-    _cardSummary: For 3 cost, gain +75 Hype.
+    _previewText: Gain 75 Hype
+    _cardSummary: For 3 cost, gain +75 Hype
     Type: 3
     AssociatedRarity: 2
     AllowedPositions: 3
@@ -184,6 +184,7 @@ MonoBehaviour:
           - 0
           - 0
           - 0
+      Level: 0
     _nextEffectPreviewText: 
     Icon: {fileID: 0}
     Animation: 200
