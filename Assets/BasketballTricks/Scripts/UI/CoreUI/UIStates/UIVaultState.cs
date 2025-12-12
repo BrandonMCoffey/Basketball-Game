@@ -1,5 +1,3 @@
-using DG.Tweening;
-
 public class UIVaultState : UIStateBase
 {
     public UIVaultState(UICanvasController canvasController) : base(canvasController) { }

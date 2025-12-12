@@ -1,5 +1,3 @@
-using DG.Tweening;
-
 public class UIShopState : UIStateBase
 {
     public UIShopState(UICanvasController canvasController) : base(canvasController) { }

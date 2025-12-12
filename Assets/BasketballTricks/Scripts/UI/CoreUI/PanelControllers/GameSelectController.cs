@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using UnityEngine.Video;
-using UnityEngine.SceneManagement;
 
 enum GameMode
 {

@@ -1,5 +1,3 @@
-using DG.Tweening;
-
 public class UISettingsState : UIStateBase
 {
     public UISettingsState(UICanvasController canvasController) : base(canvasController) { }
