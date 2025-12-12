@@ -42,6 +42,8 @@ public class LockerRoomController : MonoBehaviour
     private HandCatalog _handCatalogRef;
     [SerializeField] VideoPlayer _transitionPlayer;
 
+    public LockerPositionSelector GetCurrentSelected() => _selectedIndex >= 0 ? _lockerPositions[_selectedIndex] : null;
+
     private void Start()
     {
         _rectTransform = GetComponent<RectTransform>();
