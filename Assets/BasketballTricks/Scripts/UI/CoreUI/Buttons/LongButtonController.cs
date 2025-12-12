@@ -142,8 +142,9 @@ public class LongButtonController : MonoBehaviour, IPointerDownHandler, IPointer
     {
         if (!_interactable) return;
         transform.DOScale(_clickScale, 0.1f).SetEase(_clickStartEase).OnComplete(() => 
+        transform.DOScale(_clickScale, 0.1f).SetEase(_clickStartEase).OnComplete(() => 
         {
             transform.DOScale(1f, 0.2f).SetEase(_clickEndEase).SetDelay(0.15f);
-        });
+        }));
     }
 }

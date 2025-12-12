@@ -7,6 +7,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Video;
 
 public class LockerRoomController : MonoBehaviour
 {
@@ -28,6 +30,9 @@ public class LockerRoomController : MonoBehaviour
 
     private Vector3 CardVertical => _rectTransform.rect.height * Vector3.up;
 
+    [SerializeField] UnityEvent OnCatalogueOpen;
+    [SerializeField] UnityEvent OnCatalogueClose;
+
     private int _selectedIndex = -1;
     private Vector3 _letsGoOriginalPosition;
     private Vector3 _promptStartOriginalPosition;
@@ -35,6 +40,7 @@ public class LockerRoomController : MonoBehaviour
     private bool _moving;
     private RectTransform _rectTransform;
     private HandCatalog _handCatalogRef;
+    [SerializeField] VideoPlayer _transitionPlayer;
 
     private void Start()
     {
@@ -185,14 +191,11 @@ public class LockerRoomController : MonoBehaviour
         }
         _deckManager.Init();
 
-        StartCoroutine(HideLockersRoutine(() => {
-            gameObject.SetActive(false);
-            _deckManager.gameObject.SetActive(true);
-        }));
+        StartCoroutine(HideLockersRoutine());
         SoundManager.PlayMusicNow(MusicTracksEnum.Gameplay);
     }
 
-    IEnumerator HideLockersRoutine(Action onComplete = null)
+    IEnumerator HideLockersRoutine()
     {
         _moving = true;
         for (int i = 0; i < _lockerPositions.Count; i++)
@@ -201,10 +204,12 @@ public class LockerRoomController : MonoBehaviour
             _lockerPositions[i].RectTransform.DOAnchorPos(pos, _lockerAnimTime);
             yield return new WaitForSeconds(_betweenLockerDelay);
         }
-        _rectTransform.DOAnchorPos(new Vector2(_rectTransform.anchoredPosition.x, Screen.height * 2), _lockerAnimTime).SetEase(Ease.InBack);
-        yield return new WaitForSeconds(_lockerAnimTime);
+        _transitionPlayer.gameObject.SetActive(true);
+        _transitionPlayer.Play();
+        yield return new WaitForSeconds(1.5f);
         _moving = false;
-        onComplete?.Invoke();
+        gameObject.SetActive(false);
+        _deckManager.gameObject.SetActive(true);
     }
 
     public void ReturnToMainMenu()
