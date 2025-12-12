@@ -35,4 +35,6 @@ MonoBehaviour:
     Clip: {fileID: 11400000, guid: aad0160c604dd304a84bbc4f9079a37e, type: 2}
   _musicTrackClips:
   - Track: 0
-    Clip: {fileID: 0}
+    Clip: {fileID: 11400000, guid: b237e54209b7e744c842eb15bef79823, type: 2}
+  - Track: 1
+    Clip: {fileID: 11400000, guid: 4cfeb42207a8f664487cfacf1e410a21, type: 2}
