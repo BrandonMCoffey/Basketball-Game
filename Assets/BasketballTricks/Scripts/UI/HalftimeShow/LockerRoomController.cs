@@ -209,6 +209,11 @@ public class LockerRoomController : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
+        if (_selectedIndex >= 0)
+        {
+            SelectPosition(-1);
+            return;
+        }
         GameManager.Instance.OnQuitGame();
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
