@@ -105,7 +105,6 @@ public class HypeScoreDisplay : MonoBehaviour
     {
         float startHype = _hypeBar.value;
         float targetHypeSliderVal = MapValue(targetHype, 0, ActionDeckManager.MaxScore, 0, 1);
-        Debug.Log("Target Hype: " + targetHypeSliderVal);
         float elapsed = 0f;
 
         while (elapsed < _animationDuration)
@@ -116,7 +115,6 @@ public class HypeScoreDisplay : MonoBehaviour
             t = 1f - Mathf.Pow(1f - t, 2);
 
             float currentHype = Mathf.Lerp(startHype, targetHypeSliderVal, t);
-            Debug.Log("Current Hype: " + currentHype);
             _hypeBar.value = currentHype;
 
             if (_hypeBar.value >= _goldPos)
