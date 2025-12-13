@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _duration: 0.1
-  _activeValue: 4.5
+  _activeValue: 10
   _resetValue: 0
   _targetProperty:
     m_PersistentCalls:

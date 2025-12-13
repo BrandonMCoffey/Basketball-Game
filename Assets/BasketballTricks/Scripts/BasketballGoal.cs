@@ -27,12 +27,16 @@ public class BasketballGoal : MonoBehaviour
 
     private IEnumerator SwishNetRoutine()
     {
+        float[] yStartPos = {_netSwishBones[0].localPosition.y,
+            _netSwishBones[1].localPosition.y,
+            _netSwishBones[2].localPosition.y };
         for (float t = 0; t < _swishAmountCurve.length; t += Time.deltaTime)
         {
             float amount = _swishAmountCurve.Evaluate(t) * _swishRotationAmount / _netSwishBones.Count;
             for (int i = 0; i < _netSwishBones.Count; i++)
             {
                 _netSwishBones[i].localRotation = Quaternion.Euler(amount * (i + 1), 0f, 0f);
+                _netSwishBones[i].localPosition = new Vector3 (0, yStartPos[i] - (_yMoveCurve.Evaluate(t*1.25f)*0.003f), 0);
             }
             yield return null;
         }
