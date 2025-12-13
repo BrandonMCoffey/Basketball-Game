@@ -1730,7 +1730,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &366683640
@@ -5314,7 +5314,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995027589}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.013154199, y: 0.9867015, z: -0.12273676, w: -0.10574884}
+  m_LocalRotation: {x: -0.013578487, y: 0.986201, z: -0.12669562, w: -0.10569518}
   m_LocalPosition: {x: -4.0200005, y: 4.5, z: 9.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -15876,6 +15876,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1049421160612211864, guid: a89c90c39088c814ca98764129f5159b,
+        type: 3}
+      propertyPath: _resetDataOnStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4066303313053599617, guid: a89c90c39088c814ca98764129f5159b,
         type: 3}
       propertyPath: m_LocalPosition.x
