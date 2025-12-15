@@ -10,7 +10,12 @@ public enum SFXEventsEnum
     BasketballRimHit,
     BasketballPass,
     Flamethrower,
-    CameraFlash
+    CameraFlash,
+    CrowdAmbience,
+    CrowdCheer,
+    ShopPurchaseSound,
+    CardGetSound,
+
 }
 
 public enum MusicTracksEnum

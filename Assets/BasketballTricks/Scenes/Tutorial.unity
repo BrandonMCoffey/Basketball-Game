@@ -3038,7 +3038,7 @@ MonoBehaviour:
   _threePointer: {fileID: 11400000, guid: 9bcefe1b25703394cb6ef5a62524b008, type: 2}
   _chestPass: {fileID: 11400000, guid: 3f847b2b7720ca649a2dde4ba0447c13, type: 2}
   _alleyOop: {fileID: 11400000, guid: ec450e8c34c73e74c901e5367db338ee, type: 2}
-  _dunk: {fileID: 11400000, guid: 3390d1beb5bb4d448864cb3cfc42d744, type: 2}
+  _dunk: {fileID: 11400000, guid: 49d1fa4f8abaa5545a7eedfcd6d9ceaa, type: 2}
   _secondPlayerCard: {fileID: 11400000, guid: 475927cd4e6372448a26820a146fa386, type: 2}
   _secondPlayerPos: 16
   _actionDeckManager: {fileID: 6949764343152343267}
@@ -3416,6 +3416,7 @@ MonoBehaviour:
   _verticalOffset: 500
   _duration: 5
   _moveFromBottomToTop: 0
+  _randomizeStartDelay: 0
 --- !u!1 &756962083
 GameObject:
   m_ObjectHideFlags: 0
@@ -10650,6 +10651,12 @@ MonoBehaviour:
   _hypeTextAddAnim: 0
   _hypeAddEffectText: {fileID: 1116122557}
   _animationDuration: 1
+  _hypeBar: {fileID: 0}
+  _goalTransform: {fileID: 0}
+  _bronzeTransform: {fileID: 0}
+  _silverTransform: {fileID: 0}
+  _goldTransform: {fileID: 0}
+  _fillArea: {fileID: 0}
 --- !u!1 &1818009746
 GameObject:
   m_ObjectHideFlags: 0
@@ -11069,6 +11076,7 @@ MonoBehaviour:
   _costText: {fileID: 527765026}
   _unusedColor: {r: 1, g: 1, b: 1, a: 1}
   _spentColor: {r: 1, g: 1, b: 1, a: 0.2627451}
+  _overrideStartingEnergy: 0
   _startingEnergy: 2
   _costList:
   - {fileID: 2099044789839422370}
@@ -14283,6 +14291,11 @@ MonoBehaviour:
   _layoutDuration: 0.3
   _layoutEase: 27
   _playButton: {fileID: 691830302}
+  _hypeScoreDisplay: {fileID: 0}
+  _goalValue: 0.25
+  _bronzeValue: 0.25
+  _silverValue: 0.25
+  _goldValue: 0.25
 --- !u!114 &6949764343152343268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14679,6 +14692,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_Basketball
       objectReference: {fileID: 0}
+    - target: {fileID: 1431965970332734562, guid: b6b92ef718bf0b048a25941d114e42bf,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.89
+      objectReference: {fileID: 0}
     - target: {fileID: 2106202081797641320, guid: b6b92ef718bf0b048a25941d114e42bf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14728,6 +14746,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7936583210511141907, guid: b6b92ef718bf0b048a25941d114e42bf,
+        type: 3}
+      propertyPath: m_TranslationOffset.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7936583210511141907, guid: b6b92ef718bf0b048a25941d114e42bf,
+        type: 3}
+      propertyPath: m_TranslationOffset.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -13796,6 +13796,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1670606260142054643, guid: 82807f9214017b94682acd3b86e87e88,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1678355362963419508, guid: 82807f9214017b94682acd3b86e87e88,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2050552059481200658, guid: 82807f9214017b94682acd3b86e87e88,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680463759851637818, guid: 82807f9214017b94682acd3b86e87e88,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5115948825552643893, guid: 82807f9214017b94682acd3b86e87e88,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5339441963958265498, guid: 82807f9214017b94682acd3b86e87e88,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6343597409903906890, guid: 82807f9214017b94682acd3b86e87e88,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13845,6 +13875,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7561003113615670592, guid: 82807f9214017b94682acd3b86e87e88,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
