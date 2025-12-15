@@ -8,7 +8,8 @@ using UnityEngine.Video;
 enum GameMode
 {
     HalfTime,
-    Zen
+    Zen,
+    Tutorial
 }
 public class GameSelectController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class GameSelectController : MonoBehaviour
     [SerializeField] float _transitionTimeDesc = 0.4f;
     
     [Header("Description Texts")]
+    [SerializeField, TextArea(5, 10)] string _tutorialDescriptionText;
     [SerializeField, TextArea(5, 10)] string _halfTimeDescriptionText;
     [SerializeField, TextArea(5, 10)] string _zenDescriptionText;
     [Header("References")]
@@ -34,8 +36,10 @@ public class GameSelectController : MonoBehaviour
     [SerializeField] RectTransform _exampleVideo;
     [SerializeField] RawImage _halfTimeVideoImage;
     [SerializeField] RawImage _zenVideoImage;
+    [SerializeField] RawImage _tutorialVideoImage;
     [SerializeField] VideoPlayer _halfTimeVideoPlayer;
     [SerializeField] VideoPlayer _zenVideoPlayer;
+    [SerializeField] VideoPlayer _tutorialVideoPlayer;
 
     Vector2 _leftSidePanelOnScreenPos;
     Vector2 _descriptionPanelOnScreenPos;
@@ -105,6 +109,7 @@ public class GameSelectController : MonoBehaviour
     {
         _halfTimeVideoPlayer.enabled = true;
         _zenVideoPlayer.enabled = true;
+        _tutorialVideoPlayer.enabled = true;
         _leftSidePanel.DOAnchorPos(_leftSidePanelOnScreenPos, _transitionTimeOnScreen).SetEase(_easeType);
         _titlePanel.DOAnchorPos(_titlePanelOnScreenPos, _transitionTimeOnScreen).SetEase(Ease.OutQuart).SetDelay(0.12f);
         _tutorialButton.DOAnchorPos(_tutorialButtonOnScreenPos, _transitionTimeOnScreen).SetEase(_easeType).SetDelay(0.25f);
@@ -119,6 +124,7 @@ public class GameSelectController : MonoBehaviour
         {
             _halfTimeVideoPlayer.enabled = false;
             _zenVideoPlayer.enabled = false;
+            _tutorialVideoPlayer.enabled = false;
             callback?.Invoke();
         });
         _titlePanel.DOAnchorPos(new Vector2(-500, _titlePanelOnScreenPos.y), _transitionTimeOffScreen).SetEase(Ease.OutQuart).SetDelay(0.12f);
@@ -161,6 +167,7 @@ public class GameSelectController : MonoBehaviour
             _descriptionText.text = _halfTimeDescriptionText;
             _halfTimeVideoImage.enabled = true;
             _zenVideoImage.enabled = false;
+            _tutorialVideoImage.enabled = false;
             AnimateDescriptionPanelOnScreen();
             return;
         }
@@ -170,6 +177,7 @@ public class GameSelectController : MonoBehaviour
             _descriptionText.text = _halfTimeDescriptionText;
             _halfTimeVideoImage.enabled = true;
             _zenVideoImage.enabled = false;
+            _tutorialVideoImage.enabled = false;
         });   
         _currentGameMode = GameMode.HalfTime;
     }
@@ -182,6 +190,7 @@ public class GameSelectController : MonoBehaviour
             _descriptionText.text = _zenDescriptionText;
             _halfTimeVideoImage.enabled = false;
             _zenVideoImage.enabled = true;
+            _tutorialVideoImage.enabled = false;
             AnimateDescriptionPanelOnScreen();
             return;
         }
@@ -191,8 +200,31 @@ public class GameSelectController : MonoBehaviour
             _descriptionText.text = _zenDescriptionText;
             _halfTimeVideoImage.enabled = false;
             _zenVideoImage.enabled = true;
+            _tutorialVideoImage.enabled = false;
         });
         _currentGameMode = GameMode.Zen;
+    }
+
+    public void TutorialSelect()
+    {
+        if (!_isDescriptionPanelOnScreen)
+        {
+            _descriptionText.text = _tutorialDescriptionText;
+            _tutorialVideoImage.enabled = true;
+            _halfTimeVideoImage.enabled = false;
+            _zenVideoImage.enabled = false;
+            AnimateDescriptionPanelOnScreen();
+            return;
+        }
+
+        AnimateDescriptionBounce(() =>
+        {
+            _descriptionText.text = _tutorialDescriptionText;
+            _tutorialVideoImage.enabled = true;
+            _halfTimeVideoImage.enabled = false;
+            _zenVideoImage.enabled = false;
+        });
+        _currentGameMode = GameMode.Tutorial;
     }
 
     public void Tutorial()
@@ -221,6 +253,9 @@ public class GameSelectController : MonoBehaviour
                 break;
             case GameMode.Zen:
                 GameManager.Instance.LoadSandboxScene();
+                break;
+            case GameMode.Tutorial:
+                GameManager.Instance.LoadTutorialScene();
                 break;
             default:
                 Debug.LogError("No game mode selected!");
