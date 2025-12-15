@@ -21,7 +21,11 @@ public class StaminaElemController : MonoBehaviour
     private Vector3 _costDisplayOriginalPos;
     private bool _jumped = false;
 
-    
+    private void Awake() 
+    {
+        if (_spriteRenderer == null) _spriteRenderer = GetComponent<Image>();
+        if (_imageRectTransform == null) _imageRectTransform = GetComponent<RectTransform>();
+    }
 
     public void SetRefs(Color unusedColor, Color spentColor, CostDisplay costDisplay)
     {
@@ -34,6 +38,7 @@ public class StaminaElemController : MonoBehaviour
 
     private void UpdateVisuals(float delay = 0f)
     {
+        if (_spriteRenderer == null) return;
         switch (CurrentState)
         {
             case StaminaElemState.Spent:

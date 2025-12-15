@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class ActionDeckManager : MonoBehaviour
 {
+
     [SerializeField] private ActionCard _cardPrefab;
     [SerializeField] private int _cardsDrawnPerHand = 5;
     [SerializeField] private int _maxHandSize = 9;
@@ -36,6 +37,10 @@ public class ActionDeckManager : MonoBehaviour
     [SerializeField, Range(0, 350)] private float _bronzeValue = 0.25f;
     [SerializeField, Range(0, 350)] private float _silverValue = 0.25f;
     [SerializeField, Range(0, 350)] private float _goldValue = 0.25f;
+    public float GoalValue => _goalValue;
+    public float BronzeValue => _bronzeValue;
+    public float SilverValue => _silverValue;
+    public float GoldValue => _goldValue;
     public static float MaxScore {get; private set; } = 350f;
 
     public event System.Action BeforeDrawingNextHand = delegate { };
@@ -222,6 +227,7 @@ public class ActionDeckManager : MonoBehaviour
             DrawHand();
             UpdateCardLayout(null);
             OnSequenceEnd?.Invoke();
+            GameManager.Instance.RoundCompleted();
             _playButton.gameObject.SetActive(true);
         }
     }

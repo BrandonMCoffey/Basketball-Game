@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private bool _resetDataOnStart = false;
     [SerializeField] private int _startingMoney = 3000;
+    [SerializeField] private int _roundsRequired = 3;
     [SerializeField] private List<PlayerCardData> _startingCards;
     [SerializeField] private GameSaveData _saveData;
     [SerializeField] private CanvasGroup _sceneTransition;
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     public GameCard SelectedCard => (_selectedCardIndex >= 0 && _selectedCardIndex < _saveData.OwnedCards.Count) ? _saveData.OwnedCards[_selectedCardIndex] : null;
 
     public static event System.Action OnMoneyChanged = delegate { };
+    public static event System.Action OnGameEnded = delegate { };
     public int CurrentMoney => _saveData.Money;
 
     private void Awake()
@@ -43,6 +45,12 @@ public class GameManager : MonoBehaviour
             _saveData = new GameSaveData(_startingMoney, _startingCards);
             SaveGame();
         }
+    }
+
+    public void RoundCompleted()
+    {
+        _roundsRequired--;
+        if (_roundsRequired <= 0) OnGameEnded?.Invoke();
     }
 
     public void SaveGame()

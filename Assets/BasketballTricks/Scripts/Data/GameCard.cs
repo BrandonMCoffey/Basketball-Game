@@ -5,9 +5,11 @@ public class GameCard
 {
     [SerializeField] private PlayerCardData _cardData;
     [SerializeField] private float _xp;
+    public float XP => _xp;
     [SerializeField] private int _level = 1;
     [SerializeField] private int _matchesPlayed;
     [SerializeField] private float _hypeScored;
+    public float HypeScored => _hypeScored;
     [SerializeField] private int _shotsMade;
     [SerializeField] private int _passesMade;
     [SerializeField] private int _tricksMade;
@@ -39,8 +41,14 @@ public class GameCard
     {
         _cardData.PrepareForGameplay();
     }
-    public void IncrementMatchesPlayed() => _matchesPlayed++;
-    public void IncrementHypeScored(float amount) => _hypeScored += amount;
+    public void IncrementMatchesPlayed()
+    {
+        _matchesPlayed++;
+    }
+    public void IncrementHypeScored(float amount)
+    {
+        _hypeScored += amount;
+    }
     public void IncrementAction(ActionType type)
     {
         switch (type)

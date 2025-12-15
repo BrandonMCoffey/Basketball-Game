@@ -557,7 +557,7 @@ public class PlayerManager : MonoBehaviour
 
         // Update visuals
         UpdateHype?.Invoke(Hype);
-        _crowdController.SetHype(Hype);
+        _crowdController.SetHype(Hype);      
     }
 
     private IEnumerator PassRoutine(Player fromPlayer, Player toPlayer)
@@ -681,6 +681,8 @@ public class PlayerManager : MonoBehaviour
         _basketball.transform.position = new Vector3(0, -10f, 0);
         GameManager.Instance.SaveGame();
     }
+
+    
 }
 
 [System.Serializable]

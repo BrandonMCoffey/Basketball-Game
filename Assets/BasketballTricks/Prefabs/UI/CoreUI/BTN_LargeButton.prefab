@@ -340,7 +340,6 @@ MonoBehaviour:
   _delayBeforeOnScreen: 0
   _buttonTextContainer: {fileID: 3026999335637908571}
   _buttonText: {fileID: 125401464473645423}
-  _iconContainer: {fileID: 102018539505732875}
   _buttonIcon: {fileID: 1747784539613628399}
   _onButtonReleased:
     m_PersistentCalls:
@@ -531,8 +530,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Play
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 440f1733b57309f40a91fb91669e0e30, type: 2}
-  m_sharedMaterial: {fileID: 2195858300266884165, guid: 440f1733b57309f40a91fb91669e0e30,
+  m_fontAsset: {fileID: 11400000, guid: 3fa874c65ecb3844485158427ac38ad9, type: 2}
+  m_sharedMaterial: {fileID: -4346633078306369032, guid: 3fa874c65ecb3844485158427ac38ad9,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -557,8 +556,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
