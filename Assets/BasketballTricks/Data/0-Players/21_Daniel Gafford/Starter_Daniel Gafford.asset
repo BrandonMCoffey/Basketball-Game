@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e683ebbb374544cbd2b020e65e5ca3, type: 3}
   m_Name: Starter_Daniel Gafford
   m_EditorClassIdentifier: 
-  _cardID: d2f22601-1e87-47f4-8041-95796f829b73
+  _cardID: b696eae2-1cd9-4da8-bb94-704aa251c201
   _playerData: {fileID: 11400000, guid: 92581f95ed01e3a4cbe5ab304fdc4a79, type: 2}
   _cardTitle: Mavericks Player
   _overrideSprite: {fileID: 0}

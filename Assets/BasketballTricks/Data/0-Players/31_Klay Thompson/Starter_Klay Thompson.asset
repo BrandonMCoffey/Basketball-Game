@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e683ebbb374544cbd2b020e65e5ca3, type: 3}
   m_Name: Starter_Klay Thompson
   m_EditorClassIdentifier: 
-  _cardID: eaa9ee43-7f3b-4074-8454-a4f37bc6ffc1
+  _cardID: 3d949070-0d8b-4e9a-8514-7905fc0cefa7
   _playerData: {fileID: 11400000, guid: 6836d731743c8b14788d89a6163c443b, type: 2}
   _cardTitle: Mavericks Player
   _overrideSprite: {fileID: 0}

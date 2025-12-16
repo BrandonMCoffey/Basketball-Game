@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e683ebbb374544cbd2b020e65e5ca3, type: 3}
   m_Name: Starter_Max Christie
   m_EditorClassIdentifier: 
+  _cardID: 74abba07-c346-4dea-8ac4-c24d74d16098
   _playerData: {fileID: 11400000, guid: c81d43b4eba52584795941f392925011, type: 2}
   _cardTitle: Mavericks Player
+  _overrideSprite: {fileID: 0}
   _rarity: 2
   _actions:
   - _action: {fileID: 11400000, guid: 3f847b2b7720ca649a2dde4ba0447c13, type: 2}

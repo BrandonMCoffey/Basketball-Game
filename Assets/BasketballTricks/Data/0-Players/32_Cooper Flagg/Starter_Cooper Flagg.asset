@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e683ebbb374544cbd2b020e65e5ca3, type: 3}
   m_Name: Starter_Cooper Flagg
   m_EditorClassIdentifier: 
-  _cardID: 608effc6-57a8-418f-bd8f-54fdd2d4bee1
+  _cardID: 65917068-897a-4187-9670-5fe93ee9ddca
   _playerData: {fileID: 11400000, guid: ce37ce7eafdff5e45bc2b7dff7db031e, type: 2}
   _cardTitle: Mavericks Player
   _overrideSprite: {fileID: 0}

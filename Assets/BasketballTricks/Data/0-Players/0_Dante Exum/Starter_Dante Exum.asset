@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e683ebbb374544cbd2b020e65e5ca3, type: 3}
   m_Name: Starter_Dante Exum
   m_EditorClassIdentifier: 
+  _cardID: a8968497-d4f5-4ea5-8548-3b900cd6799c
   _playerData: {fileID: 11400000, guid: 61667283f8658c440b220cfffdd7703f, type: 2}
   _cardTitle: Mavericks Player
+  _overrideSprite: {fileID: 0}
   _rarity: 2
   _actions:
   - _action: {fileID: 11400000, guid: 3f847b2b7720ca649a2dde4ba0447c13, type: 2}

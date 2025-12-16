@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e683ebbb374544cbd2b020e65e5ca3, type: 3}
   m_Name: Starter_Kyrie Irving
   m_EditorClassIdentifier: 
-  _cardID: 20c74dd5-adba-49e7-91d7-2bfed5dd20e9
+  _cardID: 4a3cd646-94d0-497d-be50-d57298b69e34
   _playerData: {fileID: 11400000, guid: eb2e1118cac29144ba051f38d67f6e8a, type: 2}
   _cardTitle: Mavericks Player
   _overrideSprite: {fileID: 0}

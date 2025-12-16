@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e683ebbb374544cbd2b020e65e5ca3, type: 3}
   m_Name: Starter_Caleb Martin
   m_EditorClassIdentifier: 
-  _cardID: 9f88b93f-4e5f-4801-ac4f-18bfeaae07dd
+  _cardID: 5c6cdb67-1278-411b-bd7e-fb0cce58d5fb
   _playerData: {fileID: 11400000, guid: a93547280ba19604b87c5bfc654e3b2b, type: 2}
   _cardTitle: Mavericks Player
   _overrideSprite: {fileID: 0}

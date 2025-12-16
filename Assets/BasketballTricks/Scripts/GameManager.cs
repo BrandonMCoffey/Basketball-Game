@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     private int _roundsPlayed;
 
-    private GameSaveData _saveData;
+    [SerializeField] private GameSaveData _saveData;
     private List<GameCard> _ownedCards = new List<GameCard>();
 
     private int _selectedCardIndex = -1;

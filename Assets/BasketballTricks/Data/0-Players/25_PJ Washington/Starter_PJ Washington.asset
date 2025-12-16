@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e683ebbb374544cbd2b020e65e5ca3, type: 3}
   m_Name: Starter_PJ Washington
   m_EditorClassIdentifier: 
-  _cardID: 3a4483aa-8719-4b10-b09e-1d02416bcced
+  _cardID: 30a0a92e-41bd-4d6c-8bb7-85218fd18758
   _playerData: {fileID: 11400000, guid: 65cd1e95f609a9e4eb6740a4065199de, type: 2}
   _cardTitle: Mavericks Player
   _overrideSprite: {fileID: 0}

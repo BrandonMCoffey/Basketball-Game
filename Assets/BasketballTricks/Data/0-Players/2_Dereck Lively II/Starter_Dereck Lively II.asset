@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e683ebbb374544cbd2b020e65e5ca3, type: 3}
   m_Name: Starter_Dereck Lively II
   m_EditorClassIdentifier: 
+  _cardID: 16af0347-a932-4897-bbf3-45f3c42f5e6f
   _playerData: {fileID: 11400000, guid: 8456fe0493824f542b0e4ff22df6b1bd, type: 2}
   _cardTitle: Mavericks Player
   _overrideSprite: {fileID: 0}
