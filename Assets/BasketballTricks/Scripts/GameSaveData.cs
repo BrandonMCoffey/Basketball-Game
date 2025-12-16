@@ -5,7 +5,11 @@ using System.IO;
 [System.Serializable]
 public class GameSaveData
 {
+#if UNITY_EDITOR
+    private static string SaveFilePath => Path.Combine(Application.persistentDataPath, "SaveData-Editor.json");
+#else
     private static string SaveFilePath => Path.Combine(Application.persistentDataPath, "SaveData.json");
+#endif
 
     public int Money;
 
