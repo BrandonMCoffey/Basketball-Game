@@ -145,9 +145,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a41dde36e849df543bda0f92d6a98345, type: 2}
   - {fileID: 11400000, guid: c53e22ec554df704a81377828108329e, type: 2}
   - {fileID: 11400000, guid: 94ce15d06b4c00f43bf37ddf73e05b5f, type: 2}
-  _saveData:
-    Money: 0
-    OwnedCards: []
+  _allCards:
+  - {fileID: 11400000, guid: 4fe05365112cfb647a4aa707416bfb82, type: 2}
+  - {fileID: 11400000, guid: a41dde36e849df543bda0f92d6a98345, type: 2}
+  - {fileID: 11400000, guid: 04c01f6db6dda6347a3d7b2972889874, type: 2}
+  - {fileID: 11400000, guid: 475927cd4e6372448a26820a146fa386, type: 2}
+  - {fileID: 11400000, guid: 98eb2e11f85a0de44b5f95ca7da49876, type: 2}
+  - {fileID: 11400000, guid: e1da023f432c1f74c87390c9d444a7e0, type: 2}
+  - {fileID: 11400000, guid: 680b61da0331cf445bbc30274da9fce7, type: 2}
+  - {fileID: 11400000, guid: c53e22ec554df704a81377828108329e, type: 2}
+  - {fileID: 11400000, guid: 6acb81d80035d6343a1bb20290ea3556, type: 2}
+  - {fileID: 11400000, guid: 15050ced5998c69479aa303e964868ff, type: 2}
+  - {fileID: 11400000, guid: 94ce15d06b4c00f43bf37ddf73e05b5f, type: 2}
+  - {fileID: 11400000, guid: ef4b72e02cb4913469d3d3b2b4aa75e3, type: 2}
+  - {fileID: 11400000, guid: 43038797ecff65d49ab9371ca67f6c95, type: 2}
   _sceneTransition: {fileID: 6607912198263155716}
 --- !u!1 &9087500760679763712
 GameObject:

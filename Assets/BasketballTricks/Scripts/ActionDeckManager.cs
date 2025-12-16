@@ -33,15 +33,16 @@ public class ActionDeckManager : MonoBehaviour
 
     [Header("Goal Values")]
     [SerializeField] HypeScoreDisplay _hypeScoreDisplay;
-    [SerializeField, Range(0, 350)] private float _goalValue = 0.25f;
-    [SerializeField, Range(0, 350)] private float _bronzeValue = 0.25f;
-    [SerializeField, Range(0, 350)] private float _silverValue = 0.25f;
-    [SerializeField, Range(0, 350)] private float _goldValue = 0.25f;
+    [SerializeField] private float _goalValue = 250f;
+    [SerializeField] private float _bronzeValue = 300f;
+    [SerializeField] private float _silverValue = 400f;
+    [SerializeField] private float _goldValue = 500f;
+
     public float GoalValue => _goalValue;
     public float BronzeValue => _bronzeValue;
     public float SilverValue => _silverValue;
     public float GoldValue => _goldValue;
-    public static float MaxScore {get; private set; } = 350f;
+    public static float MaxScore { get; private set; } = 500f;
 
     public event System.Action BeforeDrawingNextHand = delegate { };
     public static event System.Action<ActionCard> OnCardPlayed = delegate { };
@@ -108,7 +109,9 @@ public class ActionDeckManager : MonoBehaviour
         DrawHand();
         UpdateCardLayout(null, true);
 
+        MaxScore = Mathf.Max(_goalValue, _bronzeValue, _silverValue, _goldValue);
         _hypeScoreDisplay.Init(_goalValue, _bronzeValue, _silverValue, _goldValue);
+        GameManager.Instance.ResetRoundsPlayed();
     }
 
     public void InitTutorial(List<GameAction> deck, bool init)
@@ -127,6 +130,7 @@ public class ActionDeckManager : MonoBehaviour
             }
             DrawHand();
             UpdateCardLayout(null, true);
+            GameManager.Instance.ResetRoundsPlayed();
         }
     }
 

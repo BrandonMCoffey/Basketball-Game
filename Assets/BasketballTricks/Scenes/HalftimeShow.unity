@@ -7876,17 +7876,17 @@ PrefabInstance:
     - target: {fileID: 3948933407729916951, guid: 08c2bed0e90d01245b257f71abdcb5b4,
         type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 0.09416164
       objectReference: {fileID: 0}
     - target: {fileID: 3948933407729916951, guid: 08c2bed0e90d01245b257f71abdcb5b4,
         type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 0.09416164
       objectReference: {fileID: 0}
     - target: {fileID: 3948933407729916951, guid: 08c2bed0e90d01245b257f71abdcb5b4,
         type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.8679245
       objectReference: {fileID: 0}
     - target: {fileID: 4571939252643082874, guid: 08c2bed0e90d01245b257f71abdcb5b4,
         type: 3}
@@ -9668,6 +9668,11 @@ PrefabInstance:
       propertyPath: _onButtonPressed.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4029411893667987412, guid: ff5be3d90b6d01d41b09ca1c9e491fe4,
+        type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4718513031320206063, guid: ff5be3d90b6d01d41b09ca1c9e491fe4,
         type: 3}
       propertyPath: m_Pivot.x
@@ -10100,12 +10105,12 @@ PrefabInstance:
     - target: {fileID: 3948933407729916951, guid: 08c2bed0e90d01245b257f71abdcb5b4,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.72104454
+      value: 0.5637028
       objectReference: {fileID: 0}
     - target: {fileID: 3948933407729916951, guid: 08c2bed0e90d01245b257f71abdcb5b4,
         type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 0.18396229
       objectReference: {fileID: 0}
     - target: {fileID: 4571939252643082874, guid: 08c2bed0e90d01245b257f71abdcb5b4,
         type: 3}
@@ -13002,12 +13007,17 @@ PrefabInstance:
     - target: {fileID: 3948933407729916951, guid: 08c2bed0e90d01245b257f71abdcb5b4,
         type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 0.16660735
+      objectReference: {fileID: 0}
+    - target: {fileID: 3948933407729916951, guid: 08c2bed0e90d01245b257f71abdcb5b4,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.9056604
       objectReference: {fileID: 0}
     - target: {fileID: 3948933407729916951, guid: 08c2bed0e90d01245b257f71abdcb5b4,
         type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 0.33748662
       objectReference: {fileID: 0}
     - target: {fileID: 4571939252643082874, guid: 08c2bed0e90d01245b257f71abdcb5b4,
         type: 3}
@@ -13261,12 +13271,17 @@ PrefabInstance:
     - target: {fileID: 3948933407729916951, guid: 08c2bed0e90d01245b257f71abdcb5b4,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.007843138
+      value: 0.082858644
       objectReference: {fileID: 0}
     - target: {fileID: 3948933407729916951, guid: 08c2bed0e90d01245b257f71abdcb5b4,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.46078432
+      value: 0.50369346
+      objectReference: {fileID: 0}
+    - target: {fileID: 3948933407729916951, guid: 08c2bed0e90d01245b257f71abdcb5b4,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.9245283
       objectReference: {fileID: 0}
     - target: {fileID: 4571939252643082874, guid: 08c2bed0e90d01245b257f71abdcb5b4,
         type: 3}
@@ -16786,10 +16801,10 @@ MonoBehaviour:
   _layoutEase: 27
   _playButton: {fileID: 691830302}
   _hypeScoreDisplay: {fileID: 1814578996}
-  _goalValue: 136
-  _bronzeValue: 196
-  _silverValue: 259
-  _goldValue: 328
+  _goalValue: 250
+  _bronzeValue: 360
+  _silverValue: 440
+  _goldValue: 500
 --- !u!114 &6949764343152343268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18163,8 +18178,7 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7416139255632526084, guid: 7dcda39b7df37e948b51170116af34b3, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

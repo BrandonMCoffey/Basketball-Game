@@ -15,7 +15,7 @@ public class PlayerCardVisuals : MonoBehaviour
     [SerializeField] private Image _playerImage;
     [SerializeField] private Image _playerImage2;
     [SerializeField] private Image _bgImage;
-    [SerializeField] protected Image _cardBorder;
+    [SerializeField] private RawImage _cardHalo;
     [SerializeField] private Image _cardRarityImage;
     [SerializeField] private List<PlayerActionVisuals> _actionVisuals;
     [SerializeField] private TMP_Text _cardBackPositions;
@@ -53,6 +53,7 @@ public class PlayerCardVisuals : MonoBehaviour
         if (_bgImage != null && _matcher != null)
         {
             _bgImage.sprite = _matcher.GetPositionBackground(position);
+            _bgImage.color = positionBonus ? Color.white : new Color(0.6f, 0.6f, 0.6f);
         }
         if (_cardRarityImage != null)
         {
@@ -60,7 +61,11 @@ public class PlayerCardVisuals : MonoBehaviour
             _cardRarityImage.gameObject.SetActive(check);
             if (check) _cardRarityImage.sprite = _matcher.GetRarityGlow(data.CardDataSO.Rarity);
         }
-        if (_cardBorder != null) _cardBorder.sprite = _matcher.GetBorder(positionBonus);
+        if (_cardHalo != null)
+        {
+            _cardHalo.gameObject.SetActive(positionBonus);
+            if (positionBonus) _cardHalo.color = _matcher.GetPositionColor(position);
+        }
         UpdateVisuals();
         UpdateCardBackDataVisuals();
     }

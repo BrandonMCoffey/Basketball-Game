@@ -5,11 +5,9 @@ public class GameCard
 {
     [SerializeField] private PlayerCardData _cardData;
     [SerializeField] private float _xp;
-    public float XP => _xp;
     [SerializeField] private int _level = 1;
     [SerializeField] private int _matchesPlayed;
     [SerializeField] private float _hypeScored;
-    public float HypeScored => _hypeScored;
     [SerializeField] private int _shotsMade;
     [SerializeField] private int _passesMade;
     [SerializeField] private int _tricksMade;
@@ -21,8 +19,29 @@ public class GameCard
         _level = 1;
     }
 
+    public GameCard(PlayerCardData data, GameCardSaveData saveData)
+    {
+        _cardData = data;
+        _xp = saveData.XP;
+        _level = saveData.Level;
+        _matchesPlayed = saveData.MatchesPlayed;
+        _hypeScored = saveData.HypeScored;
+        _shotsMade = saveData.ShotsMade;
+        _passesMade = saveData.PassesMade;
+        _tricksMade = saveData.TricksMade;
+    }
+
+    public int TricksMade => _tricksMade;
+    public float XP => _xp;
+    public int Level => _level;
+    public int MatchesPlayed => _matchesPlayed;
+    public float HypeScored => _hypeScored;
+    public int ShotsMade => _shotsMade;
+    public int PassesMade => _passesMade;
+
     public PlayerData PlayerData => _cardData.Player;
     public PlayerCardData CardDataSO => _cardData;
+    public string CardID => _cardData.CardID;
     public string PlayerName => _cardData.Player.PlayerName;
     public Sprite PlayerSprite => _cardData.PlayerSprite;
     public string PlayerNumber => _cardData.Player.PlayerNumber;

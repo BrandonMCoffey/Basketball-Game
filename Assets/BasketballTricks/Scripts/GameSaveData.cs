@@ -3,6 +3,19 @@ using UnityEngine;
 using System.IO;
 
 [System.Serializable]
+public class GameCardSaveData
+{
+    public string CardID;
+    public float XP;
+    public int Level;
+    public int MatchesPlayed;
+    public float HypeScored;
+    public int ShotsMade;
+    public int PassesMade;
+    public int TricksMade;
+}
+
+[System.Serializable]
 public class GameSaveData
 {
 #if UNITY_EDITOR
@@ -13,33 +26,32 @@ public class GameSaveData
 
     public int Money;
 
-    // Note: Every field listed below will be saved and loaded automatically via JsonUtility
-    public List<GameCard> OwnedCards = new List<GameCard>();
+    public List<GameCardSaveData> OwnedCardData = new List<GameCardSaveData>();
 
 
     public GameSaveData(int money, List<PlayerCardData> startingCards)
     {
         Money = money;
-        OwnedCards = new List<GameCard>(startingCards.Count);
+        OwnedCardData = new List<GameCardSaveData>(startingCards.Count);
         foreach (var cardData in startingCards)
         {
-            OwnedCards.Add(new GameCard(cardData));
+            OwnedCardData.Add(new GameCardSaveData { 
+                CardID = cardData.CardID,
+                Level = 1,
+            });
         }
     }
 
-    public static bool Load(ref GameSaveData data)
+    public static bool Load(out GameSaveData data)
     {
+        data = null;
         if (File.Exists(SaveFilePath))
         {
             try
             {
                 string json = File.ReadAllText(SaveFilePath);
-                var saveData = JsonUtility.FromJson<GameSaveData>(json);
-                if (saveData.OwnedCards.Count > 0)
-                {
-                    data = saveData;
-                    return true;
-                }
+                data = JsonUtility.FromJson<GameSaveData>(json);
+                return true;
             }
             catch (System.Exception e)
             {
@@ -51,6 +63,8 @@ public class GameSaveData
 
     public static void Save(GameSaveData dataToSave)
     {
-        File.WriteAllText(SaveFilePath, JsonUtility.ToJson(dataToSave));
+        string json = JsonUtility.ToJson(dataToSave, true);
+        File.WriteAllText(SaveFilePath, json);
+        Debug.Log("Game saved!");
     }
 }

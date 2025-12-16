@@ -6,6 +6,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerCardData", menuName = "BasketballTricks/PlayerCardData")]
 public class PlayerCardData : ScriptableObject
 {
+    [SerializeField, ReadOnly] private string _cardID;
+    [Button("Generate ID")]
+    private void GenerateID()
+    {
+        _cardID = System.Guid.NewGuid().ToString();
+    }
+    public string CardID => _cardID;
+    
     [SerializeField] private PlayerData _playerData;
     [SerializeField] private string _cardTitle;
     [SerializeField] private Sprite _overrideSprite;

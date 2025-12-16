@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e683ebbb374544cbd2b020e65e5ca3, type: 3}
   m_Name: Starter_All-Star Irving
   m_EditorClassIdentifier: 
+  _cardID: 5c7f1f2b-2942-4267-8f19-6d6b4b720dbd
   _playerData: {fileID: 11400000, guid: eb2e1118cac29144ba051f38d67f6e8a, type: 2}
   _cardTitle: Mavericks Player
+  _overrideSprite: {fileID: 0}
   _rarity: 3
   _actions:
   - _action: {fileID: 11400000, guid: d67e106ffcf21ca499d805bd81f7ab98, type: 2}

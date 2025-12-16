@@ -15,14 +15,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _startingMoney = 3000;
     [SerializeField] private int _roundsRequired = 3;
     [SerializeField] private List<PlayerCardData> _startingCards;
-    [SerializeField] private GameSaveData _saveData;
+    [SerializeField] private List<PlayerCardData> _allCards;
     [SerializeField] private CanvasGroup _sceneTransition;
+
+    private int _roundsPlayed;
+
+    private GameSaveData _saveData;
+    private List<GameCard> _ownedCards = new List<GameCard>();
 
     private int _selectedCardIndex = -1;
     private Dictionary<PlayerPosition, GameCard> _playerLoadout = new Dictionary<PlayerPosition, GameCard>();
 
-    public List<GameCard> OwnedPlayers => new List<GameCard>(_saveData.OwnedCards); // Creates a copy of the list to prevent external modification
-    public GameCard SelectedCard => (_selectedCardIndex >= 0 && _selectedCardIndex < _saveData.OwnedCards.Count) ? _saveData.OwnedCards[_selectedCardIndex] : null;
+    public List<GameCard> OwnedPlayers => new List<GameCard>(_ownedCards);
+    public GameCard SelectedCard => (_selectedCardIndex >= 0 && _selectedCardIndex < _ownedCards.Count) ? _ownedCards[_selectedCardIndex] : null;
 
     public static event System.Action OnMoneyChanged = delegate { };
     public static event System.Action OnGameEnded = delegate { };
@@ -37,24 +42,75 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        
         StartCoroutine(TransitionToSceneRoutine("", true));
         
-        if (_resetDataOnStart || !GameSaveData.Load(ref _saveData) || OwnedPlayers.Count == 0)
+        if (_resetDataOnStart || !GameSaveData.Load(out _saveData) || _saveData.OwnedCardData.Count == 0)
         {
             if (!_resetDataOnStart) Debug.Log("No save data found. Initializing with starting cards.");
             _saveData = new GameSaveData(_startingMoney, _startingCards);
+            _ownedCards.Clear();
+            foreach (var cardData in _startingCards)
+            {
+                _ownedCards.Add(new GameCard(cardData));
+            }
             SaveGame();
         }
+        else
+        {
+            _ownedCards = new List<GameCard>();
+            foreach (var cardSaveData in _saveData.OwnedCardData)
+            {
+                var card = _allCards.First(card => card.CardID == cardSaveData.CardID);
+                if (card != null)
+                {
+                    _ownedCards.Add(new GameCard(card, cardSaveData));
+                }
+                else
+                {
+                    Debug.LogWarning($"Card with ID {cardSaveData.CardID} not found in database. It will be skipped.");
+                }
+            }
+        }
+    }
+
+#if UNITY_EDITOR
+    [Button]
+    private void FillAllCards()
+    {
+        _allCards = DataAnalyzer.GetAllInstancesOfType<PlayerCardData>();
+    }
+#endif
+
+    public void ResetRoundsPlayed()
+    {
+        _roundsPlayed = 0;
     }
 
     public void RoundCompleted()
     {
-        _roundsRequired--;
-        if (_roundsRequired <= 0) OnGameEnded?.Invoke();
+        _roundsPlayed++;
+        if (_roundsPlayed >= _roundsRequired) OnGameEnded?.Invoke();
     }
 
     public void SaveGame()
     {
+        _saveData.OwnedCardData.Clear();
+        foreach (var card in _ownedCards)
+        {
+            var saveData = new GameCardSaveData
+            {
+                CardID = card.CardID,
+                XP = card.XP,
+                Level = card.Level,
+                MatchesPlayed = card.MatchesPlayed,
+                HypeScored = card.HypeScored,
+                ShotsMade = card.ShotsMade,
+                PassesMade = card.PassesMade,
+                TricksMade = card.TricksMade
+            };
+            _saveData.OwnedCardData.Add(saveData);
+        }
         GameSaveData.Save(_saveData);
     }
 
@@ -63,7 +119,7 @@ public class GameManager : MonoBehaviour
         if (_saveData.Money >= amount)
         {
             _saveData.Money -= amount;
-            GameSaveData.Save(_saveData);
+            SaveGame();
             OnMoneyChanged?.Invoke();
             return true;
         }
@@ -76,9 +132,9 @@ public class GameManager : MonoBehaviour
     public void LoadSandboxScene() => TransitionToScene("ZenScene");
     public void LoadDribbleMinigameScene(PlayerCardData card)
     {
-        if (_saveData.OwnedCards.Any(gameCard => gameCard.CardDataSO == card))
+        if (_ownedCards.Any(gameCard => gameCard.CardDataSO == card))
         {
-            _selectedCardIndex = _saveData.OwnedCards.FindIndex(gameCard => gameCard.CardDataSO == card);
+            _selectedCardIndex = _ownedCards.FindIndex(gameCard => gameCard.CardDataSO == card);
             TransitionToScene("DribbleGame");
         }
         else
@@ -88,7 +144,7 @@ public class GameManager : MonoBehaviour
     }
     public void StartShootingPractice(int playerIndex)
     {
-        Debug.Log($"Starting shooting practice with {_saveData.OwnedCards[playerIndex].PlayerName}");
+        Debug.Log($"Starting shooting practice with {_ownedCards[playerIndex].PlayerName}");
         _selectedCardIndex = playerIndex;
         TransitionToScene("ShootingGame");
     }
@@ -122,19 +178,20 @@ public class GameManager : MonoBehaviour
         var matchingCard = GetMatchingCard(cardData);
         if (matchingCard == null)
         {
-            _saveData.OwnedCards.Add(new GameCard(cardData));
+            _ownedCards.Add(new GameCard(cardData));
             SaveGame();
         }
         else
         {
             Debug.LogWarning($"Card already owned. Not adding duplicate.");
             matchingCard.AddXP(50); // Grant some XP for duplicate
+            SaveGame();
         }
     }
 
     public GameCard GetMatchingCard(PlayerCardData cardData)
     {
-        return _saveData.OwnedCards.Find(card => card.CardDataSO == cardData);
+        return _ownedCards.Find(card => card.CardDataSO == cardData);
     }
 
     private void TransitionToScene(string newScene)

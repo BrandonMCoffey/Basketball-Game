@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e683ebbb374544cbd2b020e65e5ca3, type: 3}
   m_Name: Starter_Naji Marshall
   m_EditorClassIdentifier: 
+  _cardID: 71e0134d-8be9-40de-aaf1-cea9a2650c98
   _playerData: {fileID: 11400000, guid: 50ad3cf5f5ad33349b02c60c22da6083, type: 2}
   _cardTitle: Mavericks Player
+  _overrideSprite: {fileID: 0}
   _rarity: 2
   _actions:
   - _action: {fileID: 11400000, guid: 3f847b2b7720ca649a2dde4ba0447c13, type: 2}

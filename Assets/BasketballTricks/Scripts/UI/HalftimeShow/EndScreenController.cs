@@ -7,7 +7,6 @@ using TMPro;
 
 public class EndScreenController : MonoBehaviour
 {
-
     struct EndScreenData
     {
         public string PlayerNumber;
@@ -24,8 +23,6 @@ public class EndScreenController : MonoBehaviour
             HypeScored = hypeScored;
             XP = _xp;
         }
-
-        
     }
 
     [SerializeField] ActionDeckManager _actionDeckManager;

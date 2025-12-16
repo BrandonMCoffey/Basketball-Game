@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e683ebbb374544cbd2b020e65e5ca3, type: 3}
   m_Name: Starter_PJ Washington
   m_EditorClassIdentifier: 
+  _cardID: 3a4483aa-8719-4b10-b09e-1d02416bcced
   _playerData: {fileID: 11400000, guid: 65cd1e95f609a9e4eb6740a4065199de, type: 2}
   _cardTitle: Mavericks Player
+  _overrideSprite: {fileID: 0}
   _rarity: 2
   _actions:
   - _action: {fileID: 11400000, guid: 3f847b2b7720ca649a2dde4ba0447c13, type: 2}

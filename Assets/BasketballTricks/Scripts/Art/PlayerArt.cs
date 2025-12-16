@@ -18,8 +18,8 @@ public class PlayerArt : MonoBehaviour
     {
         var playerMat = new Material(_playerMaterial);
         //skinMat.color = Random.ColorHSV(0.05f, 0.2f, 0.0f, 0.25f, 0.5f, 1.0f);
-        playerMat.color = art.SkinColor;
-        playerMat.SetColor("HairColor", art.HairColor);
+        playerMat.SetColor("_SkinColor", art.SkinColor);
+        playerMat.SetColor("_HairColor", art.HairColor);
 
         SwitchMaterial(_skinRenderer, playerMat, 0);
 

@@ -9,9 +9,8 @@ public class ImageDataMatcher : SerializedScriptableObject
     [SerializeField] private Color _noPenaltyHalo = Color.blue;
     [SerializeField] private Color _slowButConditionMetHalo = Color.Lerp(Color.black, Color.magenta, 0.4f);
     [SerializeField] private Color _conditionMetHalo = Color.magenta;
+    [SerializeField] private Color _naturalPositionHalo = Color.yellow;
     [Space(20)]
-    [SerializeField] private Sprite _defaultBorderNoTriangle;
-    [SerializeField] private Sprite _highlightBorderNoTriangle;
     [SerializeField] private Sprite _defaultBackground;
     [SerializeField] private Dictionary<PlayerPosition, Sprite> _positionBackgrounds = new Dictionary<PlayerPosition, Sprite>();
     [SerializeField] private Sprite _defaultRarityGlow;
@@ -30,6 +29,7 @@ public class ImageDataMatcher : SerializedScriptableObject
             1 => _noPenaltyHalo,
             2 => _slowButConditionMetHalo,
             3 => _conditionMetHalo,
+            4 => _naturalPositionHalo,
             _ => new Color(0, 0, 0, 0),
         };
     }
@@ -37,7 +37,6 @@ public class ImageDataMatcher : SerializedScriptableObject
     {
         return _positionColors.ContainsKey(position) ? _positionColors[position] : Color.white;
     }
-    public Sprite GetBorder(bool positionBonus) => positionBonus ? _highlightBorderNoTriangle : _defaultBorderNoTriangle;
     public Sprite GetPositionBackground(PlayerPosition position)
     {
         if (!_positionBackgrounds.ContainsKey(position)) return _defaultBackground;
