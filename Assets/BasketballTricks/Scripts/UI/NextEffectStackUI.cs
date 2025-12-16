@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NextEffectStackUI : MonoBehaviour
 {
+    [SerializeField] private GameObject _disableOnNone;
+    [SerializeField] private TMP_Text _titleText;
     [SerializeField] private List<TMP_Text> _textStack = new List<TMP_Text>();
 
     private void OnEnable()
@@ -26,8 +28,11 @@ public class NextEffectStackUI : MonoBehaviour
     {
         if (PlayerManager.Instance == null) return;
         var stack = PlayerManager.Instance.EffectNextStack;
+        int count = stack.Count;
+        _disableOnNone.SetActive(count > 0);
+        _titleText.text = count == 0 ? "" : (count == 1 ? "Active Modifier:" : "Active Modifiers:");
         int i = 0;
-        for (; i < stack.Count; i++)
+        for (; i < count; i++)
         {
             _textStack[i].text = stack[i].GetDisplayText();
         }

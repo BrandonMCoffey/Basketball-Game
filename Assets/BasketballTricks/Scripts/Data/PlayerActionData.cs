@@ -243,6 +243,7 @@ public struct AppliedEffects
         {
             if (hypeEffect != 0 || energyEffect != 0) effectText += " and ";
             if (costEffect > 0) effectText += $"increase cost by {costEffect}";
+            else if (costEffect <= 10) effectText += "reduce cost to 0";
             else if (costEffect < 0) effectText += $"reduce cost by {Mathf.Abs(costEffect)}";
         }
         float drawEffect = _drawCards.GetValue(level);

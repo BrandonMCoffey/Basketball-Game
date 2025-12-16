@@ -122,7 +122,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelRemap: {r: 0.55, g: 1, b: 0, a: 0}
     - _FresnelTint: {r: 0.59624565, g: 1.144965, b: 1.6000515, a: 0}
-    - _HairColor: {r: 0, g: 0, b: 0, a: 0}
+    - _HairColor: {r: 0.3773585, g: 0.28853044, b: 0.18333928, a: 1}
     - _SkinColor: {r: 0.6588235, g: 0.50980395, b: 0.33333328, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

@@ -197,6 +197,12 @@ public class ActionDeckManager : MonoBehaviour
             PlayerManager.Instance.PreviewSequence(_playedCards, _cards);
             UpdateCardLayout(null);
         }
+        else
+        {
+            if (_cards.Contains(card)) _cards.Remove(card);
+            if (_playedCards.Contains(card)) _playedCards.Remove(card);
+            Destroy(card.gameObject);
+        }
     }
 
     public void StartSequence()
