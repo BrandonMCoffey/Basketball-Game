@@ -131,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resetDataOnStart: 0
   _startingMoney: 3000
+  _roundsRequired: 3
   _startingCards:
   - {fileID: 11400000, guid: 98eb2e11f85a0de44b5f95ca7da49876, type: 2}
   - {fileID: 11400000, guid: 6acb81d80035d6343a1bb20290ea3556, type: 2}

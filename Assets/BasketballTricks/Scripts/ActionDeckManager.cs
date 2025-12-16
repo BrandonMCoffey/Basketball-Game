@@ -242,8 +242,9 @@ public class ActionDeckManager : MonoBehaviour
 
             Rect cardRect = _cards[0].RectTransform.rect;
             Vector2 center = _cardSpread.anchoredPosition;
-            float horzSpread = Mathf.Min(_cardSpread.rect.width, count * (cardRect.width + _maxCardSpacing)) * 0.5f;
+            float horzSpread = Mathf.Min(_cardSpread.rect.width, count * (cardRect.width * 0.75f + _maxCardSpacing)) * 0.5f;
             float vertSpread = cardRect.height * _verticalSpread * 0.5f;
+            var rotAngle = count <= 1 ? 0 : count == 2 ? _maxRotationAngle * 0.5f : _maxRotationAngle;
             for (int i = 0; i < count; i++)
             {
                 ActionCard card = _cards[i];
@@ -252,7 +253,7 @@ public class ActionDeckManager : MonoBehaviour
                 Vector2 pos = center + new Vector2(Mathf.Lerp(-horzSpread, horzSpread, delta * i), Mathf.Lerp(vertSpread, -vertSpread, vertDelta));
                 if (card.IsSelected && card != draggingCard) pos.y += _selectedHeightOffset;
 
-                Quaternion rot = Quaternion.Euler(0f, 0f, Mathf.Lerp(_maxRotationAngle, -_maxRotationAngle, delta * i));
+                Quaternion rot = Quaternion.Euler(0f, 0f, Mathf.Lerp(rotAngle, -rotAngle, delta * i));
 
                 if (card != draggingCard)
                 {

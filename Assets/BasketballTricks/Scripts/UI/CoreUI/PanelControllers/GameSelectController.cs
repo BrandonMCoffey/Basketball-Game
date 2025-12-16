@@ -161,7 +161,8 @@ public class GameSelectController : MonoBehaviour
     }
 
     public void HalfTimeShowSelect()
-    {  
+    {
+        _currentGameMode = GameMode.HalfTime;
         if (!_isDescriptionPanelOnScreen)
         {
             _descriptionText.text = _halfTimeDescriptionText;
@@ -179,12 +180,11 @@ public class GameSelectController : MonoBehaviour
             _zenVideoImage.enabled = false;
             _tutorialVideoImage.enabled = false;
         });   
-        _currentGameMode = GameMode.HalfTime;
     }
 
     public void SandboxSelect()
     {
-        
+        _currentGameMode = GameMode.Zen;
         if (!_isDescriptionPanelOnScreen)
         {
             _descriptionText.text = _zenDescriptionText;
@@ -202,11 +202,11 @@ public class GameSelectController : MonoBehaviour
             _zenVideoImage.enabled = true;
             _tutorialVideoImage.enabled = false;
         });
-        _currentGameMode = GameMode.Zen;
     }
 
     public void TutorialSelect()
     {
+        _currentGameMode = GameMode.Tutorial;
         if (!_isDescriptionPanelOnScreen)
         {
             _descriptionText.text = _tutorialDescriptionText;
@@ -224,7 +224,6 @@ public class GameSelectController : MonoBehaviour
             _halfTimeVideoImage.enabled = false;
             _zenVideoImage.enabled = false;
         });
-        _currentGameMode = GameMode.Tutorial;
     }
 
     public void Tutorial()

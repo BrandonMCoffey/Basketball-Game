@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/BasketballTricks/Scenes/MainUI.unity
     guid: 868c899a7b8c1a644a0c1406f1e0f297
   - enabled: 1
-    path: Assets/BasketballTricks/Scenes/Old/TrickPlays.unity
-    guid: 0d1f419c6a086ca478336e60bf980687
-  - enabled: 1
     path: Assets/BasketballTricks/Scenes/HalftimeShow.unity
     guid: c26a48bab5d6fd44096363f5b69f6f34
   - enabled: 1
